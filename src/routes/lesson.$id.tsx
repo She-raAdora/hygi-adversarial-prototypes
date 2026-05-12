@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound, useRouter } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, RotateCcw, Trophy, X } from "lucide-react";
-import { getLesson, lessons } from "@/lib/lessons";
+import { getLesson, lessons, type Lesson } from "@/lib/lessons";
 import { awardBadge, useProgress } from "@/lib/progress";
 
 export const Route = createFileRoute("/lesson/$id")({
@@ -50,7 +50,7 @@ export const Route = createFileRoute("/lesson/$id")({
 });
 
 function LessonPage() {
-  const { lesson } = Route.useLoaderData();
+  const { lesson } = Route.useLoaderData() as { lesson: Lesson };
   const [mode, setMode] = useState<"learn" | "quiz">("learn");
 
   const idx = lessons.findIndex((l) => l.id === lesson.id);
@@ -79,12 +79,12 @@ function LessonPage() {
       {mode === "learn" ? (
         <article className="mt-10 space-y-10">
           <p className="text-base leading-relaxed">{lesson.intro}</p>
-          {lesson.sections.map((s) => (
+          {lesson.sections.map((s: Lesson["sections"][number]) => (
             <section key={s.heading}>
               <h2 className="text-xl font-semibold tracking-tight">{s.heading}</h2>
               <p className="mt-2 text-muted-foreground">{s.body}</p>
               <ul className="mt-4 space-y-2">
-                {s.tips.map((t) => (
+                {s.tips.map((t: string) => (
                   <li
                     key={t}
                     className="flex items-start gap-3 rounded-xl border border-border bg-card px-4 py-3 text-sm"
@@ -118,7 +118,7 @@ function Quiz({
   onBackToLearn,
   next,
 }: {
-  lesson: ReturnType<typeof getLesson> & object;
+  lesson: Lesson;
   onBackToLearn: () => void;
   next?: { id: string; title: string };
 }) {
