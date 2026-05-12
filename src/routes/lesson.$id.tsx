@@ -156,6 +156,45 @@ function Quiz({
             ? "You've earned the " + lesson.title + " badge."
             : "Get all answers right to earn this badge."}
         </p>
+        <div className="mt-8 space-y-3 text-left">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            Answer review
+          </h3>
+          {lesson.quiz.map((qq, i) => {
+            const userPick = picks[i];
+            const isCorrect = userPick === qq.answer;
+            return (
+              <div
+                key={i}
+                className={`rounded-2xl border p-4 ${
+                  isCorrect
+                    ? "border-success/40 bg-success/5"
+                    : "border-destructive/40 bg-destructive/5"
+                }`}
+              >
+                <div className="flex items-start gap-2">
+                  {isCorrect ? (
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
+                  ) : (
+                    <X className="mt-0.5 h-4 w-4 shrink-0 text-destructive" />
+                  )}
+                  <p className="text-sm font-medium">{qq.q}</p>
+                </div>
+                {!isCorrect && (
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    <span className="font-medium text-foreground">Your answer:</span>{" "}
+                    {qq.options[userPick]}
+                  </p>
+                )}
+                <p className="mt-1 text-sm text-muted-foreground">
+                  <span className="font-medium text-foreground">Correct:</span>{" "}
+                  {qq.options[qq.answer]}
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground">{qq.explain}</p>
+              </div>
+            );
+          })}
+        </div>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <button
             onClick={() => {
