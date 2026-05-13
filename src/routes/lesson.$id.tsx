@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound, useRouter } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, RotateCcw, Trophy, X } from "lucide-react";
 import { getLesson, lessons, type Lesson } from "@/lib/lessons";
 import { awardBadge, useProgress } from "@/lib/progress";
@@ -52,6 +52,12 @@ export const Route = createFileRoute("/lesson/$id")({
 function LessonPage() {
   const { lesson } = Route.useLoaderData() as { lesson: Lesson };
   const [mode, setMode] = useState<"learn" | "quiz">("learn");
+
+  // Reset to learn view when navigating between lessons (component is reused).
+  useEffect(() => {
+    setMode("learn");
+    if (typeof window !== "undefined") window.scrollTo(0, 0);
+  }, [lesson.id]);
 
   const idx = lessons.findIndex((l) => l.id === lesson.id);
   const next = lessons[idx + 1];
