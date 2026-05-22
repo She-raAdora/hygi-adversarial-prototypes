@@ -61,6 +61,7 @@ function LessonPage() {
 
   const idx = lessons.findIndex((l) => l.id === lesson.id);
   const next = lessons[idx + 1];
+  const prev = lessons[idx - 1];
 
   return (
     <main className="mx-auto max-w-2xl px-6 py-12">
@@ -111,6 +112,41 @@ function LessonPage() {
             Take the pop quiz
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </button>
+
+          <nav className="flex items-center justify-between gap-3 border-t border-border pt-6">
+            {prev ? (
+              <Link
+                to="/lesson/$id"
+                params={{ id: prev.id }}
+                className="group inline-flex max-w-[48%] flex-col rounded-2xl border border-border bg-card px-4 py-3 text-left text-sm hover:border-primary/40"
+              >
+                <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                  <ArrowLeft className="h-3 w-3" /> Previous
+                </span>
+                <span className="mt-1 font-medium">
+                  {prev.emoji} {prev.title}
+                </span>
+              </Link>
+            ) : (
+              <span />
+            )}
+            {next ? (
+              <Link
+                to="/lesson/$id"
+                params={{ id: next.id }}
+                className="group inline-flex max-w-[48%] flex-col rounded-2xl border border-border bg-card px-4 py-3 text-right text-sm hover:border-primary/40"
+              >
+                <span className="flex items-center justify-end gap-1 text-xs text-muted-foreground">
+                  Next <ArrowRight className="h-3 w-3" />
+                </span>
+                <span className="mt-1 font-medium">
+                  {next.emoji} {next.title}
+                </span>
+              </Link>
+            ) : (
+              <span />
+            )}
+          </nav>
         </article>
       ) : (
         <Quiz lesson={lesson} onBackToLearn={() => setMode("learn")} next={next} />
