@@ -614,6 +614,191 @@ export const lessons: Lesson[] = [
       },
     ],
   },
+  {
+    id: "ai-phishing",
+    title: "Spot AI-Powered Phishing",
+    emoji: "🤖",
+    tagline: "Deepfakes, voice clones, and BEC",
+    intro:
+      "Attackers now use AI to write flawless phishing emails, clone voices, and impersonate executives. The old typos-and-grammar tells are gone — verify through a second channel.",
+    sections: [
+      {
+        heading: "New AI tactics to know",
+        body: "Deepfake emails mimic an exec's tone perfectly. Voice cloning fakes urgent phone calls. AI scrapes your socials to personalize a lure. Business Email Compromise (BEC) targets payments and wire transfers.",
+        tips: [
+          "Treat urgent money or credential requests as suspicious by default.",
+          "Confirm wire transfers via a known phone number — not the one in the email.",
+          "Set a family/team code word for high-stakes voice requests.",
+        ],
+      },
+      {
+        heading: "Shrink what AI can scrape",
+        body: "The more personal detail you post, the easier you are to impersonate. Limit what you share about your role, schedule, pets, schools, and family on public profiles.",
+        tips: [
+          "Audit what's public on LinkedIn and social media.",
+          "Avoid using real answers for security questions.",
+          "Be cautious sharing org charts, vendor names, and travel plans.",
+        ],
+      },
+    ],
+    quiz: [
+      {
+        q: "Your CFO calls urgently asking you to wire funds. What should you do?",
+        options: [
+          "Send it right away",
+          "Verify via a known phone number or in-person before acting",
+          "Email them back to confirm",
+          "Reply to the same call",
+        ],
+        answer: 1,
+        explain: "AI voice cloning makes calls sound real — always verify through a separate, known channel.",
+      },
+      {
+        q: "What is Business Email Compromise (BEC)?",
+        options: [
+          "Spam folder overflow",
+          "Targeted email fraud that tricks employees into sending money or data",
+          "An email outage",
+          "A backup failure",
+        ],
+        answer: 1,
+        explain: "BEC uses impersonation — often AI-enhanced — to redirect payments.",
+      },
+      {
+        q: "Why is oversharing on social media a phishing risk?",
+        options: [
+          "It uses up storage",
+          "AI can scrape it to personalize convincing phishing lures",
+          "It slows your phone",
+          "It's not a risk at all",
+        ],
+        answer: 1,
+        explain: "Personalized phishing has a far higher success rate than generic spam.",
+      },
+    ],
+  },
+  {
+    id: "mobile",
+    title: "Lock Down Your Phone",
+    emoji: "📱",
+    tagline: "Your phone is a pocket computer",
+    intro:
+      "Smartphones hold email, banking, photos, and 2FA codes. Lost or unlocked, they're a goldmine. A few settings turn one into a brick for a thief.",
+    sections: [
+      {
+        heading: "Treat it like a laptop",
+        body: "Phones need passcodes, updates, anti-malware (especially on Android), and you should avoid storing confidential data on them when you don't have to.",
+        tips: [
+          "Use a 6+ digit passcode or biometric.",
+          "Turn on auto-updates for OS and apps.",
+          "Only install apps from official stores; verify the publisher.",
+          "Enable Find My / Find My Device with remote wipe.",
+        ],
+      },
+      {
+        heading: "Be picky about apps and permissions",
+        body: "Malicious apps disguise themselves as antivirus or utilities. Even legit apps can over-collect — review what you've granted location, mic, contacts, and photos.",
+        tips: [
+          "Stick to well-known brands for security apps.",
+          "Audit permissions monthly; revoke what you don't use.",
+          "Disable Bluetooth and Wi-Fi auto-join when not needed.",
+        ],
+      },
+    ],
+    quiz: [
+      {
+        q: "Why should you avoid installing random 'antivirus' apps on your phone?",
+        options: [
+          "They drain battery only",
+          "Many are malware disguised as security tools",
+          "They cost too much",
+          "They never work",
+        ],
+        answer: 1,
+        explain: "Stick with well-known brands — fake AV apps are a common malware vector.",
+      },
+      {
+        q: "Best feature to enable in case your phone is lost?",
+        options: [
+          "Airplane mode",
+          "Find My / Find My Device with remote wipe",
+          "Dark mode",
+          "Auto-brightness",
+        ],
+        answer: 1,
+        explain: "Remote wipe lets you erase the device before a thief can mine it.",
+      },
+      {
+        q: "Why audit app permissions periodically?",
+        options: [
+          "It speeds up the OS",
+          "Apps often keep access to mic, location, and contacts long after you stopped using them",
+          "It's required by law",
+          "It clears storage",
+        ],
+        answer: 1,
+        explain: "Revoking unused permissions limits what a compromised app can leak.",
+      },
+    ],
+  },
+  {
+    id: "workstation",
+    title: "Workstations & Public Computers",
+    emoji: "🖥️",
+    tagline: "Lock it. Don't trust it.",
+    intro:
+      "Three unattended minutes is enough for someone to send email as you, install a keylogger, or copy files. Public computers are even worse — assume they're compromised.",
+    sections: [
+      {
+        heading: "Lock when you leave",
+        body: "Make screen-lock a reflex. On Windows, Win+L. On Mac, Ctrl+Cmd+Q. Set the screen to auto-lock after a short idle time.",
+        tips: [
+          "Lock your screen every single time you stand up.",
+          "Auto-lock after 5 minutes of inactivity or less.",
+          "Require a password (not just a swipe) to unlock.",
+        ],
+      },
+      {
+        heading: "Public computers = casual browsing only",
+        body: "Hotel business centers and cybercafé PCs may have keyloggers or malware. Never sign in to email, banking, or work systems from them.",
+        tips: [
+          "Never enter passwords on a public computer.",
+          "Use your phone with cellular data for sensitive tasks instead.",
+          "Always sign out and close the browser when you finish.",
+        ],
+      },
+    ],
+    quiz: [
+      {
+        q: "Why lock your screen even for a quick break?",
+        options: [
+          "It saves power only",
+          "A passerby can send email as you, copy files, or install a keylogger in seconds",
+          "It's a company logo display",
+          "It's optional and unimportant",
+        ],
+        answer: 1,
+        explain: "Unattended unlocked workstations are one of the easiest insider-threat vectors.",
+      },
+      {
+        q: "Is it safe to check your bank account on a hotel lobby PC?",
+        options: [
+          "Yes, hotels are trusted",
+          "No — assume it may have keyloggers or malware",
+          "Only on weekdays",
+          "Only if HTTPS is on",
+        ],
+        answer: 1,
+        explain: "You can't verify what's running on a public machine — never enter sensitive credentials.",
+      },
+      {
+        q: "Quickest way to lock a Windows workstation?",
+        options: ["Alt+F4", "Win+L", "Ctrl+S", "Esc"],
+        answer: 1,
+        explain: "Win+L locks Windows instantly — make it muscle memory.",
+      },
+    ],
+  },
 ];
 
 export const getLesson = (id: string) => lessons.find((l) => l.id === id);
