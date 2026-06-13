@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Sparkles, Trophy, BookOpen } from "lucide-react";
+import { ArrowRight, Sparkles, Trophy, BookOpen, ExternalLink } from "lucide-react";
 import { lessons } from "@/lib/lessons";
 import { useProgress } from "@/lib/progress";
 
