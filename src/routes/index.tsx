@@ -129,6 +129,61 @@ function Index() {
           })}
         </div>
       </section>
+
+      <section className="mx-auto max-w-6xl px-6 pb-20">
+        <div className="rounded-2xl border border-border bg-card p-6 md:p-8">
+          <h3 className="text-lg font-semibold tracking-tight">Sources</h3>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Lesson content is adapted from the following university cybersecurity guides:
+          </p>
+          <ul className="mt-4 space-y-2 text-sm">
+            <li>
+              <a
+                href="https://imss.caltech.edu/documents/6692/Cybersecurity_Week_4.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-primary hover:underline"
+              >
+                Caltech IMSS — Cybersecurity Week 4
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://imss.caltech.edu/documents/6691/Cybersecurity_Week_3.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-primary hover:underline"
+              >
+                Caltech IMSS — Cybersecurity Week 3
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://imss.caltech.edu/documents/6690/Cybersecurity_Week_2.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-primary hover:underline"
+              >
+                Caltech IMSS — Cybersecurity Week 2
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://security.calpoly.edu/top-10-security-practices"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-primary hover:underline"
+              >
+                Cal Poly — Top 10 Security Practices
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
     </main>
   );
 }
