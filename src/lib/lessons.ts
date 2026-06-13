@@ -302,6 +302,191 @@ export const lessons: Lesson[] = [
       },
     ],
   },
+  {
+    id: "research-data",
+    title: "Protect Sensitive Research",
+    emoji: "🧪",
+    tagline: "Guard proprietary and classified work",
+    intro:
+      "Universities are open by design, but that openness can be exploited. If you handle research, IP, or classified data, treat it like a high-value target — because adversaries do.",
+    sections: [
+      {
+        heading: "Know the threats",
+        body: "Foreign entities and competitors look for shortcuts: stealing technical data, skipping R&D costs, recruiting insiders, and abusing visiting-scholar or visa programs to access labs.",
+        tips: [
+          "Treat unsolicited collaboration offers with skepticism.",
+          "Verify the identity of visitors before granting lab or data access.",
+          "Report unusual recruitment approaches to your security office.",
+        ],
+      },
+      {
+        heading: "Recognize exploitation methods",
+        body: "Common tactics include computer intrusions, phishing emails dressed as conference invites, and 'spotting' — quietly identifying students or faculty to recruit later for espionage.",
+        tips: [
+          "Be cautious with unsolicited emails and invitations.",
+          "Don't share unpublished research over personal channels.",
+          "Separate lab systems from general-purpose browsing and email.",
+        ],
+      },
+    ],
+    quiz: [
+      {
+        q: "Why is 'bypassing R&D costs' a threat to universities?",
+        options: [
+          "It saves the university money",
+          "Adversaries steal academic research to skip their own development costs",
+          "It speeds up publication",
+          "It only affects private companies",
+        ],
+        answer: 1,
+        explain: "Stealing academic research lets adversaries skip the cost of developing the technology themselves.",
+      },
+      {
+        q: "An unsolicited 'conference invite' asks for a copy of your unpublished paper. What is it likely to be?",
+        options: [
+          "A routine peer review",
+          "A collection attempt — possibly phishing or espionage",
+          "A required submission",
+          "A grant application",
+        ],
+        answer: 1,
+        explain: "Unsolicited requests for unpublished work are a classic information-collection tactic.",
+      },
+      {
+        q: "Why avoid using a lab system for personal web browsing and email?",
+        options: [
+          "It's slower",
+          "It expands the attack surface that could expose sensitive research",
+          "Email is banned in labs",
+          "Browsers don't run on lab machines",
+        ],
+        answer: 1,
+        explain: "Lab systems should be isolated so a phishing click or malicious site can't compromise research data.",
+      },
+    ],
+  },
+  {
+    id: "networked-devices",
+    title: "Secure Networked Devices & Backups",
+    emoji: "🗄️",
+    tagline: "Lock down everything that touches the network",
+    intro:
+      "Every connected device is a door. Closing the ones you don't need, patching the ones you do, and keeping clean backups makes you dramatically harder to hurt.",
+    sections: [
+      {
+        heading: "Harden networked devices",
+        body: "Follow the manufacturer's hardening guide for anything on the network — printers, lab instruments, IoT, servers. Open only the ports and protocols you actually need.",
+        tips: [
+          "Change default admin passwords immediately.",
+          "Disable services and ports you don't use.",
+          "Keep firmware and OS patched automatically.",
+          "Run anti-malware that updates and scans on a schedule.",
+        ],
+      },
+      {
+        heading: "Back up — and test the backups",
+        body: "A backup you've never restored is a hope, not a plan. Keep at least one copy offline or off-network so ransomware can't reach it, and verify restores regularly.",
+        tips: [
+          "Follow 3-2-1: 3 copies, 2 media, 1 offsite/offline.",
+          "Disconnect at least one backup from the primary network.",
+          "Test a full restore on a schedule — not just during an incident.",
+        ],
+      },
+    ],
+    quiz: [
+      {
+        q: "Why restrict incoming ports and protocols on a networked device?",
+        options: [
+          "To make it faster",
+          "To shrink the attack surface so fewer services can be exploited",
+          "To save electricity",
+          "It's only for printers",
+        ],
+        answer: 1,
+        explain: "Every open port is a potential entry point — close what you don't need.",
+      },
+      {
+        q: "Why keep at least one backup disconnected from the primary network?",
+        options: [
+          "Disconnected disks are faster",
+          "So ransomware or an attacker on the network can't encrypt or delete it",
+          "Network backups are illegal",
+          "It looks more professional",
+        ],
+        answer: 1,
+        explain: "Offline backups survive ransomware that wipes everything reachable on the network.",
+      },
+      {
+        q: "What's the point of regularly testing a backup restore?",
+        options: [
+          "To use more storage",
+          "To confirm the backup is complete and actually restorable before you need it",
+          "Backups don't need testing",
+          "To reset the backup clock",
+        ],
+        answer: 1,
+        explain: "Untested backups frequently fail during real incidents — verify them ahead of time.",
+      },
+    ],
+  },
+  {
+    id: "incident-response",
+    title: "Build an Incident Response Plan",
+    emoji: "🚨",
+    tagline: "Know what to do before something goes wrong",
+    intro:
+      "When an incident hits, improvisation costs hours and data. A simple, written plan turns a panic into a checklist.",
+    sections: [
+      {
+        heading: "The five phases",
+        body: "A solid IRP covers: (1) identify the incident, (2) contain it to stop the bleeding, (3) eradicate the root cause, (4) recover and validate systems, and (5) review what happened.",
+        tips: [
+          "Write the plan down — don't keep it only in your head.",
+          "List who to call: IT, security office, leadership, legal.",
+          "Keep an offline copy of the plan in case systems are down.",
+        ],
+      },
+      {
+        heading: "Practice and improve",
+        body: "Run tabletop drills so the team has done it once before the real thing. After every incident — even small ones — do a post-incident review and update the plan.",
+        tips: [
+          "Drill the plan at least once a year.",
+          "Capture lessons learned in writing.",
+          "Update contact lists and recovery steps after every change.",
+        ],
+      },
+    ],
+    quiz: [
+      {
+        q: "Which phase comes FIRST in incident response?",
+        options: ["Eradication", "Identification", "Recovery", "Post-incident review"],
+        answer: 1,
+        explain: "You can't contain or fix what you haven't identified yet.",
+      },
+      {
+        q: "Why hold a post-incident review?",
+        options: [
+          "To assign blame",
+          "To capture lessons learned and improve the plan",
+          "It's required by law",
+          "To close the ticket faster",
+        ],
+        answer: 1,
+        explain: "Reviews turn an incident into improvements that prevent the next one.",
+      },
+      {
+        q: "Why keep an offline copy of the incident response plan?",
+        options: [
+          "Paper looks nicer",
+          "Because the systems hosting it may be down during the incident",
+          "To save cloud storage",
+          "It's not necessary",
+        ],
+        answer: 1,
+        explain: "If the network or laptops are compromised, you still need to read the plan.",
+      },
+    ],
+  },
 ];
 
 export const getLesson = (id: string) => lessons.find((l) => l.id === id);
