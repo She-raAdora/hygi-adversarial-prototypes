@@ -139,6 +139,17 @@ function Index() {
           <ul className="mt-4 space-y-2 text-sm">
             <li>
               <a
+                href="https://services.dartmouth.edu/TDClient/1806/Portal/KB/Article/155669/Dartmouth-Guide-to-Digital-Hygiene"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-primary hover:underline"
+              >
+                Dartmouth — Guide to Digital Hygiene
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </li>
+            <li>
+              <a
                 href="https://imss.caltech.edu/documents/6692/Cybersecurity_Week_4.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
