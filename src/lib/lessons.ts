@@ -487,6 +487,133 @@ export const lessons: Lesson[] = [
       },
     ],
   },
+  {
+    id: "ransomware",
+    title: "Defend Against Ransomware",
+    emoji: "🦠",
+    tagline: "Don't pay — prevent",
+    intro:
+      "Ransomware locks your files and demands payment to give them back. Most infections start with one click — and most are preventable with a few good habits.",
+    sections: [
+      {
+        heading: "How infections happen",
+        body: "You can pick up ransomware by opening an email attachment, clicking an ad, following a link, or visiting a site laced with malware. Once running, it can encrypt your local drive, attached drives, and anything reachable on the network.",
+        tips: [
+          "Don't open attachments you weren't expecting.",
+          "Hover links before clicking — verify the real destination.",
+          "Use an ad blocker to cut down on malicious ads.",
+        ],
+      },
+      {
+        heading: "Prevention that actually works",
+        body: "Keep systems patched, run anti-malware that updates itself, and back up regularly to backups that are NOT connected to the machine they protect — so ransomware can't reach them.",
+        tips: [
+          "Turn on automatic OS and app updates.",
+          "Schedule regular anti-virus / anti-malware scans.",
+          "Keep at least one backup fully offline or off-network.",
+          "Test restoring from backup before you ever need to.",
+        ],
+      },
+    ],
+    quiz: [
+      {
+        q: "How do most ransomware infections start?",
+        options: [
+          "A hardware failure",
+          "Clicking a malicious link, ad, or attachment",
+          "A power outage",
+          "Installing OS updates",
+        ],
+        answer: 1,
+        explain: "User-triggered clicks on links, ads, or attachments are the most common entry point.",
+      },
+      {
+        q: "Why must backups be disconnected from the network they protect?",
+        options: [
+          "Network backups are slower",
+          "So ransomware can't encrypt or delete the backups too",
+          "It saves bandwidth only",
+          "Network rules forbid it",
+        ],
+        answer: 1,
+        explain: "Ransomware spreads to anything reachable — offline backups stay intact.",
+      },
+      {
+        q: "When do most people first notice a ransomware infection?",
+        options: [
+          "During installation",
+          "When files are locked or a ransom note appears",
+          "When the OS updates",
+          "When Wi-Fi disconnects",
+        ],
+        answer: 1,
+        explain: "Ransomware usually stays hidden until it has encrypted enough to demand payment.",
+      },
+    ],
+  },
+  {
+    id: "continuity",
+    title: "Plan for Business Continuity",
+    emoji: "🧭",
+    tagline: "Keep going when things go wrong",
+    intro:
+      "A continuity plan helps you prepare for, respond to, and recover from disruptions — outages, ransomware, natural disasters — so the work doesn't stop.",
+    sections: [
+      {
+        heading: "What a continuity plan covers",
+        body: "A solid plan includes a business impact analysis (what hurts most if it stops), recovery strategies, written procedures, and ongoing testing and training so people actually know what to do.",
+        tips: [
+          "Identify the systems and data you can't operate without.",
+          "Define a recovery time goal for each critical system.",
+          "Document step-by-step recovery procedures.",
+        ],
+      },
+      {
+        heading: "Test and train",
+        body: "A plan that lives in a binder fails in a real disruption. Run drills, rotate who leads them, and update the plan whenever your tools, vendors, or team change.",
+        tips: [
+          "Run a tabletop exercise at least annually.",
+          "Keep an offline copy of the plan and contact list.",
+          "Update after every real incident or major change.",
+        ],
+      },
+    ],
+    quiz: [
+      {
+        q: "What does a business impact analysis identify?",
+        options: [
+          "Which employees to fire",
+          "Which systems and processes are most critical if disrupted",
+          "The company's marketing strategy",
+          "Tax obligations",
+        ],
+        answer: 1,
+        explain: "A BIA ranks what would hurt the organization most if it went down.",
+      },
+      {
+        q: "Why run continuity drills?",
+        options: [
+          "To impress auditors only",
+          "So the team has practiced before a real disruption hits",
+          "They aren't necessary",
+          "To slow down operations",
+        ],
+        answer: 1,
+        explain: "Drills surface gaps and build muscle memory before the real event.",
+      },
+      {
+        q: "When should a continuity plan be updated?",
+        options: [
+          "Never — set it and forget it",
+          "After incidents, drills, and major tool, vendor, or team changes",
+          "Only every 10 years",
+          "Only when leadership changes",
+        ],
+        answer: 1,
+        explain: "Continuity plans are living documents that drift out of date quickly.",
+      },
+    ],
+  },
 ];
 
 export const getLesson = (id: string) => lessons.find((l) => l.id === id);
