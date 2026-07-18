@@ -430,64 +430,6 @@ export const lessons: Lesson[] = [
     ],
   },
   {
-    id: "incident-response",
-    title: "Build an Incident Response Plan",
-    emoji: "🚨",
-    tagline: "Know what to do before something goes wrong",
-    intro:
-      "When an incident hits, improvisation costs hours and data. A simple, written plan turns a panic into a checklist.",
-    sections: [
-      {
-        heading: "The five phases",
-        body: "A solid IRP covers: (1) identify the incident, (2) contain it to stop the bleeding, (3) eradicate the root cause, (4) recover and validate systems, and (5) review what happened.",
-        tips: [
-          "Write the plan down — don't keep it only in your head.",
-          "List who to call: IT, security office, leadership, legal.",
-          "Keep an offline copy of the plan in case systems are down.",
-        ],
-      },
-      {
-        heading: "Practice and improve",
-        body: "Run tabletop drills so the team has done it once before the real thing. After every incident — even small ones — do a post-incident review and update the plan.",
-        tips: [
-          "Drill the plan at least once a year.",
-          "Capture lessons learned in writing.",
-          "Update contact lists and recovery steps after every change.",
-        ],
-      },
-    ],
-    quiz: [
-      {
-        q: "Which phase comes FIRST in incident response?",
-        options: ["Eradication", "Identification", "Recovery", "Post-incident review"],
-        answer: 1,
-        explain: "You can't contain or fix what you haven't identified yet.",
-      },
-      {
-        q: "Why hold a post-incident review?",
-        options: [
-          "To assign blame",
-          "To capture lessons learned and improve the plan",
-          "It's required by law",
-          "To close the ticket faster",
-        ],
-        answer: 1,
-        explain: "Reviews turn an incident into improvements that prevent the next one.",
-      },
-      {
-        q: "Why keep an offline copy of the incident response plan?",
-        options: [
-          "Paper looks nicer",
-          "Because the systems hosting it may be down during the incident",
-          "To save cloud storage",
-          "It's not necessary",
-        ],
-        answer: 1,
-        explain: "If the network or laptops are compromised, you still need to read the plan.",
-      },
-    ],
-  },
-  {
     id: "ransomware",
     title: "Defend Against Ransomware",
     emoji: "🦠",
