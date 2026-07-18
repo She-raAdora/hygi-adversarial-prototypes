@@ -52,7 +52,7 @@ function Index() {
             </span>
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-          12 short lessons. A pop quiz at the end of each. Collect a badge for every
+          13 short lessons. A pop quiz at the end of each. Collect a badge for every
             topic you master — and leave the internet a little safer than you found it.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -82,7 +82,7 @@ function Index() {
               The curriculum
             </p>
             <h2 className="mt-2 text-3xl font-semibold tracking-tight">
-              Twelve habits, one healthier digital you.
+              Thirteen habits, one healthier digital you.
             </h2>
           </div>
           <Link
