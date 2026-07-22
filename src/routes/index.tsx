@@ -52,8 +52,8 @@ function Index() {
             </span>
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-          11 short lessons. A pop quiz at the end of each. Collect a badge for every
-            topic you master — and leave the internet a little safer than you found it.
+          15 short lessons. A pop quiz at the end of each. Collect a badge for every
+            topic you master, then earn the grand trophy when you finish them all.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
@@ -82,7 +82,7 @@ function Index() {
               The curriculum
             </p>
             <h2 className="mt-2 text-3xl font-semibold tracking-tight">
-              Eleven habits, one healthier digital you.
+              Fifteen habits, one healthier digital you.
             </h2>
           </div>
           <Link
@@ -189,6 +189,17 @@ function Index() {
                 className="inline-flex items-center gap-1 text-primary hover:underline"
               >
                 Cal Poly — Top 10 Security Practices
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.hsph.harvard.edu/chc/wp-content/uploads/sites/2464/2024/03/Digital-Safety-Kit-for-Public-Health-2024-1.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-primary hover:underline"
+              >
+                Harvard T.H. Chan — Digital Safety Kit for Public Health
                 <ExternalLink className="h-3 w-3" />
               </a>
             </li>
