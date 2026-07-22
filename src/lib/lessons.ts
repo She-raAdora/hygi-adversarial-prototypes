@@ -678,6 +678,258 @@ export const lessons: Lesson[] = [
       },
     ],
   },
+  {
+    id: "recognize-harassment",
+    title: "Recognize Online Harassment",
+    emoji: "🚨",
+    tagline: "Name the tactics used against public health voices",
+    intro:
+      "Online harassment of public health professionals is on the rise. Learning the tactics — and the words for them — helps you describe what's happening and get the right kind of help.",
+    sections: [
+      {
+        heading: "Common harassment tactics",
+        body: "Harassers borrow from a shared playbook. Spotting the pattern is the first step to responding calmly and getting support.",
+        tips: [
+          "Astroturfing: fake accounts making backlash look like a crowd.",
+          "Dogpiling: many coordinated accounts piling onto one post or person.",
+          "Concern trolling: hostile messages dressed up in a supportive tone.",
+          "Dog-whistles: coded language that evokes hate without breaking platform rules.",
+          "Hashtag hijacking: swarming a campaign hashtag to drown out its message.",
+        ],
+      },
+      {
+        heading: "When harassment escalates",
+        body: "Some tactics cross from insults into safety threats. Treat these as emergencies, not disagreements.",
+        tips: [
+          "Doxing: publishing someone's private info like home address or phone.",
+          "Cyberstalking: repeated invasive contact across platforms and inboxes.",
+          "Impersonation: fake accounts posting under your name and photo.",
+          "Targeting: harassment aimed at your family or personal life.",
+          "Swatting: false crime reports meant to send police to your door.",
+          "Deepfakes: fabricated audio/video meant to look like a real record.",
+        ],
+      },
+    ],
+    quiz: [
+      {
+        q: "A wave of accounts uses a vaccine campaign's hashtag to flood it with disinformation. What is this?",
+        options: ["Concern trolling", "Hashtag hijacking", "Swatting", "Impersonation"],
+        answer: 1,
+        explain: "Hashtag hijacking co-opts an existing hashtag to drown out its intended message.",
+      },
+      {
+        q: "Someone posts a scientist's home address and phone number publicly. This is:",
+        options: ["Dogpiling", "Astroturfing", "Doxing", "A dog-whistle"],
+        answer: 2,
+        explain: "Doxing is the public release of someone's private personal information.",
+      },
+      {
+        q: "A message says 'I support your research, but…' then piles on far-fetched objections. Most likely tactic?",
+        options: ["Concern trolling", "Swatting", "Deepfake", "Targeting"],
+        answer: 0,
+        explain: "Concern trolling masks antagonism with a supportive tone.",
+      },
+    ],
+  },
+  {
+    id: "shield-accounts",
+    title: "Shield Your Accounts",
+    emoji: "🔐",
+    tagline: "Harden the accounts harassers try first",
+    intro:
+      "Attackers usually start with your accounts. A few settings changes make it dramatically harder for anyone to take them over or use them to reach you.",
+    sections: [
+      {
+        heading: "Lock down logins",
+        body: "Assume every password will eventually leak. Layered protection is what actually keeps accounts yours.",
+        tips: [
+          "Turn on multi-factor auth everywhere — prefer an authenticator app over SMS.",
+          "Use a password manager and unique passwords for every account.",
+          "Review active sessions and sign out unknown devices.",
+          "Log out of email and social apps on shared or mobile devices when you're done.",
+        ],
+      },
+      {
+        heading: "Cut off the side doors",
+        body: "Recovery flows, connected apps, and old accounts are common ways in.",
+        tips: [
+          "Set a strong PIN or passcode on your phone number with your carrier.",
+          "Update recovery email and phone — remove any you no longer control.",
+          "Revoke third-party apps you no longer use.",
+          "Delete inactive accounts so they can't be hijacked and used against you.",
+        ],
+      },
+    ],
+    quiz: [
+      {
+        q: "Which MFA option is most resistant to SIM-swap attacks?",
+        options: ["SMS text codes", "Authenticator app or security key", "Email only", "No MFA"],
+        answer: 1,
+        explain: "Authenticator apps and hardware keys aren't tied to your phone number.",
+      },
+      {
+        q: "Why call your mobile carrier to add a PIN?",
+        options: [
+          "It speeds up your data",
+          "It helps prevent SIM-swap account takeovers",
+          "It hides your number",
+          "It's required to receive MFA texts",
+        ],
+        answer: 1,
+        explain: "A carrier PIN makes it harder for someone to port your number and steal MFA codes.",
+      },
+      {
+        q: "What should you do with an old social account you no longer use?",
+        options: ["Leave it public", "Delete it", "Share the login", "Reuse the password elsewhere"],
+        answer: 1,
+        explain: "Inactive accounts are easy takeover targets — delete them.",
+      },
+    ],
+  },
+  {
+    id: "smaller-trail",
+    title: "Leave a Smaller Digital Trail",
+    emoji: "👣",
+    tagline: "Post like strangers are watching — because they are",
+    intro:
+      "You can't fully undo what's online, but you can shrink the trail. Fewer public details mean fewer footholds for harassers, stalkers, and doxers.",
+    sections: [
+      {
+        heading: "Post with a stranger in mind",
+        body: "Before sharing, ask how comfortable you'd be with a stranger knowing this — your location, workplace, routine, or family.",
+        tips: [
+          "Strip location data and identifying backgrounds from photos.",
+          "Delay 'I'm here' posts until after you've left.",
+          "Prefer time-limited formats (Stories) for casual updates.",
+          "Delete old posts you no longer need public.",
+        ],
+      },
+      {
+        heading: "Shrink your public data",
+        body: "Data brokers and old profiles quietly rebuild a map of you. Audit yourself the way a harasser would.",
+        tips: [
+          "Search your name, email, and phone; set Google Alerts for each.",
+          "Use a reverse image search to find photos of yourself online.",
+          "Submit opt-out requests to data broker sites.",
+          "Leave and clean out old group chats, forums, and Facebook groups.",
+        ],
+      },
+      {
+        heading: "Separate work from personal",
+        body: "Blur the line between your professional persona and personal life so a work-related attack can't spill into home.",
+        tips: [
+          "Use different usernames and photos for work vs. personal accounts.",
+          "Keep family and children off public professional profiles.",
+          "Use a work-only email and phone number for public listings.",
+        ],
+      },
+    ],
+    quiz: [
+      {
+        q: "Best way to monitor whether new info about you appears online?",
+        options: [
+          "Check once a year",
+          "Set Google Alerts for your name, email, and phone",
+          "Delete your browser history",
+          "Turn off your Wi-Fi",
+        ],
+        answer: 1,
+        explain: "Google Alerts notify you when new pages mention your search terms.",
+      },
+      {
+        q: "You want to post about a conference you're attending. Safer approach?",
+        options: [
+          "Live-post your exact location",
+          "Share after you've left the venue",
+          "Tag your hotel room number",
+          "Post your flight details",
+        ],
+        answer: 1,
+        explain: "Delaying location posts denies harassers real-time tracking.",
+      },
+      {
+        q: "Why keep separate work and personal social profiles?",
+        options: [
+          "It's required by law",
+          "So a professional attack has fewer footholds into your personal life",
+          "It boosts SEO",
+          "It makes MFA optional",
+        ],
+        answer: 1,
+        explain: "Separation limits how easily harassment can cross from work into home.",
+      },
+    ],
+  },
+  {
+    id: "respond-harassment",
+    title: "Respond to Online Harassment",
+    emoji: "🆘",
+    tagline: "An emergency checklist when it's happening",
+    intro:
+      "In the moment, harassment is disorienting. A short checklist keeps you safe, preserves evidence, and pulls in support instead of leaving you to face it alone.",
+    sections: [
+      {
+        heading: "Stabilize and document",
+        body: "Don't argue with harassers. Prioritize safety, then evidence, then response.",
+        tips: [
+          "Screenshot posts, messages, usernames, timestamps, and URLs before they disappear.",
+          "Save evidence somewhere off-platform (cloud folder, printed copies).",
+          "Do not reply or retaliate — it fuels dogpiling.",
+          "Mute or temporarily deactivate notifications, not your whole account.",
+        ],
+      },
+      {
+        heading: "Pull in help",
+        body: "You should not handle this alone. Employers, schools, and platforms have obligations to help.",
+        tips: [
+          "Tell your supervisor, security team, or department chair immediately.",
+          "Report content to the platform and, for threats of violence, to law enforcement.",
+          "Ask a trusted colleague to monitor your inboxes so you don't have to.",
+          "If you're a student, ask your school about a FERPA block on directory info.",
+        ],
+      },
+      {
+        heading: "Support someone else",
+        body: "If a colleague is targeted, don't wait for them to ask.",
+        tips: [
+          "Offer to screenshot and log harassment on their behalf.",
+          "Help audit and remove their public data (work bio, directory info).",
+          "Reach out socially and offline — isolation makes harassment worse.",
+          "Amplify their work, not the harassment.",
+        ],
+      },
+    ],
+    quiz: [
+      {
+        q: "First thing to do when harassment starts flooding in?",
+        options: [
+          "Reply to each harasser",
+          "Screenshot and save evidence before it's deleted",
+          "Delete your account immediately",
+          "Post a public rebuttal",
+        ],
+        answer: 1,
+        explain: "Evidence disappears fast — capture it before responding to anything.",
+      },
+      {
+        q: "A student facing harassment can ask their school for what protection?",
+        options: ["A FERPA block on directory info", "A new SSN", "A tax refund", "Free MFA hardware"],
+        answer: 0,
+        explain: "A FERPA block prevents the school from releasing directory information publicly.",
+      },
+      {
+        q: "Best way to help a colleague who is being harassed online?",
+        options: [
+          "Tell them to log off and forget it",
+          "Argue with the harassers on their behalf",
+          "Offer to document harassment and audit their public data",
+          "Share the harassing posts to raise awareness",
+        ],
+        answer: 2,
+        explain: "Practical, quiet support — documenting and reducing public exposure — actually helps.",
+      },
+    ],
+  },
 ];
 
 export const getLesson = (id: string) => lessons.find((l) => l.id === id);
