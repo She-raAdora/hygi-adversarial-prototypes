@@ -40,7 +40,7 @@ function Index() {
         <div className="mx-auto max-w-6xl px-6 py-24">
           <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-3 py-1 text-xs text-muted-foreground backdrop-blur">
             <Sparkles className="h-3.5 w-3.5 text-primary" />
-            Based on Dartmouth, Caltech, Cal Poly, and Harvard University digital safety guides
+            Based on Dartmouth, Caltech, Cal Poly, and Harvard University's cybersecurity and digital safety guides
           </div>
           <h1 className="mt-6 max-w-3xl text-5xl font-semibold leading-tight tracking-tight md:text-6xl">
             Self-care for your{" "}
