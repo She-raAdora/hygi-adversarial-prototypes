@@ -18,6 +18,7 @@ export const Route = createFileRoute("/badges")({
 function BadgesPage() {
   const progress = useProgress();
   const earned = lessons.filter((l) => (progress[l.id] ?? 0) >= l.quiz.length);
+  const allDone = earned.length === lessons.length;
 
   return (
     <main className="mx-auto max-w-4xl px-6 py-16">
@@ -39,6 +40,26 @@ function BadgesPage() {
           </button>
         )}
       </div>
+
+      {allDone && (
+        <div
+          className="mt-10 flex flex-col items-center rounded-3xl border border-primary/30 bg-card p-8 text-center"
+          style={{ boxShadow: "var(--shadow-glow)" }}
+        >
+          <div
+            className="flex h-24 w-24 items-center justify-center rounded-2xl text-5xl"
+            style={{ background: "var(--gradient-hero)", boxShadow: "var(--shadow-glow)" }}
+          >
+            🏆
+          </div>
+          <h2 className="mt-6 text-2xl font-semibold tracking-tight">
+            Digital Hygiene Champion
+          </h2>
+          <p className="mt-2 max-w-md text-sm text-muted-foreground">
+            You've earned every badge in the curriculum. The internet is a little safer because of you.
+          </p>
+        </div>
+      )}
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {lessons.map((l) => {
