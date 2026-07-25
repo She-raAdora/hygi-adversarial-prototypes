@@ -51,7 +51,8 @@ function Index() {
           15 short lessons. A pop quiz at the end of each. Collect a badge for every
             topic you master, then earn the grand trophy when you finish them all.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <p className="mt-8 text-sm text-muted-foreground">Brought to you by NorthBridge</p>
+          <div className="mt-3 flex flex-wrap items-center gap-3">
             <Link
               to="/lessons"
               className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium text-primary-foreground transition-transform hover:-translate-y-0.5"
