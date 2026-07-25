@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Lock, RotateCcw, Trophy } from "lucide-react";
+import { Lock, RotateCcw, Sparkles, Trophy } from "lucide-react";
 import { lessons } from "@/lib/lessons";
 import { resetProgress, useProgress } from "@/lib/progress";
 
@@ -100,10 +100,15 @@ function BadgesPage() {
                   <Lock className="h-3 w-3" /> {score > 0 ? `${score}/${l.quiz.length} — try again` : "Locked"}
                 </Link>
               )}
-            </div>
-          );
-        })}
-      </div>
-    </main>
-  );
+          </div>
+        );
+      })}
+    </div>
+
+    <div className="mt-12 flex flex-wrap items-center justify-center gap-2 text-xs text-muted-foreground">
+      <Sparkles className="h-3.5 w-3.5 text-primary" />
+      Based on Dartmouth, Caltech, Cal Poly, and Harvard University's cybersecurity and digital safety guides
+    </div>
+  </main>
+);
 }
