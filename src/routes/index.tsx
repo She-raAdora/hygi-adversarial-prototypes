@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Hygi — Learn Digital Hygiene" },
       {
         property: "og:description",
-        content: "Bite-sized lessons and pop quizzes. Earn badges as you go.",
+        content: "Bite-sized lessons and pop quizzes on digital hygiene. Earn a badge for every topic you master.",
       },
     ],
   }),
