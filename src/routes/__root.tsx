@@ -77,6 +77,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#2a9d8f" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "default" },
+      { name: "apple-mobile-web-app-title", content: "Hygi." },
       { title: "Hygi — Learn Digital Hygiene" },
 
       { name: "description", content: "Bite-sized lessons and pop quizzes on digital hygiene. Earn a badge for every topic you master." },
@@ -109,6 +112,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "apple-touch-icon",
         href: "/apple-touch-icon.png",
       },
+      ...appleSplashLinks,
     ],
   }),
 
