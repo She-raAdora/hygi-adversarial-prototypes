@@ -183,6 +183,22 @@ function Quiz({
   const [picked, setPicked] = useState<number | null>(null);
   const progress = useProgress();
   const previousBest = progress[lesson.id] ?? 0;
+  const questionRef = useRef<HTMLHeadingElement>(null);
+  const resultRef = useRef<HTMLHeadingElement>(null);
+  const advanceRef = useRef<HTMLButtonElement>(null);
+
+  // Move focus to the new question (or the result) so keyboard and screen-reader
+  // users land on the fresh content instead of a stale/removed element.
+  useEffect(() => {
+    if (step >= lesson.quiz.length) resultRef.current?.focus();
+    else questionRef.current?.focus();
+  }, [step, lesson.quiz.length]);
+
+  // Answering disables the option inputs, which drops focus — send it to the
+  // button that continues the quiz.
+  useEffect(() => {
+    if (picked !== null) advanceRef.current?.focus();
+  }, [picked]);
 
   const total = lesson.quiz.length;
   const score = useMemo(
@@ -198,29 +214,35 @@ function Quiz({
     return (
       <div className="mt-12 rounded-3xl border border-border bg-card p-8 text-center">
         <div
+          aria-hidden="true"
           className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl text-primary-foreground"
           style={{ background: "var(--gradient-hero)", boxShadow: "var(--shadow-glow)" }}
         >
           <Trophy className="h-7 w-7" />
         </div>
-        <h2 className="mt-5 text-2xl font-semibold tracking-tight">
+        <h2
+          ref={resultRef}
+          tabIndex={-1}
+          className="mt-5 text-2xl font-semibold tracking-tight focus-visible:outline-none"
+        >
           {passed ? "Badge unlocked!" : "Nice effort!"}
         </h2>
-        <p className="mt-2 text-muted-foreground">
+        <p className="mt-2 text-muted-foreground" role="status">
           You scored {score} / {total}.{" "}
           {passed
             ? "You've earned the " + lesson.title + " badge."
             : "Get all answers right to earn this badge."}
         </p>
-        <div className="mt-8 space-y-3 text-left">
+        <div className="mt-8 text-left">
           <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
             Answer review
           </h3>
+          <ol className="mt-3 space-y-3">
           {lesson.quiz.map((qq, i) => {
             const userPick = picks[i];
             const isCorrect = userPick === qq.answer;
             return (
-              <div
+              <li
                 key={i}
                 className={`rounded-2xl border p-4 ${
                   isCorrect
@@ -230,11 +252,22 @@ function Quiz({
               >
                 <div className="flex items-start gap-2">
                   {isCorrect ? (
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
+                    <Check
+                      className="mt-0.5 h-4 w-4 shrink-0 text-success"
+                      aria-hidden="true"
+                    />
                   ) : (
-                    <X className="mt-0.5 h-4 w-4 shrink-0 text-destructive" />
+                    <X
+                      className="mt-0.5 h-4 w-4 shrink-0 text-destructive"
+                      aria-hidden="true"
+                    />
                   )}
-                  <p className="text-sm font-medium">{qq.q}</p>
+                  <p className="text-sm font-medium">
+                    <span className="sr-only">
+                      {isCorrect ? "Answered correctly. " : "Answered incorrectly. "}
+                    </span>
+                    {qq.q}
+                  </p>
                 </div>
                 {!isCorrect && (
                   <p className="mt-2 text-sm text-muted-foreground">
@@ -247,20 +280,22 @@ function Quiz({
                   {qq.options[qq.answer]}
                 </p>
                 <p className="mt-2 text-sm text-muted-foreground">{qq.explain}</p>
-              </div>
+              </li>
             );
           })}
+          </ol>
         </div>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <button
+            type="button"
             onClick={() => {
               setStep(0);
               setPicks([]);
               setPicked(null);
             }}
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-5 py-2.5 text-sm font-medium hover:bg-secondary"
+            className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-5 py-2.5 text-sm font-medium hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
-            <RotateCcw className="h-4 w-4" /> Retry quiz
+            <RotateCcw className="h-4 w-4" aria-hidden="true" /> Retry quiz
           </button>
           {next ? (
             <Link
@@ -271,26 +306,27 @@ function Quiz({
                 setPicks([]);
                 setPicked(null);
               }}
-              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-primary-foreground"
+              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               style={{ background: "var(--gradient-hero)" }}
             >
-              Next: {next.title} <ArrowRight className="h-4 w-4" />
+              Next: {next.title} <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           ) : (
             <Link
               to="/badges"
-              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-primary-foreground"
+              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               style={{ background: "var(--gradient-hero)" }}
             >
-              See your badges <Trophy className="h-4 w-4" />
+              See your badges <Trophy className="h-4 w-4" aria-hidden="true" />
             </Link>
           )}
         </div>
         <button
+          type="button"
           onClick={onBackToLearn}
-          className="mt-4 text-sm text-muted-foreground hover:text-foreground"
+          className="mt-4 rounded-full text-sm text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
-          ← Back to lesson
+          <span aria-hidden="true">← </span>Back to lesson
         </button>
       </div>
     );
