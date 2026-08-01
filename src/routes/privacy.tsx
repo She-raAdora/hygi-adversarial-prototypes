@@ -120,8 +120,8 @@ function PrivacyPage() {
         <p>
           If this policy changes, we will update the date at the top of this page. Questions about
           privacy in Hygi. can be sent to the app's publisher, NorthBridge, at{" "}
-          <a href="mailto:privacy@northbridge.app" className="text-primary hover:underline">
-            privacy@northbridge.app
+          <a href="mailto:builtstrong1@outlook.com" className="text-primary hover:underline">
+            builtstrong1@outlook.com
           </a>
           .
         </p>
