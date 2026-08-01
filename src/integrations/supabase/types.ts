@@ -62,6 +62,42 @@ export type Database = {
         }
         Relationships: []
       }
+      seo_scan_runs: {
+        Row: {
+          base_url: string
+          checks: Json
+          created_at: string
+          failing_count: number
+          id: string
+          passing_count: number
+          ran_at: string
+          regressions: Json
+          status: string
+        }
+        Insert: {
+          base_url: string
+          checks?: Json
+          created_at?: string
+          failing_count?: number
+          id?: string
+          passing_count?: number
+          ran_at?: string
+          regressions?: Json
+          status: string
+        }
+        Update: {
+          base_url?: string
+          checks?: Json
+          created_at?: string
+          failing_count?: number
+          id?: string
+          passing_count?: number
+          ran_at?: string
+          regressions?: Json
+          status?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
