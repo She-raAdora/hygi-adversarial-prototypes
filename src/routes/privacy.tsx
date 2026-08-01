@@ -48,9 +48,11 @@ function PrivacyPage() {
       </div>
 
       <p className="mt-8 rounded-2xl border border-border/60 bg-secondary/50 p-5 text-sm leading-relaxed">
-        Short version: Hygi. has no accounts, no sign-in, no ads, and no analytics. We do not
-        collect, sell, or share personal information. Your lesson progress and badges are saved
-        only in your own browser or device storage.
+        Short version: Hygi. has no accounts, no sign-in, and no ads. We do not collect, sell, or
+        share personal information. Your lesson progress and badges are saved only in your own
+        browser or device storage. We do measure anonymous, aggregate usage — such as which pages
+        are viewed, how many quizzes are finished, and how often the app is added to a home screen
+        — using Google Analytics.
       </p>
 
       <Section icon={<Database className="h-4 w-4" />} title="Information we collect">
@@ -65,12 +67,30 @@ function PrivacyPage() {
           to your device's local storage on your device. It is not transmitted to us, it is not
           linked to your identity, and we cannot read it.
         </p>
+        <p>
+          Separately, we collect anonymous product analytics so we can tell whether the lessons are
+          working: page views, quiz starts and completions (lesson title, score out of total, and
+          pass/fail), badge and trophy milestones, and whether the app was launched from a home
+          screen. These events carry no name, email, account, quiz answer text, or precise location.
+        </p>
       </Section>
 
       <Section icon={<Server className="h-4 w-4" />} title="Third parties and tracking">
         <p>
-          Hygi. contains no advertising SDKs, no analytics SDKs, no social login, and no
-          cross-app or cross-site tracking. We do not use cookies for tracking or profiling.
+          Hygi. contains no advertising SDKs, no social login, and no cross-app or cross-site
+          tracking, and we do not sell data or build advertising profiles. We do use one analytics
+          provider, Google Analytics 4, which sets its own cookies or local identifiers to count
+          returning visits in aggregate. Google's handling of that data is governed by the{" "}
+          <a
+            href="https://policies.google.com/privacy"
+            target="_blank"
+            rel="noreferrer"
+            className="text-primary hover:underline"
+          >
+            Google Privacy Policy
+          </a>
+          . You can opt out entirely by enabling your browser's "Do Not Track" / tracking
+          protection, using a content blocker, or installing Google's opt-out browser add-on.
         </p>
         <p>
           Lesson pages link out to public cybersecurity guides published by Dartmouth, Caltech,
@@ -142,7 +162,7 @@ function PrivacyPage() {
 const disclosures: { q: string; a: string }[] = [
   {
     q: "Data used to track you",
-    a: "None. Hygi. does not track users across apps or websites and includes no advertising or attribution SDKs.",
+    a: "None. Hygi. does not track users across apps or websites and includes no advertising or attribution SDKs. Analytics data is not shared with data brokers or used for advertising.",
   },
   {
     q: "Data linked to you",
@@ -150,7 +170,7 @@ const disclosures: { q: string; a: string }[] = [
   },
   {
     q: "Data not linked to you",
-    a: "None collected by us. Lesson progress and quiz results stay in on-device storage and are never transmitted off the device.",
+    a: "Product interaction and diagnostic-free usage data: page views, quiz starts/completions with score, badge and trophy milestones, and home-screen install events. Collected anonymously via Google Analytics and not linked to any identity. Your saved progress and badges remain in on-device storage only.",
   },
   {
     q: "Contact info, identifiers, location, health, financials, contacts, photos, browsing history",
@@ -158,7 +178,7 @@ const disclosures: { q: string; a: string }[] = [
   },
   {
     q: "Usage data / diagnostics / crash data",
-    a: "Not collected. No analytics or crash-reporting SDK is present.",
+    a: "Product interaction (usage) data is collected anonymously for analytics. No crash-reporting SDK is present and no other diagnostics are collected.",
   },
   {
     q: "Data encryption in transit",
@@ -166,7 +186,7 @@ const disclosures: { q: string; a: string }[] = [
   },
   {
     q: "Data deletion request method",
-    a: "Not applicable — no server-side data exists. Users delete all app data by clearing site data or removing the app.",
+    a: "Users delete on-device data by clearing site data or removing the app. Anonymous analytics events cannot be tied to an individual, so there is no personal record to delete; requests can still be sent to builtstrong1@outlook.com.",
   },
   {
     q: "Account creation, third-party login, ads, in-app purchases, user-generated content",

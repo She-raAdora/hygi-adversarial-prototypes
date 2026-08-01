@@ -3,6 +3,11 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, RotateCcw, Trophy, X } from "lucide-react";
 import { getLesson, lessons, type Lesson } from "@/lib/lessons";
 import { awardBadge, useProgress } from "@/lib/progress";
+import {
+  trackAllLessonsComplete,
+  trackQuizComplete,
+  trackQuizStart,
+} from "@/lib/analytics";
 
 export const Route = createFileRoute("/lesson/$id")({
   loader: ({ params }) => {
@@ -109,7 +114,10 @@ function LessonPage() {
 
           <button
             type="button"
-            onClick={() => setMode("quiz")}
+            onClick={() => {
+              trackQuizStart(lesson.id, lesson.title);
+              setMode("quiz");
+            }}
             className="group inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-4 font-medium text-primary-foreground transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             style={{ background: "var(--gradient-hero)", boxShadow: "var(--shadow-soft)" }}
           >
@@ -430,7 +438,31 @@ function Quiz({
         type="button"
         disabled={picked === null}
         onClick={() => {
-          setPicks((p) => [...p, picked!]);
+          const nextPicks = [...picks, picked!];
+          if (nextPicks.length >= total) {
+            const finalScore = nextPicks.reduce(
+              (acc, p, i) => acc + (p === lesson.quiz[i].answer ? 1 : 0),
+              0,
+            );
+            const passed = finalScore === total;
+            trackQuizComplete({
+              lessonId: lesson.id,
+              lessonTitle: lesson.title,
+              score: finalScore,
+              total,
+              passed,
+            });
+            if (passed) {
+              const mastered = new Set(
+                Object.entries(progress)
+                  .filter(([id, s]) => s === getLesson(id)?.quiz.length)
+                  .map(([id]) => id),
+              );
+              mastered.add(lesson.id);
+              if (mastered.size >= lessons.length) trackAllLessonsComplete(lessons.length);
+            }
+          }
+          setPicks(nextPicks);
           setPicked(null);
           setStep((s) => s + 1);
         }}
