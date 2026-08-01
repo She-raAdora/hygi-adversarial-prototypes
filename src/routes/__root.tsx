@@ -124,9 +124,14 @@ function RootComponent() {
         <footer className="border-t border-border/60 py-8">
           <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-6 text-xs text-muted-foreground">
             <span>Hygi. — brought to you by NorthBridge</span>
-            <Link to="/privacy" className="transition-colors hover:text-foreground">
-              Privacy Policy
-            </Link>
+            <div className="flex flex-wrap items-center gap-4">
+              <Link to="/privacy" className="transition-colors hover:text-foreground">
+                Privacy Policy
+              </Link>
+              <Link to="/terms" className="transition-colors hover:text-foreground">
+                Terms of Service
+              </Link>
+            </div>
           </div>
         </footer>
       </div>
