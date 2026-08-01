@@ -108,14 +108,20 @@ export async function renderShareCard(card: ShareCard): Promise<Blob> {
 
   ctx.fillStyle = TEAL;
   ctx.font = "600 26px system-ui, sans-serif";
-  ctx.fillText(card.eyebrow.toUpperCase(), left, 168);
+  // Two-line titles need extra room, so the whole block starts a little higher.
+  ctx.font = "700 62px system-ui, sans-serif";
+  const lineCount = wrap(ctx, card.title, maxText, 2).length;
+  const top = lineCount > 1 ? 148 : 178;
+
+  ctx.font = "600 26px system-ui, sans-serif";
+  ctx.fillText(card.eyebrow.toUpperCase(), left, top);
 
   ctx.fillStyle = INK;
   ctx.font = "700 62px system-ui, sans-serif";
   const titleLines = wrap(ctx, card.title, maxText, 2);
-  titleLines.forEach((line, i) => ctx.fillText(line, left, 240 + i * 72));
+  titleLines.forEach((line, i) => ctx.fillText(line, left, top + 72 + i * 72));
 
-  const afterTitle = 240 + titleLines.length * 72;
+  const afterTitle = top + 72 + titleLines.length * 72;
 
   ctx.fillStyle = TEAL;
   ctx.font = "700 44px system-ui, sans-serif";
