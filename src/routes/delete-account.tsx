@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
+import { ContactRequestForm } from "@/components/ContactRequestForm";
+
 export const Route = createFileRoute("/delete-account")({
   head: () => ({
     meta: [
@@ -87,6 +89,15 @@ function DeleteAccountPage() {
           complete deletion within 30 days, usually within a few business days.
         </p>
       </section>
+
+      <ContactRequestForm
+        kind="deletion"
+        heading="Or request deletion with this form"
+        intro="Submit the email address on the account and we'll verify the request before erasing it. A quick CAPTCHA keeps automated requests out."
+        messageLabel="Anything we should know?"
+        submitLabel="Request deletion"
+        successText="Request received. We'll verify it and confirm by email once the account is deleted."
+      />
 
       <section className="mt-10">
         <h2 className="text-xl font-semibold text-foreground">What gets deleted</h2>

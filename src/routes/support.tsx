@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 import { readConsent, writeConsent, type ConsentState } from "@/lib/consent";
+import { ContactRequestForm } from "@/components/ContactRequestForm";
 
 export const Route = createFileRoute("/support")({
   head: () => ({
@@ -101,6 +102,15 @@ function SupportPage() {
           ))}
         </dl>
       </section>
+
+      <ContactRequestForm
+        kind="support"
+        heading="Send us a message"
+        intro="Prefer a form? Tell us what's going on and we'll reply to the address you give us, usually within three business days. A quick CAPTCHA keeps bots out."
+        messageLabel="How can we help?"
+        submitLabel="Send message"
+        successText="Thanks — your message is in. We'll reply to the email you gave us."
+      />
 
       <section className="mt-10 rounded-2xl border border-border/60 bg-card p-6">
         <h2 className="text-xl font-semibold">Your data on this device</h2>

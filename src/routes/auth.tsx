@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
+import { Turnstile, type CaptchaState } from "@/components/Turnstile";
+import { verifyAuthCaptcha } from "@/lib/captcha.functions";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -34,6 +36,8 @@ function AuthPage() {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [captcha, setCaptcha] = useState<CaptchaState>({ required: false, token: null });
+  const [captchaReset, setCaptchaReset] = useState(0);
 
   useEffect(() => {
     let active = true;
@@ -51,11 +55,26 @@ function AuthPage() {
     setError(null);
     setMessage(null);
     try {
+      if (captcha.required) {
+        if (!captcha.token) {
+          setError("Complete the CAPTCHA to continue.");
+          return;
+        }
+        const check = await verifyAuthCaptcha({ data: { captchaToken: captcha.token } });
+        if (!check.ok) {
+          setCaptchaReset((n) => n + 1);
+          setError("CAPTCHA check failed. Please try again.");
+          return;
+        }
+      }
       if (mode === "signup") {
         const { data, error: signUpError } = await supabase.auth.signUp({
           email,
           password,
-          options: { emailRedirectTo: window.location.origin + "/auth" },
+          options: {
+            emailRedirectTo: window.location.origin + "/auth",
+            ...(captcha.token ? { captchaToken: captcha.token } : {}),
+          },
         });
         if (signUpError) throw signUpError;
         if (!data.session) {
@@ -63,12 +82,17 @@ function AuthPage() {
           return;
         }
       } else {
-        const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+        const { error: signInError } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+          ...(captcha.token ? { options: { captchaToken: captcha.token } } : {}),
+        });
         if (signInError) throw signInError;
       }
       await router.invalidate();
       void navigate({ to: "/insights", replace: true });
     } catch (err) {
+      setCaptchaReset((n) => n + 1);
       setError(err instanceof Error ? err.message : "Something went wrong. Try again.");
     } finally {
       setBusy(false);
@@ -167,9 +191,11 @@ function AuthPage() {
             {message ? <p className="text-sm text-muted-foreground">{message}</p> : null}
           </div>
 
+          <Turnstile action="auth" onChange={setCaptcha} resetKey={captchaReset} />
+
           <button
             type="submit"
-            disabled={busy}
+            disabled={busy || (captcha.required && !captcha.token)}
             className="w-full rounded-xl bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-60"
           >
             {mode === "signup" ? "Create account" : "Sign in"}
