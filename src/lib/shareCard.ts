@@ -18,8 +18,25 @@ export type ShareCard = {
   note?: string;
 };
 
-const W = 1200;
-const H = 630;
+/** Available card shapes, sized for the platforms each one suits best. */
+export type ShareFormat = "landscape" | "square" | "portrait";
+
+export const SHARE_FORMATS: Array<{
+  id: ShareFormat;
+  label: string;
+  hint: string;
+  width: number;
+  height: number;
+}> = [
+  { id: "landscape", label: "Landscape", hint: "1200 × 630 — link previews, X, LinkedIn", width: 1200, height: 630 },
+  { id: "square", label: "Square", hint: "1080 × 1080 — Instagram, Facebook feed", width: 1080, height: 1080 },
+  { id: "portrait", label: "Portrait", hint: "1080 × 1350 — Stories, Reels, Pinterest", width: 1080, height: 1350 },
+];
+
+function dimensions(format: ShareFormat) {
+  const entry = SHARE_FORMATS.find((f) => f.id === format) ?? SHARE_FORMATS[0]!;
+  return { W: entry.width, H: entry.height };
+}
 
 const INK = "#14453f";
 const MUTED = "#4c6f6a";
@@ -63,7 +80,12 @@ function wrap(ctx: CanvasRenderingContext2D, text: string, maxWidth: number, max
 }
 
 /** Renders the card and returns it as a PNG blob. */
-export async function renderShareCard(card: ShareCard): Promise<Blob> {
+export async function renderShareCard(
+  card: ShareCard,
+  format: ShareFormat = "landscape",
+): Promise<Blob> {
+  const { W, H } = dimensions(format);
+  const stacked = format !== "landscape";
   const canvas = document.createElement("canvas");
   canvas.width = W;
   canvas.height = H;
@@ -80,48 +102,56 @@ export async function renderShareCard(card: ShareCard): Promise<Blob> {
   ctx.fillRect(0, 0, W, H);
 
   // Card surface
+  const pad = stacked ? 48 : 56;
   ctx.fillStyle = "rgba(255, 255, 255, 0.92)";
-  roundRect(ctx, 56, 56, W - 112, H - 112, 44);
+  roundRect(ctx, pad, pad, W - pad * 2, H - pad * 2, 44);
   ctx.fill();
   ctx.strokeStyle = "rgba(42, 157, 143, 0.28)";
   ctx.lineWidth = 2;
   ctx.stroke();
 
-  // Badge tile
-  const tile = ctx.createLinearGradient(112, 120, 112 + 148, 120 + 148);
+  const gutter = pad + 56;
+
+  // Badge tile: beside the text on landscape, above it on the taller formats.
+  const tileX = gutter;
+  const tileY = stacked ? pad + 96 : 120;
+  const tileSize = 148;
+  const tile = ctx.createLinearGradient(tileX, tileY, tileX + tileSize, tileY + tileSize);
   tile.addColorStop(0, GLOW);
   tile.addColorStop(1, TEAL);
   ctx.fillStyle = tile;
-  roundRect(ctx, 112, 120, 148, 148, 36);
+  roundRect(ctx, tileX, tileY, tileSize, tileSize, 36);
   ctx.fill();
   ctx.font = "72px system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillStyle = "#ffffff";
-  ctx.fillText(card.emoji ?? "🏆", 112 + 74, 120 + 80);
+  ctx.fillText(card.emoji ?? "🏆", tileX + tileSize / 2, tileY + tileSize / 2 + 6);
 
   // Text block
-  const left = 300;
-  const maxText = W - left - 112;
+  const left = stacked ? gutter : 300;
+  const maxText = W - left - gutter;
   ctx.textAlign = "left";
   ctx.textBaseline = "alphabetic";
 
   ctx.fillStyle = TEAL;
   ctx.font = "600 26px system-ui, sans-serif";
   // Two-line titles need extra room, so the whole block starts a little higher.
-  ctx.font = "700 62px system-ui, sans-serif";
-  const lineCount = wrap(ctx, card.title, maxText, 2).length;
-  const top = lineCount > 1 ? 148 : 178;
+  const titleSize = stacked ? 68 : 62;
+  const titleLead = titleSize + 10;
+  ctx.font = `700 ${titleSize}px system-ui, sans-serif`;
+  const lineCount = wrap(ctx, card.title, maxText, stacked ? 3 : 2).length;
+  const top = stacked ? tileY + tileSize + 92 : lineCount > 1 ? 148 : 178;
 
   ctx.font = "600 26px system-ui, sans-serif";
   ctx.fillText(card.eyebrow.toUpperCase(), left, top);
 
   ctx.fillStyle = INK;
-  ctx.font = "700 62px system-ui, sans-serif";
-  const titleLines = wrap(ctx, card.title, maxText, 2);
-  titleLines.forEach((line, i) => ctx.fillText(line, left, top + 72 + i * 72));
+  ctx.font = `700 ${titleSize}px system-ui, sans-serif`;
+  const titleLines = wrap(ctx, card.title, maxText, stacked ? 3 : 2);
+  titleLines.forEach((line, i) => ctx.fillText(line, left, top + titleLead + i * titleLead));
 
-  const afterTitle = top + 72 + titleLines.length * 72;
+  const afterTitle = top + titleLead + titleLines.length * titleLead;
 
   ctx.fillStyle = TEAL;
   ctx.font = "700 44px system-ui, sans-serif";
@@ -130,7 +160,7 @@ export async function renderShareCard(card: ShareCard): Promise<Blob> {
   if (card.note) {
     ctx.fillStyle = MUTED;
     ctx.font = "30px system-ui, sans-serif";
-    wrap(ctx, card.note, maxText, 2).forEach((line, i) =>
+    wrap(ctx, card.note, maxText, stacked ? 3 : 2).forEach((line, i) =>
       ctx.fillText(line, left, afterTitle + 90 + i * 40),
     );
   }
@@ -138,10 +168,10 @@ export async function renderShareCard(card: ShareCard): Promise<Blob> {
   // Footer wordmark
   ctx.fillStyle = INK;
   ctx.font = "700 40px system-ui, sans-serif";
-  ctx.fillText("Hygi.", 112, H - 108);
+  ctx.fillText("Hygi.", gutter, H - pad - 96);
   ctx.fillStyle = MUTED;
   ctx.font = "26px system-ui, sans-serif";
-  ctx.fillText("digitalhygiene.app", 112, H - 108 + 38);
+  ctx.fillText("digitalhygiene.app", gutter, H - pad - 58);
 
   return new Promise<Blob>((resolve, reject) => {
     canvas.toBlob(
@@ -153,8 +183,10 @@ export async function renderShareCard(card: ShareCard): Promise<Blob> {
 
 export type ShareOutcome = "shared" | "downloaded" | "cancelled";
 
-function cardFileName(card: ShareCard) {
-  return `hygi-${card.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}.png`;
+function cardFileName(card: ShareCard, format: ShareFormat) {
+  const slug = card.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const { W, H } = dimensions(format);
+  return `hygi-${slug}-${W}x${H}.png`;
 }
 
 export type DownloadOutcome = "downloaded" | "opened";
@@ -165,9 +197,12 @@ export type DownloadOutcome = "downloaded" | "opened";
  * iOS Safari ignores the anchor `download` attribute for blob URLs, so there we
  * open the image in a new tab where it can be long-pressed and saved to Photos.
  */
-export async function downloadResultCard(card: ShareCard): Promise<DownloadOutcome> {
-  const blob = await renderShareCard(card);
-  const fileName = cardFileName(card);
+export async function downloadResultCard(
+  card: ShareCard,
+  format: ShareFormat = "landscape",
+): Promise<DownloadOutcome> {
+  const blob = await renderShareCard(card, format);
+  const fileName = cardFileName(card, format);
   const url = URL.createObjectURL(blob);
 
   const a = document.createElement("a");
@@ -196,9 +231,13 @@ function isIosSafari() {
 }
 
 /** Renders the card, then shares it natively or falls back to a download. */
-export async function shareResultCard(card: ShareCard, text: string): Promise<ShareOutcome> {
-  const blob = await renderShareCard(card);
-  const fileName = cardFileName(card);
+export async function shareResultCard(
+  card: ShareCard,
+  text: string,
+  format: ShareFormat = "landscape",
+): Promise<ShareOutcome> {
+  const blob = await renderShareCard(card, format);
+  const fileName = cardFileName(card, format);
   const file = new File([blob], fileName, { type: "image/png" });
 
   const nav = navigator as Navigator & { canShare?: (data: ShareData) => boolean };
