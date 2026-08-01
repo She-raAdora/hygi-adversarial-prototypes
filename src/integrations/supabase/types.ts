@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      contact_requests: {
+        Row: {
+          captcha_verified: boolean
+          created_at: string
+          email: string
+          id: string
+          kind: string
+          message: string
+        }
+        Insert: {
+          captcha_verified?: boolean
+          created_at?: string
+          email: string
+          id?: string
+          kind: string
+          message: string
+        }
+        Update: {
+          captcha_verified?: boolean
+          created_at?: string
+          email?: string
+          id?: string
+          kind?: string
+          message?: string
+        }
+        Relationships: []
+      }
       email_preferences: {
         Row: {
           admin_role_emails: boolean
