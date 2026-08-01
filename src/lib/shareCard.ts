@@ -112,10 +112,29 @@ export async function renderShareCard(
 
   const gutter = pad + 56;
 
+  // Measure the text block first so the taller formats can be centred instead
+  // of leaving a large gap above the footer.
+  const left = stacked ? gutter : 300;
+  const maxText = W - left - gutter;
+  const titleSize = stacked ? 68 : 62;
+  const titleLead = titleSize + 10;
+  const maxLines = stacked ? 3 : 2;
+  const tileSize = 148;
+
+  ctx.font = `700 ${titleSize}px system-ui, sans-serif`;
+  const titleLines = wrap(ctx, card.title, maxText, maxLines);
+  ctx.font = "30px system-ui, sans-serif";
+  const noteLines = card.note ? wrap(ctx, card.note, maxText, maxLines) : [];
+
+  const textHeight = titleLead + titleLines.length * titleLead + 26 + noteLines.length * 40;
+  const footerTop = H - pad - 140;
+  const blockHeight = stacked ? tileSize + 92 + textHeight : 0;
+
   // Badge tile: beside the text on landscape, above it on the taller formats.
   const tileX = gutter;
-  const tileY = stacked ? pad + 96 : 120;
-  const tileSize = 148;
+  const tileY = stacked
+    ? Math.max(pad + 80, pad + 40 + (footerTop - pad - 40 - blockHeight) / 2)
+    : 120;
   const tile = ctx.createLinearGradient(tileX, tileY, tileX + tileSize, tileY + tileSize);
   tile.addColorStop(0, GLOW);
   tile.addColorStop(1, TEAL);
@@ -129,26 +148,18 @@ export async function renderShareCard(
   ctx.fillText(card.emoji ?? "🏆", tileX + tileSize / 2, tileY + tileSize / 2 + 6);
 
   // Text block
-  const left = stacked ? gutter : 300;
-  const maxText = W - left - gutter;
   ctx.textAlign = "left";
   ctx.textBaseline = "alphabetic";
 
   ctx.fillStyle = TEAL;
-  ctx.font = "600 26px system-ui, sans-serif";
   // Two-line titles need extra room, so the whole block starts a little higher.
-  const titleSize = stacked ? 68 : 62;
-  const titleLead = titleSize + 10;
-  ctx.font = `700 ${titleSize}px system-ui, sans-serif`;
-  const lineCount = wrap(ctx, card.title, maxText, stacked ? 3 : 2).length;
-  const top = stacked ? tileY + tileSize + 92 : lineCount > 1 ? 148 : 178;
+  const top = stacked ? tileY + tileSize + 92 : titleLines.length > 1 ? 148 : 178;
 
   ctx.font = "600 26px system-ui, sans-serif";
   ctx.fillText(card.eyebrow.toUpperCase(), left, top);
 
   ctx.fillStyle = INK;
   ctx.font = `700 ${titleSize}px system-ui, sans-serif`;
-  const titleLines = wrap(ctx, card.title, maxText, stacked ? 3 : 2);
   titleLines.forEach((line, i) => ctx.fillText(line, left, top + titleLead + i * titleLead));
 
   const afterTitle = top + titleLead + titleLines.length * titleLead;
@@ -157,12 +168,10 @@ export async function renderShareCard(
   ctx.font = "700 44px system-ui, sans-serif";
   ctx.fillText(card.stat, left, afterTitle + 26);
 
-  if (card.note) {
+  if (noteLines.length) {
     ctx.fillStyle = MUTED;
     ctx.font = "30px system-ui, sans-serif";
-    wrap(ctx, card.note, maxText, stacked ? 3 : 2).forEach((line, i) =>
-      ctx.fillText(line, left, afterTitle + 90 + i * 40),
-    );
+    noteLines.forEach((line, i) => ctx.fillText(line, left, afterTitle + 90 + i * 40));
   }
 
   // Footer wordmark
