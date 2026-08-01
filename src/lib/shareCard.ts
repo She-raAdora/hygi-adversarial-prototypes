@@ -153,10 +153,52 @@ export async function renderShareCard(card: ShareCard): Promise<Blob> {
 
 export type ShareOutcome = "shared" | "downloaded" | "cancelled";
 
+function cardFileName(card: ShareCard) {
+  return `hygi-${card.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}.png`;
+}
+
+export type DownloadOutcome = "downloaded" | "opened";
+
+/**
+ * Renders the card and saves it as a PNG file.
+ *
+ * iOS Safari ignores the anchor `download` attribute for blob URLs, so there we
+ * open the image in a new tab where it can be long-pressed and saved to Photos.
+ */
+export async function downloadResultCard(card: ShareCard): Promise<DownloadOutcome> {
+  const blob = await renderShareCard(card);
+  const fileName = cardFileName(card);
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  const supportsDownload = "download" in a && !isIosSafari();
+
+  if (supportsDownload) {
+    a.href = url;
+    a.download = fileName;
+    a.rel = "noopener";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+    return "downloaded";
+  }
+
+  window.open(url, "_blank", "noopener");
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+  return "opened";
+}
+
+function isIosSafari() {
+  const ua = navigator.userAgent;
+  const iOS = /iPad|iPhone|iPod/.test(ua) || (ua.includes("Macintosh") && "ontouchend" in document);
+  return iOS && !/CriOS|FxiOS|EdgiOS/.test(ua);
+}
+
 /** Renders the card, then shares it natively or falls back to a download. */
 export async function shareResultCard(card: ShareCard, text: string): Promise<ShareOutcome> {
   const blob = await renderShareCard(card);
-  const fileName = `hygi-${card.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}.png`;
+  const fileName = cardFileName(card);
   const file = new File([blob], fileName, { type: "image/png" });
 
   const nav = navigator as Navigator & { canShare?: (data: ShareData) => boolean };
