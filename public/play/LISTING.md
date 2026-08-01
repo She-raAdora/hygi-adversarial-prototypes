@@ -46,3 +46,46 @@ In-app purchases: No
 - Users can request deletion: Yes — in-app (Account settings) and via
   https://digitalhygiene.app/delete-account.
 - Data collection optional: Yes — analytics require explicit opt-in.
+
+## Content rating (IARC questionnaire answers)
+- Category: Reference, News, or Educational
+- Violence / sexuality / profanity / controlled substances: None
+- Gambling or simulated gambling: None
+- Users can interact / share content / share location: No
+- Digital purchases: No
+- Ads: No
+- Expected rating: Everyone / PEGI 3
+
+## Target audience & content
+- Target age groups: 13-15, 16-17, 18+ (not designed for children under 13)
+- Appeals to children: No
+- Ads or in-app purchases shown to children: N/A (none in the app)
+
+## Additional declarations
+- Advertising ID: Not used. Google Analytics is used for aggregate web
+  measurement only, and only after explicit in-app consent.
+- Government app: No
+- Financial features: None
+- Health features: None
+- News app: No
+- COVID-19 contact tracing: No
+- Data deletion: In-app (Account settings) plus the public URL
+  https://digitalhygiene.app/delete-account
+- Login credentials for review: Not required — all lessons, quizzes, and badges
+  are usable with no account. Accounts exist only for internal staff analytics
+  pages (/insights, /admin).
+
+## Packaging steps (Trusted Web Activity via Bubblewrap)
+1. `npm i -g @bubblewrap/cli`
+2. `bubblewrap init --manifest https://digitalhygiene.app/manifest.webmanifest`
+   (or copy `public/play/twa-manifest.json` into an empty folder as
+   `twa-manifest.json` and run `bubblewrap update`)
+3. `bubblewrap build` -> produces `app-release-bundle.aab`
+4. Upload the .aab to Play Console. Under Release > Setup > App signing, copy
+   the **SHA-256 certificate fingerprint** of the app signing key.
+5. Back in this project run:
+   `node scripts/set-assetlinks-fingerprint.mjs <SHA-256>`
+   then publish. This writes /.well-known/assetlinks.json, which is what
+   removes the browser URL bar from the installed app.
+6. Verify with
+   https://developers.google.com/digital-asset-links/tools/generator
