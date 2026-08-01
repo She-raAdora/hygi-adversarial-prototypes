@@ -391,6 +391,31 @@ function InsightsPage() {
         )}
       </section>
 
+      <section aria-labelledby="trends-heading" className="mt-12">
+        <h2 id="trends-heading" className="text-xl font-semibold tracking-tight">
+          Pass rate trends by lesson
+        </h2>
+        <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+          Day-by-day pass rate, average percent correct, and number of attempts for each lesson. An
+          attempt is one finished quiz; a pass is a perfect score. The{" "}
+          <span className="inline-block h-2.5 w-2.5 rounded-sm bg-primary align-middle" aria-hidden="true" />{" "}
+          solid bar is pass rate, the{" "}
+          <span className="inline-block h-2.5 w-2.5 rounded-sm bg-primary/35 align-middle" aria-hidden="true" />{" "}
+          lighter bar is average score.
+        </p>
+        {trends.length === 0 ? (
+          <p className="mt-3 text-sm text-muted-foreground">
+            No finished quizzes yet — trends appear after your first completed quiz.
+          </p>
+        ) : (
+          <ul className="mt-5 space-y-4">
+            {trends.map((t) => (
+              <LessonTrendCard key={t.lessonId} trend={t} />
+            ))}
+          </ul>
+        )}
+      </section>
+
       {events.length > 0 ? (
         <div className="mt-12">
           <button
