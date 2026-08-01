@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as LessonsRouteImport } from './routes/lessons'
 import { Route as BadgesRouteImport } from './routes/badges'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LessonIdRouteImport } from './routes/lesson.$id'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/badges': typeof BadgesRoute
   '/lessons': typeof LessonsRoute
   '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/lesson/$id': typeof LessonIdRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/badges': typeof BadgesRoute
   '/lessons': typeof LessonsRoute
   '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/lesson/$id': typeof LessonIdRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,28 @@ export interface FileRoutesById {
   '/badges': typeof BadgesRoute
   '/lessons': typeof LessonsRoute
   '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/lesson/$id': typeof LessonIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/badges' | '/lessons' | '/privacy' | '/lesson/$id'
+  fullPaths:
+    | '/'
+    | '/badges'
+    | '/lessons'
+    | '/privacy'
+    | '/terms'
+    | '/lesson/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/badges' | '/lessons' | '/privacy' | '/lesson/$id'
-  id: '__root__' | '/' | '/badges' | '/lessons' | '/privacy' | '/lesson/$id'
+  to: '/' | '/badges' | '/lessons' | '/privacy' | '/terms' | '/lesson/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/badges'
+    | '/lessons'
+    | '/privacy'
+    | '/terms'
+    | '/lesson/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,11 +98,19 @@ export interface RootRouteChildren {
   BadgesRoute: typeof BadgesRoute
   LessonsRoute: typeof LessonsRoute
   PrivacyRoute: typeof PrivacyRoute
+  TermsRoute: typeof TermsRoute
   LessonIdRoute: typeof LessonIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
@@ -124,6 +154,7 @@ const rootRouteChildren: RootRouteChildren = {
   BadgesRoute: BadgesRoute,
   LessonsRoute: LessonsRoute,
   PrivacyRoute: PrivacyRoute,
+  TermsRoute: TermsRoute,
   LessonIdRoute: LessonIdRoute,
 }
 export const routeTree = rootRouteImport
