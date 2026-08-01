@@ -10,7 +10,7 @@ import {
 } from "@/lib/eventLog";
 import type { LessonTrend } from "@/lib/eventLog";
 
-export const Route = createFileRoute("/insights")({
+export const Route = createFileRoute("/_authenticated/insights")({
   head: () => ({
     meta: [
       { title: "Insights — Your Hygi. Analytics Dashboard" },
