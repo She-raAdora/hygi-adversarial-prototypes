@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound, useRouter } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, RotateCcw, Trophy, X } from "lucide-react";
 import { getLesson, lessons, type Lesson } from "@/lib/lessons";
 import { awardBadge, useProgress } from "@/lib/progress";
@@ -27,11 +27,12 @@ export const Route = createFileRoute("/lesson/$id")({
         <h1 className="text-2xl font-semibold">Couldn't load this lesson</h1>
         <p className="mt-2 text-muted-foreground">{error.message}</p>
         <button
+          type="button"
           onClick={() => {
             router.invalidate();
             reset();
           }}
-          className="mt-6 rounded-full bg-primary px-5 py-2 text-sm text-primary-foreground"
+          className="mt-6 rounded-full bg-primary px-5 py-2 text-sm text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           Try again
         </button>
@@ -64,18 +65,20 @@ function LessonPage() {
   const prev = lessons[idx - 1];
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-12">
+    <main id="main-content" className="mx-auto max-w-2xl px-6 py-12">
       <Link
         to="/lessons"
-        className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+        className="inline-flex items-center gap-1 rounded-full text-sm text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
-        <ArrowLeft className="h-4 w-4" /> All lessons
+        <ArrowLeft className="h-4 w-4" aria-hidden="true" /> All lessons
       </Link>
 
       <header className="mt-6">
         <div className="flex items-center gap-3">
-          <span className="text-4xl">{lesson.emoji}</span>
-          <span className="text-xs font-medium uppercase tracking-wider text-primary">
+          <span className="text-4xl" aria-hidden="true">
+            {lesson.emoji}
+          </span>
+          <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             Lesson {idx + 1}
           </span>
         </div>
@@ -96,7 +99,7 @@ function LessonPage() {
                     key={t}
                     className="flex items-start gap-3 rounded-xl border border-border bg-card px-4 py-3 text-sm"
                   >
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" aria-hidden="true" />
                     <span>{t}</span>
                   </li>
                 ))}
@@ -105,26 +108,35 @@ function LessonPage() {
           ))}
 
           <button
+            type="button"
             onClick={() => setMode("quiz")}
-            className="group inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-4 font-medium text-primary-foreground transition-transform hover:-translate-y-0.5"
+            className="group inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-4 font-medium text-primary-foreground transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             style={{ background: "var(--gradient-hero)", boxShadow: "var(--shadow-soft)" }}
           >
-            Take the pop quiz
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            Take the pop quiz for {lesson.title}
+            <ArrowRight
+              className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
           </button>
 
-          <nav className="flex items-center justify-between gap-3 border-t border-border pt-6">
+          <nav
+            aria-label="Lesson navigation"
+            className="flex items-center justify-between gap-3 border-t border-border pt-6"
+          >
             {prev ? (
               <Link
                 to="/lesson/$id"
                 params={{ id: prev.id }}
-                className="group inline-flex max-w-[48%] flex-col rounded-2xl border border-border bg-card px-4 py-3 text-left text-sm hover:border-primary/40"
+                aria-label={`Previous lesson: ${prev.title}`}
+                className="group inline-flex max-w-[48%] flex-col rounded-2xl border border-border bg-card px-4 py-3 text-left text-sm hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                  <ArrowLeft className="h-3 w-3" /> Previous
+                  <ArrowLeft className="h-3 w-3" aria-hidden="true" /> Previous
                 </span>
                 <span className="mt-1 font-medium">
-                  {prev.emoji} {prev.title}
+                  <span aria-hidden="true">{prev.emoji} </span>
+                  {prev.title}
                 </span>
               </Link>
             ) : (
@@ -134,13 +146,15 @@ function LessonPage() {
               <Link
                 to="/lesson/$id"
                 params={{ id: next.id }}
-                className="group inline-flex max-w-[48%] flex-col rounded-2xl border border-border bg-card px-4 py-3 text-right text-sm hover:border-primary/40"
+                aria-label={`Next lesson: ${next.title}`}
+                className="group inline-flex max-w-[48%] flex-col rounded-2xl border border-border bg-card px-4 py-3 text-right text-sm hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 <span className="flex items-center justify-end gap-1 text-xs text-muted-foreground">
-                  Next <ArrowRight className="h-3 w-3" />
+                  Next <ArrowRight className="h-3 w-3" aria-hidden="true" />
                 </span>
                 <span className="mt-1 font-medium">
-                  {next.emoji} {next.title}
+                  <span aria-hidden="true">{next.emoji} </span>
+                  {next.title}
                 </span>
               </Link>
             ) : (
@@ -169,6 +183,22 @@ function Quiz({
   const [picked, setPicked] = useState<number | null>(null);
   const progress = useProgress();
   const previousBest = progress[lesson.id] ?? 0;
+  const questionRef = useRef<HTMLHeadingElement>(null);
+  const resultRef = useRef<HTMLHeadingElement>(null);
+  const advanceRef = useRef<HTMLButtonElement>(null);
+
+  // Move focus to the new question (or the result) so keyboard and screen-reader
+  // users land on the fresh content instead of a stale/removed element.
+  useEffect(() => {
+    if (step >= lesson.quiz.length) resultRef.current?.focus();
+    else questionRef.current?.focus();
+  }, [step, lesson.quiz.length]);
+
+  // Answering disables the option inputs, which drops focus — send it to the
+  // button that continues the quiz.
+  useEffect(() => {
+    if (picked !== null) advanceRef.current?.focus();
+  }, [picked]);
 
   const total = lesson.quiz.length;
   const score = useMemo(
@@ -184,29 +214,35 @@ function Quiz({
     return (
       <div className="mt-12 rounded-3xl border border-border bg-card p-8 text-center">
         <div
+          aria-hidden="true"
           className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl text-primary-foreground"
           style={{ background: "var(--gradient-hero)", boxShadow: "var(--shadow-glow)" }}
         >
           <Trophy className="h-7 w-7" />
         </div>
-        <h2 className="mt-5 text-2xl font-semibold tracking-tight">
+        <h2
+          ref={resultRef}
+          tabIndex={-1}
+          className="mt-5 text-2xl font-semibold tracking-tight focus-visible:outline-none"
+        >
           {passed ? "Badge unlocked!" : "Nice effort!"}
         </h2>
-        <p className="mt-2 text-muted-foreground">
+        <p className="mt-2 text-muted-foreground" role="status">
           You scored {score} / {total}.{" "}
           {passed
             ? "You've earned the " + lesson.title + " badge."
             : "Get all answers right to earn this badge."}
         </p>
-        <div className="mt-8 space-y-3 text-left">
+        <div className="mt-8 text-left">
           <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
             Answer review
           </h3>
+          <ol className="mt-3 space-y-3">
           {lesson.quiz.map((qq, i) => {
             const userPick = picks[i];
             const isCorrect = userPick === qq.answer;
             return (
-              <div
+              <li
                 key={i}
                 className={`rounded-2xl border p-4 ${
                   isCorrect
@@ -216,11 +252,22 @@ function Quiz({
               >
                 <div className="flex items-start gap-2">
                   {isCorrect ? (
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
+                    <Check
+                      className="mt-0.5 h-4 w-4 shrink-0 text-success"
+                      aria-hidden="true"
+                    />
                   ) : (
-                    <X className="mt-0.5 h-4 w-4 shrink-0 text-destructive" />
+                    <X
+                      className="mt-0.5 h-4 w-4 shrink-0 text-destructive"
+                      aria-hidden="true"
+                    />
                   )}
-                  <p className="text-sm font-medium">{qq.q}</p>
+                  <p className="text-sm font-medium">
+                    <span className="sr-only">
+                      {isCorrect ? "Answered correctly. " : "Answered incorrectly. "}
+                    </span>
+                    {qq.q}
+                  </p>
                 </div>
                 {!isCorrect && (
                   <p className="mt-2 text-sm text-muted-foreground">
@@ -233,20 +280,22 @@ function Quiz({
                   {qq.options[qq.answer]}
                 </p>
                 <p className="mt-2 text-sm text-muted-foreground">{qq.explain}</p>
-              </div>
+              </li>
             );
           })}
+          </ol>
         </div>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <button
+            type="button"
             onClick={() => {
               setStep(0);
               setPicks([]);
               setPicked(null);
             }}
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-5 py-2.5 text-sm font-medium hover:bg-secondary"
+            className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-5 py-2.5 text-sm font-medium hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
-            <RotateCcw className="h-4 w-4" /> Retry quiz
+            <RotateCcw className="h-4 w-4" aria-hidden="true" /> Retry quiz
           </button>
           {next ? (
             <Link
@@ -257,26 +306,27 @@ function Quiz({
                 setPicks([]);
                 setPicked(null);
               }}
-              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-primary-foreground"
+              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               style={{ background: "var(--gradient-hero)" }}
             >
-              Next: {next.title} <ArrowRight className="h-4 w-4" />
+              Next: {next.title} <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           ) : (
             <Link
               to="/badges"
-              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-primary-foreground"
+              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               style={{ background: "var(--gradient-hero)" }}
             >
-              See your badges <Trophy className="h-4 w-4" />
+              See your badges <Trophy className="h-4 w-4" aria-hidden="true" />
             </Link>
           )}
         </div>
         <button
+          type="button"
           onClick={onBackToLearn}
-          className="mt-4 text-sm text-muted-foreground hover:text-foreground"
+          className="mt-4 rounded-full text-sm text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
-          ← Back to lesson
+          <span aria-hidden="true">← </span>Back to lesson
         </button>
       </div>
     );
@@ -288,12 +338,26 @@ function Quiz({
   return (
     <div className="mt-10">
       <div className="flex items-center justify-between text-xs font-medium text-muted-foreground">
-        <span>Question {step + 1} of {total}</span>
-        <button onClick={onBackToLearn} className="hover:text-foreground">
+        <span>
+          Question {step + 1} of {total}
+        </span>
+        <button
+          type="button"
+          onClick={onBackToLearn}
+          className="rounded-full hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        >
           Review lesson
         </button>
       </div>
-      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-secondary">
+      <div
+        role="progressbar"
+        aria-label="Quiz progress"
+        aria-valuemin={0}
+        aria-valuemax={total}
+        aria-valuenow={step}
+        aria-valuetext={`Question ${step + 1} of ${total}`}
+        className="mt-2 h-1.5 overflow-hidden rounded-full bg-secondary"
+      >
         <div
           className="h-full rounded-full transition-all"
           style={{
@@ -303,53 +367,78 @@ function Quiz({
         />
       </div>
 
-      <h2 className="mt-8 text-2xl font-semibold tracking-tight">{q.q}</h2>
-      <div className="mt-6 space-y-2">
-        {q.options.map((opt, i) => {
-          const isPicked = picked === i;
-          const isAnswer = i === q.answer;
-          const reveal = picked !== null;
-          let cls = "border-border bg-card hover:border-primary/40";
-          if (reveal && isAnswer) cls = "border-success/60 bg-success/10";
-          else if (reveal && isPicked) cls = "border-destructive/60 bg-destructive/10";
-          return (
-            <button
-              key={opt}
-              disabled={picked !== null}
-              onClick={() => setPicked(i)}
-              className={`flex w-full items-center justify-between gap-4 rounded-2xl border px-5 py-4 text-left text-sm transition-all ${cls}`}
-            >
-              <span>{opt}</span>
-              {reveal && isAnswer && <Check className="h-4 w-4 text-success" />}
-              {reveal && isPicked && !isAnswer && <X className="h-4 w-4 text-destructive" />}
-            </button>
-          );
-        })}
+      <h2
+        ref={questionRef}
+        tabIndex={-1}
+        className="mt-8 text-2xl font-semibold tracking-tight focus-visible:outline-none"
+      >
+        {q.q}
+      </h2>
+      <fieldset className="mt-6 border-0 p-0" disabled={picked !== null}>
+        <legend className="sr-only">{q.q}</legend>
+        <div className="space-y-2">
+          {q.options.map((opt, i) => {
+            const isPicked = picked === i;
+            const isAnswer = i === q.answer;
+            const reveal = picked !== null;
+            let cls = "border-border bg-card hover:border-primary/40";
+            if (reveal && isAnswer) cls = "border-success/60 bg-success/10";
+            else if (reveal && isPicked) cls = "border-destructive/60 bg-destructive/10";
+            return (
+              <label
+                key={opt}
+                className={`flex w-full cursor-pointer items-center justify-between gap-4 rounded-2xl border px-5 py-4 text-left text-sm transition-all has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:focus-visible]:ring-offset-2 has-[:focus-visible]:ring-offset-background has-[:disabled]:cursor-default ${cls}`}
+              >
+                <span className="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name={`lesson-${lesson.id}-question-${step}`}
+                    value={i}
+                    checked={isPicked}
+                    onChange={() => setPicked(i)}
+                    className="h-4 w-4 shrink-0 accent-primary"
+                  />
+                  <span>{opt}</span>
+                </span>
+                {reveal && isAnswer && (
+                  <Check className="h-4 w-4 shrink-0 text-success" aria-hidden="true" />
+                )}
+                {reveal && isPicked && !isAnswer && (
+                  <X className="h-4 w-4 shrink-0 text-destructive" aria-hidden="true" />
+                )}
+              </label>
+            );
+          })}
+        </div>
+      </fieldset>
+
+      <div role="status" aria-live="polite" className="empty:hidden">
+        {picked !== null && (
+          <div
+            className={`mt-6 rounded-2xl border p-4 text-sm ${
+              correct ? "border-success/40 bg-success/5" : "border-destructive/40 bg-destructive/5"
+            }`}
+          >
+            <p className="font-medium">{correct ? "Correct!" : "Not quite."}</p>
+            <p className="mt-1 text-muted-foreground">{q.explain}</p>
+          </div>
+        )}
       </div>
 
-      {picked !== null && (
-        <div
-          className={`mt-6 rounded-2xl border p-4 text-sm ${
-            correct ? "border-success/40 bg-success/5" : "border-destructive/40 bg-destructive/5"
-          }`}
-        >
-          <p className="font-medium">{correct ? "Correct!" : "Not quite."}</p>
-          <p className="mt-1 text-muted-foreground">{q.explain}</p>
-        </div>
-      )}
-
       <button
+        ref={advanceRef}
+        type="button"
         disabled={picked === null}
         onClick={() => {
           setPicks((p) => [...p, picked!]);
           setPicked(null);
           setStep((s) => s + 1);
         }}
-        className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-4 font-medium text-primary-foreground transition-opacity disabled:opacity-40"
+        className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-4 font-medium text-primary-foreground transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-40"
         style={{ background: "var(--gradient-hero)", boxShadow: "var(--shadow-soft)" }}
       >
         {step + 1 === total ? "Finish quiz" : "Next question"}
-        <ArrowRight className="h-4 w-4" />
+        <ArrowRight className="h-4 w-4" aria-hidden="true" />
       </button>
     </div>
   );
