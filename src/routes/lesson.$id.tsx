@@ -338,12 +338,25 @@ function Quiz({
   return (
     <div className="mt-10">
       <div className="flex items-center justify-between text-xs font-medium text-muted-foreground">
-        <span>Question {step + 1} of {total}</span>
-        <button onClick={onBackToLearn} className="hover:text-foreground">
+        <span>
+          Question {step + 1} of {total}
+        </span>
+        <button
+          type="button"
+          onClick={onBackToLearn}
+          className="rounded-full hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        >
           Review lesson
         </button>
       </div>
-      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-secondary">
+      <div
+        role="progressbar"
+        aria-valuemin={0}
+        aria-valuemax={total}
+        aria-valuenow={step}
+        aria-valuetext={`Question ${step + 1} of ${total}`}
+        className="mt-2 h-1.5 overflow-hidden rounded-full bg-secondary"
+      >
         <div
           className="h-full rounded-full transition-all"
           style={{
@@ -353,53 +366,78 @@ function Quiz({
         />
       </div>
 
-      <h2 className="mt-8 text-2xl font-semibold tracking-tight">{q.q}</h2>
-      <div className="mt-6 space-y-2">
-        {q.options.map((opt, i) => {
-          const isPicked = picked === i;
-          const isAnswer = i === q.answer;
-          const reveal = picked !== null;
-          let cls = "border-border bg-card hover:border-primary/40";
-          if (reveal && isAnswer) cls = "border-success/60 bg-success/10";
-          else if (reveal && isPicked) cls = "border-destructive/60 bg-destructive/10";
-          return (
-            <button
-              key={opt}
-              disabled={picked !== null}
-              onClick={() => setPicked(i)}
-              className={`flex w-full items-center justify-between gap-4 rounded-2xl border px-5 py-4 text-left text-sm transition-all ${cls}`}
-            >
-              <span>{opt}</span>
-              {reveal && isAnswer && <Check className="h-4 w-4 text-success" />}
-              {reveal && isPicked && !isAnswer && <X className="h-4 w-4 text-destructive" />}
-            </button>
-          );
-        })}
+      <h2
+        ref={questionRef}
+        tabIndex={-1}
+        className="mt-8 text-2xl font-semibold tracking-tight focus-visible:outline-none"
+      >
+        {q.q}
+      </h2>
+      <fieldset className="mt-6 border-0 p-0" disabled={picked !== null}>
+        <legend className="sr-only">{q.q}</legend>
+        <div className="space-y-2">
+          {q.options.map((opt, i) => {
+            const isPicked = picked === i;
+            const isAnswer = i === q.answer;
+            const reveal = picked !== null;
+            let cls = "border-border bg-card hover:border-primary/40";
+            if (reveal && isAnswer) cls = "border-success/60 bg-success/10";
+            else if (reveal && isPicked) cls = "border-destructive/60 bg-destructive/10";
+            return (
+              <label
+                key={opt}
+                className={`flex w-full cursor-pointer items-center justify-between gap-4 rounded-2xl border px-5 py-4 text-left text-sm transition-all has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:focus-visible]:ring-offset-2 has-[:focus-visible]:ring-offset-background has-[:disabled]:cursor-default ${cls}`}
+              >
+                <span className="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name={`lesson-${lesson.id}-question-${step}`}
+                    value={i}
+                    checked={isPicked}
+                    onChange={() => setPicked(i)}
+                    className="h-4 w-4 shrink-0 accent-primary"
+                  />
+                  <span>{opt}</span>
+                </span>
+                {reveal && isAnswer && (
+                  <Check className="h-4 w-4 shrink-0 text-success" aria-hidden="true" />
+                )}
+                {reveal && isPicked && !isAnswer && (
+                  <X className="h-4 w-4 shrink-0 text-destructive" aria-hidden="true" />
+                )}
+              </label>
+            );
+          })}
+        </div>
+      </fieldset>
+
+      <div role="status" aria-live="polite" className="empty:hidden">
+        {picked !== null && (
+          <div
+            className={`mt-6 rounded-2xl border p-4 text-sm ${
+              correct ? "border-success/40 bg-success/5" : "border-destructive/40 bg-destructive/5"
+            }`}
+          >
+            <p className="font-medium">{correct ? "Correct!" : "Not quite."}</p>
+            <p className="mt-1 text-muted-foreground">{q.explain}</p>
+          </div>
+        )}
       </div>
 
-      {picked !== null && (
-        <div
-          className={`mt-6 rounded-2xl border p-4 text-sm ${
-            correct ? "border-success/40 bg-success/5" : "border-destructive/40 bg-destructive/5"
-          }`}
-        >
-          <p className="font-medium">{correct ? "Correct!" : "Not quite."}</p>
-          <p className="mt-1 text-muted-foreground">{q.explain}</p>
-        </div>
-      )}
-
       <button
+        ref={advanceRef}
+        type="button"
         disabled={picked === null}
         onClick={() => {
           setPicks((p) => [...p, picked!]);
           setPicked(null);
           setStep((s) => s + 1);
         }}
-        className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-4 font-medium text-primary-foreground transition-opacity disabled:opacity-40"
+        className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-4 font-medium text-primary-foreground transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-40"
         style={{ background: "var(--gradient-hero)", boxShadow: "var(--shadow-soft)" }}
       >
         {step + 1 === total ? "Finish quiz" : "Next question"}
-        <ArrowRight className="h-4 w-4" />
+        <ArrowRight className="h-4 w-4" aria-hidden="true" />
       </button>
     </div>
   );
