@@ -131,6 +131,9 @@ function RootComponent() {
               <Link to="/terms" className="transition-colors hover:text-foreground">
                 Terms of Service
               </Link>
+              <Link to="/accessibility" className="transition-colors hover:text-foreground">
+                Accessibility
+              </Link>
             </div>
           </div>
         </footer>
