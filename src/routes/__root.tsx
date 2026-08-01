@@ -83,19 +83,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "apple-mobile-web-app-status-bar-style", content: "default" },
       { name: "apple-mobile-web-app-title", content: "Hygi." },
       { name: "google-site-verification", content: "eULKPktRfXUW4MMdhEeLPtY8Ur6qbF22CeTobbcIUyo" },
-      { title: "Hygi — Learn Digital Hygiene" },
-
-      { name: "description", content: "Bite-sized lessons and pop quizzes on digital hygiene. Earn a badge for every topic you master." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Hygi — Learn Digital Hygiene" },
-      { property: "og:description", content: "Bite-sized lessons and pop quizzes on digital hygiene. Earn a badge for every topic you master." },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Hygi." },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Hygi — Learn Digital Hygiene" },
-      { name: "twitter:description", content: "Bite-sized lessons and pop quizzes on digital hygiene. Earn a badge for every topic you master." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/87cf0ff7-cc52-415f-b7ba-f9cf8a6fd547" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/87cf0ff7-cc52-415f-b7ba-f9cf8a6fd547" },
     ],
     links: [
       {
