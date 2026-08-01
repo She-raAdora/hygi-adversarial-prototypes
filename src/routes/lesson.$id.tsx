@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound, useRouter } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, RotateCcw, Trophy, X } from "lucide-react";
 import { getLesson, lessons, type Lesson } from "@/lib/lessons";
 import { awardBadge, useProgress } from "@/lib/progress";
@@ -27,11 +27,12 @@ export const Route = createFileRoute("/lesson/$id")({
         <h1 className="text-2xl font-semibold">Couldn't load this lesson</h1>
         <p className="mt-2 text-muted-foreground">{error.message}</p>
         <button
+          type="button"
           onClick={() => {
             router.invalidate();
             reset();
           }}
-          className="mt-6 rounded-full bg-primary px-5 py-2 text-sm text-primary-foreground"
+          className="mt-6 rounded-full bg-primary px-5 py-2 text-sm text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           Try again
         </button>
@@ -67,14 +68,16 @@ function LessonPage() {
     <main className="mx-auto max-w-2xl px-6 py-12">
       <Link
         to="/lessons"
-        className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+        className="inline-flex items-center gap-1 rounded-full text-sm text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
-        <ArrowLeft className="h-4 w-4" /> All lessons
+        <ArrowLeft className="h-4 w-4" aria-hidden="true" /> All lessons
       </Link>
 
       <header className="mt-6">
         <div className="flex items-center gap-3">
-          <span className="text-4xl">{lesson.emoji}</span>
+          <span className="text-4xl" aria-hidden="true">
+            {lesson.emoji}
+          </span>
           <span className="text-xs font-medium uppercase tracking-wider text-primary">
             Lesson {idx + 1}
           </span>
@@ -96,7 +99,7 @@ function LessonPage() {
                     key={t}
                     className="flex items-start gap-3 rounded-xl border border-border bg-card px-4 py-3 text-sm"
                   >
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" />
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" aria-hidden="true" />
                     <span>{t}</span>
                   </li>
                 ))}
@@ -105,26 +108,35 @@ function LessonPage() {
           ))}
 
           <button
+            type="button"
             onClick={() => setMode("quiz")}
-            className="group inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-4 font-medium text-primary-foreground transition-transform hover:-translate-y-0.5"
+            className="group inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-4 font-medium text-primary-foreground transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             style={{ background: "var(--gradient-hero)", boxShadow: "var(--shadow-soft)" }}
           >
-            Take the pop quiz
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            Take the pop quiz for {lesson.title}
+            <ArrowRight
+              className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
           </button>
 
-          <nav className="flex items-center justify-between gap-3 border-t border-border pt-6">
+          <nav
+            aria-label="Lesson navigation"
+            className="flex items-center justify-between gap-3 border-t border-border pt-6"
+          >
             {prev ? (
               <Link
                 to="/lesson/$id"
                 params={{ id: prev.id }}
-                className="group inline-flex max-w-[48%] flex-col rounded-2xl border border-border bg-card px-4 py-3 text-left text-sm hover:border-primary/40"
+                aria-label={`Previous lesson: ${prev.title}`}
+                className="group inline-flex max-w-[48%] flex-col rounded-2xl border border-border bg-card px-4 py-3 text-left text-sm hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                  <ArrowLeft className="h-3 w-3" /> Previous
+                  <ArrowLeft className="h-3 w-3" aria-hidden="true" /> Previous
                 </span>
                 <span className="mt-1 font-medium">
-                  {prev.emoji} {prev.title}
+                  <span aria-hidden="true">{prev.emoji} </span>
+                  {prev.title}
                 </span>
               </Link>
             ) : (
@@ -134,13 +146,15 @@ function LessonPage() {
               <Link
                 to="/lesson/$id"
                 params={{ id: next.id }}
-                className="group inline-flex max-w-[48%] flex-col rounded-2xl border border-border bg-card px-4 py-3 text-right text-sm hover:border-primary/40"
+                aria-label={`Next lesson: ${next.title}`}
+                className="group inline-flex max-w-[48%] flex-col rounded-2xl border border-border bg-card px-4 py-3 text-right text-sm hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 <span className="flex items-center justify-end gap-1 text-xs text-muted-foreground">
-                  Next <ArrowRight className="h-3 w-3" />
+                  Next <ArrowRight className="h-3 w-3" aria-hidden="true" />
                 </span>
                 <span className="mt-1 font-medium">
-                  {next.emoji} {next.title}
+                  <span aria-hidden="true">{next.emoji} </span>
+                  {next.title}
                 </span>
               </Link>
             ) : (
