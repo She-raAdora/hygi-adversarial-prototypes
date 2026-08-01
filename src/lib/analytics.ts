@@ -6,6 +6,8 @@
  * answers, or other personal data are ever included in an event payload.
  */
 
+import { logEvent } from "./eventLog";
+
 declare global {
   interface Window {
     dataLayer?: unknown[];
@@ -40,6 +42,9 @@ export function initAnalytics() {
 }
 
 export function trackEvent(name: string, params: Record<string, unknown> = {}) {
+  // Always mirror to the device-local log so the in-app dashboard works even
+  // when GA is unconfigured or blocked by the browser.
+  logEvent(name, params);
   if (!MEASUREMENT_ID) return;
   gtag("event", name, params);
 }

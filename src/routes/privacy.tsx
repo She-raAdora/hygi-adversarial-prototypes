@@ -8,13 +8,13 @@ export const Route = createFileRoute("/privacy")({
       {
         name: "description",
         content:
-          "How Hygi. handles your data: no accounts, no tracking, no analytics. Lesson progress and badges stay on your own device.",
+          "How Hygi. handles your data: no accounts and no personal data. Progress and badges stay on your device; usage is measured anonymously.",
       },
       { property: "og:title", content: "Privacy Policy — Hygi." },
       {
         property: "og:description",
         content:
-          "Hygi. collects no personal data. Progress and badges are stored locally on your device and never leave it.",
+          "Hygi. collects no personal data. Progress and badges are stored locally on your device.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -66,6 +66,13 @@ function PrivacyPage() {
           your quiz scores, and which badges and the final trophy you have earned. This is written
           to your device's local storage on your device. It is not transmitted to us, it is not
           linked to your identity, and we cannot read it.
+        </p>
+        <p>
+          Hygi. also keeps a copy of its own anonymous usage events (quiz starts and completions,
+          badge milestones, and home-screen install signals) in that same on-device storage so the
+          in-app <strong className="font-medium text-foreground">Insights</strong> dashboard can show
+          you your activity. That log stays on your device, and the "Clear this device's data" button
+          on the Insights page erases it.
         </p>
         <p>
           Separately, we collect anonymous product analytics so we can tell whether the lessons are
