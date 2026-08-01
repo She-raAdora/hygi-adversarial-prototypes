@@ -82,6 +82,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "default" },
       { name: "apple-mobile-web-app-title", content: "Hygi." },
+      { name: "google-site-verification", content: "eULKPktRfXUW4MMdhEeLPtY8Ur6qbF22CeTobbcIUyo" },
       { title: "Hygi — Learn Digital Hygiene" },
 
       { name: "description", content: "Bite-sized lessons and pop quizzes on digital hygiene. Earn a badge for every topic you master." },
