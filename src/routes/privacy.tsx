@@ -84,10 +84,11 @@ function PrivacyPage() {
 
       <Section icon={<Server className="h-4 w-4" />} title="Third parties and tracking">
         <p>
-          Hygi. contains no advertising SDKs, no social login, and no cross-app or cross-site
-          tracking, and we do not sell data or build advertising profiles. We do use one analytics
-          provider, Google Analytics 4, which sets its own cookies or local identifiers to count
-          returning visits in aggregate. Google's handling of that data is governed by the{" "}
+          Hygi. contains no advertising SDKs and no cross-app or cross-site tracking, and we do not
+          sell data or build advertising profiles. We use one analytics provider, Google Analytics
+          4, and it only loads after you tap "Allow analytics" — until then nothing is sent and no
+          analytics cookies or identifiers are set. Once enabled it counts returning visits in
+          aggregate; Google's handling of that data is governed by the{" "}
           <a
             href="https://policies.google.com/privacy"
             target="_blank"
@@ -96,8 +97,16 @@ function PrivacyPage() {
           >
             Google Privacy Policy
           </a>
-          . You can opt out entirely by enabling your browser's "Do Not Track" / tracking
-          protection, using a content blocker, or installing Google's opt-out browser add-on.
+          . You can turn analytics back off at any time from the{" "}
+          <Link to="/support" className="text-primary hover:underline">
+            Support page
+          </Link>
+          , or block it with your browser's tracking protection or a content blocker.
+        </p>
+        <p>
+          Sign-in with Apple or Google is offered only to staff who need the admin and Insights
+          pages. It is never required to read lessons, take quizzes, or earn badges, and we receive
+          nothing from those providers beyond the email address tied to the account.
         </p>
         <p>
           Lesson pages link out to public cybersecurity guides published by Dartmouth, Caltech,
@@ -112,8 +121,17 @@ function PrivacyPage() {
         <p>
           Because your progress lives only on your device, you are always in control. You can
           erase everything at any time by clearing site data for Hygi. in your browser or device
-          settings, or by deleting the app from your home screen. Nothing about you remains with
-          us, because nothing about you was ever sent to us.
+          settings, using "Reset progress" on the{" "}
+          <Link to="/support" className="text-primary hover:underline">
+            Support page
+          </Link>
+          , or by deleting the app from your home screen.
+        </p>
+        <p>
+          If you hold a staff account, you can permanently delete it — along with your email
+          preferences and any admin role — from Account settings inside the app. Deletion is
+          immediate and cannot be undone. You can also email builtstrong1@outlook.com to request
+          deletion.
         </p>
       </Section>
 
