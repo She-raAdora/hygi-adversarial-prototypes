@@ -162,7 +162,7 @@ function PrivacyPage() {
 const disclosures: { q: string; a: string }[] = [
   {
     q: "Data used to track you",
-    a: "None. Hygi. does not track users across apps or websites and includes no advertising or attribution SDKs.",
+    a: "None. Hygi. does not track users across apps or websites and includes no advertising or attribution SDKs. Analytics data is not shared with data brokers or used for advertising.",
   },
   {
     q: "Data linked to you",
@@ -170,7 +170,7 @@ const disclosures: { q: string; a: string }[] = [
   },
   {
     q: "Data not linked to you",
-    a: "None collected by us. Lesson progress and quiz results stay in on-device storage and are never transmitted off the device.",
+    a: "Product interaction and diagnostic-free usage data: page views, quiz starts/completions with score, badge and trophy milestones, and home-screen install events. Collected anonymously via Google Analytics and not linked to any identity. Your saved progress and badges remain in on-device storage only.",
   },
   {
     q: "Contact info, identifiers, location, health, financials, contacts, photos, browsing history",
@@ -178,7 +178,7 @@ const disclosures: { q: string; a: string }[] = [
   },
   {
     q: "Usage data / diagnostics / crash data",
-    a: "Not collected. No analytics or crash-reporting SDK is present.",
+    a: "Product interaction (usage) data is collected anonymously for analytics. No crash-reporting SDK is present and no other diagnostics are collected.",
   },
   {
     q: "Data encryption in transit",
@@ -186,7 +186,7 @@ const disclosures: { q: string; a: string }[] = [
   },
   {
     q: "Data deletion request method",
-    a: "Not applicable — no server-side data exists. Users delete all app data by clearing site data or removing the app.",
+    a: "Users delete on-device data by clearing site data or removing the app. Anonymous analytics events cannot be tied to an individual, so there is no personal record to delete; requests can still be sent to builtstrong1@outlook.com.",
   },
   {
     q: "Account creation, third-party login, ads, in-app purchases, user-generated content",
