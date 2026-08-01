@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as SupportRouteImport } from './routes/support'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as LessonsRouteImport } from './routes/lessons'
 import { Route as BadgesRouteImport } from './routes/badges'
@@ -25,6 +26,11 @@ import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/badges': typeof BadgesRoute
   '/lessons': typeof LessonsRoute
   '/privacy': typeof PrivacyRoute
+  '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/insights': typeof AuthenticatedInsightsRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/badges': typeof BadgesRoute
   '/lessons': typeof LessonsRoute
   '/privacy': typeof PrivacyRoute
+  '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/insights': typeof AuthenticatedInsightsRoute
@@ -117,6 +125,7 @@ export interface FileRoutesById {
   '/badges': typeof BadgesRoute
   '/lessons': typeof LessonsRoute
   '/privacy': typeof PrivacyRoute
+  '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/insights': typeof AuthenticatedInsightsRoute
@@ -132,6 +141,7 @@ export interface FileRouteTypes {
     | '/badges'
     | '/lessons'
     | '/privacy'
+    | '/support'
     | '/terms'
     | '/admin'
     | '/insights'
@@ -145,6 +155,7 @@ export interface FileRouteTypes {
     | '/badges'
     | '/lessons'
     | '/privacy'
+    | '/support'
     | '/terms'
     | '/admin'
     | '/insights'
@@ -159,6 +170,7 @@ export interface FileRouteTypes {
     | '/badges'
     | '/lessons'
     | '/privacy'
+    | '/support'
     | '/terms'
     | '/_authenticated/admin'
     | '/_authenticated/insights'
@@ -174,6 +186,7 @@ export interface RootRouteChildren {
   BadgesRoute: typeof BadgesRoute
   LessonsRoute: typeof LessonsRoute
   PrivacyRoute: typeof PrivacyRoute
+  SupportRoute: typeof SupportRoute
   TermsRoute: typeof TermsRoute
   LessonIdRoute: typeof LessonIdRoute
 }
@@ -185,6 +198,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -290,6 +310,7 @@ const rootRouteChildren: RootRouteChildren = {
   BadgesRoute: BadgesRoute,
   LessonsRoute: LessonsRoute,
   PrivacyRoute: PrivacyRoute,
+  SupportRoute: SupportRoute,
   TermsRoute: TermsRoute,
   LessonIdRoute: LessonIdRoute,
 }

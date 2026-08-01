@@ -187,6 +187,9 @@ function RootComponent() {
               <Link to="/settings" className="transition-colors hover:text-foreground">
                 Email settings
               </Link>
+              <Link to="/support" className="transition-colors hover:text-foreground">
+                Support
+              </Link>
               <Link to="/privacy" className="transition-colors hover:text-foreground">
                 Privacy Policy
               </Link>
@@ -199,6 +202,7 @@ function RootComponent() {
             </div>
           </div>
         </footer>
+        <ConsentBanner />
       </div>
     </QueryClientProvider>
   );
