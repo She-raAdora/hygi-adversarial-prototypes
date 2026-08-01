@@ -5,8 +5,10 @@ import {
   summarizeByDay,
   summarizeByLesson,
   summarizeInstalls,
+  summarizeLessonTrends,
   useEventLog,
 } from "@/lib/eventLog";
+import type { LessonTrend } from "@/lib/eventLog";
 
 export const Route = createFileRoute("/insights")({
   head: () => ({
@@ -84,11 +86,129 @@ function formatDay(day: string) {
     : d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
 }
 
+function shortDay(day: string) {
+  const d = new Date(`${day}T00:00:00`);
+  return Number.isNaN(d.getTime())
+    ? day
+    : d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+}
+
+function Delta({ value, label }: { value: number | null; label: string }) {
+  if (value === null) return null;
+  const dir = value > 0 ? "up" : value < 0 ? "down" : "flat";
+  const tone =
+    dir === "up" ? "text-primary" : dir === "down" ? "text-destructive" : "text-muted-foreground";
+  const arrow = dir === "up" ? "▲" : dir === "down" ? "▼" : "→";
+  return (
+    <span className={`text-xs font-medium tabular-nums ${tone}`}>
+      <span aria-hidden="true">{arrow}</span>{" "}
+      {value > 0 ? "+" : ""}
+      {value} pts {label}
+      <span className="sr-only">
+        {dir === "up" ? " increase" : dir === "down" ? " decrease" : " no change"} since the first
+        recorded day
+      </span>
+    </span>
+  );
+}
+
+/** Grouped day-over-day bars: pass rate and average score per lesson. */
+function TrendChart({ trend }: { trend: LessonTrend }) {
+  return (
+    <ol className="mt-4 flex items-end gap-3 overflow-x-auto pb-1">
+      {trend.points.map((p) => (
+        <li key={p.day} className="flex min-w-14 flex-1 flex-col items-center gap-2">
+          <div className="flex h-28 items-end gap-1" aria-hidden="true">
+            <div
+              className="w-3.5 rounded-t bg-primary"
+              style={{ height: `${Math.max(p.passRate ?? 0, 2)}%` }}
+            />
+            <div
+              className="w-3.5 rounded-t bg-primary/35"
+              style={{ height: `${Math.max(p.avgPercent ?? 0, 2)}%` }}
+            />
+          </div>
+          <p className="text-center text-[0.65rem] leading-tight text-muted-foreground">
+            <span className="block whitespace-nowrap font-medium text-foreground">
+              {shortDay(p.day)}
+            </span>
+            <span className="tabular-nums">
+              {p.passRate === null ? "—" : `${p.passRate}%`} pass
+            </span>
+            <span className="block tabular-nums">
+              {p.avgPercent === null ? "—" : `${p.avgPercent}%`} avg
+            </span>
+            <span className="block tabular-nums">
+              {p.attempts} {p.attempts === 1 ? "attempt" : "attempts"}
+            </span>
+          </p>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+function LessonTrendCard({ trend }: { trend: LessonTrend }) {
+  const headingId = `trend-${trend.lessonId}`;
+  return (
+    <li className="rounded-2xl border border-border/60 bg-card p-6">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <h3 id={headingId} className="text-base font-semibold text-foreground">
+          {trend.lessonTitle}
+        </h3>
+        <p className="text-sm tabular-nums text-muted-foreground">
+          {trend.passRate === null ? "—" : `${trend.passRate}%`} pass rate ·{" "}
+          {trend.avgPercent === null ? "—" : `${trend.avgPercent}%`} avg score · {trend.attempts}{" "}
+          {trend.attempts === 1 ? "attempt" : "attempts"}
+        </p>
+      </div>
+
+      <div className="mt-1 flex flex-wrap gap-x-4">
+        <Delta value={trend.passRateDelta} label="pass rate" />
+        <Delta value={trend.avgPercentDelta} label="avg score" />
+      </div>
+
+      {trend.points.length < 2 ? (
+        <p className="mt-3 text-xs text-muted-foreground">
+          Only one day of attempts so far — retake this quiz on another day to see a trend.
+        </p>
+      ) : null}
+
+      <TrendChart trend={trend} />
+
+      <table className="sr-only">
+        <caption>
+          {trend.lessonTitle}: pass rate, average percent correct and attempts by day
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Day</th>
+            <th scope="col">Attempts</th>
+            <th scope="col">Pass rate</th>
+            <th scope="col">Average percent correct</th>
+          </tr>
+        </thead>
+        <tbody>
+          {trend.points.map((p) => (
+            <tr key={p.day}>
+              <th scope="row">{formatDay(p.day)}</th>
+              <td>{p.attempts}</td>
+              <td>{p.passRate === null ? "not available" : `${p.passRate}%`}</td>
+              <td>{p.avgPercent === null ? "not available" : `${p.avgPercent}%`}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </li>
+  );
+}
+
 function InsightsPage() {
   const events = useEventLog();
   const installs = summarizeInstalls(events);
   const days = summarizeByDay(events);
   const byLesson = summarizeByLesson(events);
+  const trends = summarizeLessonTrends(events);
 
   const totalStarts = byLesson.reduce((a, r) => a + r.starts, 0);
   const totalCompletions = byLesson.reduce((a, r) => a + r.completions, 0);
