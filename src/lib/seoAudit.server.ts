@@ -9,6 +9,7 @@
  */
 
 export interface SeoCheck {
+  [key: string]: string;
   id: string;
   label: string;
   status: "passing" | "failing";
