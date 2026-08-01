@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Check, Download, Loader2, Share2 } from "lucide-react";
-import { downloadResultCard, shareResultCard, type ShareCard } from "@/lib/shareCard";
+import {
+  downloadResultCard,
+  shareResultCard,
+  SHARE_FORMATS,
+  type ShareCard,
+  type ShareFormat,
+} from "@/lib/shareCard";
 
 type Props = {
   card: ShareCard;
@@ -23,6 +29,8 @@ export function ShareResultButton({
   const [state, setState] = useState<
     "idle" | "busy" | "downloading" | "shared" | "saved" | "opened" | "error"
   >("idle");
+  const [format, setFormat] = useState<ShareFormat>("landscape");
+  const active = SHARE_FORMATS.find((f) => f.id === format)!;
 
   const base =
     "inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-70";
@@ -34,7 +42,7 @@ export function ShareResultButton({
   async function onShare() {
     setState("busy");
     try {
-      const outcome = await shareResultCard(card, text);
+      const outcome = await shareResultCard(card, text, format);
       setState(outcome === "downloaded" ? "saved" : "idle");
     } catch {
       setState("error");
@@ -45,7 +53,7 @@ export function ShareResultButton({
   async function onDownload() {
     setState("downloading");
     try {
-      const outcome = await downloadResultCard(card);
+      const outcome = await downloadResultCard(card, format);
       setState(outcome === "opened" ? "opened" : "saved");
       setTimeout(() => setState("idle"), 6000);
     } catch {
@@ -64,6 +72,30 @@ export function ShareResultButton({
 
   return (
     <span className={`inline-flex flex-col items-center gap-2 ${className}`}>
+      <span
+        className="inline-flex flex-wrap items-center justify-center gap-1 rounded-full border border-border bg-background p-1"
+        role="radiogroup"
+        aria-label="Image format"
+      >
+        {SHARE_FORMATS.map((f) => (
+          <button
+            key={f.id}
+            type="button"
+            role="radio"
+            aria-checked={format === f.id}
+            onClick={() => setFormat(f.id)}
+            className={`rounded-full px-3 py-1.5 text-xs font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+              format === f.id
+                ? "bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:bg-secondary"
+            }`}
+          >
+            {f.label}
+            <span className="sr-only"> — {f.hint}</span>
+          </button>
+        ))}
+      </span>
+      <span className="text-xs text-muted-foreground">{active.hint}</span>
       <span className="inline-flex flex-wrap items-center justify-center gap-2">
         <button
           type="button"
