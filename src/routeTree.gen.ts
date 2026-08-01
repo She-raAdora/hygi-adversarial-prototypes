@@ -14,6 +14,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as LessonsRouteImport } from './routes/lessons'
 import { Route as BadgesRouteImport } from './routes/badges'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LessonIdRouteImport } from './routes/lesson.$id'
 import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
@@ -43,6 +44,10 @@ const AccessibilityRoute = AccessibilityRouteImport.update({
   path: '/accessibility',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -54,9 +59,9 @@ const LessonIdRoute = LessonIdRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedInsightsRoute = AuthenticatedInsightsRouteImport.update({
-  id: '/_authenticated/insights',
+  id: '/insights',
   path: '/insights',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -82,6 +87,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/accessibility': typeof AccessibilityRoute
   '/badges': typeof BadgesRoute
   '/lessons': typeof LessonsRoute
@@ -114,6 +120,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/accessibility'
     | '/badges'
     | '/lessons'
@@ -125,12 +132,12 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AccessibilityRoute: typeof AccessibilityRoute
   BadgesRoute: typeof BadgesRoute
   LessonsRoute: typeof LessonsRoute
   PrivacyRoute: typeof PrivacyRoute
   TermsRoute: typeof TermsRoute
-  AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
   LessonIdRoute: typeof LessonIdRoute
 }
 
@@ -171,6 +178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AccessibilityRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -190,19 +204,30 @@ declare module '@tanstack/react-router' {
       path: '/insights'
       fullPath: '/insights'
       preLoaderRoute: typeof AuthenticatedInsightsRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AccessibilityRoute: AccessibilityRoute,
   BadgesRoute: BadgesRoute,
   LessonsRoute: LessonsRoute,
   PrivacyRoute: PrivacyRoute,
   TermsRoute: TermsRoute,
-  AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
   LessonIdRoute: LessonIdRoute,
 }
 export const routeTree = rootRouteImport
