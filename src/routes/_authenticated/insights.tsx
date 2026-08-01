@@ -3,6 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 
 import { getMyAccess } from "@/lib/access.functions";
+import { SeoHealthPanel } from "@/components/SeoHealthPanel";
 import { supabase } from "@/integrations/supabase/client";
 import {
   clearEventLog,
@@ -488,6 +489,8 @@ function InsightsPage({ email, onSignOut }: { email: string | null; onSignOut: (
           </ul>
         )}
       </section>
+
+      <SeoHealthPanel />
 
       {events.length > 0 ? (
         <div className="mt-12">
