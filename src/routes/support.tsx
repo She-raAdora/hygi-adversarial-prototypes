@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 import { readConsent, writeConsent, type ConsentState } from "@/lib/consent";
+import { ContactRequestForm } from "@/components/ContactRequestForm";
 
 export const Route = createFileRoute("/support")({
   head: () => ({
