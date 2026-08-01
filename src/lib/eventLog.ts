@@ -163,3 +163,111 @@ export function summarizeInstalls(events: LoggedEvent[]): InstallFunnel {
     standaloneLaunches: count((e) => e.n === "app_launch" && e.p["display_mode"] === "standalone"),
   };
 }
+
+/* ------------------------------------------------------------------ trends */
+
+/** One day of quiz activity for a single lesson. */
+export type TrendPoint = {
+  day: string;
+  /** Quizzes finished that day (an attempt = one completed quiz). */
+  attempts: number;
+  passes: number;
+  /** Pass rate 0-100, null when there were no attempts. */
+  passRate: number | null;
+  /** Mean percent correct across that day's attempts, null when unknown. */
+  avgPercent: number | null;
+};
+
+export type LessonTrend = {
+  lessonId: string;
+  lessonTitle: string;
+  attempts: number;
+  passes: number;
+  passRate: number | null;
+  avgPercent: number | null;
+  /** Oldest day first, so the series reads left to right. */
+  points: TrendPoint[];
+  /** Change in pass rate between the first and last day with attempts. */
+  passRateDelta: number | null;
+  /** Change in average percent correct between the first and last day. */
+  avgPercentDelta: number | null;
+};
+
+/**
+ * Per-lesson pass rate and average score, bucketed by day, from quiz_complete
+ * events. Only completed quizzes count as attempts.
+ */
+export function summarizeLessonTrends(events: LoggedEvent[]): LessonTrend[] {
+  type Acc = { attempts: number; passes: number; pctSum: number; pctCount: number };
+  const lessons = new Map<string, { title: string; days: Map<string, Acc> }>();
+
+  for (const e of events) {
+    if (e.n !== "quiz_complete") continue;
+    const lessonId = str(e.p["lesson_id"]);
+    const day = e.t.slice(0, 10);
+    if (!lessonId || !day) continue;
+
+    const lesson = lessons.get(lessonId) ?? { title: str(e.p["lesson_title"], lessonId), days: new Map() };
+    if (str(e.p["lesson_title"])) lesson.title = str(e.p["lesson_title"]);
+
+    const acc = lesson.days.get(day) ?? { attempts: 0, passes: 0, pctSum: 0, pctCount: 0 };
+    acc.attempts += 1;
+    if (e.p["passed"] === true) acc.passes += 1;
+    const pct = num(e.p["percent_correct"]);
+    if (pct !== null) {
+      acc.pctSum += pct;
+      acc.pctCount += 1;
+    }
+    lesson.days.set(day, acc);
+    lessons.set(lessonId, lesson);
+  }
+
+  const rate = (passes: number, attempts: number) =>
+    attempts ? Math.round((passes / attempts) * 100) : null;
+
+  return [...lessons.entries()]
+    .map(([lessonId, lesson]) => {
+      const points: TrendPoint[] = [...lesson.days.entries()]
+        .sort((a, b) => (a[0] < b[0] ? -1 : 1))
+        .map(([day, a]) => ({
+          day,
+          attempts: a.attempts,
+          passes: a.passes,
+          passRate: rate(a.passes, a.attempts),
+          avgPercent: a.pctCount ? Math.round(a.pctSum / a.pctCount) : null,
+        }));
+
+      const attempts = points.reduce((n, p) => n + p.attempts, 0);
+      const passes = points.reduce((n, p) => n + p.passes, 0);
+      const pctPoints = points.filter((p) => p.avgPercent !== null);
+      const avgPercent = pctPoints.length
+        ? Math.round(
+            pctPoints.reduce((n, p) => n + (p.avgPercent as number) * p.attempts, 0) /
+              pctPoints.reduce((n, p) => n + p.attempts, 0),
+          )
+        : null;
+
+      const first = points[0];
+      const last = points[points.length - 1];
+      const spansDays = points.length > 1 && first !== undefined && last !== undefined;
+
+      return {
+        lessonId,
+        lessonTitle: lesson.title,
+        attempts,
+        passes,
+        passRate: rate(passes, attempts),
+        avgPercent,
+        points,
+        passRateDelta:
+          spansDays && first.passRate !== null && last.passRate !== null
+            ? last.passRate - first.passRate
+            : null,
+        avgPercentDelta:
+          spansDays && first.avgPercent !== null && last.avgPercent !== null
+            ? last.avgPercent - first.avgPercent
+            : null,
+      } satisfies LessonTrend;
+    })
+    .sort((a, b) => b.attempts - a.attempts || a.lessonTitle.localeCompare(b.lessonTitle));
+}
