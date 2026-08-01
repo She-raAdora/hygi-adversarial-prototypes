@@ -191,6 +191,9 @@ function RootComponent() {
               <Link to="/support" className="transition-colors hover:text-foreground">
                 Support
               </Link>
+              <Link to="/delete-account" className="transition-colors hover:text-foreground">
+                Delete account
+              </Link>
               <Link to="/privacy" className="transition-colors hover:text-foreground">
                 Privacy Policy
               </Link>
