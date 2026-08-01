@@ -25,6 +25,7 @@ import { Route as LessonIdRouteImport } from './routes/lesson.$id'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as ApiPublicHooksSeoScanRouteImport } from './routes/api/public/hooks/seo-scan'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -105,6 +106,11 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const ApiPublicHooksSeoScanRoute = ApiPublicHooksSeoScanRouteImport.update({
+  id: '/api/public/hooks/seo-scan',
+  path: '/api/public/hooks/seo-scan',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -122,6 +128,7 @@ export interface FileRoutesByFullPath {
   '/insights': typeof AuthenticatedInsightsRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/lesson/$id': typeof LessonIdRoute
+  '/api/public/hooks/seo-scan': typeof ApiPublicHooksSeoScanRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -139,6 +146,7 @@ export interface FileRoutesByTo {
   '/insights': typeof AuthenticatedInsightsRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/lesson/$id': typeof LessonIdRoute
+  '/api/public/hooks/seo-scan': typeof ApiPublicHooksSeoScanRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -158,6 +166,7 @@ export interface FileRoutesById {
   '/_authenticated/insights': typeof AuthenticatedInsightsRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/lesson/$id': typeof LessonIdRoute
+  '/api/public/hooks/seo-scan': typeof ApiPublicHooksSeoScanRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -177,6 +186,7 @@ export interface FileRouteTypes {
     | '/insights'
     | '/settings'
     | '/lesson/$id'
+    | '/api/public/hooks/seo-scan'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -194,6 +204,7 @@ export interface FileRouteTypes {
     | '/insights'
     | '/settings'
     | '/lesson/$id'
+    | '/api/public/hooks/seo-scan'
   id:
     | '__root__'
     | '/'
@@ -212,6 +223,7 @@ export interface FileRouteTypes {
     | '/_authenticated/insights'
     | '/_authenticated/settings'
     | '/lesson/$id'
+    | '/api/public/hooks/seo-scan'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -228,6 +240,7 @@ export interface RootRouteChildren {
   SupportRoute: typeof SupportRoute
   TermsRoute: typeof TermsRoute
   LessonIdRoute: typeof LessonIdRoute
+  ApiPublicHooksSeoScanRoute: typeof ApiPublicHooksSeoScanRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -344,6 +357,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/public/hooks/seo-scan': {
+      id: '/api/public/hooks/seo-scan'
+      path: '/api/public/hooks/seo-scan'
+      fullPath: '/api/public/hooks/seo-scan'
+      preLoaderRoute: typeof ApiPublicHooksSeoScanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -376,6 +396,7 @@ const rootRouteChildren: RootRouteChildren = {
   SupportRoute: SupportRoute,
   TermsRoute: TermsRoute,
   LessonIdRoute: LessonIdRoute,
+  ApiPublicHooksSeoScanRoute: ApiPublicHooksSeoScanRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
