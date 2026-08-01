@@ -115,9 +115,9 @@ function Delta({ value, label }: { value: number | null; label: string }) {
 /** Grouped day-over-day bars: pass rate and average score per lesson. */
 function TrendChart({ trend }: { trend: LessonTrend }) {
   return (
-    <ol className="mt-4 flex items-end gap-3 overflow-x-auto pb-1">
+    <ol className="mt-4 flex items-end justify-start gap-5 overflow-x-auto pb-1">
       {trend.points.map((p) => (
-        <li key={p.day} className="flex min-w-14 flex-1 flex-col items-center gap-2">
+        <li key={p.day} className="flex w-16 shrink-0 flex-col items-center gap-2">
           <div className="flex h-28 items-end gap-1" aria-hidden="true">
             <div
               className="w-3.5 rounded-t bg-primary"
