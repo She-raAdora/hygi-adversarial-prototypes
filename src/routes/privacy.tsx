@@ -191,19 +191,19 @@ const disclosures: { q: string; a: string }[] = [
   },
   {
     q: "Data linked to you",
-    a: "None. There are no accounts or identifiers, so no data can be linked to a person.",
+    a: "Email address, and only for optional staff accounts used to reach the admin and Insights pages. Learners never need an account, and no learning activity is linked to an identity. Staff can delete their account and email in-app at any time.",
   },
   {
     q: "Data not linked to you",
-    a: "Product interaction and diagnostic-free usage data: page views, quiz starts/completions with score, badge and trophy milestones, and home-screen install events. Collected anonymously via Google Analytics and not linked to any identity. Your saved progress and badges remain in on-device storage only.",
+    a: "Product interaction and diagnostic-free usage data: page views, quiz starts/completions with score, badge and trophy milestones, and home-screen install events. Collected anonymously via Google Analytics only after the user opts in, and not linked to any identity. Your saved progress and badges remain in on-device storage only.",
   },
   {
     q: "Contact info, identifiers, location, health, financials, contacts, photos, browsing history",
-    a: "Not collected.",
+    a: "Only an email address for optional staff sign-in (Apple, Google, or email/password). No location, health, financial, contacts, photo, or browsing-history data is collected.",
   },
   {
     q: "Usage data / diagnostics / crash data",
-    a: "Product interaction (usage) data is collected anonymously for analytics. No crash-reporting SDK is present and no other diagnostics are collected.",
+    a: "Product interaction (usage) data is collected anonymously for analytics, only with consent. No crash-reporting SDK is present and no other diagnostics are collected.",
   },
   {
     q: "Data encryption in transit",
