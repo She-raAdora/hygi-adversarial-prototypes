@@ -13,6 +13,7 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as LessonsRouteImport } from './routes/lessons'
+import { Route as DeleteAccountRouteImport } from './routes/delete-account'
 import { Route as BadgesRouteImport } from './routes/badges'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
@@ -41,6 +42,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const LessonsRoute = LessonsRouteImport.update({
   id: '/lessons',
   path: '/lessons',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeleteAccountRoute = DeleteAccountRouteImport.update({
+  id: '/delete-account',
+  path: '/delete-account',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BadgesRoute = BadgesRouteImport.update({
@@ -93,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/accessibility': typeof AccessibilityRoute
   '/auth': typeof AuthRoute
   '/badges': typeof BadgesRoute
+  '/delete-account': typeof DeleteAccountRoute
   '/lessons': typeof LessonsRoute
   '/privacy': typeof PrivacyRoute
   '/support': typeof SupportRoute
@@ -107,6 +114,7 @@ export interface FileRoutesByTo {
   '/accessibility': typeof AccessibilityRoute
   '/auth': typeof AuthRoute
   '/badges': typeof BadgesRoute
+  '/delete-account': typeof DeleteAccountRoute
   '/lessons': typeof LessonsRoute
   '/privacy': typeof PrivacyRoute
   '/support': typeof SupportRoute
@@ -123,6 +131,7 @@ export interface FileRoutesById {
   '/accessibility': typeof AccessibilityRoute
   '/auth': typeof AuthRoute
   '/badges': typeof BadgesRoute
+  '/delete-account': typeof DeleteAccountRoute
   '/lessons': typeof LessonsRoute
   '/privacy': typeof PrivacyRoute
   '/support': typeof SupportRoute
@@ -139,6 +148,7 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/auth'
     | '/badges'
+    | '/delete-account'
     | '/lessons'
     | '/privacy'
     | '/support'
@@ -153,6 +163,7 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/auth'
     | '/badges'
+    | '/delete-account'
     | '/lessons'
     | '/privacy'
     | '/support'
@@ -168,6 +179,7 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/auth'
     | '/badges'
+    | '/delete-account'
     | '/lessons'
     | '/privacy'
     | '/support'
@@ -184,6 +196,7 @@ export interface RootRouteChildren {
   AccessibilityRoute: typeof AccessibilityRoute
   AuthRoute: typeof AuthRoute
   BadgesRoute: typeof BadgesRoute
+  DeleteAccountRoute: typeof DeleteAccountRoute
   LessonsRoute: typeof LessonsRoute
   PrivacyRoute: typeof PrivacyRoute
   SupportRoute: typeof SupportRoute
@@ -219,6 +232,13 @@ declare module '@tanstack/react-router' {
       path: '/lessons'
       fullPath: '/lessons'
       preLoaderRoute: typeof LessonsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/delete-account': {
+      id: '/delete-account'
+      path: '/delete-account'
+      fullPath: '/delete-account'
+      preLoaderRoute: typeof DeleteAccountRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/badges': {
@@ -308,6 +328,7 @@ const rootRouteChildren: RootRouteChildren = {
   AccessibilityRoute: AccessibilityRoute,
   AuthRoute: AuthRoute,
   BadgesRoute: BadgesRoute,
+  DeleteAccountRoute: DeleteAccountRoute,
   LessonsRoute: LessonsRoute,
   PrivacyRoute: PrivacyRoute,
   SupportRoute: SupportRoute,
