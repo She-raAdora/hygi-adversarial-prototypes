@@ -23,6 +23,25 @@ export const Route = createFileRoute("/lesson/$id")({
           { name: "description", content: loaderData.lesson.intro },
           { property: "og:title", content: `${loaderData.lesson.title} — Hygi` },
           { property: "og:description", content: loaderData.lesson.intro },
+          { property: "og:type", content: "article" },
+          { name: "twitter:card", content: "summary" },
+        ]
+      : [],
+    scripts: loaderData
+      ? [
+          {
+            type: "application/ld+json",
+            children: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Course",
+              name: loaderData.lesson.title,
+              description: loaderData.lesson.intro,
+              url: `https://digitalhygiene.app/lesson/${loaderData.lesson.id}`,
+              provider: { "@type": "Organization", name: "Hygi.", url: "https://digitalhygiene.app" },
+              isAccessibleForFree: true,
+              teaches: loaderData.lesson.title,
+            }),
+          },
         ]
       : [],
   }),
