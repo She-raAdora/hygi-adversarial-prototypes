@@ -48,9 +48,11 @@ function PrivacyPage() {
       </div>
 
       <p className="mt-8 rounded-2xl border border-border/60 bg-secondary/50 p-5 text-sm leading-relaxed">
-        Short version: Hygi. has no accounts, no sign-in, no ads, and no analytics. We do not
-        collect, sell, or share personal information. Your lesson progress and badges are saved
-        only in your own browser or device storage.
+        Short version: Hygi. has no accounts, no sign-in, and no ads. We do not collect, sell, or
+        share personal information. Your lesson progress and badges are saved only in your own
+        browser or device storage. We do measure anonymous, aggregate usage — such as which pages
+        are viewed, how many quizzes are finished, and how often the app is added to a home screen
+        — using Google Analytics.
       </p>
 
       <Section icon={<Database className="h-4 w-4" />} title="Information we collect">
@@ -65,12 +67,30 @@ function PrivacyPage() {
           to your device's local storage on your device. It is not transmitted to us, it is not
           linked to your identity, and we cannot read it.
         </p>
+        <p>
+          Separately, we collect anonymous product analytics so we can tell whether the lessons are
+          working: page views, quiz starts and completions (lesson title, score out of total, and
+          pass/fail), badge and trophy milestones, and whether the app was launched from a home
+          screen. These events carry no name, email, account, quiz answer text, or precise location.
+        </p>
       </Section>
 
       <Section icon={<Server className="h-4 w-4" />} title="Third parties and tracking">
         <p>
-          Hygi. contains no advertising SDKs, no analytics SDKs, no social login, and no
-          cross-app or cross-site tracking. We do not use cookies for tracking or profiling.
+          Hygi. contains no advertising SDKs, no social login, and no cross-app or cross-site
+          tracking, and we do not sell data or build advertising profiles. We do use one analytics
+          provider, Google Analytics 4, which sets its own cookies or local identifiers to count
+          returning visits in aggregate. Google's handling of that data is governed by the{" "}
+          <a
+            href="https://policies.google.com/privacy"
+            target="_blank"
+            rel="noreferrer"
+            className="text-primary hover:underline"
+          >
+            Google Privacy Policy
+          </a>
+          . You can opt out entirely by enabling your browser's "Do Not Track" / tracking
+          protection, using a content blocker, or installing Google's opt-out browser add-on.
         </p>
         <p>
           Lesson pages link out to public cybersecurity guides published by Dartmouth, Caltech,
