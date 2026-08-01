@@ -78,7 +78,7 @@ function LessonPage() {
           <span className="text-4xl" aria-hidden="true">
             {lesson.emoji}
           </span>
-          <span className="text-xs font-medium uppercase tracking-wider text-primary">
+          <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             Lesson {idx + 1}
           </span>
         </div>
@@ -351,6 +351,7 @@ function Quiz({
       </div>
       <div
         role="progressbar"
+        aria-label="Quiz progress"
         aria-valuemin={0}
         aria-valuemax={total}
         aria-valuenow={step}
