@@ -18,7 +18,7 @@ export const Route = createFileRoute("/lessons")({
 function LessonsPage() {
   const progress = useProgress();
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16">
+    <main id="main-content" className="mx-auto max-w-3xl px-6 py-16">
       <h1 className="text-4xl font-semibold tracking-tight">Lessons</h1>
       <p className="mt-3 text-muted-foreground">
         Work through them in any order. Each one ends with a short pop quiz.

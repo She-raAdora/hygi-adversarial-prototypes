@@ -65,7 +65,7 @@ function LessonPage() {
   const prev = lessons[idx - 1];
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-12">
+    <main id="main-content" className="mx-auto max-w-2xl px-6 py-12">
       <Link
         to="/lessons"
         className="inline-flex items-center gap-1 rounded-full text-sm text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
