@@ -32,9 +32,10 @@ function LessonsPage() {
               <Link
                 to="/lesson/$id"
                 params={{ id: l.id }}
-                className="group flex items-center gap-5 rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/40"
+                className="group flex items-center gap-5 rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 <span
+                  aria-hidden="true"
                   className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-2xl"
                   style={{ background: "var(--gradient-soft)" }}
                 >
@@ -47,14 +48,17 @@ function LessonsPage() {
                     </span>
                     {done && (
                       <span className="inline-flex items-center gap-1 rounded-full bg-success/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-success">
-                        <Trophy className="h-3 w-3" /> Badge
+                        <Trophy className="h-3 w-3" aria-hidden="true" /> Badge earned
                       </span>
                     )}
                   </div>
-                  <h3 className="font-semibold tracking-tight">{l.title}</h3>
+                  <h2 className="font-semibold tracking-tight">{l.title}</h2>
                   <p className="text-sm text-muted-foreground">{l.tagline}</p>
                 </div>
-                <ArrowRight className="h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-primary" />
+                <ArrowRight
+                  aria-hidden="true"
+                  className="h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-primary"
+                />
               </Link>
             </li>
           );
