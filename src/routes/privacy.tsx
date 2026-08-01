@@ -211,7 +211,7 @@ const disclosures: { q: string; a: string }[] = [
   },
   {
     q: "Data deletion request method",
-    a: "Users delete on-device data by clearing site data or removing the app. Anonymous analytics events cannot be tied to an individual, so there is no personal record to delete; requests can still be sent to builtstrong1@outlook.com.",
+    a: "In-app: staff accounts are deleted from Account settings (Delete account), which removes the auth user, email preferences, and roles immediately. Learners clear on-device data with Reset progress on the Support page, by clearing site data, or by removing the app. Anonymous analytics events cannot be tied to an individual; requests can also be sent to builtstrong1@outlook.com.",
   },
   {
     q: "Account creation, third-party login, ads, in-app purchases, user-generated content",
