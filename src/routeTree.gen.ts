@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as LessonsRouteImport } from './routes/lessons'
+import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as BadgesRouteImport } from './routes/badges'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as IndexRouteImport } from './routes/index'
@@ -30,6 +31,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const LessonsRoute = LessonsRouteImport.update({
   id: '/lessons',
   path: '/lessons',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsRoute = InsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BadgesRoute = BadgesRouteImport.update({
@@ -57,6 +63,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/accessibility': typeof AccessibilityRoute
   '/badges': typeof BadgesRoute
+  '/insights': typeof InsightsRoute
   '/lessons': typeof LessonsRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/accessibility': typeof AccessibilityRoute
   '/badges': typeof BadgesRoute
+  '/insights': typeof InsightsRoute
   '/lessons': typeof LessonsRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/accessibility': typeof AccessibilityRoute
   '/badges': typeof BadgesRoute
+  '/insights': typeof InsightsRoute
   '/lessons': typeof LessonsRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
@@ -87,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/accessibility'
     | '/badges'
+    | '/insights'
     | '/lessons'
     | '/privacy'
     | '/terms'
@@ -96,6 +106,7 @@ export interface FileRouteTypes {
     | '/'
     | '/accessibility'
     | '/badges'
+    | '/insights'
     | '/lessons'
     | '/privacy'
     | '/terms'
@@ -105,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/accessibility'
     | '/badges'
+    | '/insights'
     | '/lessons'
     | '/privacy'
     | '/terms'
@@ -115,6 +127,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccessibilityRoute: typeof AccessibilityRoute
   BadgesRoute: typeof BadgesRoute
+  InsightsRoute: typeof InsightsRoute
   LessonsRoute: typeof LessonsRoute
   PrivacyRoute: typeof PrivacyRoute
   TermsRoute: typeof TermsRoute
@@ -142,6 +155,13 @@ declare module '@tanstack/react-router' {
       path: '/lessons'
       fullPath: '/lessons'
       preLoaderRoute: typeof LessonsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights': {
+      id: '/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof InsightsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/badges': {
@@ -179,6 +199,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccessibilityRoute: AccessibilityRoute,
   BadgesRoute: BadgesRoute,
+  InsightsRoute: InsightsRoute,
   LessonsRoute: LessonsRoute,
   PrivacyRoute: PrivacyRoute,
   TermsRoute: TermsRoute,
