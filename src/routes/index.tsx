@@ -6,18 +6,31 @@ import { useProgress } from "@/lib/progress";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Hygi — Learn Digital Hygiene" },
+      { title: "Hygi. — Digital & Cyber Hygiene in 15 Lessons" },
       {
         name: "description",
         content:
-          "Bite-sized lessons and pop quizzes on digital hygiene. Earn a badge for every topic you master.",
+          "Learn digital and cyber hygiene in 15 bite-sized lessons drawn from university security guides. Take a pop quiz after each one and earn a badge for every topic you master.",
       },
-      { property: "og:title", content: "Hygi — Learn Digital Hygiene" },
+      { property: "og:title", content: "Hygi. — Digital & Cyber Hygiene in 15 Lessons" },
       {
         property: "og:description",
-        content: "Bite-sized lessons and pop quizzes on digital hygiene. Earn a badge for every topic you master.",
+        content:
+          "Learn digital and cyber hygiene in 15 bite-sized lessons drawn from university security guides. Take a pop quiz after each one and earn a badge for every topic you master.",
+      },
+      { property: "og:url", content: "https://digitalhygiene.app/" },
+      {
+        property: "og:image",
+        content:
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/87cf0ff7-cc52-415f-b7ba-f9cf8a6fd547",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/87cf0ff7-cc52-415f-b7ba-f9cf8a6fd547",
       },
     ],
+    links: [{ rel: "canonical", href: "https://digitalhygiene.app/" }],
   }),
   component: Index,
 });
