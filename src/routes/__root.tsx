@@ -121,6 +121,14 @@ function RootComponent() {
       <div className="min-h-screen bg-background text-foreground">
         <SiteHeader />
         <Outlet />
+        <footer className="border-t border-border/60 py-8">
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-6 text-xs text-muted-foreground">
+            <span>Hygi. — brought to you by NorthBridge</span>
+            <Link to="/privacy" className="transition-colors hover:text-foreground">
+              Privacy Policy
+            </Link>
+          </div>
+        </footer>
       </div>
     </QueryClientProvider>
   );
