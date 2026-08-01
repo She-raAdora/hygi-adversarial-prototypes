@@ -1,5 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 
+import { getMyAccess } from "@/lib/access.functions";
+import { supabase } from "@/integrations/supabase/client";
 import {
   clearEventLog,
   summarizeByDay,
@@ -10,7 +14,7 @@ import {
 } from "@/lib/eventLog";
 import type { LessonTrend } from "@/lib/eventLog";
 
-export const Route = createFileRoute("/insights")({
+export const Route = createFileRoute("/_authenticated/insights")({
   head: () => ({
     meta: [
       { title: "Insights — Your Hygi. Analytics Dashboard" },
@@ -29,8 +33,65 @@ export const Route = createFileRoute("/insights")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
-  component: InsightsPage,
+  component: InsightsGate,
 });
+
+function InsightsGate() {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const fetchAccess = useServerFn(getMyAccess);
+  const { data, isPending, isError } = useQuery({
+    queryKey: ["my-access"],
+    queryFn: () => fetchAccess(),
+    staleTime: 60_000,
+  });
+
+  async function signOut() {
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await supabase.auth.signOut();
+    void navigate({ to: "/auth", replace: true });
+  }
+
+  if (isPending) {
+    return (
+      <main id="main-content" className="mx-auto max-w-5xl px-6 py-20">
+        <p className="text-sm text-muted-foreground" aria-live="polite">
+          Checking your access…
+        </p>
+      </main>
+    );
+  }
+
+  if (isError || !data?.isAdmin) {
+    return (
+      <main id="main-content" className="mx-auto max-w-2xl px-6 py-20">
+        <h1 className="text-3xl font-semibold tracking-tight">Insights is admin-only</h1>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+          {data?.email ? `${data.email} isn't` : "This account isn't"} authorized to view the
+          analytics dashboard. Ask an administrator to grant admin access, then reload this page.
+        </p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link
+            to="/lessons"
+            className="inline-flex items-center rounded-xl bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Back to lessons
+          </Link>
+          <button
+            type="button"
+            onClick={signOut}
+            className="inline-flex items-center rounded-xl border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+          >
+            Sign out
+          </button>
+        </div>
+      </main>
+    );
+  }
+
+  return <InsightsPage email={data.email} onSignOut={signOut} />;
+}
 
 function Stat({ label, value, hint }: { label: string; value: string | number; hint?: string }) {
   return (
@@ -203,7 +264,7 @@ function LessonTrendCard({ trend }: { trend: LessonTrend }) {
   );
 }
 
-function InsightsPage() {
+function InsightsPage({ email, onSignOut }: { email: string | null; onSignOut: () => void }) {
   const events = useEventLog();
   const installs = summarizeInstalls(events);
   const days = summarizeByDay(events);
@@ -222,7 +283,19 @@ function InsightsPage() {
       <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
         Analytics
       </p>
-      <h1 className="mt-3 text-4xl font-semibold tracking-tight">Insights</h1>
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+        <h1 className="text-4xl font-semibold tracking-tight">Insights</h1>
+        <div className="flex items-center gap-3 text-xs text-muted-foreground">
+          {email ? <span>Signed in as {email}</span> : null}
+          <button
+            type="button"
+            onClick={onSignOut}
+            className="rounded-lg border border-input bg-background px-3 py-1.5 font-medium text-foreground transition-colors hover:bg-accent"
+          >
+            Sign out
+          </button>
+        </div>
+      </div>
       <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
         The install-to-home-screen funnel and quiz activity measured on{" "}
         <strong className="font-semibold text-foreground">this device</strong>. Nothing here is
