@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, RotateCcw, Trophy, X } from "lucide-react";
 import { getLesson, lessons, type Lesson } from "@/lib/lessons";
 import { awardBadge, useProgress } from "@/lib/progress";
+import { ShareResultButton } from "@/components/ShareResultButton";
 import {
   trackAllLessonsComplete,
   trackQuizComplete,
@@ -305,6 +306,19 @@ function Quiz({
           >
             <RotateCcw className="h-4 w-4" aria-hidden="true" /> Retry quiz
           </button>
+          <ShareResultButton
+            card={{
+              eyebrow: passed ? "Badge unlocked" : "Quiz complete",
+              title: lesson.title,
+              stat: `${score} / ${total} correct`,
+              emoji: lesson.emoji,
+              note: passed
+                ? "Earned a digital hygiene badge on Hygi."
+                : "Practising safer digital habits on Hygi.",
+            }}
+            text={`I scored ${score}/${total} on the "${lesson.title}" digital hygiene quiz on Hygi.`}
+            label="Share result"
+          />
           {next ? (
             <Link
               to="/lesson/$id"

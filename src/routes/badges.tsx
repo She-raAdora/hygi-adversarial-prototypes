@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Lock, RotateCcw, Sparkles, Trophy } from "lucide-react";
 import { lessons } from "@/lib/lessons";
 import { resetProgress, useProgress } from "@/lib/progress";
+import { ShareResultButton } from "@/components/ShareResultButton";
 
 export const Route = createFileRoute("/badges")({
   head: () => ({
@@ -30,6 +31,20 @@ function BadgesPage() {
           </p>
         </div>
         {earned.length > 0 && (
+          <div className="flex flex-wrap items-center gap-3">
+          <ShareResultButton
+            card={{
+              eyebrow: allDone ? "All badges earned" : "Badge progress",
+              title: allDone ? "Digital Hygiene Champion" : "My digital hygiene badges",
+              stat: `${earned.length} / ${lessons.length} badges`,
+              emoji: allDone ? "🏆" : "🛡️",
+              note: allDone
+                ? "Completed every lesson in the Hygi. curriculum."
+                : "Learning safer digital habits, one lesson at a time.",
+            }}
+            text={`I've earned ${earned.length}/${lessons.length} digital hygiene badges on Hygi.`}
+            label="Share progress"
+          />
           <button
             onClick={() => {
               if (confirm("Reset all progress?")) resetProgress();
@@ -38,6 +53,7 @@ function BadgesPage() {
           >
             <RotateCcw className="h-4 w-4" /> Reset
           </button>
+          </div>
         )}
       </div>
 
@@ -58,6 +74,20 @@ function BadgesPage() {
           <p className="mt-2 max-w-md text-sm text-muted-foreground">
             You've earned every badge in the curriculum. The internet is a little safer because of you.
           </p>
+          <div className="mt-6">
+            <ShareResultButton
+              card={{
+                eyebrow: "All badges earned",
+                title: "Digital Hygiene Champion",
+                stat: `${lessons.length} / ${lessons.length} badges`,
+                emoji: "🏆",
+                note: "Completed every lesson in the Hygi. curriculum.",
+              }}
+              text={`I completed all ${lessons.length} Hygi. lessons and earned the Digital Hygiene Champion trophy.`}
+              label="Share trophy"
+              variant="solid"
+            />
+          </div>
         </div>
       )}
 
