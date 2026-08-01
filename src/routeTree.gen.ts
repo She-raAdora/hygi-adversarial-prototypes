@@ -15,6 +15,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as LessonsRouteImport } from './routes/lessons'
 import { Route as DeleteAccountRouteImport } from './routes/delete-account'
+import { Route as CyberHygieneRouteImport } from './routes/cyber-hygiene'
 import { Route as BadgesRouteImport } from './routes/badges'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
@@ -53,6 +54,11 @@ const LessonsRoute = LessonsRouteImport.update({
 const DeleteAccountRoute = DeleteAccountRouteImport.update({
   id: '/delete-account',
   path: '/delete-account',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CyberHygieneRoute = CyberHygieneRouteImport.update({
+  id: '/cyber-hygiene',
+  path: '/cyber-hygiene',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BadgesRoute = BadgesRouteImport.update({
@@ -105,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/accessibility': typeof AccessibilityRoute
   '/auth': typeof AuthRoute
   '/badges': typeof BadgesRoute
+  '/cyber-hygiene': typeof CyberHygieneRoute
   '/delete-account': typeof DeleteAccountRoute
   '/lessons': typeof LessonsRoute
   '/privacy': typeof PrivacyRoute
@@ -121,6 +128,7 @@ export interface FileRoutesByTo {
   '/accessibility': typeof AccessibilityRoute
   '/auth': typeof AuthRoute
   '/badges': typeof BadgesRoute
+  '/cyber-hygiene': typeof CyberHygieneRoute
   '/delete-account': typeof DeleteAccountRoute
   '/lessons': typeof LessonsRoute
   '/privacy': typeof PrivacyRoute
@@ -139,6 +147,7 @@ export interface FileRoutesById {
   '/accessibility': typeof AccessibilityRoute
   '/auth': typeof AuthRoute
   '/badges': typeof BadgesRoute
+  '/cyber-hygiene': typeof CyberHygieneRoute
   '/delete-account': typeof DeleteAccountRoute
   '/lessons': typeof LessonsRoute
   '/privacy': typeof PrivacyRoute
@@ -157,6 +166,7 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/auth'
     | '/badges'
+    | '/cyber-hygiene'
     | '/delete-account'
     | '/lessons'
     | '/privacy'
@@ -173,6 +183,7 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/auth'
     | '/badges'
+    | '/cyber-hygiene'
     | '/delete-account'
     | '/lessons'
     | '/privacy'
@@ -190,6 +201,7 @@ export interface FileRouteTypes {
     | '/accessibility'
     | '/auth'
     | '/badges'
+    | '/cyber-hygiene'
     | '/delete-account'
     | '/lessons'
     | '/privacy'
@@ -208,6 +220,7 @@ export interface RootRouteChildren {
   AccessibilityRoute: typeof AccessibilityRoute
   AuthRoute: typeof AuthRoute
   BadgesRoute: typeof BadgesRoute
+  CyberHygieneRoute: typeof CyberHygieneRoute
   DeleteAccountRoute: typeof DeleteAccountRoute
   LessonsRoute: typeof LessonsRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -259,6 +272,13 @@ declare module '@tanstack/react-router' {
       path: '/delete-account'
       fullPath: '/delete-account'
       preLoaderRoute: typeof DeleteAccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cyber-hygiene': {
+      id: '/cyber-hygiene'
+      path: '/cyber-hygiene'
+      fullPath: '/cyber-hygiene'
+      preLoaderRoute: typeof CyberHygieneRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/badges': {
@@ -348,6 +368,7 @@ const rootRouteChildren: RootRouteChildren = {
   AccessibilityRoute: AccessibilityRoute,
   AuthRoute: AuthRoute,
   BadgesRoute: BadgesRoute,
+  CyberHygieneRoute: CyberHygieneRoute,
   DeleteAccountRoute: DeleteAccountRoute,
   LessonsRoute: LessonsRoute,
   PrivacyRoute: PrivacyRoute,
