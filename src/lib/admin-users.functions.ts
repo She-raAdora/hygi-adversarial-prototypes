@@ -11,8 +11,9 @@ type AdminUser = {
 };
 
 async function assertAdmin(context: { supabase: any; userId: string }) {
-  const { data, error } = await context.supabase.rpc("has_role", {
-    _user_id: context.userId,
+  // Self-scoped check: the database reads the role for auth.uid() only, so a
+  // caller cannot assert admin by passing another account's id.
+  const { data, error } = await context.supabase.rpc("current_user_has_role", {
     _role: "admin",
   });
   if (error) throw error;
