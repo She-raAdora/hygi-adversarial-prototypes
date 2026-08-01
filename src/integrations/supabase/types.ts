@@ -14,6 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
+      email_preferences: {
+        Row: {
+          admin_role_emails: boolean
+          created_at: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          admin_role_emails?: boolean
+          created_at?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          admin_role_emails?: boolean
+          created_at?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string

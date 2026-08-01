@@ -184,6 +184,9 @@ function RootComponent() {
               <Link to="/admin" className="transition-colors hover:text-foreground">
                 Admin
               </Link>
+              <Link to="/settings" className="transition-colors hover:text-foreground">
+                Email settings
+              </Link>
               <Link to="/privacy" className="transition-colors hover:text-foreground">
                 Privacy Policy
               </Link>

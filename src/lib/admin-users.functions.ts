@@ -76,7 +76,11 @@ export const setAdminRole = createServerFn({ method: "POST" })
         .eq("role", "admin");
       if (error) throw error;
     }
-    return { ok: true };
+
+    // Respect the affected account's opt-out before notifying them.
+    const { wantsAdminRoleEmails } = await import("@/lib/notifications.server");
+    const notify = await wantsAdminRoleEmails(data.userId);
+    return { ok: true, notified: notify };
   });
 
 /**
