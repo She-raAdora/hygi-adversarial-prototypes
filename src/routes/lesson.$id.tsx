@@ -438,7 +438,31 @@ function Quiz({
         type="button"
         disabled={picked === null}
         onClick={() => {
-          setPicks((p) => [...p, picked!]);
+          const nextPicks = [...picks, picked!];
+          if (nextPicks.length >= total) {
+            const finalScore = nextPicks.reduce(
+              (acc, p, i) => acc + (p === lesson.quiz[i].answer ? 1 : 0),
+              0,
+            );
+            const passed = finalScore === total;
+            trackQuizComplete({
+              lessonId: lesson.id,
+              lessonTitle: lesson.title,
+              score: finalScore,
+              total,
+              passed,
+            });
+            if (passed) {
+              const mastered = new Set(
+                Object.entries(progress)
+                  .filter(([id, s]) => s === getLesson(id)?.quiz.length)
+                  .map(([id]) => id),
+              );
+              mastered.add(lesson.id);
+              if (mastered.size >= lessons.length) trackAllLessonsComplete(lessons.length);
+            }
+          }
+          setPicks(nextPicks);
           setPicked(null);
           setStep((s) => s + 1);
         }}
