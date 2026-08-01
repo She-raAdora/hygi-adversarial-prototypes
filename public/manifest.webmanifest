@@ -12,6 +12,42 @@
   "background_color": "#f8fbfb",
   "theme_color": "#2a9d8f",
   "categories": ["education", "productivity", "security"],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    { "name": "All lessons", "short_name": "Lessons", "url": "/lessons" },
+    { "name": "My badges", "short_name": "Badges", "url": "/badges" },
+    { "name": "Support", "short_name": "Support", "url": "/support" }
+  ],
+  "screenshots": [
+    {
+      "src": "/play/screenshot-phone-01-home.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Start the 15-lesson digital hygiene curriculum"
+    },
+    {
+      "src": "/play/screenshot-phone-02-lessons.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Browse every lesson and track your progress"
+    },
+    {
+      "src": "/play/screenshot-phone-03-lesson.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Read a short lesson, then take the pop quiz"
+    },
+    {
+      "src": "/play/screenshot-phone-04-badges.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Earn a badge per topic and a trophy at the end"
+    }
+  ],
   "icons": [
     { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
