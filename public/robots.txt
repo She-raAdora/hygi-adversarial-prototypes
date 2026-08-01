@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Disallow: /auth
+Disallow: /insights
+Disallow: /admin
+Disallow: /settings
+
+Sitemap: https://digitalhygiene.app/sitemap.xml
