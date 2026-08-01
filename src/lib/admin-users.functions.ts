@@ -86,12 +86,35 @@ export const setAdminRole = createServerFn({ method: "POST" })
 
 /**
  * Bootstrap: lets the signed-in account become the first admin, but ONLY while
- * no admin exists yet. Once one exists this always fails.
+ * no admin exists yet AND the caller's verified email is on the server-side
+ * owner allow-list (ADMIN_BOOTSTRAP_EMAILS). Without the allow-list the claim
+ * is disabled entirely, so a random signup can never win the race.
  */
 export const claimFirstAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
+    const allowList = (process.env["ADMIN_BOOTSTRAP_EMAILS"] ?? "")
+      .split(",")
+      .map((e) => e.trim().toLowerCase())
+      .filter(Boolean);
+    if (allowList.length === 0) {
+      throw new Error("Admin bootstrap is disabled. Contact the site operator.");
+    }
+
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    // Trust only the server-side account record, never client-supplied data.
+    const { data: caller, error: callerError } =
+      await supabaseAdmin.auth.admin.getUserById(context.userId);
+    if (callerError) throw callerError;
+    const email = caller.user?.email?.toLowerCase() ?? null;
+    const confirmed = Boolean(
+      caller.user?.email_confirmed_at ?? caller.user?.confirmed_at,
+    );
+    if (!email || !confirmed || !allowList.includes(email)) {
+      throw new Error("This account is not authorized to claim the first admin seat.");
+    }
+
     const { count, error } = await supabaseAdmin
       .from("user_roles")
       .select("id", { count: "exact", head: true })
