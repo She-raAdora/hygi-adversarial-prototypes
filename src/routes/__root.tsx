@@ -206,6 +206,9 @@ function RootComponent() {
           <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-6 text-xs text-muted-foreground">
             <span>Hygi. — brought to you by NorthBridge</span>
             <div className="flex flex-wrap items-center gap-4">
+              <Link to="/cyber-hygiene" className="transition-colors hover:text-foreground">
+                What is cyber hygiene?
+              </Link>
               <Link to="/insights" className="transition-colors hover:text-foreground">
                 Insights
               </Link>
