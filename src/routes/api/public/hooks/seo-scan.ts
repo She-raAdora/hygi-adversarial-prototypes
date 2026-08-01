@@ -14,7 +14,11 @@ export const Route = createFileRoute("/api/public/hooks/seo-scan")({
           request.headers.get("apikey") ??
           request.headers.get("authorization")?.replace(/^Bearer\s+/i, "") ??
           "";
-        const expected = process.env["SUPABASE_ANON_KEY"] ?? "";
+        const expected =
+          process.env["SUPABASE_PUBLISHABLE_KEY"] ??
+          process.env["SUPABASE_ANON_KEY"] ??
+          process.env["VITE_SUPABASE_PUBLISHABLE_KEY"] ??
+          "";
 
         if (!expected || provided !== expected) {
           return new Response(JSON.stringify({ error: "Unauthorized" }), {
