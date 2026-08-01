@@ -8,9 +8,19 @@ export const Route = createFileRoute("/badges")({
   head: () => ({
     meta: [
       { title: "Your Badges — Hygi" },
-      { name: "description", content: "Track every digital hygiene badge you've earned." },
+      {
+        name: "description",
+        content:
+          "Track your progress and view every digital hygiene badge you have earned, plus the trophy for finishing all 15 lessons.",
+      },
       { property: "og:title", content: "Your Badges — Hygi" },
-      { property: "og:description", content: "Track every digital hygiene badge you've earned." },
+      {
+        property: "og:description",
+        content:
+          "Track your progress and view every digital hygiene badge you have earned, plus the trophy for finishing all 15 lessons.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: BadgesPage,

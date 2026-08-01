@@ -128,6 +128,32 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       ...appleSplashLinks,
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://digitalhygiene.app/#organization",
+              name: "Hygi.",
+              url: "https://digitalhygiene.app",
+              logo: "https://digitalhygiene.app/icon-512.png",
+              description:
+                "Hygi. teaches digital hygiene through short lessons, pop quizzes, and badges, brought to you by NorthBridge.",
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://digitalhygiene.app/#website",
+              name: "Hygi.",
+              url: "https://digitalhygiene.app",
+              publisher: { "@id": "https://digitalhygiene.app/#organization" },
+            },
+          ],
+        }),
+      },
+    ],
   }),
 
   shellComponent: RootShell,
