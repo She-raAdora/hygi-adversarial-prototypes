@@ -186,7 +186,7 @@ function RootComponent() {
                 Admin
               </Link>
               <Link to="/settings" className="transition-colors hover:text-foreground">
-                Email settings
+                Account settings
               </Link>
               <Link to="/support" className="transition-colors hover:text-foreground">
                 Support
