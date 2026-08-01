@@ -7,6 +7,7 @@
  */
 
 import { logEvent } from "./eventLog";
+import { hasAnalyticsConsent } from "./consent";
 
 declare global {
   interface Window {
@@ -26,9 +27,13 @@ export function gtag(...args: unknown[]) {
   window.dataLayer.push(args);
 }
 
-/** Loads gtag.js once. No-ops on the server or when the ID is unconfigured. */
+/**
+ * Loads gtag.js once. No-ops on the server, when the ID is unconfigured, or
+ * until the visitor has explicitly opted in to analytics.
+ */
 export function initAnalytics() {
   if (typeof window === "undefined" || initialized || !MEASUREMENT_ID) return;
+  if (!hasAnalyticsConsent()) return;
   initialized = true;
 
   const script = document.createElement("script");
@@ -45,7 +50,8 @@ export function trackEvent(name: string, params: Record<string, unknown> = {}) {
   // Always mirror to the device-local log so the in-app dashboard works even
   // when GA is unconfigured or blocked by the browser.
   logEvent(name, params);
-  if (!MEASUREMENT_ID) return;
+  // Nothing leaves the device without consent.
+  if (!MEASUREMENT_ID || !initialized || !hasAnalyticsConsent()) return;
   gtag("event", name, params);
 }
 

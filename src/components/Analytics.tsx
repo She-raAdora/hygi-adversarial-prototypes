@@ -7,6 +7,7 @@ import {
   trackInstallPromptAvailable,
   trackPageView,
 } from "@/lib/analytics";
+import { onConsentChange } from "@/lib/consent";
 
 /**
  * Boots Google Analytics and reports SPA page views plus home-screen
@@ -19,11 +20,17 @@ export function Analytics() {
     initAnalytics();
     trackAppLaunch();
 
+    // Boot GA the moment the visitor opts in, without a page reload.
+    const stopConsentWatch = onConsentChange((state) => {
+      if (state === "granted") initAnalytics();
+    });
+
     const onPrompt = () => trackInstallPromptAvailable();
     const onInstalled = () => trackAppInstalled("browser_prompt");
     window.addEventListener("beforeinstallprompt", onPrompt);
     window.addEventListener("appinstalled", onInstalled);
     return () => {
+      stopConsentWatch();
       window.removeEventListener("beforeinstallprompt", onPrompt);
       window.removeEventListener("appinstalled", onInstalled);
     };

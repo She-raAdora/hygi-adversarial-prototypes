@@ -12,6 +12,7 @@ import {
 import appCss from "../styles.css?url";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Analytics } from "@/components/Analytics";
+import { ConsentBanner } from "@/components/ConsentBanner";
 import { appleSplashLinks } from "@/lib/splashLinks";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -185,7 +186,10 @@ function RootComponent() {
                 Admin
               </Link>
               <Link to="/settings" className="transition-colors hover:text-foreground">
-                Email settings
+                Account settings
+              </Link>
+              <Link to="/support" className="transition-colors hover:text-foreground">
+                Support
               </Link>
               <Link to="/privacy" className="transition-colors hover:text-foreground">
                 Privacy Policy
@@ -199,6 +203,7 @@ function RootComponent() {
             </div>
           </div>
         </footer>
+        <ConsentBanner />
       </div>
     </QueryClientProvider>
   );

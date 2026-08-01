@@ -84,10 +84,11 @@ function PrivacyPage() {
 
       <Section icon={<Server className="h-4 w-4" />} title="Third parties and tracking">
         <p>
-          Hygi. contains no advertising SDKs, no social login, and no cross-app or cross-site
-          tracking, and we do not sell data or build advertising profiles. We do use one analytics
-          provider, Google Analytics 4, which sets its own cookies or local identifiers to count
-          returning visits in aggregate. Google's handling of that data is governed by the{" "}
+          Hygi. contains no advertising SDKs and no cross-app or cross-site tracking, and we do not
+          sell data or build advertising profiles. We use one analytics provider, Google Analytics
+          4, and it only loads after you tap "Allow analytics" — until then nothing is sent and no
+          analytics cookies or identifiers are set. Once enabled it counts returning visits in
+          aggregate; Google's handling of that data is governed by the{" "}
           <a
             href="https://policies.google.com/privacy"
             target="_blank"
@@ -96,8 +97,16 @@ function PrivacyPage() {
           >
             Google Privacy Policy
           </a>
-          . You can opt out entirely by enabling your browser's "Do Not Track" / tracking
-          protection, using a content blocker, or installing Google's opt-out browser add-on.
+          . You can turn analytics back off at any time from the{" "}
+          <Link to="/support" className="text-primary hover:underline">
+            Support page
+          </Link>
+          , or block it with your browser's tracking protection or a content blocker.
+        </p>
+        <p>
+          Sign-in with Apple or Google is offered only to staff who need the admin and Insights
+          pages. It is never required to read lessons, take quizzes, or earn badges, and we receive
+          nothing from those providers beyond the email address tied to the account.
         </p>
         <p>
           Lesson pages link out to public cybersecurity guides published by Dartmouth, Caltech,
@@ -112,8 +121,17 @@ function PrivacyPage() {
         <p>
           Because your progress lives only on your device, you are always in control. You can
           erase everything at any time by clearing site data for Hygi. in your browser or device
-          settings, or by deleting the app from your home screen. Nothing about you remains with
-          us, because nothing about you was ever sent to us.
+          settings, using "Reset progress" on the{" "}
+          <Link to="/support" className="text-primary hover:underline">
+            Support page
+          </Link>
+          , or by deleting the app from your home screen.
+        </p>
+        <p>
+          If you hold a staff account, you can permanently delete it — along with your email
+          preferences and any admin role — from Account settings inside the app. Deletion is
+          immediate and cannot be undone. You can also email builtstrong1@outlook.com to request
+          deletion.
         </p>
       </Section>
 
@@ -173,19 +191,19 @@ const disclosures: { q: string; a: string }[] = [
   },
   {
     q: "Data linked to you",
-    a: "None. There are no accounts or identifiers, so no data can be linked to a person.",
+    a: "Email address, and only for optional staff accounts used to reach the admin and Insights pages. Learners never need an account, and no learning activity is linked to an identity. Staff can delete their account and email in-app at any time.",
   },
   {
     q: "Data not linked to you",
-    a: "Product interaction and diagnostic-free usage data: page views, quiz starts/completions with score, badge and trophy milestones, and home-screen install events. Collected anonymously via Google Analytics and not linked to any identity. Your saved progress and badges remain in on-device storage only.",
+    a: "Product interaction and diagnostic-free usage data: page views, quiz starts/completions with score, badge and trophy milestones, and home-screen install events. Collected anonymously via Google Analytics only after the user opts in, and not linked to any identity. Your saved progress and badges remain in on-device storage only.",
   },
   {
     q: "Contact info, identifiers, location, health, financials, contacts, photos, browsing history",
-    a: "Not collected.",
+    a: "Only an email address for optional staff sign-in (Apple, Google, or email/password). No location, health, financial, contacts, photo, or browsing-history data is collected.",
   },
   {
     q: "Usage data / diagnostics / crash data",
-    a: "Product interaction (usage) data is collected anonymously for analytics. No crash-reporting SDK is present and no other diagnostics are collected.",
+    a: "Product interaction (usage) data is collected anonymously for analytics, only with consent. No crash-reporting SDK is present and no other diagnostics are collected.",
   },
   {
     q: "Data encryption in transit",
@@ -193,7 +211,7 @@ const disclosures: { q: string; a: string }[] = [
   },
   {
     q: "Data deletion request method",
-    a: "Users delete on-device data by clearing site data or removing the app. Anonymous analytics events cannot be tied to an individual, so there is no personal record to delete; requests can still be sent to builtstrong1@outlook.com.",
+    a: "In-app: staff accounts are deleted from Account settings (Delete account), which removes the auth user, email preferences, and roles immediately. Learners clear on-device data with Reset progress on the Support page, by clearing site data, or by removing the app. Anonymous analytics events cannot be tied to an individual; requests can also be sent to builtstrong1@outlook.com.",
   },
   {
     q: "Account creation, third-party login, ads, in-app purchases, user-generated content",

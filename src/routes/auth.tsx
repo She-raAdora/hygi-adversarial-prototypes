@@ -75,14 +75,18 @@ function AuthPage() {
     }
   }
 
-  async function onGoogle() {
+  async function onOAuth(provider: "google" | "apple") {
     setBusy(true);
     setError(null);
-    const result = await lovable.auth.signInWithOAuth("google", {
+    const result = await lovable.auth.signInWithOAuth(provider, {
       redirect_uri: window.location.origin + "/auth",
     });
     if (result.error) {
-      setError("Google sign-in didn't complete. Try again.");
+      setError(
+        provider === "apple"
+          ? "Apple sign-in didn't complete. Try again."
+          : "Google sign-in didn't complete. Try again.",
+      );
       setBusy(false);
       return;
     }
@@ -100,14 +104,24 @@ function AuthPage() {
       </p>
 
       <div className="mt-8 rounded-2xl border border-border/60 bg-card p-6">
-        <button
-          type="button"
-          onClick={onGoogle}
-          disabled={busy}
-          className="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-accent disabled:opacity-60"
-        >
-          Continue with Google
-        </button>
+        <div className="space-y-3">
+          <button
+            type="button"
+            onClick={() => void onOAuth("apple")}
+            disabled={busy}
+            className="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-accent disabled:opacity-60"
+          >
+            Continue with Apple
+          </button>
+          <button
+            type="button"
+            onClick={() => void onOAuth("google")}
+            disabled={busy}
+            className="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-accent disabled:opacity-60"
+          >
+            Continue with Google
+          </button>
+        </div>
 
         <div className="my-5 flex items-center gap-3 text-xs uppercase tracking-wider text-muted-foreground">
           <span className="h-px flex-1 bg-border" aria-hidden="true" />
