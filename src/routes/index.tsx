@@ -10,13 +10,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Learn digital and cyber hygiene in 15 bite-sized lessons drawn from university security guides. Take a pop quiz after each one and earn a badge for every topic you master.",
+          "Learn digital and cyber hygiene in 15 short lessons from university security guides. Quiz yourself after each one and earn a badge per topic.",
       },
       { property: "og:title", content: "Hygi. — Digital & Cyber Hygiene in 15 Lessons" },
       {
         property: "og:description",
         content:
-          "Learn digital and cyber hygiene in 15 bite-sized lessons drawn from university security guides. Take a pop quiz after each one and earn a badge for every topic you master.",
+          "Learn digital and cyber hygiene in 15 short lessons from university security guides. Quiz yourself after each one and earn a badge per topic.",
       },
       { property: "og:url", content: "https://digitalhygiene.app/" },
       {
