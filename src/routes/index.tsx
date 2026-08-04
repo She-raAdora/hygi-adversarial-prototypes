@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Trophy, BookOpen, ExternalLink, CircleCheck, Sparkles, Play } from "lucide-react";
 import { lessons } from "@/lib/lessons";
 import { useProgress } from "@/lib/progress";
+import { useHomeCtaVariant } from "@/lib/useHomeCtaVariant";
+import { trackCtaClick } from "@/lib/analytics";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -44,6 +46,33 @@ function Index() {
   const preview = lessons[0];
   const previewQuestion = preview.quiz[0];
 
+  // A/B test: CTA wording and placement (see src/lib/experiments.ts).
+  const variant = useHomeCtaVariant();
+  const ctaCopy = hasStarted ? variant.returningCopy : variant.copy;
+
+  const ctaBlock = (
+    <div className="flex flex-wrap items-center gap-3">
+      <Link
+        to="/lesson/$id"
+        params={{ id: nextLesson.id }}
+        onClick={() => trackCtaClick(variant.id, variant.placement, ctaCopy)}
+        className="group inline-flex items-center gap-2 rounded-full px-7 py-4 text-base font-medium text-primary-foreground transition-transform hover:-translate-y-0.5"
+        style={{ background: "var(--gradient-hero)", boxShadow: "var(--shadow-soft)" }}
+      >
+        {ctaCopy}
+        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+      </Link>
+      <Link
+        to="/lessons"
+        className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-6 py-4 text-base font-medium text-foreground transition-colors hover:bg-secondary"
+      >
+        <BookOpen className="h-4 w-4 text-primary" />
+        Explore all lessons
+      </Link>
+    </div>
+  );
+  const ctaAboveHeadline = variant.placement === "above-headline";
+
   return (
     <main>
       <section
@@ -60,6 +89,12 @@ function Index() {
             <Sparkles className="h-3.5 w-3.5 text-primary" />
             No signup required
           </span>
+          {ctaAboveHeadline ? (
+            <div className="mt-6">
+              <p className="mb-3 text-sm text-muted-foreground">Brought to you by NorthBridge</p>
+              {ctaBlock}
+            </div>
+          ) : null}
           <h1 className="mt-6 max-w-3xl text-5xl font-semibold leading-tight tracking-tight md:text-6xl">
             Self-care for your{" "}
             <span
@@ -73,25 +108,12 @@ function Index() {
             15 short lessons from Dartmouth, Caltech, Cal Poly, and Harvard. Read a lesson, take a
             3-question quiz, and earn a badge for every topic you master.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Link
-              to="/lesson/$id"
-              params={{ id: nextLesson.id }}
-              className="group inline-flex items-center gap-2 rounded-full px-7 py-4 text-base font-medium text-primary-foreground transition-transform hover:-translate-y-0.5"
-              style={{ background: "var(--gradient-hero)", boxShadow: "var(--shadow-soft)" }}
-            >
-              {hasStarted ? "Continue learning" : "Start your first lesson"}
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </Link>
-            <Link
-              to="/lessons"
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-6 py-4 text-base font-medium text-foreground transition-colors hover:bg-secondary"
-            >
-              <BookOpen className="h-4 w-4 text-primary" />
-              Explore all lessons
-            </Link>
-          </div>
-          <p className="mt-5 text-sm text-muted-foreground">Brought to you by NorthBridge</p>
+          {ctaAboveHeadline ? null : (
+            <>
+              <div className="mt-8">{ctaBlock}</div>
+              <p className="mt-5 text-sm text-muted-foreground">Brought to you by NorthBridge</p>
+            </>
+          )}
 
           <div className="mt-10 grid gap-4 sm:grid-cols-3">
             <div className="flex items-center gap-3 rounded-2xl border border-border bg-background/80 px-4 py-3 backdrop-blur-sm">
