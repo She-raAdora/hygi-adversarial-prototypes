@@ -9,11 +9,13 @@ import {
   clearEventLog,
   summarizeByDay,
   summarizeByLesson,
+  summarizeExperiments,
   summarizeInstalls,
   summarizeLessonTrends,
   useEventLog,
 } from "@/lib/eventLog";
-import type { LessonTrend } from "@/lib/eventLog";
+import type { ExperimentRow, LessonTrend } from "@/lib/eventLog";
+import { homeCtaVariantLabels } from "@/lib/experiments";
 
 export const Route = createFileRoute("/_authenticated/insights")({
   head: () => ({
@@ -271,6 +273,7 @@ function InsightsPage({ email, onSignOut }: { email: string | null; onSignOut: (
   const days = summarizeByDay(events);
   const byLesson = summarizeByLesson(events);
   const trends = summarizeLessonTrends(events);
+  const experiments = summarizeExperiments(events);
 
   const totalStarts = byLesson.reduce((a, r) => a + r.starts, 0);
   const totalCompletions = byLesson.reduce((a, r) => a + r.completions, 0);
@@ -492,6 +495,8 @@ function InsightsPage({ email, onSignOut }: { email: string | null; onSignOut: (
 
       <SeoHealthPanel />
 
+      <ExperimentPanel rows={experiments} />
+
       {events.length > 0 ? (
         <div className="mt-12">
           <button
@@ -509,5 +514,77 @@ function InsightsPage({ email, onSignOut }: { email: string | null; onSignOut: (
         </div>
       ) : null}
     </main>
+  );
+}
+
+function ExperimentPanel({ rows }: { rows: ExperimentRow[] }) {
+  const labels = homeCtaVariantLabels();
+  const withViews = rows.filter((r) => r.views > 0);
+  const best = withViews.reduce<ExperimentRow | null>(
+    (top, r) =>
+      top === null || (r.engagementRate ?? -1) > (top.engagementRate ?? -1) ? r : top,
+    null,
+  );
+
+  return (
+    <section className="mt-12 rounded-2xl border border-border bg-card p-6">
+      <h2 className="text-xl font-semibold tracking-tight">Homepage CTA A/B test</h2>
+      <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+        Visitors are randomly and permanently assigned one CTA wording and placement. Engagement is
+        quiz starts per homepage view — the outcome that matters more than raw clicks. Append{" "}
+        <code className="rounded bg-muted px-1">?hygi_variant=c</code> to the homepage URL to preview
+        a specific version.
+      </p>
+      {withViews.length === 0 ? (
+        <p className="mt-4 text-sm text-muted-foreground">
+          No homepage impressions recorded on this device yet.
+        </p>
+      ) : (
+        <>
+          <table className="mt-5 w-full text-left text-sm">
+            <thead className="text-xs uppercase tracking-wider text-muted-foreground">
+              <tr>
+                <th scope="col" className="py-2 pr-3 font-medium">Variant</th>
+                <th scope="col" className="py-2 pr-3 font-medium">Views</th>
+                <th scope="col" className="py-2 pr-3 font-medium">CTA clicks</th>
+                <th scope="col" className="py-2 pr-3 font-medium">CTR</th>
+                <th scope="col" className="py-2 pr-3 font-medium">Quiz starts</th>
+                <th scope="col" className="py-2 pr-3 font-medium">Badges</th>
+                <th scope="col" className="py-2 font-medium">Engagement</th>
+              </tr>
+            </thead>
+            <tbody>
+              {withViews.map((r) => (
+                <tr key={r.variant} className="border-t border-border">
+                  <th scope="row" className="py-2 pr-3 font-medium text-foreground">
+                    {labels[r.variant] ?? r.variant}
+                  </th>
+                  <td className="py-2 pr-3 text-muted-foreground">{r.views}</td>
+                  <td className="py-2 pr-3 text-muted-foreground">{r.clicks}</td>
+                  <td className="py-2 pr-3 text-muted-foreground">
+                    {r.ctr === null ? "—" : `${r.ctr}%`}
+                  </td>
+                  <td className="py-2 pr-3 text-muted-foreground">{r.quizStarts}</td>
+                  <td className="py-2 pr-3 text-muted-foreground">{r.badges}</td>
+                  <td className="py-2 font-medium text-foreground">
+                    {r.engagementRate === null ? "—" : `${r.engagementRate}%`}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {best ? (
+            <p className="mt-4 text-sm text-muted-foreground">
+              Leading on this device:{" "}
+              <strong className="text-foreground">{labels[best.variant] ?? best.variant}</strong>. A
+              single device is far too small a sample to call a winner — compare the{" "}
+              <code className="rounded bg-muted px-1">experiment_view</code> and{" "}
+              <code className="rounded bg-muted px-1">cta_click</code> events in Google Analytics,
+              broken down by the <code className="rounded bg-muted px-1">variant</code> parameter.
+            </p>
+          ) : null}
+        </>
+      )}
+    </section>
   );
 }

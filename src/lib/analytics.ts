@@ -8,6 +8,7 @@
 
 import { logEvent } from "./eventLog";
 import { hasAnalyticsConsent } from "./consent";
+import { HOME_CTA_EXPERIMENT, getHomeCtaVariantId } from "./experiments";
 
 declare global {
   interface Window {
@@ -47,12 +48,40 @@ export function initAnalytics() {
 }
 
 export function trackEvent(name: string, params: Record<string, unknown> = {}) {
+  // Stamp the visitor's A/B variant onto every event so downstream engagement
+  // (quiz starts, completions, badges) can be attributed back to the variant.
+  const payload: Record<string, unknown> = { ...params };
+  if (typeof window !== "undefined" && payload["variant"] === undefined) {
+    payload["experiment"] = HOME_CTA_EXPERIMENT;
+    payload["variant"] = getHomeCtaVariantId();
+  }
   // Always mirror to the device-local log so the in-app dashboard works even
   // when GA is unconfigured or blocked by the browser.
-  logEvent(name, params);
+  logEvent(name, payload);
   // Nothing leaves the device without consent.
   if (!MEASUREMENT_ID || !initialized || !hasAnalyticsConsent()) return;
-  gtag("event", name, params);
+  gtag("event", name, payload);
+}
+
+/* -------------------------------------------------------------- experiments */
+
+/** Fires once per homepage render: the visitor saw this CTA variant. */
+export function trackExperimentView(variantId: string, placement: string) {
+  trackEvent("experiment_view", {
+    experiment: HOME_CTA_EXPERIMENT,
+    variant: variantId,
+    placement,
+  });
+}
+
+/** Fires when the visitor clicks the primary homepage CTA. */
+export function trackCtaClick(variantId: string, placement: string, copy: string) {
+    trackEvent("cta_click", {
+    experiment: HOME_CTA_EXPERIMENT,
+    variant: variantId,
+    placement,
+    cta_copy: copy,
+  });
 }
 
 export function trackPageView(path: string, title?: string) {
