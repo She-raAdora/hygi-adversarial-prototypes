@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Trophy, BookOpen, ExternalLink } from "lucide-react";
+import { ArrowRight, Trophy, BookOpen, ExternalLink, CircleCheck, Sparkles, Play } from "lucide-react";
 import { lessons } from "@/lib/lessons";
 import { useProgress } from "@/lib/progress";
 
@@ -39,6 +39,11 @@ function Index() {
   const progress = useProgress();
   const earned = lessons.filter((l) => (progress[l.id] ?? 0) >= l.quiz.length).length;
 
+  const nextLesson = lessons.find((l) => (progress[l.id] ?? 0) < l.quiz.length) ?? lessons[0];
+  const hasStarted = lessons.some((l) => (progress[l.id] ?? 0) > 0);
+  const preview = lessons[0];
+  const previewQuestion = preview.quiz[0];
+
   return (
     <main>
       <section
@@ -51,6 +56,10 @@ function Index() {
           style={{ background: "var(--gradient-hero)" }}
         />
         <div className="mx-auto max-w-6xl px-6 py-24">
+          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground shadow-sm">
+            <Sparkles className="h-3.5 w-3.5 text-primary" />
+            No signup required
+          </span>
           <h1 className="mt-6 max-w-3xl text-5xl font-semibold leading-tight tracking-tight md:text-6xl">
             Self-care for your{" "}
             <span
@@ -61,26 +70,57 @@ function Index() {
             </span>
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-          15 short lessons. A pop quiz at the end of each. Collect a badge for every
-            topic you master, then earn the grand trophy when you finish them all.
+            15 short lessons from Dartmouth, Caltech, Cal Poly, and Harvard. Read a lesson, take a
+            3-question quiz, and earn a badge for every topic you master.
           </p>
-          <p className="mt-8 text-sm text-muted-foreground">Brought to you by NorthBridge</p>
-          <div className="mt-3 flex flex-wrap items-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
-              to="/lessons"
-              className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium text-primary-foreground transition-transform hover:-translate-y-0.5"
+              to="/lesson/$id"
+              params={{ id: nextLesson.id }}
+              className="group inline-flex items-center gap-2 rounded-full px-7 py-4 text-base font-medium text-primary-foreground transition-transform hover:-translate-y-0.5"
               style={{ background: "var(--gradient-hero)", boxShadow: "var(--shadow-soft)" }}
             >
-              Start learning
+              {hasStarted ? "Continue learning" : "Start your first lesson"}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
             <Link
-              to="/badges"
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+              to="/lessons"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-6 py-4 text-base font-medium text-foreground transition-colors hover:bg-secondary"
             >
-              <Trophy className="h-4 w-4 text-primary" />
-              {earned} of {lessons.length} badges
+              <BookOpen className="h-4 w-4 text-primary" />
+              Explore all lessons
             </Link>
+          </div>
+          <p className="mt-5 text-sm text-muted-foreground">Brought to you by NorthBridge</p>
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-3">
+            <div className="flex items-center gap-3 rounded-2xl border border-border bg-background/80 px-4 py-3 backdrop-blur-sm">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <BookOpen className="h-5 w-5" />
+              </div>
+              <div className="text-sm">
+                <p className="font-semibold text-foreground">15 lessons</p>
+                <p className="text-muted-foreground">5 minutes each</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 rounded-2xl border border-border bg-background/80 px-4 py-3 backdrop-blur-sm">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <CircleCheck className="h-5 w-5" />
+              </div>
+              <div className="text-sm">
+                <p className="font-semibold text-foreground">3-question quiz</p>
+                <p className="text-muted-foreground">After each lesson</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 rounded-2xl border border-border bg-background/80 px-4 py-3 backdrop-blur-sm">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <Trophy className="h-5 w-5" />
+              </div>
+              <div className="text-sm">
+                <p className="font-semibold text-foreground">{earned} of {lessons.length} badges</p>
+                <p className="text-muted-foreground">+ a trophy at the end</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -137,6 +177,81 @@ function Index() {
               </Link>
             );
           })}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 pb-20">
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="rounded-2xl border border-border bg-card p-6 md:p-8">
+            <div className="mb-4 flex items-center gap-3">
+              <span className="text-3xl" aria-hidden="true">{preview.emoji}</span>
+              <div>
+                <p className="text-xs font-medium uppercase tracking-wider text-primary">
+                  Lesson preview
+                </p>
+                <h2 className="text-2xl font-semibold tracking-tight">{preview.title}</h2>
+              </div>
+            </div>
+            <p className="text-muted-foreground">{preview.intro}</p>
+            <div className="mt-6 rounded-2xl border border-border bg-background p-5">
+              <p className="text-sm font-medium text-foreground">Sample quiz question</p>
+              <p className="mt-1 text-sm text-muted-foreground">{previewQuestion.q}</p>
+              <div className="mt-3 space-y-2">
+                {previewQuestion.options.map((option, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-3 rounded-lg border border-border bg-card px-3 py-2 text-sm text-muted-foreground"
+                  >
+                    <span
+                      className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-border"
+                      aria-hidden="true"
+                    />
+                    {option}
+                  </div>
+                ))}
+              </div>
+              <div className="mt-4 rounded-lg bg-success/10 p-3 text-sm text-success">
+                <strong>Correct:</strong> {previewQuestion.options[previewQuestion.answer]}
+                <p className="mt-1 text-xs opacity-90">{previewQuestion.explain}</p>
+              </div>
+            </div>
+            <Link
+              to="/lesson/$id"
+              params={{ id: preview.id }}
+              className="group mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            >
+              <Play className="h-4 w-4" />
+              Start this lesson
+            </Link>
+          </div>
+
+          <div className="rounded-2xl border border-border bg-card p-6 md:p-8">
+            <h2 className="text-2xl font-semibold tracking-tight">How Hygi works</h2>
+            <p className="mt-2 text-muted-foreground">
+              A tiny routine that keeps you safer online, one lesson at a time.
+            </p>
+            <ol className="mt-6 space-y-4">
+              {[
+                { title: "Choose a lesson", body: "Pick any topic — there is no fixed order." },
+                { title: "Read quick tips", body: "Each lesson is a short, practical guide with actionable advice." },
+                { title: "Take the quiz", body: "Answer 3 questions to test what you learned." },
+                { title: "Earn your badge", body: "Get a badge for every topic you master, then win the trophy." },
+              ].map((step, i) => (
+                <li key={i} className="flex gap-4">
+                  <span
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-semibold text-primary-foreground"
+                    style={{ background: "var(--gradient-hero)" }}
+                  >
+                    {i + 1}
+                  </span>
+                  <div>
+                    <p className="font-semibold text-foreground">{step.title}</p>
+                    <p className="text-sm text-muted-foreground">{step.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </section>
 
