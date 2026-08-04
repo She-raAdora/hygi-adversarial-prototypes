@@ -87,8 +87,10 @@ export const setAdminRole = createServerFn({ method: "POST" })
 /**
  * Bootstrap: lets the signed-in account become the first admin, but ONLY while
  * no admin exists yet AND the caller's verified email is on the server-side
- * owner allow-list (ADMIN_BOOTSTRAP_EMAILS). Without the allow-list the claim
- * is disabled entirely, so a random signup can never win the race.
+ * owner allow-list (ADMIN_BOOTSTRAP_EMAILS). The allow-list must be narrow (at
+ * most 3 entries) so a broadly misconfigured list can't hand admin to any
+ * signup, and the insert runs through a locked, single-winner database function
+ * so concurrent claims cannot race.
  */
 export const claimFirstAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
@@ -99,6 +101,10 @@ export const claimFirstAdmin = createServerFn({ method: "POST" })
       .filter(Boolean);
     if (allowList.length === 0) {
       throw new Error("Admin bootstrap is disabled. Contact the site operator.");
+    }
+    // A wide allow-list is treated as a misconfiguration, not permission.
+    if (allowList.length > 3 || allowList.some((e) => e.startsWith("*") || e.includes(" "))) {
+      throw new Error("Admin bootstrap is misconfigured and has been disabled.");
     }
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -115,16 +121,11 @@ export const claimFirstAdmin = createServerFn({ method: "POST" })
       throw new Error("This account is not authorized to claim the first admin seat.");
     }
 
-    const { count, error } = await supabaseAdmin
-      .from("user_roles")
-      .select("id", { count: "exact", head: true })
-      .eq("role", "admin");
+    // Atomic, serialized claim: the function refuses once any admin exists.
+    const { data: claimed, error } = await supabaseAdmin.rpc("claim_first_admin_seat", {
+      _user_id: context.userId,
+    });
     if (error) throw error;
-    if ((count ?? 0) > 0) throw new Error("An administrator already exists.");
-
-    const { error: insertError } = await supabaseAdmin
-      .from("user_roles")
-      .insert({ user_id: context.userId, role: "admin" });
-    if (insertError) throw insertError;
+    if (claimed !== true) throw new Error("An administrator already exists.");
     return { ok: true };
   });

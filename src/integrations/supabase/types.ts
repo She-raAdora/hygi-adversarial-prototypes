@@ -124,6 +124,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      claim_first_admin_seat: { Args: { _user_id: string }; Returns: boolean }
       current_user_has_role: {
         Args: { _role: Database["public"]["Enums"]["app_role"] }
         Returns: boolean
