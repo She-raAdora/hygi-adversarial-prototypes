@@ -308,7 +308,7 @@ export const lessons: Lesson[] = [
     emoji: "🧪",
     tagline: "Guard proprietary and classified work",
     intro:
-      "Universities are open by design, but that openness can be exploited. If you handle research, IP, or classified data, treat it like a high-value target — because adversaries do.",
+      "Universities are open by design, and that openness gets exploited. If you handle research, IP, or restricted data, treat it like a high-value target.",
     sections: [
       {
         heading: "Know the threats",
@@ -499,7 +499,7 @@ export const lessons: Lesson[] = [
     emoji: "🤖",
     tagline: "Deepfakes, voice clones, and BEC",
     intro:
-      "Attackers now use AI to write flawless phishing emails, clone voices, and impersonate executives. The old typos-and-grammar tells are gone — verify through a second channel.",
+      "Attackers use AI to write flawless phishing emails, clone voices, and impersonate executives. The old typo tells are gone, so verify on a second channel.",
     sections: [
       {
         heading: "New AI tactics to know",
@@ -626,7 +626,7 @@ export const lessons: Lesson[] = [
     emoji: "🖥️",
     tagline: "Lock it. Don't trust it.",
     intro:
-      "Three unattended minutes is enough for someone to send email as you, install a keylogger, or copy files. Public computers are even worse — assume they're compromised.",
+      "Three unattended minutes is enough to send email as you, install a keylogger, or copy files. On public computers, assume you are already compromised.",
     sections: [
       {
         heading: "Lock when you leave",
@@ -684,7 +684,7 @@ export const lessons: Lesson[] = [
     emoji: "🚨",
     tagline: "Name the tactics used against public health voices",
     intro:
-      "Online harassment of public health professionals is on the rise. Learning the tactics — and the words for them — helps you describe what's happening and get the right kind of help.",
+      "Online harassment of public-facing professionals is rising. Knowing the tactics, and the words for them, helps you report it and get the right help.",
     sections: [
       {
         heading: "Common harassment tactics",
