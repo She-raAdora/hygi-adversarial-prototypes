@@ -4,7 +4,7 @@ import { lessons } from "@/lib/lessons";
 
 const TITLE = "What Is Cyber Hygiene? A Practical Guide — Hygi.";
 const DESCRIPTION =
-  "Cyber hygiene is the set of small, repeatable habits that keep your accounts, devices, and data secure. Learn the core practices, how cyber hygiene differs from digital hygiene, and a checklist you can finish this week.";
+  "Cyber hygiene is the small, repeatable habits that keep your accounts, devices, and data secure. Learn the core practices and a checklist you can finish today.";
 const URL = "https://digitalhygiene.app/cyber-hygiene";
 
 const practices = [
