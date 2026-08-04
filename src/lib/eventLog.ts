@@ -271,3 +271,60 @@ export function summarizeLessonTrends(events: LoggedEvent[]): LessonTrend[] {
     })
     .sort((a, b) => b.attempts - a.attempts || a.lessonTitle.localeCompare(b.lessonTitle));
 }
+/* -------------------------------------------------------------- experiments */
+
+export type ExperimentRow = {
+  variant: string;
+  /** Homepage impressions for this variant. */
+  views: number;
+  /** Primary CTA clicks. */
+  clicks: number;
+  /** CTA click-through rate 0-100, null with no views. */
+  ctr: number | null;
+  /** Quizzes started by visitors in this variant (the engagement signal). */
+  quizStarts: number;
+  quizCompletions: number;
+  badges: number;
+  /** Quiz starts per homepage view, 0-100. */
+  engagementRate: number | null;
+};
+
+/**
+ * Groups every logged event by its A/B variant so the dashboard can compare
+ * CTA wording and placement on clicks *and* on downstream learning activity.
+ */
+export function summarizeExperiments(events: LoggedEvent[]): ExperimentRow[] {
+  const map = new Map<string, ExperimentRow>();
+  const row = (variant: string) => {
+    const existing = map.get(variant);
+    if (existing) return existing;
+    const created: ExperimentRow = {
+      variant,
+      views: 0,
+      clicks: 0,
+      ctr: null,
+      quizStarts: 0,
+      quizCompletions: 0,
+      badges: 0,
+      engagementRate: null,
+    };
+    map.set(variant, created);
+    return created;
+  };
+
+  for (const e of events) {
+    const variant = str(e.p["variant"]);
+    if (!variant) continue;
+    const r = row(variant);
+    if (e.n === "experiment_view") r.views += 1;
+    else if (e.n === "cta_click") r.clicks += 1;
+    else if (e.n === "quiz_start") r.quizStarts += 1;
+    else if (e.n === "quiz_complete") r.quizCompletions += 1;
+    else if (e.n === "badge_earned") r.badges += 1;
+  }
+
+  const pct = (part: number, whole: number) => (whole ? Math.round((part / whole) * 100) : null);
+  return [...map.values()]
+    .map((r) => ({ ...r, ctr: pct(r.clicks, r.views), engagementRate: pct(r.quizStarts, r.views) }))
+    .sort((a, b) => a.variant.localeCompare(b.variant));
+}
