@@ -10,7 +10,12 @@ export const getSiteStats = createServerFn({ method: "GET" })
       { _role: "admin" },
     );
     if (roleError) throw roleError;
-    if (isAdmin !== true) throw new Error("Forbidden");
+    const email = (context.claims["email"] as string | undefined) ?? null;
+    // Signed in but not an admin yet is a normal state (e.g. before the first
+    // admin seat is claimed), so report it instead of throwing.
+    if (isAdmin !== true) {
+      return { allowed: false as const, email };
+    }
 
     const [requests, recentRequests, scans] = await Promise.all([
       context.supabase.from("contact_requests").select("id", { count: "exact", head: true }),
@@ -27,7 +32,8 @@ export const getSiteStats = createServerFn({ method: "GET" })
 
     const latestScan = scans.data?.[0] ?? null;
     return {
-      email: (context.claims["email"] as string | undefined) ?? null,
+      allowed: true as const,
+      email,
       contactRequests: requests.count ?? 0,
       contactRequestsLast7Days: recentRequests.count ?? 0,
       latestScan: latestScan
