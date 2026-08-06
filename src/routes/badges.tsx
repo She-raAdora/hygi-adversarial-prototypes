@@ -3,6 +3,7 @@ import { Lock, RotateCcw, Sparkles, Trophy } from "lucide-react";
 import { lessons } from "@/lib/lessons";
 import { resetProgress, useProgress } from "@/lib/progress";
 import { ShareResultButton } from "@/components/ShareResultButton";
+import { LessonSources } from "@/components/LessonSources";
 
 export const Route = createFileRoute("/badges")({
   head: () => ({
@@ -98,6 +99,7 @@ function BadgesPage() {
               variant="solid"
             />
           </div>
+          <LessonSources />
         </div>
       )}
 
