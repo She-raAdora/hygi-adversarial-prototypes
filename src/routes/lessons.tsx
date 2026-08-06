@@ -3,6 +3,7 @@ import { ArrowRight, Lock, Trophy } from "lucide-react";
 import { lessons } from "@/lib/lessons";
 import { useProgress } from "@/lib/progress";
 import { gateFor, isLocked, PER_GATE, useReferrals } from "@/lib/referrals";
+import { lessonTint } from "@/lib/lessonTints";
 
 export const Route = createFileRoute("/lessons")({
   head: () => ({
@@ -55,10 +56,8 @@ function LessonsPage() {
               >
                 <span
                   aria-hidden="true"
-                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-2xl ${
-                    locked ? "opacity-50 grayscale" : ""
-                  }`}
-                  style={{ background: "var(--gradient-soft)" }}
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-2xl"
+                  style={{ background: lessonTint(i, done) }}
                 >
                   {l.emoji}
                 </span>
