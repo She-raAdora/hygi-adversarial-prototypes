@@ -7,6 +7,7 @@ import {
   type ShareCard,
   type ShareFormat,
 } from "@/lib/shareCard";
+import { recordReferral } from "@/lib/referrals";
 
 type Props = {
   card: ShareCard;
@@ -44,6 +45,7 @@ export function ShareResultButton({
     setState("busy");
     try {
       const outcome = await shareResultCard(card, text, format);
+      recordReferral();
       setState(outcome === "downloaded" ? "saved" : "idle");
     } catch {
       setState("error");
@@ -55,6 +57,7 @@ export function ShareResultButton({
     setState("downloading");
     try {
       const outcome = await downloadResultCard(card, format);
+      recordReferral();
       setState(outcome === "opened" ? "opened" : "saved");
       setTimeout(() => setState("idle"), 6000);
     } catch {
