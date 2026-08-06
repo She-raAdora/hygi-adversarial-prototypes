@@ -162,6 +162,11 @@ function LessonPage() {
             />
           </button>
 
+          <p className="text-center text-xs text-muted-foreground">
+            Brought to you by NorthBridge
+          </p>
+
+
           <nav
             aria-label="Lesson navigation"
             className="flex items-center justify-between gap-3 border-t border-border pt-6"
@@ -383,7 +388,11 @@ function Quiz({
         >
           <span aria-hidden="true">← </span>Back to lesson
         </button>
+        <p className="mt-4 text-center text-xs text-muted-foreground">
+          Brought to you by NorthBridge
+        </p>
       </div>
+
     );
   }
 
