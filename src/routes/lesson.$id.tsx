@@ -4,6 +4,8 @@ import { ArrowLeft, ArrowRight, Check, RotateCcw, Trophy, X } from "lucide-react
 import { getLesson, lessons, type Lesson } from "@/lib/lessons";
 import { awardBadge, useProgress } from "@/lib/progress";
 import { ShareResultButton } from "@/components/ShareResultButton";
+import { ReferralGate } from "@/components/ReferralGate";
+import { gateFor, isLocked, useReferrals } from "@/lib/referrals";
 import {
   trackAllLessonsComplete,
   trackQuizComplete,
@@ -78,6 +80,8 @@ export const Route = createFileRoute("/lesson/$id")({
 function LessonPage() {
   const { lesson } = Route.useLoaderData() as { lesson: Lesson };
   const [mode, setMode] = useState<"learn" | "quiz">("learn");
+  const referrals = useReferrals();
+  const progress = useProgress();
 
   // Reset to learn view when navigating between lessons (component is reused).
   useEffect(() => {
@@ -88,6 +92,9 @@ function LessonPage() {
   const idx = lessons.findIndex((l) => l.id === lesson.id);
   const next = lessons[idx + 1];
   const prev = lessons[idx - 1];
+  const locked = isLocked(idx, referrals);
+  const gate = gateFor(idx);
+  const badgesEarned = lessons.filter((l) => (progress[l.id] ?? 0) >= l.quiz.length).length;
 
   return (
     <main id="main-content" className="mx-auto max-w-2xl px-6 py-12">
@@ -111,7 +118,14 @@ function LessonPage() {
         <p className="mt-3 text-lg text-muted-foreground">{lesson.tagline}</p>
       </header>
 
-      {mode === "learn" ? (
+      {locked && gate ? (
+        <ReferralGate
+          index={idx}
+          after={gate.after}
+          badgesEarned={badgesEarned}
+          totalBadges={lessons.length}
+        />
+      ) : mode === "learn" ? (
         <article className="mt-10 space-y-10">
           <p className="text-base leading-relaxed">{lesson.intro}</p>
           {lesson.sections.map((s: Lesson["sections"][number]) => (
