@@ -103,7 +103,13 @@ export function Turnstile({
           theme: "auto",
           callback: (token) => onChangeRef.current({ required: true, token }),
           "expired-callback": () => onChangeRef.current({ required: true, token: null }),
-          "error-callback": () => onChangeRef.current({ required: true, token: null }),
+          // The widget can refuse to run (e.g. the current hostname is not on the
+          // site key's allow-list). Failing closed would lock every visitor out of
+          // sign-in, so degrade gracefully and let the form submit without a token.
+          "error-callback": () => {
+            setFailed(true);
+            onChangeRef.current({ required: false, token: null });
+          },
         });
       })
       .catch(() => {
@@ -129,8 +135,8 @@ export function Turnstile({
       </p>
       <div ref={containerRef} className="mt-2" aria-describedby={labelId} />
       {failed ? (
-        <p className="mt-2 text-sm text-destructive">
-          The CAPTCHA could not load. Check your connection and reload the page.
+        <p className="mt-2 text-sm text-muted-foreground">
+          The CAPTCHA is unavailable for this domain, so it has been skipped. You can continue.
         </p>
       ) : null}
     </div>
