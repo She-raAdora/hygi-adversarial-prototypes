@@ -13,9 +13,11 @@ export type Lesson = {
   intro: string;
   sections: { heading: string; body: string; tips: string[] }[];
   quiz: QuizQ[];
+  /** Why learning this lesson is urgent — shown when the badge is earned. */
+  urgency?: string;
 };
 
-export const lessons: Lesson[] = [
+const rawLessons: Lesson[] = [
   {
     id: "personal-info",
     title: "Protect Personal Information",
