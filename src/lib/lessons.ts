@@ -212,8 +212,29 @@ export const lessons: Lesson[] = [
           "Keep recovery email & phone up to date.",
         ],
       },
+      {
+        heading: "Lock down account recovery (CISA)",
+        body: "CISA's Project Upskill stresses that recovery options are a back door around your password. If an attacker can reset your password, your MFA barely matters.",
+        tips: [
+          "Use phishing-resistant MFA — passkeys or security keys — on email, banking, and work accounts.",
+          "Remove old recovery phone numbers and addresses you no longer control.",
+          "Answer security questions with random stored strings, not real facts.",
+          "Protect your primary email first — it unlocks every other account.",
+        ],
+      },
     ],
     quiz: [
+      {
+        q: "Why does CISA tell you to secure account-recovery options?",
+        options: [
+          "They speed up logins",
+          "An attacker who controls recovery can reset your password and bypass MFA",
+          "They are required for backups",
+          "They reduce data usage",
+        ],
+        answer: 1,
+        explain: "Recovery email, phone, and security questions are a bypass route around your password.",
+      },
       {
         q: "Which is the strongest second factor?",
         options: ["SMS code", "Authenticator app or hardware key", "Security question", "Email link"],
