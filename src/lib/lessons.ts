@@ -1489,7 +1489,7 @@ const LESSON_URGENCY: Record<string, string> = {
     "In the middle of an attack there is no time to research. Having the emergency checklist ready — lock accounts, preserve evidence, report, get support — protects your safety and your record.",
 };
 
-export const lessons: Lesson[] = LESSON_ORDER.map((id) => {
+export const lessons: Lesson[] = LESSON_ORDER.map((id): Lesson | undefined => {
   const lesson = rawLessons.find((l) => l.id === id);
   return lesson ? { ...lesson, urgency: LESSON_URGENCY[id] } : undefined;
 })
