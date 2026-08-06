@@ -448,6 +448,7 @@ function Quiz({
   }
 
   const q = lesson.quiz[step];
+  const topic = topicForQuestion(lesson, q);
   const correct = picked !== null && picked === q.answer;
 
   return (
@@ -536,6 +537,16 @@ function Quiz({
           >
             <p className="font-medium">{correct ? "Correct!" : "Not quite."}</p>
             <p className="mt-1 text-muted-foreground">{q.explain}</p>
+            {topic && (
+              <button
+                type="button"
+                onClick={() => onBackToLearn(topic.slug)}
+                className="mt-2 inline-flex items-center gap-1 rounded-full text-sm font-medium text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              >
+                Review this lesson: {topic.heading}
+                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </button>
+            )}
           </div>
         )}
       </div>
