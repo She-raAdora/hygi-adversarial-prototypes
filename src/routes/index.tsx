@@ -105,7 +105,7 @@ function Index() {
             </span>
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-            22 short lessons from Dartmouth, Caltech, Cal Poly, and Harvard. Read a lesson, take a
+            22 short lessons from Dartmouth, Caltech, Cal Poly, Harvard, and CISA. Read a lesson, take a
             3-question quiz, and earn a badge for every topic you master.
           </p>
           {ctaAboveHeadline ? null : (
