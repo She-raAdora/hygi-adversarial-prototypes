@@ -307,6 +307,16 @@ function Quiz({
             ? "You've earned the " + lesson.title + " badge."
             : "Get all answers right to earn this badge."}
         </p>
+        {passed && lesson.urgency && (
+          <div className="mt-6 rounded-2xl border border-primary/25 bg-secondary/50 p-5 text-left">
+            <p className="text-xs font-semibold uppercase tracking-wider text-primary">
+              Why this lesson is urgent
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              {lesson.urgency}
+            </p>
+          </div>
+        )}
         <div className="mt-8 text-left">
           <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
             Answer review
