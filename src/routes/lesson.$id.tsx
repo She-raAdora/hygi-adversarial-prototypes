@@ -423,7 +423,7 @@ function Quiz({
         </div>
         <button
           type="button"
-          onClick={onBackToLearn}
+          onClick={() => onBackToLearn()}
           className="mt-4 rounded-full text-sm text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           <span aria-hidden="true">← </span>Back to lesson
@@ -447,7 +447,7 @@ function Quiz({
         </span>
         <button
           type="button"
-          onClick={onBackToLearn}
+          onClick={() => onBackToLearn()}
           className="rounded-full hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           Review lesson
