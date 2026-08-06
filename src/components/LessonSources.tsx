@@ -1,4 +1,5 @@
-import { ExternalLink } from "lucide-react";
+import { useState } from "react";
+import { ExternalLink, BookOpen, ChevronDown } from "lucide-react";
 
 const SOURCES = [
   {
@@ -28,27 +29,46 @@ const SOURCES = [
 ];
 
 export function LessonSources() {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="mt-8 w-full border-t border-border pt-6 text-left">
-      <h3 className="text-sm font-semibold tracking-tight">Sources</h3>
-      <p className="mt-1 text-sm text-muted-foreground">
-        Everything you just learned was adapted from these university cybersecurity guides:
-      </p>
-      <ul className="mt-4 space-y-2 text-sm">
-        {SOURCES.map((s) => (
-          <li key={s.href}>
-            <a
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-primary hover:underline"
-            >
-              {s.label}
-              <ExternalLink className="h-3 w-3" />
-            </a>
-          </li>
-        ))}
-      </ul>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
+      >
+        <BookOpen className="h-4 w-4" />
+        {open ? "Hide sources" : "View sources"}
+        <ChevronDown
+          className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      {open && (
+        <div className="mt-4">
+          <h3 className="text-sm font-semibold tracking-tight">Sources</h3>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Everything you just learned was adapted from these university cybersecurity guides:
+          </p>
+          <ul className="mt-4 space-y-2 text-sm">
+            {SOURCES.map((s) => (
+              <li key={s.href}>
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-primary hover:underline"
+                >
+                  {s.label}
+                  <ExternalLink className="h-3 w-3" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
