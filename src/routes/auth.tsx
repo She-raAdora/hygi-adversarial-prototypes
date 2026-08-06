@@ -42,7 +42,7 @@ function AuthPage() {
   useEffect(() => {
     let active = true;
     void supabase.auth.getUser().then(({ data }) => {
-      if (active && data.user) void navigate({ to: "/insights", replace: true });
+      if (active && data.user) void navigate({ to: "/dashboard", replace: true });
     });
     return () => {
       active = false;
@@ -90,7 +90,7 @@ function AuthPage() {
         if (signInError) throw signInError;
       }
       await router.invalidate();
-      void navigate({ to: "/insights", replace: true });
+      void navigate({ to: "/dashboard", replace: true });
     } catch (err) {
       setCaptchaReset((n) => n + 1);
       setError(err instanceof Error ? err.message : "Something went wrong. Try again.");
@@ -116,7 +116,7 @@ function AuthPage() {
     }
     if (result.redirected) return;
     await router.invalidate();
-    void navigate({ to: "/insights", replace: true });
+    void navigate({ to: "/dashboard", replace: true });
   }
 
   return (

@@ -75,7 +75,7 @@ export function SiteHeader() {
           {signedIn === null ? null : signedIn ? (
             <>
               <Link
-                to="/insights"
+                to="/dashboard"
                 className="rounded-full px-4 py-2 text-muted-foreground transition-colors hover:text-foreground"
                 activeProps={{ className: "rounded-full px-4 py-2 bg-secondary text-foreground" }}
               >
