@@ -93,6 +93,13 @@ function SupportPage() {
 
       <section className="mt-10">
         <h2 className="text-xl font-semibold">Common questions</h2>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          Unfamiliar word in a lesson? Tap the underlined term for a definition in place, or open the{" "}
+          <Link to="/glossary" className="font-medium text-foreground underline underline-offset-4">
+            Digital Safety Glossary
+          </Link>
+          .
+        </p>
         <dl className="mt-4 space-y-5">
           {FAQ.map((item) => (
             <div key={item.q} className="rounded-2xl border border-border/60 bg-card p-5">
