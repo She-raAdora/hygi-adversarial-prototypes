@@ -315,6 +315,7 @@ function Quiz({
           {lesson.quiz.map((qq, i) => {
             const userPick = picks[i];
             const isCorrect = userPick === qq.answer;
+            const topic = topicForQuestion(lesson, qq);
             return (
               <li
                 key={i}
@@ -354,6 +355,16 @@ function Quiz({
                   {qq.options[qq.answer]}
                 </p>
                 <p className="mt-2 text-sm text-muted-foreground">{qq.explain}</p>
+                {topic && (
+                  <button
+                    type="button"
+                    onClick={() => onBackToLearn(topic.slug)}
+                    className="mt-2 inline-flex items-center gap-1 rounded-full text-sm font-medium text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  >
+                    Review this lesson: {topic.heading}
+                    <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                  </button>
+                )}
               </li>
             );
           })}
