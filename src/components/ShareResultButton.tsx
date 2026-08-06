@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Check, Download, Loader2, Share2 } from "lucide-react";
+import { Check, ChevronDown, Download, Loader2, Share2 } from "lucide-react";
 import {
   downloadResultCard,
   shareResultCard,
@@ -30,6 +30,7 @@ export function ShareResultButton({
     "idle" | "busy" | "downloading" | "shared" | "saved" | "opened" | "error"
   >("idle");
   const [format, setFormat] = useState<ShareFormat>("landscape");
+  const [open, setOpen] = useState(false);
   const active = SHARE_FORMATS.find((f) => f.id === format)!;
 
   const base =
@@ -72,61 +73,83 @@ export function ShareResultButton({
 
   return (
     <span className={`inline-flex flex-col items-center gap-2 ${className}`}>
-      <span
-        className="inline-flex flex-wrap items-center justify-center gap-1 rounded-full border border-border bg-background p-1"
-        role="radiogroup"
-        aria-label="Image format"
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className={`${base} ${skin}`}
+        style={variant === "solid" ? { background: "var(--gradient-hero)" } : undefined}
       >
-        {SHARE_FORMATS.map((f) => (
-          <button
-            key={f.id}
-            type="button"
-            role="radio"
-            aria-checked={format === f.id}
-            onClick={() => setFormat(f.id)}
-            className={`rounded-full px-3 py-1.5 text-xs font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-              format === f.id
-                ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:bg-secondary"
-            }`}
+        <Share2 className="h-4 w-4" aria-hidden="true" />
+        {label}
+        <ChevronDown
+          className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`}
+          aria-hidden="true"
+        />
+      </button>
+
+      {open && (
+        <span className="mt-1 inline-flex w-full max-w-xs flex-col items-center gap-2 rounded-2xl border border-border bg-background p-3">
+          <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+            Choose a format
+          </span>
+          <span
+            className="inline-flex flex-wrap items-center justify-center gap-1 rounded-full border border-border bg-secondary/40 p-1"
+            role="radiogroup"
+            aria-label="Image format"
           >
-            {f.label}
-            <span className="sr-only"> — {f.hint}</span>
-          </button>
-        ))}
-      </span>
-      <span className="text-xs text-muted-foreground">{active.hint}</span>
-      <span className="inline-flex flex-wrap items-center justify-center gap-2">
-        <button
-          type="button"
-          onClick={onShare}
-          disabled={state === "busy" || state === "downloading"}
-          className={`${base} ${skin}`}
-          style={variant === "solid" ? { background: "var(--gradient-hero)" } : undefined}
-        >
-          {state === "busy" ? (
-            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
-          ) : (
-            <Share2 className="h-4 w-4" aria-hidden="true" />
-          )}
-          {state === "busy" ? "Creating image…" : label}
-        </button>
-        <button
-          type="button"
-          onClick={onDownload}
-          disabled={state === "busy" || state === "downloading"}
-          className={`${base} border border-border bg-background hover:bg-secondary`}
-        >
-          {state === "downloading" ? (
-            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
-          ) : state === "saved" || state === "opened" ? (
-            <Check className="h-4 w-4" aria-hidden="true" />
-          ) : (
-            <Download className="h-4 w-4" aria-hidden="true" />
-          )}
-          {state === "downloading" ? "Saving…" : "Download PNG"}
-        </button>
-      </span>
+            {SHARE_FORMATS.map((f) => (
+              <button
+                key={f.id}
+                type="button"
+                role="radio"
+                aria-checked={format === f.id}
+                onClick={() => setFormat(f.id)}
+                className={`rounded-full px-3 py-1.5 text-xs font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                  format === f.id
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:bg-secondary"
+                }`}
+              >
+                {f.label}
+                <span className="sr-only"> — {f.hint}</span>
+              </button>
+            ))}
+          </span>
+          <span className="text-xs text-muted-foreground">{active.hint}</span>
+          <span className="inline-flex flex-wrap items-center justify-center gap-2">
+            <button
+              type="button"
+              onClick={onShare}
+              disabled={state === "busy" || state === "downloading"}
+              className={`${base} ${skin}`}
+              style={variant === "solid" ? { background: "var(--gradient-hero)" } : undefined}
+            >
+              {state === "busy" ? (
+                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+              ) : (
+                <Share2 className="h-4 w-4" aria-hidden="true" />
+              )}
+              {state === "busy" ? "Creating image…" : "Share image"}
+            </button>
+            <button
+              type="button"
+              onClick={onDownload}
+              disabled={state === "busy" || state === "downloading"}
+              className={`${base} border border-border bg-background hover:bg-secondary`}
+            >
+              {state === "downloading" ? (
+                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+              ) : state === "saved" || state === "opened" ? (
+                <Check className="h-4 w-4" aria-hidden="true" />
+              ) : (
+                <Download className="h-4 w-4" aria-hidden="true" />
+              )}
+              {state === "downloading" ? "Saving…" : "Download PNG"}
+            </button>
+          </span>
+        </span>
+      )}
       <span className="text-xs text-muted-foreground" role="status">
         {message}
       </span>
