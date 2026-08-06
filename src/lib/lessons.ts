@@ -212,8 +212,29 @@ export const lessons: Lesson[] = [
           "Keep recovery email & phone up to date.",
         ],
       },
+      {
+        heading: "Lock down account recovery (CISA)",
+        body: "CISA's Project Upskill stresses that recovery options are a back door around your password. If an attacker can reset your password, your MFA barely matters.",
+        tips: [
+          "Use phishing-resistant MFA — passkeys or security keys — on email, banking, and work accounts.",
+          "Remove old recovery phone numbers and addresses you no longer control.",
+          "Answer security questions with random stored strings, not real facts.",
+          "Protect your primary email first — it unlocks every other account.",
+        ],
+      },
     ],
     quiz: [
+      {
+        q: "Why does CISA tell you to secure account-recovery options?",
+        options: [
+          "They speed up logins",
+          "An attacker who controls recovery can reset your password and bypass MFA",
+          "They are required for backups",
+          "They reduce data usage",
+        ],
+        answer: 1,
+        explain: "Recovery email, phone, and security questions are a bypass route around your password.",
+      },
       {
         q: "Which is the strongest second factor?",
         options: ["SMS code", "Authenticator app or hardware key", "Security question", "Email link"],
@@ -270,8 +291,29 @@ export const lessons: Lesson[] = [
           "Use a VPN on untrusted networks.",
         ],
       },
+      {
+        heading: "Run as a standard user (CISA)",
+        body: "CISA's Project Upskill Module 1 recommends doing everyday work in a standard, non-administrator account. Malware that lands in a limited account can do far less damage.",
+        tips: [
+          "Create a separate admin account and use it only to install software.",
+          "Leave built-in antivirus and anti-malware protections enabled.",
+          "Review app permissions and revoke camera, mic, and location access you don't need.",
+          "Research the developer before installing any app, and drop devices that no longer get security updates.",
+        ],
+      },
     ],
     quiz: [
+      {
+        q: "Why does CISA suggest daily work in a standard, non-admin account?",
+        options: [
+          "It makes the device faster",
+          "Malware in a limited account can't make system-wide changes as easily",
+          "Admin accounts cost more",
+          "It disables updates",
+        ],
+        answer: 1,
+        explain: "Least privilege limits what a compromise can reach.",
+      },
       {
         q: "What does full-disk encryption protect against?",
         options: [
@@ -927,6 +969,441 @@ export const lessons: Lesson[] = [
         ],
         answer: 2,
         explain: "Practical, quiet support — documenting and reducing public exposure — actually helps.",
+      },
+    ],
+  },
+  {
+    id: "core-four",
+    title: "The Four Core Habits",
+    emoji: "⭐",
+    tagline: "CISA's Secure Our World basics",
+    intro:
+      "CISA's Secure Our World campaign boils personal cybersecurity down to four habits that stop the overwhelming majority of everyday attacks: recognize and report phishing, use strong passwords, turn on multifactor authentication, and update your software.",
+    sections: [
+      {
+        heading: "Recognize and report phishing",
+        body: "Urgency is the tell. Attackers push you to act before you think, so the fix is to slow down and verify through a different channel.",
+        tips: [
+          "Pause before responding to urgent or alarming messages.",
+          "Examine the sender, links, attachments, and unusual requests.",
+          "Verify the request by calling or messaging the person another way.",
+          "Report suspicious messages instead of just deleting them.",
+        ],
+      },
+      {
+        heading: "Passwords, MFA, and updates",
+        body: "Long, random, unique passwords in a reputable password manager; a second factor on the accounts that matter; and automatic updates everywhere.",
+        tips: [
+          "Make passwords long, random, and unique — never reused.",
+          "Add MFA to email, financial, social, cloud-storage, and work accounts first.",
+          "Prefer passkeys or security keys where offered.",
+          "Turn on automatic updates and replace gear that no longer gets security support.",
+        ],
+      },
+    ],
+    quiz: [
+      {
+        q: "What are CISA's four core cyber habits?",
+        options: [
+          "Antivirus, VPN, firewall, incognito mode",
+          "Recognize phishing, strong passwords, MFA, update software",
+          "Backups, encryption, shredding, insurance",
+          "Two emails, two phones, two laptops, two routers",
+        ],
+        answer: 1,
+        explain: "Secure Our World centers on exactly those four habits.",
+      },
+      {
+        q: "You get an urgent text from 'your bank' asking you to confirm a transfer. Best move?",
+        options: [
+          "Tap the link and log in quickly",
+          "Reply STOP",
+          "Contact the bank through a number you already trust",
+          "Forward it to friends",
+        ],
+        answer: 2,
+        explain: "Verify through a separate, known channel — never the one the message gave you.",
+      },
+      {
+        q: "What should you do with software that no longer receives security updates?",
+        options: [
+          "Keep using it forever",
+          "Replace or retire it",
+          "Turn off its updates",
+          "Only use it on Wi-Fi",
+        ],
+        answer: 1,
+        explain: "Unsupported software keeps known holes open permanently.",
+      },
+    ],
+  },
+  {
+    id: "threat-landscape",
+    title: "Know Your Threat Landscape",
+    emoji: "🎯",
+    tagline: "Who might target you, and why",
+    intro:
+      "CISA identifies high-risk communities — activists, journalists, human-rights defenders, academics, and civil-society staff — who are targeted because of their work or identity. Knowing your own risk profile tells you which defenses to build first.",
+    sections: [
+      {
+        heading: "Name your risks",
+        body: "Security decisions get easy once you know what you're protecting, who wants it, and what happens if they get it.",
+        tips: [
+          "List your most sensitive accounts, files, and contacts.",
+          "Ask who would benefit from access — scammers, harassers, or a determined adversary.",
+          "Rank fixes by damage prevented, not by effort.",
+          "Assume your primary email is the top prize and defend it first.",
+        ],
+      },
+      {
+        heading: "Get help when you need it",
+        body: "CISA maintains a resource catalog for high-risk communities, including digital-emergency help, the Digital First Aid Kit, and cyber volunteer clinics for under-resourced organizations.",
+        tips: [
+          "Save a digital-security helpline contact before you need it.",
+          "Know your organization's incident reporting path.",
+          "Share CISA's free materials with colleagues and family.",
+          "Treat unusual login alerts as incidents, not annoyances.",
+        ],
+      },
+    ],
+    quiz: [
+      {
+        q: "Which group does CISA count as a high-risk community?",
+        options: [
+          "Only government employees",
+          "Journalists, activists, academics, and civil-society staff",
+          "Only large corporations",
+          "Nobody in particular",
+        ],
+        answer: 1,
+        explain: "They may be targeted specifically because of their work or identity.",
+      },
+      {
+        q: "Which account usually deserves your strongest protection?",
+        options: ["A shopping account", "Your primary email", "A game login", "A news site account"],
+        answer: 1,
+        explain: "Email resets everything else, so it is the highest-value target.",
+      },
+      {
+        q: "What's the point of naming your risks first?",
+        options: [
+          "It replaces the need for MFA",
+          "It tells you which protections matter most for you",
+          "It guarantees you'll never be attacked",
+          "It's a legal requirement",
+        ],
+        answer: 1,
+        explain: "A quick threat model turns a long checklist into a short priority list.",
+      },
+    ],
+  },
+  {
+    id: "encrypt-backup",
+    title: "Encrypt & Back Up Your Data",
+    emoji: "🗄️",
+    tagline: "Project Upskill Module 3",
+    intro:
+      "CISA's third Upskill module is about the information sitting on your devices right now: find it, copy it somewhere safe, and encrypt it so a lost laptop isn't a data breach.",
+    sections: [
+      {
+        heading: "Back up like it's already broken",
+        body: "Ransomware, theft, and dead drives all end the same way if your only copy was on the device.",
+        tips: [
+          "Identify the sensitive information stored locally.",
+          "Keep at least one backup you can restore from.",
+          "Disconnect external backup drives when you're not using them.",
+          "Evaluate a cloud-backup provider's security before trusting it.",
+        ],
+      },
+      {
+        heading: "Encrypt devices, drives, and files",
+        body: "Full-device encryption is one setting. Removable drives and individual sensitive files deserve their own.",
+        tips: [
+          "Turn on full-device encryption (FileVault, BitLocker, device encryption).",
+          "Encrypt USB sticks and external drives too.",
+          "Encrypt individual highly sensitive files with a strong passphrase.",
+          "Store recovery keys somewhere safe and separate from the device.",
+        ],
+      },
+    ],
+    quiz: [
+      {
+        q: "Why keep a backup drive disconnected when not in use?",
+        options: [
+          "To save electricity",
+          "So ransomware or malware on the computer can't encrypt the backup too",
+          "Drives expire when plugged in",
+          "It speeds up backups",
+        ],
+        answer: 1,
+        explain: "An always-connected backup gets encrypted alongside the original.",
+      },
+      {
+        q: "Where should an encryption recovery key live?",
+        options: [
+          "In a text file on the encrypted device",
+          "Safe and separate from the device it unlocks",
+          "In your email signature",
+          "Nowhere — memorize it and hope",
+        ],
+        answer: 1,
+        explain: "A key stored on the device it unlocks protects nothing, and a lost key means lost data.",
+      },
+      {
+        q: "Beyond your laptop's internal disk, what else should be encrypted?",
+        options: [
+          "Nothing else",
+          "Removable drives and sensitive individual files",
+          "Only cloud photos",
+          "Only work documents",
+        ],
+        answer: 1,
+        explain: "USB sticks and single sensitive files are the ones that walk away most easily.",
+      },
+    ],
+  },
+  {
+    id: "secure-comms",
+    title: "Secure Comms & Browsing",
+    emoji: "💬",
+    tagline: "Project Upskill Module 4",
+    intro:
+      "Messages, browsing, and cloud services are where most of your daily exposure happens. CISA's fourth module is about choosing encrypted tools and tightening the defaults.",
+    sections: [
+      {
+        heading: "Use encrypted messaging and calling",
+        body: "End-to-end encrypted apps mean the provider — and anyone watching the network — can't read your conversations.",
+        tips: [
+          "Pick a reputable end-to-end encrypted messaging and calling app.",
+          "Verify contacts through a second channel before sharing sensitive details.",
+          "Turn on disappearing messages for sensitive threads.",
+          "Assume SMS is readable in transit.",
+        ],
+      },
+      {
+        heading: "Harden the browser and vet cloud services",
+        body: "Browsers ship permissive by default, and cloud providers vary wildly in how they protect what you upload.",
+        tips: [
+          "Adjust browser privacy and security settings; block third-party tracking.",
+          "Insist on HTTPS connections and stop at certificate warnings.",
+          "Recognize unsafe sites and refuse unexpected downloads.",
+          "Assess a cloud provider's encryption and MFA support before entrusting sensitive data.",
+        ],
+      },
+    ],
+    quiz: [
+      {
+        q: "What does end-to-end encryption give you?",
+        options: [
+          "Faster messages",
+          "Only you and the recipient can read the content",
+          "Free storage",
+          "Guaranteed delivery",
+        ],
+        answer: 1,
+        explain: "Not even the service provider or the network can read end-to-end encrypted content.",
+      },
+      {
+        q: "A site throws a certificate warning. You should:",
+        options: [
+          "Click through — warnings are usually wrong",
+          "Stop and don't enter any information",
+          "Disable HTTPS and retry",
+          "Log in from your phone instead",
+        ],
+        answer: 1,
+        explain: "A certificate warning can mean your connection is being intercepted.",
+      },
+      {
+        q: "Before storing sensitive files with a cloud provider, what should you check?",
+        options: [
+          "Its logo design",
+          "Its encryption, MFA support, and security track record",
+          "Whether it has a mobile app",
+          "How many users it has",
+        ],
+        answer: 1,
+        explain: "CISA advises assessing providers before entrusting them with sensitive information.",
+      },
+    ],
+  },
+  {
+    id: "home-wifi",
+    title: "Secure Your Home Wi-Fi",
+    emoji: "📶",
+    tagline: "Project Upskill Module 5",
+    intro:
+      "Your router is the gate to every device in your home, and most people never touch its settings. CISA calls this module the minimum essential steps for home-router privacy and security.",
+    sections: [
+      {
+        heading: "Take control of the router",
+        body: "Default admin credentials are published online. Changing them is the single highest-value five-minute task in your home.",
+        tips: [
+          "Change the router's default administrator password.",
+          "Rename the network so it doesn't advertise the make and model.",
+          "Install firmware updates, or enable automatic updates.",
+          "Disable remote administration if you don't use it.",
+        ],
+      },
+      {
+        heading: "Encrypt and segment",
+        body: "Modern Wi-Fi encryption plus a guest network keeps visitors and chatty smart devices away from your laptops and files.",
+        tips: [
+          "Use current Wi-Fi encryption (WPA3, or WPA2 if that's the best available).",
+          "Review the list of connected devices and remove anything you don't recognize.",
+          "Put guests and smart-home gadgets on a separate guest network.",
+          "Use a long passphrase for the Wi-Fi itself.",
+        ],
+      },
+    ],
+    quiz: [
+      {
+        q: "First thing to change on a brand-new router?",
+        options: [
+          "The color of the LEDs",
+          "The default administrator password",
+          "The antenna angle",
+          "Nothing — defaults are secure",
+        ],
+        answer: 1,
+        explain: "Default admin credentials are publicly documented per model.",
+      },
+      {
+        q: "Why put smart-home devices on a guest network?",
+        options: [
+          "They get faster Wi-Fi",
+          "To keep a compromised gadget away from your computers and files",
+          "It's required by law",
+          "It lowers your bill",
+        ],
+        answer: 1,
+        explain: "Segmentation limits what a weak device can reach.",
+      },
+      {
+        q: "Which Wi-Fi encryption should you prefer?",
+        options: ["None", "WEP", "WPA3 (or WPA2 if WPA3 isn't available)", "Hidden SSID instead of encryption"],
+        answer: 2,
+        explain: "WEP is broken and hiding the network name is not encryption.",
+      },
+    ],
+  },
+  {
+    id: "public-footprint",
+    title: "Shrink Your Public Footprint",
+    emoji: "🔎",
+    tagline: "Project Upskill Module 6",
+    intro:
+      "Targeted attacks start with research. CISA's sixth module is about limiting what a stranger can learn about you — and how separate harmless posts combine into a targeting package.",
+    sections: [
+      {
+        heading: "Audit what's searchable",
+        body: "Search yourself the way an adversary would, then remove or lock down what you find.",
+        tips: [
+          "Search your name, email, phone, and usernames.",
+          "Request removal from people-search and data-broker sites.",
+          "Tighten social-media privacy and account settings.",
+          "Prune old accounts and public posts you no longer need.",
+        ],
+      },
+      {
+        heading: "Think about aggregation",
+        body: "One post about your gym, one about your kid's school, one about a trip — together they map your routine, your family, and when your home is empty.",
+        tips: [
+          "Delay travel posts until you're home.",
+          "Avoid publishing family, location, employer, and schedule details together.",
+          "Be skeptical of new contacts, impersonators, and cloned profiles.",
+          "Verify anyone claiming to be a colleague before sharing organizational details.",
+        ],
+      },
+    ],
+    quiz: [
+      {
+        q: "Why is 'aggregation' a risk even when each post seems harmless?",
+        options: [
+          "Posts slow your phone down",
+          "Combined details reveal your routine, relationships, and location",
+          "Platforms charge for many posts",
+          "It uses more data",
+        ],
+        answer: 1,
+        explain: "Attackers assemble small public details into a targeting profile.",
+      },
+      {
+        q: "A 'colleague' messages from a brand-new profile asking for internal details. You should:",
+        options: [
+          "Answer — the name matches",
+          "Verify their identity through a known channel first",
+          "Send a partial answer",
+          "Add them and share your calendar",
+        ],
+        answer: 1,
+        explain: "Impersonation and cloned profiles are a standard social-engineering opener.",
+      },
+      {
+        q: "Best time to post vacation photos?",
+        options: ["Live from the airport", "After you're back home", "Before you leave", "Whenever, it doesn't matter"],
+        answer: 1,
+        explain: "Real-time travel posts announce that your home is empty.",
+      },
+    ],
+  },
+  {
+    id: "incident-plan",
+    title: "Your Personal Incident Plan",
+    emoji: "🚨",
+    tagline: "Decide now, not mid-crisis",
+    intro:
+      "The last step in CISA's curriculum is planning your response. A written half-page plan turns a panicked night into a checklist — and then you extend the habit to colleagues and family.",
+    sections: [
+      {
+        heading: "Write the plan",
+        body: "Cover the first hour: what you check, what you lock, and who you tell.",
+        tips: [
+          "List steps: change passwords from a clean device, revoke sessions, rotate MFA, check recovery settings.",
+          "Keep offline copies of key contacts and backup codes.",
+          "Note where your backups are and how to restore them.",
+          "Save a digital-security helpline and your organization's reporting contact.",
+        ],
+      },
+      {
+        heading: "Extend it outward",
+        body: "Attackers move through the people around you. Sharing what you've learned is a security control, not just a courtesy.",
+        tips: [
+          "Walk family and colleagues through phishing, passwords, MFA, and updates.",
+          "Share CISA's free Secure Our World materials.",
+          "Agree on a code phrase to verify urgent requests within your team or family.",
+          "Practise the plan once — a five-minute dry run finds the gaps.",
+        ],
+      },
+    ],
+    quiz: [
+      {
+        q: "You suspect your account is compromised. Where should you change the password from?",
+        options: ["The same possibly infected device", "A device you trust is clean", "A public library kiosk", "Any phone nearby"],
+        answer: 1,
+        explain: "Changing a password on a compromised device just hands over the new one.",
+      },
+      {
+        q: "After regaining access to an account, what else must you check?",
+        options: [
+          "Nothing — the password is enough",
+          "Active sessions, MFA devices, and recovery settings the attacker may have added",
+          "Your profile photo",
+          "The theme colour",
+        ],
+        answer: 1,
+        explain: "Attackers leave behind their own recovery methods and app sessions to get back in.",
+      },
+      {
+        q: "Why agree on a code phrase with family or teammates?",
+        options: [
+          "It's fun",
+          "To verify urgent or unusual requests that could be impersonation or AI voice cloning",
+          "To share passwords faster",
+          "It replaces MFA",
+        ],
+        answer: 1,
+        explain: "A pre-agreed phrase defeats urgent impersonation, including cloned voices.",
       },
     ],
   },

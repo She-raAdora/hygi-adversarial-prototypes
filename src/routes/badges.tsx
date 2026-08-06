@@ -12,13 +12,13 @@ export const Route = createFileRoute("/badges")({
       {
         name: "description",
         content:
-          "Track your progress and view every digital hygiene badge you have earned, plus the trophy for finishing all 15 lessons.",
+          "Track your progress and view every digital hygiene badge you have earned, plus the trophy for finishing all 22 lessons.",
       },
       { property: "og:title", content: "Your Badges — Hygi" },
       {
         property: "og:description",
         content:
-          "Track your progress and view every digital hygiene badge you have earned, plus the trophy for finishing all 15 lessons.",
+          "Track your progress and view every digital hygiene badge you have earned, plus the trophy for finishing all 22 lessons.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -149,7 +149,7 @@ function BadgesPage() {
 
     <div className="mt-12 flex flex-wrap items-center justify-center gap-2 text-xs text-muted-foreground">
       <Sparkles className="h-3.5 w-3.5 text-primary" />
-      Based on Dartmouth, Caltech, Cal Poly, and Harvard University's cybersecurity and digital safety guides
+      Based on Dartmouth, Caltech, Cal Poly, Harvard University's, and CISA's cybersecurity and digital safety guides
     </div>
   </main>
 );

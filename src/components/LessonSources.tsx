@@ -26,6 +26,18 @@ const SOURCES = [
     label: "Harvard T.H. Chan — Digital Safety Kit for Public Health",
     href: "https://www.hsph.harvard.edu/chc/wp-content/uploads/sites/2464/2024/03/Digital-Safety-Kit-for-Public-Health-2024-1.pdf",
   },
+  {
+    label: "CISA — Secure Our World",
+    href: "https://www.cisa.gov/secure-our-world",
+  },
+  {
+    label: "CISA — Project Upskill (High-Risk Communities)",
+    href: "https://www.cisa.gov/audiences/high-risk-communities/project-upskill",
+  },
+  {
+    label: "CISA — Resources for High-Risk Communities",
+    href: "https://www.cisa.gov/audiences/high-risk-communities",
+  },
 ];
 
 export function LessonSources() {
@@ -50,7 +62,8 @@ export function LessonSources() {
         <div className="mt-4">
           <h3 className="text-sm font-semibold tracking-tight">Sources</h3>
           <p className="mt-1 text-sm text-muted-foreground">
-            Everything you just learned was adapted from these university cybersecurity guides:
+            Everything you just learned was adapted from these university and CISA cybersecurity
+            guides:
           </p>
           <ul className="mt-4 space-y-2 text-sm">
             {SOURCES.map((s) => (

@@ -224,7 +224,7 @@ function CyberHygienePage() {
         </h2>
         <p className="mt-3 text-muted-foreground">
           Hygi. breaks these fundamentals into {lessons.length} short lessons, each ending in a pop
-          quiz and a badge — built from Dartmouth, Caltech, Cal Poly, and Harvard University&rsquo;s
+          quiz and a badge — built from Dartmouth, Caltech, Cal Poly, Harvard University&rsquo;s, and CISA&rsquo;s
           cybersecurity and digital safety guides.
         </p>
         <Link

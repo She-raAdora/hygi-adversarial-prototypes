@@ -11,13 +11,13 @@ export const Route = createFileRoute("/lessons")({
       {
         name: "description",
         content:
-          "Browse the full digital hygiene curriculum — 15 short lessons with pop quizzes and a badge for every topic you master.",
+          "Browse the full digital hygiene curriculum — 22 short lessons with pop quizzes and a badge for every topic you master.",
       },
       { property: "og:title", content: "Lessons — Hygi" },
       {
         property: "og:description",
         content:
-          "Browse the full digital hygiene curriculum — 15 short lessons with pop quizzes and a badge for every topic you master.",
+          "Browse the full digital hygiene curriculum — 22 short lessons with pop quizzes and a badge for every topic you master.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
