@@ -56,6 +56,10 @@ const FAQ = [
     q: "How do I reset my badges and start over?",
     a: "Use the Reset progress button below. It clears lesson completions, quiz scores, and badges on this device only.",
   },
+  {
+    q: "What if I don't know a word used in a lesson?",
+    a: "Lessons are written in plain language, and unfamiliar terms are underlined so you can tap or hover for a definition without leaving the lesson. The full Digital Safety Glossary is linked in the footer, on every lesson page, and here in support.",
+  },
 ];
 
 function SupportPage() {
