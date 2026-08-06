@@ -291,8 +291,29 @@ export const lessons: Lesson[] = [
           "Use a VPN on untrusted networks.",
         ],
       },
+      {
+        heading: "Run as a standard user (CISA)",
+        body: "CISA's Project Upskill Module 1 recommends doing everyday work in a standard, non-administrator account. Malware that lands in a limited account can do far less damage.",
+        tips: [
+          "Create a separate admin account and use it only to install software.",
+          "Leave built-in antivirus and anti-malware protections enabled.",
+          "Review app permissions and revoke camera, mic, and location access you don't need.",
+          "Research the developer before installing any app, and drop devices that no longer get security updates.",
+        ],
+      },
     ],
     quiz: [
+      {
+        q: "Why does CISA suggest daily work in a standard, non-admin account?",
+        options: [
+          "It makes the device faster",
+          "Malware in a limited account can't make system-wide changes as easily",
+          "Admin accounts cost more",
+          "It disables updates",
+        ],
+        answer: 1,
+        explain: "Least privilege limits what a compromise can reach.",
+      },
       {
         q: "What does full-disk encryption protect against?",
         options: [
