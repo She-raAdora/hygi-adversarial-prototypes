@@ -4,6 +4,7 @@ import { lessons } from "@/lib/lessons";
 import { resetProgress, useProgress } from "@/lib/progress";
 import { ShareResultButton } from "@/components/ShareResultButton";
 import { LessonSources } from "@/components/LessonSources";
+import { lessonTint, lessonTintShadow } from "@/lib/lessonTints";
 
 export const Route = createFileRoute("/badges")({
   head: () => ({
@@ -104,7 +105,7 @@ function BadgesPage() {
       )}
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {lessons.map((l) => {
+        {lessons.map((l, i) => {
           const score = progress[l.id] ?? 0;
           const done = score >= l.quiz.length;
           return (
@@ -116,14 +117,11 @@ function BadgesPage() {
               style={done ? { boxShadow: "var(--shadow-soft)" } : undefined}
             >
               <div
-                className={`flex h-20 w-20 items-center justify-center rounded-2xl text-4xl ${
-                  done ? "" : "grayscale opacity-50"
-                }`}
-                style={
-                  done
-                    ? { background: "var(--gradient-hero)", boxShadow: "var(--shadow-glow)" }
-                    : { background: "var(--muted)" }
-                }
+                className="flex h-20 w-20 items-center justify-center rounded-2xl text-4xl"
+                style={{
+                  background: lessonTint(i, done),
+                  boxShadow: done ? lessonTintShadow(i) : undefined,
+                }}
               >
                 {l.emoji}
               </div>
