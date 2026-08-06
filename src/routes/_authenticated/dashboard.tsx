@@ -68,6 +68,19 @@ function DashboardPage() {
         <p className="mt-10 text-sm text-destructive">
           Couldn't load site stats — admin access is required to view them.
         </p>
+      ) : !data.allowed ? (
+        <div className="mt-10 rounded-2xl border border-border bg-card p-6">
+          <p className="text-sm text-muted-foreground">
+            This account doesn't have admin access yet. If no administrator exists, you can claim
+            the first admin seat.
+          </p>
+          <Link
+            to="/admin"
+            className="mt-4 inline-flex items-center rounded-xl bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Go to admin access
+          </Link>
+        </div>
       ) : (
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Stat
