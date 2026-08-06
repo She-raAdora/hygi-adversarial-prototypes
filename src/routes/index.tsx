@@ -8,17 +8,17 @@ import { trackCtaClick } from "@/lib/analytics";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Hygi. — Digital & Cyber Hygiene in 15 Lessons" },
+      { title: "Hygi. — Digital & Cyber Hygiene in 22 Lessons" },
       {
         name: "description",
         content:
-          "Learn digital and cyber hygiene in 15 short lessons from university security guides. Quiz yourself after each one and earn a badge per topic.",
+          "Learn digital and cyber hygiene in 22 short lessons from university security guides. Quiz yourself after each one and earn a badge per topic.",
       },
-      { property: "og:title", content: "Hygi. — Digital & Cyber Hygiene in 15 Lessons" },
+      { property: "og:title", content: "Hygi. — Digital & Cyber Hygiene in 22 Lessons" },
       {
         property: "og:description",
         content:
-          "Learn digital and cyber hygiene in 15 short lessons from university security guides. Quiz yourself after each one and earn a badge per topic.",
+          "Learn digital and cyber hygiene in 22 short lessons from university security guides. Quiz yourself after each one and earn a badge per topic.",
       },
       { property: "og:url", content: "https://digitalhygiene.app/" },
       {
@@ -105,7 +105,7 @@ function Index() {
             </span>
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-            15 short lessons from Dartmouth, Caltech, Cal Poly, and Harvard. Read a lesson, take a
+            22 short lessons from Dartmouth, Caltech, Cal Poly, and Harvard. Read a lesson, take a
             3-question quiz, and earn a badge for every topic you master.
           </p>
           {ctaAboveHeadline ? null : (
@@ -121,7 +121,7 @@ function Index() {
                 <BookOpen className="h-5 w-5" />
               </div>
               <div className="text-sm">
-                <p className="font-semibold text-foreground">15 lessons</p>
+                <p className="font-semibold text-foreground">22 lessons</p>
                 <p className="text-muted-foreground">5 minutes each</p>
               </div>
             </div>

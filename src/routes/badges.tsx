@@ -12,13 +12,13 @@ export const Route = createFileRoute("/badges")({
       {
         name: "description",
         content:
-          "Track your progress and view every digital hygiene badge you have earned, plus the trophy for finishing all 15 lessons.",
+          "Track your progress and view every digital hygiene badge you have earned, plus the trophy for finishing all 22 lessons.",
       },
       { property: "og:title", content: "Your Badges — Hygi" },
       {
         property: "og:description",
         content:
-          "Track your progress and view every digital hygiene badge you have earned, plus the trophy for finishing all 15 lessons.",
+          "Track your progress and view every digital hygiene badge you have earned, plus the trophy for finishing all 22 lessons.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
