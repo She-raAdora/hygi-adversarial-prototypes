@@ -56,6 +56,10 @@ const FAQ = [
     q: "How do I reset my badges and start over?",
     a: "Use the Reset progress button below. It clears lesson completions, quiz scores, and badges on this device only.",
   },
+  {
+    q: "What if I don't know a word used in a lesson?",
+    a: "Lessons are written in plain language, and unfamiliar terms are underlined so you can tap or hover for a definition without leaving the lesson. The full Digital Safety Glossary is linked in the footer, on every lesson page, and here in support.",
+  },
 ];
 
 function SupportPage() {
@@ -93,6 +97,13 @@ function SupportPage() {
 
       <section className="mt-10">
         <h2 className="text-xl font-semibold">Common questions</h2>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          Unfamiliar word in a lesson? Tap the underlined term for a definition in place, or open the{" "}
+          <Link to="/glossary" className="font-medium text-foreground underline underline-offset-4">
+            Digital Safety Glossary
+          </Link>
+          .
+        </p>
         <dl className="mt-4 space-y-5">
           {FAQ.map((item) => (
             <div key={item.q} className="rounded-2xl border border-border/60 bg-card p-5">

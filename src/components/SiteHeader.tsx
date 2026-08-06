@@ -72,6 +72,13 @@ export function SiteHeader() {
               {earned}
             </span>
           </Link>
+          <Link
+            to="/glossary"
+            className="rounded-full px-4 py-2 text-muted-foreground transition-colors hover:text-foreground"
+            activeProps={{ className: "rounded-full px-4 py-2 bg-secondary text-foreground" }}
+          >
+            Glossary
+          </Link>
           {signedIn === null ? null : signedIn ? (
             <>
               <Link

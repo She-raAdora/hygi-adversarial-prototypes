@@ -186,6 +186,13 @@ function LessonPage() {
             Brought to you by NorthBridge
           </p>
 
+          <p className="text-center text-xs text-muted-foreground">
+            Unfamiliar term?{" "}
+            <Link to="/glossary" className="underline underline-offset-4 hover:text-foreground">
+              Open the Digital Safety Glossary
+            </Link>
+          </p>
+
           <nav
 
             aria-label="Lesson navigation"
