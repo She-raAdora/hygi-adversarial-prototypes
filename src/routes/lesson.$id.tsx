@@ -166,8 +166,8 @@ function LessonPage() {
             Brought to you by NorthBridge
           </p>
 
-
           <nav
+
             aria-label="Lesson navigation"
             className="flex items-center justify-between gap-3 border-t border-border pt-6"
           >
