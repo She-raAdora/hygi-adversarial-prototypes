@@ -204,6 +204,9 @@ function RootComponent() {
               <Link to="/insights" className="transition-colors hover:text-foreground">
                 Insights
               </Link>
+              <Link to="/glossary" className="transition-colors hover:text-foreground">
+                Glossary
+              </Link>
               <Link to="/admin" className="transition-colors hover:text-foreground">
                 Admin
               </Link>

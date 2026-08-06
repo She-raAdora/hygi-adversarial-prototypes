@@ -14,6 +14,7 @@ import { Route as SupportRouteImport } from './routes/support'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as LessonsRouteImport } from './routes/lessons'
+import { Route as GlossaryRouteImport } from './routes/glossary'
 import { Route as DeleteAccountRouteImport } from './routes/delete-account'
 import { Route as CyberHygieneRouteImport } from './routes/cyber-hygiene'
 import { Route as BadgesRouteImport } from './routes/badges'
@@ -51,6 +52,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const LessonsRoute = LessonsRouteImport.update({
   id: '/lessons',
   path: '/lessons',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GlossaryRoute = GlossaryRouteImport.update({
+  id: '/glossary',
+  path: '/glossary',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DeleteAccountRoute = DeleteAccountRouteImport.update({
@@ -125,6 +131,7 @@ export interface FileRoutesByFullPath {
   '/badges': typeof BadgesRoute
   '/cyber-hygiene': typeof CyberHygieneRoute
   '/delete-account': typeof DeleteAccountRoute
+  '/glossary': typeof GlossaryRoute
   '/lessons': typeof LessonsRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -144,6 +151,7 @@ export interface FileRoutesByTo {
   '/badges': typeof BadgesRoute
   '/cyber-hygiene': typeof CyberHygieneRoute
   '/delete-account': typeof DeleteAccountRoute
+  '/glossary': typeof GlossaryRoute
   '/lessons': typeof LessonsRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -165,6 +173,7 @@ export interface FileRoutesById {
   '/badges': typeof BadgesRoute
   '/cyber-hygiene': typeof CyberHygieneRoute
   '/delete-account': typeof DeleteAccountRoute
+  '/glossary': typeof GlossaryRoute
   '/lessons': typeof LessonsRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -186,6 +195,7 @@ export interface FileRouteTypes {
     | '/badges'
     | '/cyber-hygiene'
     | '/delete-account'
+    | '/glossary'
     | '/lessons'
     | '/privacy'
     | '/sitemap.xml'
@@ -205,6 +215,7 @@ export interface FileRouteTypes {
     | '/badges'
     | '/cyber-hygiene'
     | '/delete-account'
+    | '/glossary'
     | '/lessons'
     | '/privacy'
     | '/sitemap.xml'
@@ -225,6 +236,7 @@ export interface FileRouteTypes {
     | '/badges'
     | '/cyber-hygiene'
     | '/delete-account'
+    | '/glossary'
     | '/lessons'
     | '/privacy'
     | '/sitemap.xml'
@@ -246,6 +258,7 @@ export interface RootRouteChildren {
   BadgesRoute: typeof BadgesRoute
   CyberHygieneRoute: typeof CyberHygieneRoute
   DeleteAccountRoute: typeof DeleteAccountRoute
+  GlossaryRoute: typeof GlossaryRoute
   LessonsRoute: typeof LessonsRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -290,6 +303,13 @@ declare module '@tanstack/react-router' {
       path: '/lessons'
       fullPath: '/lessons'
       preLoaderRoute: typeof LessonsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/glossary': {
+      id: '/glossary'
+      path: '/glossary'
+      fullPath: '/glossary'
+      preLoaderRoute: typeof GlossaryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/delete-account': {
@@ -411,6 +431,7 @@ const rootRouteChildren: RootRouteChildren = {
   BadgesRoute: BadgesRoute,
   CyberHygieneRoute: CyberHygieneRoute,
   DeleteAccountRoute: DeleteAccountRoute,
+  GlossaryRoute: GlossaryRoute,
   LessonsRoute: LessonsRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
@@ -422,13 +443,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
