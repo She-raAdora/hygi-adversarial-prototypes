@@ -128,9 +128,21 @@ function BadgesPage() {
               <h3 className="mt-5 font-semibold tracking-tight">{l.title}</h3>
               <p className="mt-1 text-xs text-muted-foreground">{l.tagline}</p>
               {done ? (
-                <span className="mt-4 inline-flex items-center gap-1 rounded-full bg-success/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-success">
-                  <Trophy className="h-3 w-3" /> Earned
-                </span>
+                <>
+                  <span className="mt-4 inline-flex items-center gap-1 rounded-full bg-success/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-success">
+                    <Trophy className="h-3 w-3" /> Earned
+                  </span>
+                  {l.urgency && (
+                    <div className="mt-4 rounded-2xl bg-secondary/50 p-4 text-left">
+                      <p className="text-[10px] font-semibold uppercase tracking-wider text-primary">
+                        Why this one matters
+                      </p>
+                      <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                        {l.urgency}
+                      </p>
+                    </div>
+                  )}
+                </>
               ) : (
                 <Link
                   to="/lesson/$id"
