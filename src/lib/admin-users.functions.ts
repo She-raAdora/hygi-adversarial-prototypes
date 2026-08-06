@@ -87,10 +87,12 @@ export const setAdminRole = createServerFn({ method: "POST" })
 /**
  * Bootstrap: lets the signed-in account become the first admin, but ONLY while
  * no admin exists yet AND the caller's verified email is on the server-side
- * owner allow-list (ADMIN_BOOTSTRAP_EMAILS). The allow-list must be narrow (at
- * most 3 entries) so a broadly misconfigured list can't hand admin to any
- * signup, and the insert runs through a locked, single-winner database function
- * so concurrent claims cannot race.
+ * owner allow-list (ADMIN_BOOTSTRAP_EMAILS). Every entry must be a single,
+ * fully-qualified address: wildcards, bare domains, and other broad patterns
+ * are rejected outright, so a misconfigured list can never hand admin to an
+ * arbitrary signup. The insert runs through a locked, single-winner database
+ * function so concurrent claims cannot race, and the whole path shuts off
+ * permanently once any admin exists.
  */
 export const claimFirstAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
@@ -102,12 +104,34 @@ export const claimFirstAdmin = createServerFn({ method: "POST" })
     if (allowList.length === 0) {
       throw new Error("Admin bootstrap is disabled. Contact the site operator.");
     }
-    // A wide allow-list is treated as a misconfiguration, not permission.
-    if (allowList.length > 3 || allowList.some((e) => e.startsWith("*") || e.includes(" "))) {
+    // A wide or pattern-based allow-list is a misconfiguration, not permission:
+    // only exact addresses count, so no entry can ever match a whole domain.
+    const EXACT_EMAIL = /^[a-z0-9._%+-]+@[a-z0-9-]+(\.[a-z0-9-]+)+$/;
+    const wellFormed =
+      allowList.length <= 3 &&
+      allowList.every(
+        (e) =>
+          EXACT_EMAIL.test(e) &&
+          !e.includes("*") &&
+          !e.includes("%") &&
+          !e.includes(" ") &&
+          e.split("@").length === 2,
+      );
+    if (!wellFormed) {
       throw new Error("Admin bootstrap is misconfigured and has been disabled.");
     }
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    // The bootstrap path is one-shot: once any admin exists it stays closed.
+    const { count: adminCount, error: countError } = await supabaseAdmin
+      .from("user_roles")
+      .select("id", { count: "exact", head: true })
+      .eq("role", "admin");
+    if (countError) throw countError;
+    if ((adminCount ?? 0) > 0) {
+      throw new Error("An administrator already exists. Admin bootstrap is closed.");
+    }
 
     // Trust only the server-side account record, never client-supplied data.
     const { data: caller, error: callerError } =
