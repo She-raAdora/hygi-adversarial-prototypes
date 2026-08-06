@@ -1411,4 +1411,93 @@ const rawLessons: Lesson[] = [
   },
 ];
 
+/**
+ * Curriculum order, ranked by everyday usefulness to a typical adult
+ * (frequency of the risk, potential harm, protection gained, and how
+ * easily an ordinary person can act on it).
+ */
+const LESSON_ORDER: string[] = [
+  "safe-browsing",
+  "accounts",
+  "shield-accounts",
+  "ai-phishing",
+  "devices",
+  "incident-plan",
+  "footprint",
+  "mobile",
+  "networked-devices",
+  "home-wifi",
+  "secure-comms",
+  "workstation",
+  "encrypt-backup",
+  "core-four",
+  "threat-landscape",
+  "personal-info",
+  "public-footprint",
+  "smaller-trail",
+  "ransomware",
+  "research-data",
+  "recognize-harassment",
+  "respond-harassment",
+];
+
+/** Why each lesson matters right now — shown with the earned badge. */
+const LESSON_URGENCY: Record<string, string> = {
+  "safe-browsing":
+    "Scams are the single most common way people lose money online. Fake bank, delivery, toll, tax, job, romance, and tech-support messages arrive every week, and AI now makes them read and sound convincing. Learning to stop, leave the message, and verify another way protects you more than any setting on your phone.",
+  accounts:
+    "Your email is the master key to almost everything else — whoever controls it can reset your other passwords. Turning on multifactor authentication and using unique, long passwords from a password manager blocks the overwhelming majority of account takeovers, and a single reused password from an old breach is all an attacker needs.",
+  "shield-accounts":
+    "Attackers go straight for your highest-value accounts: email, banking, Apple/Google/Microsoft, social, health, and government. Hardening those five or six first, with passkeys or an authenticator app instead of SMS, closes the door before anyone tries it.",
+  "ai-phishing":
+    "A familiar name, logo, voice, or photo is no longer proof of identity. Cloned voices and deepfaked video are already being used to request urgent payments, gift cards, crypto, and verification codes. Verifying money and sensitive information through a number you look up yourself is what stops these losses.",
+  devices:
+    "Most successful attacks exploit a flaw that was already patched. Turning on automatic updates for your operating system, browser, and apps — and replacing devices that no longer get security updates — is the highest protection for the least ongoing effort.",
+  "incident-plan":
+    "Almost everyone gets a real security alert eventually, and the panicked minutes that follow decide how much damage is done. Knowing the recovery sequence in advance — never click the alert's link, check login activity, change the password, sign out other sessions, reset MFA, fix recovery contacts, call your bank — turns a disaster into an inconvenience.",
+  footprint:
+    "Birthdate, address, employer, travel plans, family and pet names, and old school details are exactly what scammers combine to impersonate you or answer your recovery questions. You don't need to disappear — you need to share deliberately and know who can see it.",
+  mobile:
+    "Most people tap 'Allow' without reading. Sticking to official app stores, checking the developer, questioning requests for contacts, microphone, camera, location, photos, or accessibility access, and deleting apps you no longer use removes spyware-style risk from your pocket.",
+  "networked-devices":
+    "Photos, tax records, medical files, and work documents are irreplaceable, and ransomware or a lost phone can take them all at once. A backup you actually have — cloud plus an external drive kept disconnected — is the only thing that makes those events survivable.",
+  "home-wifi":
+    "Your router is the front door to every device in the house. A default admin password, outdated firmware, weak encryption, or an unsupported router quietly exposes everything behind it, and unknown devices on the network can go unnoticed for years.",
+  "secure-comms":
+    "Sensitive conversations, logins, and files deserve the safe path: official apps and bookmarked sites, a careful look at the full web address, encrypted messaging, and caution on shared or public devices. HTTPS proves the connection is private — not that the site is honest.",
+  workstation:
+    "Devices get lost, stolen, borrowed, and sold. A strong PIN, automatic screen lock, find-and-erase turned on, hidden notification previews, and wiping accounts before you hand a device on keep a bad afternoon from becoming identity theft.",
+  "encrypt-backup":
+    "Encryption is what makes a stolen laptop, phone, or USB drive worthless to a thief. Modern devices often do it for you — but only if it's turned on, and only if you've stored your recovery key somewhere you won't lose it.",
+  "core-four":
+    "Four habits — strong unique passwords, multifactor authentication, prompt updates, and recognizing phishing — prevent the large majority of everyday attacks. Everything else in this curriculum builds on them.",
+  "threat-landscape":
+    "Knowing who might target you and why turns vague anxiety into focused action, so you spend your effort on the risks that actually apply to your job, family, and public profile.",
+  "personal-info":
+    "Every detail you hand over gets stored, sold, and eventually breached. Setting boundaries about what you share, and with whom, shrinks the raw material available for fraud against you.",
+  "public-footprint":
+    "Data brokers and search results assemble a profile of you from scattered public pieces. Trimming and monitoring it makes you a harder target for impersonation, stalking, and account recovery attacks.",
+  "smaller-trail":
+    "Posts, photos, and check-ins reveal patterns — where you live, when you're away, who your family is. Posting as if strangers are watching keeps ordinary sharing from becoming a targeting guide.",
+  ransomware:
+    "Ransomware can lock a lifetime of photos and records in seconds, and paying often fails. Prevention plus disconnected backups is the only reliable defense.",
+  "research-data":
+    "Proprietary, confidential, or regulated work is actively sought by criminals and competitors. Mishandling it can end projects, careers, and funding — not just files.",
+  "recognize-harassment":
+    "Coordinated harassment starts with recognizable tactics. Naming them early lets you document, report, and protect yourself before it escalates offline.",
+  "respond-harassment":
+    "In the middle of an attack there is no time to research. Having the emergency checklist ready — lock accounts, preserve evidence, report, get support — protects your safety and your record.",
+};
+
+export const lessons: Lesson[] = LESSON_ORDER.map((id) => {
+  const lesson = rawLessons.find((l) => l.id === id);
+  return lesson ? { ...lesson, urgency: LESSON_URGENCY[id] } : undefined;
+})
+  .filter((l): l is Lesson => Boolean(l))
+  .concat(
+    rawLessons
+      .filter((l) => !LESSON_ORDER.includes(l.id))
+      .map((l) => ({ ...l, urgency: LESSON_URGENCY[l.id] })),
+  );
+
 export const getLesson = (id: string) => lessons.find((l) => l.id === id);
