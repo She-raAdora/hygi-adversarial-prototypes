@@ -30,16 +30,8 @@ $$;
 REVOKE ALL ON FUNCTION public.claim_first_admin_seat(uuid) FROM PUBLIC, anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.claim_first_admin_seat(uuid) TO service_role;
 
--- 3) Weekly SEO scan job now presents a server-only secret, not the public key.
-SELECT cron.unschedule('hygi-weekly-seo-scan');
-SELECT cron.schedule(
-  'hygi-weekly-seo-scan',
-  '0 7 * * 1',
-  $job$
-  SELECT net.http_post(
-    url := 'https://project--841c0963-da99-4602-b096-ec862faffe4e.lovable.app/api/public/hooks/seo-scan',
-    headers := '{"Content-Type": "application/json", "x-seo-scan-secret": "c7986dd65118a24bf0f065ce0758872a8093df4458440140d0ccd237a2505cf1"}'::jsonb,
-    body := '{}'::jsonb
-  ) as request_id;
-  $job$
-);
+-- 3) Weekly SEO scan job.
+-- The shared secret is intentionally NOT stored here. It lives in the
+-- private.job_secrets table (populated out-of-band, never in version control)
+-- and the job reads it at run time. See the later migration that creates that
+-- table and the reschedule applied alongside it.
