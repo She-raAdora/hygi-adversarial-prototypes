@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound, useRouter } from "@tanstack/react-rout
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, RotateCcw, Trophy, X } from "lucide-react";
 import { getLesson, lessons, type Lesson } from "@/lib/lessons";
+import { sectionSlug, topicForQuestion } from "@/lib/quizTopics";
 import { awardBadge, useProgress } from "@/lib/progress";
 import { ShareResultButton } from "@/components/ShareResultButton";
 import { ReferralGate } from "@/components/ReferralGate";
@@ -80,6 +81,7 @@ export const Route = createFileRoute("/lesson/$id")({
 function LessonPage() {
   const { lesson } = Route.useLoaderData() as { lesson: Lesson };
   const [mode, setMode] = useState<"learn" | "quiz">("learn");
+  const [anchor, setAnchor] = useState<string | null>(null);
   const referrals = useReferrals();
   const progress = useProgress();
 
@@ -88,6 +90,19 @@ function LessonPage() {
     setMode("learn");
     if (typeof window !== "undefined") window.scrollTo(0, 0);
   }, [lesson.id]);
+
+  // After jumping back to the lesson from a quiz explanation, scroll to and
+  // focus the matching topic heading.
+  useEffect(() => {
+    if (mode !== "learn" || !anchor) return;
+    const el = document.getElementById(anchor);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      const h = el.querySelector("h2");
+      if (h instanceof HTMLElement) h.focus();
+    }
+    setAnchor(null);
+  }, [mode, anchor]);
 
   const idx = lessons.findIndex((l) => l.id === lesson.id);
   const next = lessons[idx + 1];
@@ -129,8 +144,13 @@ function LessonPage() {
         <article className="mt-10 space-y-10">
           <p className="text-base leading-relaxed">{lesson.intro}</p>
           {lesson.sections.map((s: Lesson["sections"][number]) => (
-            <section key={s.heading}>
-              <h2 className="text-xl font-semibold tracking-tight">{s.heading}</h2>
+            <section key={s.heading} id={sectionSlug(s.heading)} className="scroll-mt-24">
+              <h2
+                tabIndex={-1}
+                className="text-xl font-semibold tracking-tight focus-visible:outline-none"
+              >
+                {s.heading}
+              </h2>
               <p className="mt-2 text-muted-foreground">{s.body}</p>
               <ul className="mt-4 space-y-2">
                 {s.tips.map((t: string) => (
@@ -210,7 +230,14 @@ function LessonPage() {
           </nav>
         </article>
       ) : (
-        <Quiz lesson={lesson} onBackToLearn={() => setMode("learn")} next={next} />
+        <Quiz
+          lesson={lesson}
+          onBackToLearn={(slug?: string) => {
+            if (slug) setAnchor(slug);
+            setMode("learn");
+          }}
+          next={next}
+        />
       )}
     </main>
   );
@@ -222,7 +249,7 @@ function Quiz({
   next,
 }: {
   lesson: Lesson;
-  onBackToLearn: () => void;
+  onBackToLearn: (slug?: string) => void;
   next?: { id: string; title: string };
 }) {
   const [step, setStep] = useState(0);
