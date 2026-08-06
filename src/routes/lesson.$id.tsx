@@ -332,6 +332,19 @@ function Quiz({
           })}
           </ol>
         </div>
+        <div className="mt-8 rounded-2xl border border-border bg-secondary/40 p-5 text-left">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            Key takeaways
+          </h3>
+          <ul className="mt-3 space-y-2">
+            {Array.from(new Set(lesson.quiz.map((qq) => qq.explain))).map((line) => (
+              <li key={line} className="flex items-start gap-2 text-sm text-muted-foreground">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" aria-hidden="true" />
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <button
             type="button"
