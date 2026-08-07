@@ -9,6 +9,7 @@
 import { logEvent } from "./eventLog";
 import { hasAnalyticsConsent } from "./consent";
 import { HOME_CTA_EXPERIMENT, getHomeCtaVariantId } from "./experiments";
+import { recordTrophy } from "./metrics";
 
 declare global {
   interface Window {
@@ -166,5 +167,6 @@ export function trackQuizComplete(args: {
 export function trackAllLessonsComplete(total: number) {
   if (once("hygi-analytics-trophy")) {
     trackEvent("trophy_earned", { lessons_completed: total });
+    recordTrophy(total);
   }
 }
