@@ -12,6 +12,7 @@ import {
 import appCss from "../styles.css?url";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Analytics } from "@/components/Analytics";
+import { AnalyticsDebugPanel } from "@/components/AnalyticsDebugPanel";
 import { ConsentBanner } from "@/components/ConsentBanner";
 import { appleSplashLinks } from "@/lib/splashLinks";
 import { supabase } from "@/integrations/supabase/client";
