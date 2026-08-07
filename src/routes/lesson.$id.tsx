@@ -40,7 +40,7 @@ export const Route = createFileRoute("/lesson/$id")({
               property: "og:url",
               content: `https://digitalhygiene.app/lesson/${loaderData.lesson.id}`,
             },
-            { name: "twitter:card", content: "summary" },
+            ...socialImageMeta,
           ];
         })()
       : [
