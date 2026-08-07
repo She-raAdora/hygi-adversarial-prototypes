@@ -5,6 +5,7 @@ import { getLesson, lessons, type Lesson } from "@/lib/lessons";
 import { sectionSlug, topicForQuestion } from "@/lib/quizTopics";
 import { awardBadge, useProgress } from "@/lib/progress";
 import { ShareResultButton } from "@/components/ShareResultButton";
+import { GlossaryText } from "@/components/GlossaryText";
 import { ReferralGate } from "@/components/ReferralGate";
 import { gateFor, isLocked, useReferrals } from "@/lib/referrals";
 import {
@@ -111,6 +112,9 @@ function LessonPage() {
   const gate = gateFor(idx);
   const badgesEarned = lessons.filter((l) => (progress[l.id] ?? 0) >= l.quiz.length).length;
 
+  // Fresh each render: only the first mention of each glossary term is highlighted.
+  const glossarySeen = new Set<string>();
+
   return (
     <main id="main-content" className="mx-auto max-w-2xl px-6 py-12">
       <Link
@@ -142,7 +146,15 @@ function LessonPage() {
         />
       ) : mode === "learn" ? (
         <article className="mt-10 space-y-10">
-          <p className="text-base leading-relaxed">{lesson.intro}</p>
+          <p className="rounded-2xl border border-border bg-card px-4 py-3 text-xs text-muted-foreground">
+            <span className="mr-1 rounded-md bg-primary/10 px-1 font-medium text-foreground underline decoration-primary decoration-dotted decoration-2 underline-offset-4">
+              Highlighted words
+            </span>
+            are glossary terms — tap one for a plain-language definition.
+          </p>
+          <p className="text-base leading-relaxed">
+            <GlossaryText text={lesson.intro} seen={glossarySeen} />
+          </p>
           {lesson.sections.map((s: Lesson["sections"][number]) => (
             <section key={s.heading} id={sectionSlug(s.heading)} className="scroll-mt-24">
               <h2
@@ -151,7 +163,9 @@ function LessonPage() {
               >
                 {s.heading}
               </h2>
-              <p className="mt-2 text-muted-foreground">{s.body}</p>
+              <p className="mt-2 text-muted-foreground">
+                <GlossaryText text={s.body} seen={glossarySeen} />
+              </p>
               <ul className="mt-4 space-y-2">
                 {s.tips.map((t: string) => (
                   <li
@@ -159,7 +173,9 @@ function LessonPage() {
                     className="flex items-start gap-3 rounded-xl border border-border bg-card px-4 py-3 text-sm"
                   >
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" aria-hidden="true" />
-                    <span>{t}</span>
+                    <span>
+                      <GlossaryText text={t} seen={glossarySeen} />
+                    </span>
                   </li>
                 ))}
               </ul>
