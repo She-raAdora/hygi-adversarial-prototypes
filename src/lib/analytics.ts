@@ -17,9 +17,7 @@ declare global {
   }
 }
 
-const MEASUREMENT_ID = import.meta.env["VITE_LOVABLE_CONNECTOR_GOOGLE_ANALYTICS_API_KEY"] as
-  | string
-  | undefined;
+const MEASUREMENT_ID = "G-2YX7D9L41K"; // your new Google Analytics tag
 
 let initialized = false;
 
