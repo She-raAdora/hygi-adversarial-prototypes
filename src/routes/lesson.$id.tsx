@@ -24,26 +24,42 @@ export const Route = createFileRoute("/lesson/$id")({
   head: ({ loaderData }) => ({
     meta: loaderData
       ? (() => {
-          const title = `${loaderData.lesson.title} — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons`;
-          const description = loaderData.lesson.intro;
+          const suffix = " — Hygi";
+          const base = loaderData.lesson.title;
+          const title =
+            (base + suffix).length > 60 ? base.slice(0, 60 - suffix.length - 1).trimEnd() + "…" + suffix : base + suffix;
+          const intro = loaderData.lesson.intro;
+          const description = intro.length > 160 ? intro.slice(0, 157).trimEnd() + "…" : intro;
           return [
             { title },
             { name: "description", content: description },
             { property: "og:title", content: title },
             { property: "og:description", content: description },
             { property: "og:type", content: "article" },
+            {
+              property: "og:url",
+              content: `https://digitalhygiene.app/lesson/${loaderData.lesson.id}`,
+            },
             { name: "twitter:card", content: "summary" },
           ];
         })()
       : [
-          { title: "Lesson unavailable — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+          { title: "Lesson unavailable — Hygi" },
           {
             name: "description",
             content:
-              "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits.",
+              "This Hygi lesson isn't available. Browse the full digital hygiene curriculum to pick another short lesson and mini-quiz.",
           },
           { name: "robots", content: "noindex" },
         ],
+    links: loaderData
+      ? [
+          {
+            rel: "canonical",
+            href: `https://digitalhygiene.app/lesson/${loaderData.lesson.id}`,
+          },
+        ]
+      : [],
     scripts: loaderData
       ? [
           {
