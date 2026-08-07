@@ -61,7 +61,6 @@ export function GlossaryTerm({ term, children }: Props) {
       className="relative inline-block"
       onMouseEnter={show}
       onMouseLeave={hide}
-      onFocus={show}
       onBlur={(event) => {
         // Keep it open while focus moves between the term and the definition.
         if (wrapperRef.current?.contains(event.relatedTarget as Node)) return;
