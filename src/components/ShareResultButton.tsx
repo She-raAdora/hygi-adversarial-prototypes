@@ -7,7 +7,6 @@ import {
   type ShareCard,
   type ShareFormat,
 } from "@/lib/shareCard";
-import { recordReferral } from "@/lib/referrals";
 import { recordShare } from "@/lib/metrics";
 
 type Props = {
@@ -53,7 +52,6 @@ export function ShareResultButton({
     setState("busy");
     try {
       const outcome = await shareResultCard(card, text, format);
-      recordReferral();
       recordShare({ format, lessonId, lessonTitle, source: source ?? "share" });
       setState(outcome === "downloaded" ? "saved" : "idle");
     } catch {
@@ -66,7 +64,6 @@ export function ShareResultButton({
     setState("downloading");
     try {
       const outcome = await downloadResultCard(card, format);
-      recordReferral();
       recordShare({ format, lessonId, lessonTitle, source: source ?? "download" });
       setState(outcome === "opened" ? "opened" : "saved");
       setTimeout(() => setState("idle"), 6000);

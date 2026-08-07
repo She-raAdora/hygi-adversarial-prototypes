@@ -82,8 +82,8 @@ function PrivacyPage() {
         </p>
         <p>
           The learning data Hygi. stores is your progress — which lessons you have finished, quiz
-          scores, badges, the trophy, and how many badge cards you have shared to unlock later
-          lessons. This is written to your device's local storage. It is not transmitted to us, it is
+          scores, badges, and the trophy. This is written to your device's local storage. It is not
+          transmitted to us, it is
           not linked to your identity, and we cannot read it.
         </p>
         <p>
@@ -184,7 +184,7 @@ function PrivacyPage() {
             Support page
           </Link>
           , or by deleting the app from your home screen. That clears lessons, quizzes, badges, the
-          trophy, referral counts, and the on-device event log.
+          trophy, and the on-device event log.
         </p>
         <p>
           If you hold a staff account, you can permanently delete it — along with your email
@@ -263,7 +263,7 @@ const disclosures: { q: string; a: string }[] = [
   },
   {
     q: "Data not linked to you",
-    a: "Product interaction and usage data: page views, quiz starts/completions with score, badge and trophy milestones, home-screen install events, glossary taps, missed quiz questions, result-card shares, and homepage A/B variant. Collected anonymously via Google Analytics or stored in aggregate backend metrics only after the user opts in, and not linked to any identity. Your saved progress, badges, referral counts, and chat history remain in on-device storage only.",
+    a: "Product interaction and usage data: page views, quiz starts/completions with score, badge and trophy milestones, home-screen install events, glossary taps, missed quiz questions, result-card shares, and homepage A/B variant. Collected anonymously via Google Analytics or stored in aggregate backend metrics only after the user opts in, and not linked to any identity. Your saved progress, badges, and chat history remain in on-device storage only.",
   },
   {
     q: "Contact info, identifiers, location, health, financials, contacts, photos, browsing history",
