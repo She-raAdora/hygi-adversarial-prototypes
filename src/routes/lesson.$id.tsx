@@ -23,15 +23,27 @@ export const Route = createFileRoute("/lesson/$id")({
   },
   head: ({ loaderData }) => ({
     meta: loaderData
-      ? [
-          { title: `${loaderData.lesson.title} — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons` },
-          { name: "description", content: `${loaderData.lesson.intro} — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons. Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits.` },
-          { property: "og:title", content: `${loaderData.lesson.title} — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons` },
-          { property: "og:description", content: `${loaderData.lesson.intro} — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons. Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits.` },
-          { property: "og:type", content: "article" },
-          { name: "twitter:card", content: "summary" },
-        ]
-      : [],
+      ? (() => {
+          const title = `${loaderData.lesson.title} — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons`;
+          const description = loaderData.lesson.intro;
+          return [
+            { title },
+            { name: "description", content: description },
+            { property: "og:title", content: title },
+            { property: "og:description", content: description },
+            { property: "og:type", content: "article" },
+            { name: "twitter:card", content: "summary" },
+          ];
+        })()
+      : [
+          { title: "Lesson unavailable — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+          {
+            name: "description",
+            content:
+              "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits.",
+          },
+          { name: "robots", content: "noindex" },
+        ],
     scripts: loaderData
       ? [
           {
