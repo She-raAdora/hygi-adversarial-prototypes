@@ -186,6 +186,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Analytics />
+      <AnalyticsDebugPanel />
       <div className="min-h-dvh bg-background text-foreground">
         <a
           href="#main-content"
