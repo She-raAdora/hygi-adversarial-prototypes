@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { findGlossaryEntry } from "@/lib/glossary";
+import { recordGlossaryOpen } from "@/lib/metrics";
 
 type Props = {
   /** Term, alias, or slug to look up in the glossary. */
@@ -25,6 +26,7 @@ export function GlossaryTerm({ term, children }: Props) {
   const wrapperRef = useRef<HTMLSpanElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const logged = useRef(false);
 
   // Close on outside pointer press so keyboard and pointer users share behavior.
   useEffect(() => {
@@ -49,6 +51,11 @@ export function GlossaryTerm({ term, children }: Props) {
   function show() {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     setOpen(true);
+    // Count one tap per term per view so hovering doesn't inflate the metric.
+    if (entry && !logged.current) {
+      logged.current = true;
+      recordGlossaryOpen(entry.term, entry.slug);
+    }
   }
   function hide() {
     if (closeTimer.current) clearTimeout(closeTimer.current);
