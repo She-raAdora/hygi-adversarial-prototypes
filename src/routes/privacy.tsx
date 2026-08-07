@@ -105,10 +105,9 @@ function PrivacyPage() {
           With your consent, we also collect anonymous lesson metrics in the backend to improve the
           course: which quiz questions are missed most, which glossary terms people tap, how many
           result-card images are shared or downloaded (and from which lesson or screen), and how many
-          trophies are earned. Sharing a result card is optional and never required to open a lesson.
-          Hygi. has no referral or invite programme: we do not read your contacts, we do not know who
-          you shared with, and we never receive the recipient's details — only an anonymous count of
-          the share action. These rows are stored in our database but contain no account ID, name,
+          trophies are earned. Sharing a result card is entirely optional: we do not read your
+          contacts, we do not know who you shared with, and we never receive the recipient's details
+          — only an anonymous count of the share action. These rows are stored in our database but contain no account ID, name,
           email, or anything else that could identify you.
         </p>
       </Section>
