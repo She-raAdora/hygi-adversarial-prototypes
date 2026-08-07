@@ -154,7 +154,7 @@ function Index() {
               The curriculum
             </p>
             <h2 className="mt-2 text-3xl font-semibold tracking-tight">
-              Fifteen habits, one healthier digital you.
+              Good habits, one healthier digital you.
             </h2>
           </div>
           <Link
