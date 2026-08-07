@@ -46,6 +46,7 @@ export function GlossaryTerm({ term, children }: Props) {
         onKeyDown={(e) => {
           if (e.key === "Escape") setOpen(false);
         }}
+        aria-label={`${children ? String(children) : entry.term} — what does this mean?`}
         className="cursor-help rounded-sm font-medium text-foreground underline decoration-primary decoration-dotted decoration-2 underline-offset-4 transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         {children ?? entry.term}
@@ -57,13 +58,28 @@ export function GlossaryTerm({ term, children }: Props) {
         className="absolute bottom-full left-1/2 z-50 mb-2 w-72 max-w-[80vw] -translate-x-1/2 rounded-2xl border border-border bg-popover p-4 text-left text-sm font-normal leading-relaxed text-popover-foreground shadow-lg"
       >
         <span className="block text-sm font-semibold text-foreground">{entry.term}</span>
-        <span className="mt-1 block text-muted-foreground">{entry.definition}</span>
+        <span className="mt-1 block text-muted-foreground">
+          <span className="font-medium text-foreground">What it means: </span>
+          {entry.definition}
+        </span>
+        <span className="mt-1.5 block text-muted-foreground">
+          <span className="font-medium text-foreground">Example: </span>
+          {entry.example}
+        </span>
+        <span className="mt-1.5 block text-muted-foreground">
+          <span className="font-medium text-foreground">What to do: </span>
+          {entry.todo}
+        </span>
+        <span className="mt-1.5 block text-muted-foreground">
+          <span className="font-medium text-foreground">Important: </span>
+          {entry.important}
+        </span>
         <Link
           to="/glossary"
           hash={entry.slug}
           className="mt-2 inline-block text-xs font-medium text-primary underline underline-offset-4"
         >
-          Open in glossary
+          What does this mean?
         </Link>
       </span>
     </span>
