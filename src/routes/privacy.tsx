@@ -27,6 +27,23 @@ export const Route = createFileRoute("/privacy")({
       },
     ],
     links: [{ rel: "canonical", href: "https://digitalhygiene.app/privacy" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "Privacy Policy — Hygi",
+          description:
+            "How Hygi handles your data: progress and badges stay on your device, usage is measured anonymously, and no personal data is required.",
+          url: "https://digitalhygiene.app/privacy",
+          inLanguage: "en",
+          dateModified: "2026-08-01",
+          isPartOf: { "@type": "WebSite", name: "Hygi", url: "https://digitalhygiene.app" },
+          publisher: { "@type": "Organization", name: "NorthBridge" },
+        }),
+      },
+    ],
   }),
   component: PrivacyPage,
 });
