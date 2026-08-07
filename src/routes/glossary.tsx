@@ -133,6 +133,20 @@ function GlossaryPage() {
                   <dd className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
                     {item.definition}
                   </dd>
+                  <dd className="mt-3 space-y-2 text-sm leading-relaxed">
+                    <p className="text-muted-foreground">
+                      <span className="font-medium text-foreground">Example: </span>
+                      {item.example}
+                    </p>
+                    <p className="text-muted-foreground">
+                      <span className="font-medium text-foreground">What to do: </span>
+                      {item.todo}
+                    </p>
+                    <p className="text-muted-foreground">
+                      <span className="font-medium text-foreground">Important: </span>
+                      {item.important}
+                    </p>
+                  </dd>
                 </div>
               ))}
             </dl>
