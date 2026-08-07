@@ -458,7 +458,7 @@ function Quiz({
             label="Share result"
             lessonId={lesson.id}
             lessonTitle={lesson.title}
-            source="quiz result"
+            source="Lesson quiz result"
           />
           {next ? (
             <Link

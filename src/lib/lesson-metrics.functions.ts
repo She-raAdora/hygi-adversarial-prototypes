@@ -19,7 +19,12 @@ export type LessonMetrics = {
   totalMissed: number;
   missedQuestions: MissedQuestionRow[];
   glossaryTerms: TermRow[];
-  shares: { total: number; byFormat: ShareRow[]; bySource: ShareRow[] };
+  shares: {
+    total: number;
+    byFormat: ShareRow[];
+    byPlace: ShareRow[];
+    byLesson: ShareRow[];
+  };
   trophies: number;
 };
 
@@ -45,7 +50,8 @@ export const getLessonMetrics = createServerFn({ method: "GET" })
     const questions = new Map<string, MissedQuestionRow>();
     const terms = new Map<string, TermRow>();
     const formats = new Map<string, number>();
-    const sources = new Map<string, number>();
+    const places = new Map<string, number>();
+    const shareLessons = new Map<string, number>();
     let totalAnswers = 0;
     let totalMissed = 0;
     let shares = 0;
@@ -80,8 +86,12 @@ export const getLessonMetrics = createServerFn({ method: "GET" })
         shares += 1;
         const f = r.share_format ?? "unknown";
         formats.set(f, (formats.get(f) ?? 0) + 1);
-        const s = r.lesson_title ?? r.question ?? "Badges page";
-        sources.set(s, (sources.get(s) ?? 0) + 1);
+        const place = r.question ?? "Unknown screen";
+        places.set(place, (places.get(place) ?? 0) + 1);
+        if (r.lesson_title || r.lesson_id) {
+          const l = r.lesson_title ?? r.lesson_id!;
+          shareLessons.set(l, (shareLessons.get(l) ?? 0) + 1);
+        }
       } else if (r.kind === "trophy") {
         trophies += 1;
       }
@@ -102,7 +112,12 @@ export const getLessonMetrics = createServerFn({ method: "GET" })
         .sort((a, b) => b.missed - a.missed || (b.missRate ?? 0) - (a.missRate ?? 0))
         .slice(0, 15),
       glossaryTerms: [...terms.values()].sort((a, b) => b.taps - a.taps).slice(0, 15),
-      shares: { total: shares, byFormat: list(formats), bySource: list(sources).slice(0, 10) },
+      shares: {
+        total: shares,
+        byFormat: list(formats),
+        byPlace: list(places).slice(0, 10),
+        byLesson: list(shareLessons).slice(0, 15),
+      },
       trophies,
     };
   });
