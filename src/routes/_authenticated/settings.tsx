@@ -88,7 +88,7 @@ function SettingsPage() {
             Loading your preferences…
           </p>
         ) : prefsQuery.isError ? (
-          <p className="mt-4 text-sm text-destructive" aria-live="polite">
+          <p className="mt-4 text-sm text-destructive-strong" aria-live="polite">
             Couldn't load your preferences. Reload the page to try again.
           </p>
         ) : (
@@ -118,7 +118,7 @@ function SettingsPage() {
           {prefsMutation.isPending ? (
             <span className="text-muted-foreground">Saving…</span>
           ) : prefsMutation.isError ? (
-            <span className="text-destructive">Couldn't save that change. Please try again.</span>
+            <span className="text-destructive-strong">Couldn't save that change. Please try again.</span>
           ) : prefsMutation.isSuccess ? (
             <span className="text-primary">
               Saved — admin-role emails are {optedIn ? "on" : "off"}.
@@ -139,7 +139,7 @@ function SettingsPage() {
       </p>
 
       <section className="mt-10 rounded-2xl border border-destructive/40 bg-card p-6">
-        <h2 className="text-lg font-semibold text-destructive">Delete account</h2>
+        <h2 className="text-lg font-semibold text-destructive-strong">Delete account</h2>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
           Permanently deletes your sign-in account, your email preferences, and any admin role you
           hold. This happens immediately and cannot be undone. Lesson progress and badges live on
@@ -172,7 +172,7 @@ function SettingsPage() {
 
         <p className="mt-3 text-sm" aria-live="polite">
           {deleteMutation.isError ? (
-            <span className="text-destructive">
+            <span className="text-destructive-strong">
               Couldn't delete the account. Please try again or email builtstrong1@outlook.com.
             </span>
           ) : (

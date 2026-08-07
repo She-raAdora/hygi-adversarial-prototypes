@@ -5,6 +5,7 @@ import { resetProgress, useProgress } from "@/lib/progress";
 import { ShareResultButton } from "@/components/ShareResultButton";
 import { LessonSources } from "@/components/LessonSources";
 import { lessonTint, lessonTintShadow } from "@/lib/lessonTints";
+import { socialImageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/badges")({
   head: () => ({
@@ -23,7 +24,7 @@ export const Route = createFileRoute("/badges")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://digitalhygiene.app/badges" },
-      { name: "twitter:card", content: "summary" },
+      ...socialImageMeta,
     ],
     links: [{ rel: "canonical", href: "https://digitalhygiene.app/badges" }],
     scripts: [
@@ -62,7 +63,7 @@ function BadgesPage() {
   const allDone = earned.length === lessons.length;
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-16">
+    <main id="main-content" className="mx-auto max-w-4xl px-6 py-16">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="text-4xl font-semibold tracking-tight">Your badges</h1>
@@ -155,11 +156,11 @@ function BadgesPage() {
               >
                 {l.emoji}
               </div>
-              <h3 className="mt-5 font-semibold tracking-tight">{l.title}</h3>
+              <h2 className="mt-5 font-semibold tracking-tight">{l.title}</h2>
               <p className="mt-1 text-xs text-muted-foreground">{l.tagline}</p>
               {done ? (
                 <>
-                  <span className="mt-4 inline-flex items-center gap-1 rounded-full bg-success/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-success">
+                  <span className="mt-4 inline-flex items-center gap-1 rounded-full bg-success/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-success-strong">
                     <Trophy className="h-3 w-3" /> Earned
                   </span>
                   {l.urgency && (

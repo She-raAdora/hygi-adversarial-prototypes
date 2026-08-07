@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { BookOpen, Search } from "lucide-react";
 
 import { GLOSSARY_CATEGORIES, glossary } from "@/lib/glossary";
+import { socialImageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/glossary")({
   head: () => ({
@@ -21,7 +22,7 @@ export const Route = createFileRoute("/glossary")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://digitalhygiene.app/glossary" },
-      { name: "twitter:card", content: "summary" },
+      ...socialImageMeta,
     ],
     links: [{ rel: "canonical", href: "https://digitalhygiene.app/glossary" }],
     scripts: [

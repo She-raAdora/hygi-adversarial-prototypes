@@ -52,7 +52,7 @@ const LAST_UPDATED = "August 1, 2026";
 
 function AccessibilityPage() {
   return (
-    <main className="mx-auto max-w-3xl px-6 py-14">
+    <main id="main-content" className="mx-auto max-w-3xl px-6 py-14">
       <div className="flex items-center gap-3">
         <span
           className="flex h-11 w-11 items-center justify-center rounded-2xl text-primary-foreground"
@@ -122,7 +122,7 @@ function AccessibilityPage() {
       <Section icon={<Mail className="h-4 w-4" />} title="Feedback and contact">
         <p>
           If you encounter an accessibility barrier or have suggestions, contact NorthBridge at{" "}
-          <a href="mailto:builtstrong1@outlook.com" className="text-primary hover:underline">
+          <a href="mailto:builtstrong1@outlook.com" className="text-primary underline underline-offset-2">
             builtstrong1@outlook.com
           </a>
           . We will review your message and work to make the experience better.

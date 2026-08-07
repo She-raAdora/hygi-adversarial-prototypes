@@ -52,7 +52,7 @@ const LAST_UPDATED = "August 1, 2026";
 
 function TermsPage() {
   return (
-    <main className="mx-auto max-w-3xl px-6 py-14">
+    <main id="main-content" className="mx-auto max-w-3xl px-6 py-14">
       <div className="flex items-center gap-3">
         <span
           className="flex h-11 w-11 items-center justify-center rounded-2xl text-primary-foreground"
@@ -137,7 +137,7 @@ function TermsPage() {
         <p>
           We may update these Terms of Service from time to time. The latest version will always be
           posted on this page with the updated date. If you have questions, contact NorthBridge at{" "}
-          <a href="mailto:builtstrong1@outlook.com" className="text-primary hover:underline">
+          <a href="mailto:builtstrong1@outlook.com" className="text-primary underline underline-offset-2">
             builtstrong1@outlook.com
           </a>
           .

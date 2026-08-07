@@ -4,6 +4,7 @@ import { lessons } from "@/lib/lessons";
 import { useProgress } from "@/lib/progress";
 import { gateFor, isLocked, PER_GATE, useReferrals } from "@/lib/referrals";
 import { lessonTint } from "@/lib/lessonTints";
+import { socialImageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/lessons")({
   head: () => ({
@@ -22,7 +23,7 @@ export const Route = createFileRoute("/lessons")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://digitalhygiene.app/lessons" },
-      { name: "twitter:card", content: "summary" },
+      ...socialImageMeta,
     ],
     links: [{ rel: "canonical", href: "https://digitalhygiene.app/lessons" }],
     scripts: [
@@ -95,7 +96,7 @@ function LessonsPage() {
                       Lesson {i + 1}
                     </span>
                     {done && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-success/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-success">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-success/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-success-strong">
                         <Trophy className="h-3 w-3" aria-hidden="true" /> Badge earned
                       </span>
                     )}

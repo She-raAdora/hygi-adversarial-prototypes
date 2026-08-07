@@ -105,7 +105,7 @@ export function ContactRequestForm({
           <Turnstile action={kind} onChange={setCaptcha} resetKey={captchaReset} />
 
           <div aria-live="polite">
-            {error ? <p className="text-sm text-destructive">{error}</p> : null}
+            {error ? <p className="text-sm text-destructive-strong">{error}</p> : null}
           </div>
 
           <button

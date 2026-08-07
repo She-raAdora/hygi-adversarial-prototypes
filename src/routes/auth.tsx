@@ -123,7 +123,7 @@ function AuthPage() {
   }
 
   return (
-    <main id="main" className="mx-auto w-full max-w-md px-4 py-16">
+    <main id="main-content" className="mx-auto w-full max-w-md px-4 py-16">
       <h1 className="text-3xl font-semibold tracking-tight text-foreground">Sign in</h1>
       <p className="mt-2 text-sm text-muted-foreground">
         The Insights dashboard is admin-only. Lessons, quizzes, and badges stay open to everyone —
@@ -190,7 +190,7 @@ function AuthPage() {
           </div>
 
           <div aria-live="polite">
-            {error ? <p className="text-sm text-destructive">{error}</p> : null}
+            {error ? <p className="text-sm text-destructive-strong">{error}</p> : null}
             {message ? <p className="text-sm text-muted-foreground">{message}</p> : null}
           </div>
 

@@ -106,7 +106,7 @@ function AdminGate() {
             Sign out
           </button>
         </div>
-        <p className="mt-4 text-sm text-destructive" aria-live="polite">
+        <p className="mt-4 text-sm text-destructive-strong" aria-live="polite">
           {claimMutation.isError
             ? (claimMutation.error as Error).message ||
               "Couldn't claim admin — an administrator may already exist."
@@ -173,7 +173,7 @@ function AdminUsers({ email, onSignOut }: { email: string | null; onSignOut: () 
         </div>
       </div>
 
-      <p className="mt-4 text-sm text-destructive" aria-live="polite">
+      <p className="mt-4 text-sm text-destructive-strong" aria-live="polite">
         {roleMutation.isError
           ? (roleMutation.error as Error).message || "Couldn't update that account."
           : ""}
@@ -212,7 +212,7 @@ function AdminUsers({ email, onSignOut }: { email: string | null; onSignOut: () 
               </tr>
             ) : usersQuery.isError ? (
               <tr>
-                <td colSpan={5} className="px-5 py-8 text-destructive">
+                <td colSpan={5} className="px-5 py-8 text-destructive-strong">
                   Couldn't load accounts.
                 </td>
               </tr>

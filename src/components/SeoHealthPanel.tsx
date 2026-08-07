@@ -59,7 +59,7 @@ export function SeoHealthPanel() {
         {isPending ? (
           <p className="text-sm text-muted-foreground">Loading scan history…</p>
         ) : isError ? (
-          <p className="text-sm text-destructive">Couldn't load SEO scan history.</p>
+          <p className="text-sm text-destructive-strong">Couldn't load SEO scan history.</p>
         ) : !latest ? (
           <p className="rounded-2xl border border-dashed border-border bg-card/50 p-6 text-sm text-muted-foreground">
             No scan has run yet. The weekly job records its first result on the next run, or use
@@ -145,7 +145,7 @@ export function SeoHealthPanel() {
                             className={
                               run.status === "passing"
                                 ? "rounded-full bg-primary/15 px-2.5 py-0.5 text-xs font-medium text-primary"
-                                : "rounded-full bg-destructive/15 px-2.5 py-0.5 text-xs font-medium text-destructive"
+                                : "rounded-full bg-destructive/15 px-2.5 py-0.5 text-xs font-medium text-destructive-strong"
                             }
                           >
                             {run.status}

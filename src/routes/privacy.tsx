@@ -52,7 +52,7 @@ const LAST_UPDATED = "August 1, 2026";
 
 function PrivacyPage() {
   return (
-    <main className="mx-auto max-w-3xl px-6 py-14">
+    <main id="main-content" className="mx-auto max-w-3xl px-6 py-14">
       <div className="flex items-center gap-3">
         <span
           className="flex h-11 w-11 items-center justify-center rounded-2xl text-primary-foreground"
@@ -112,12 +112,12 @@ function PrivacyPage() {
             href="https://policies.google.com/privacy"
             target="_blank"
             rel="noreferrer"
-            className="text-primary hover:underline"
+            className="text-primary underline underline-offset-2"
           >
             Google Privacy Policy
           </a>
           . You can turn analytics back off at any time from the{" "}
-          <Link to="/support" className="text-primary hover:underline">
+          <Link to="/support" className="text-primary underline underline-offset-2">
             Support page
           </Link>
           , or block it with your browser's tracking protection or a content blocker.
@@ -141,7 +141,7 @@ function PrivacyPage() {
           Because your progress lives only on your device, you are always in control. You can
           erase everything at any time by clearing site data for Hygi. in your browser or device
           settings, using "Reset progress" on the{" "}
-          <Link to="/support" className="text-primary hover:underline">
+          <Link to="/support" className="text-primary underline underline-offset-2">
             Support page
           </Link>
           , or by deleting the app from your home screen.
@@ -184,7 +184,7 @@ function PrivacyPage() {
         <p>
           If this policy changes, we will update the date at the top of this page. Questions about
           privacy in Hygi. can be sent to the app's publisher, NorthBridge, at{" "}
-          <a href="mailto:builtstrong1@outlook.com" className="text-primary hover:underline">
+          <a href="mailto:builtstrong1@outlook.com" className="text-primary underline underline-offset-2">
             builtstrong1@outlook.com
           </a>
           .
