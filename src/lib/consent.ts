@@ -41,3 +41,17 @@ export function onConsentChange(listener: (state: ConsentState) => void) {
   window.addEventListener("hygi-consent-change", handler);
   return () => window.removeEventListener("hygi-consent-change", handler);
 }
+
+const OPEN_EVENT = "hygi-consent-open";
+
+/** Re-opens the cookie banner so a visitor can change an earlier choice. */
+export function openConsentBanner() {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(new Event(OPEN_EVENT));
+}
+
+export function onConsentBannerOpen(listener: () => void) {
+  if (typeof window === "undefined") return () => {};
+  window.addEventListener(OPEN_EVENT, listener);
+  return () => window.removeEventListener(OPEN_EVENT, listener);
+}
