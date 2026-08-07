@@ -52,10 +52,18 @@ export function SiteHeader() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <Link to="/" className="flex items-center gap-2 font-semibold tracking-tight">
           <span
-            className="flex h-9 w-9 items-center justify-center rounded-xl text-primary-foreground"
-            style={{ background: "var(--gradient-hero)", boxShadow: "var(--shadow-glow)" }}
+            className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl text-primary-foreground"
+            style={{ background: headerIcon ? undefined : "var(--gradient-hero)", boxShadow: "var(--shadow-glow)" }}
           >
-            <ShieldCheck className="h-5 w-5" />
+            {headerIcon ? (
+              <img
+                src={iconPath(headerIcon)}
+                alt="Hygi."
+                className="h-full w-full object-contain"
+              />
+            ) : (
+              <ShieldCheck className="h-5 w-5" />
+            )}
           </span>
           <span>Hygi<span className="text-primary">.</span></span>
         </Link>
