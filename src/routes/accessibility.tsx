@@ -27,6 +27,23 @@ export const Route = createFileRoute("/accessibility")({
       },
     ],
     links: [{ rel: "canonical", href: "https://digitalhygiene.app/accessibility" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "Accessibility Statement — Hygi",
+          description:
+            "How Hygi supports keyboard, screen reader, and low-vision access across lessons and quizzes, and how to report an accessibility issue.",
+          url: "https://digitalhygiene.app/accessibility",
+          inLanguage: "en",
+          dateModified: "2026-08-01",
+          isPartOf: { "@type": "WebSite", name: "Hygi", url: "https://digitalhygiene.app" },
+          publisher: { "@type": "Organization", name: "NorthBridge" },
+        }),
+      },
+    ],
   }),
   component: AccessibilityPage,
 });
