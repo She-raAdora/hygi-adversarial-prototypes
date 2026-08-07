@@ -112,6 +112,9 @@ function LessonPage() {
   const gate = gateFor(idx);
   const badgesEarned = lessons.filter((l) => (progress[l.id] ?? 0) >= l.quiz.length).length;
 
+  // Fresh each render: only the first mention of each glossary term is highlighted.
+  const glossarySeen = new Set<string>();
+
   return (
     <main id="main-content" className="mx-auto max-w-2xl px-6 py-12">
       <Link
