@@ -24,7 +24,13 @@ let initialized = false;
 export function gtag(...args: unknown[]) {
   if (typeof window === "undefined") return;
   window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push(args);
+  // gtag.js only processes `arguments`-shaped entries. Pushing a plain array is
+  // silently ignored by the GA4 container, so events never reach the property.
+  // eslint-disable-next-line prefer-rest-params
+  (function pushAsArguments() {
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer!.push(arguments);
+  })(...(args as []));
 }
 
 export function isAnalyticsInitialized() {
