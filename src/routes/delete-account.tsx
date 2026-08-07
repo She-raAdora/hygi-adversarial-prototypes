@@ -5,21 +5,23 @@ import { ContactRequestForm } from "@/components/ContactRequestForm";
 export const Route = createFileRoute("/delete-account")({
   head: () => ({
     meta: [
-      { title: "Delete Your Account & Data — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+      { title: "Delete Your Account & Data — Hygi" },
       {
         name: "description",
         content:
-          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. How to delete your Hygi. account and all associated data, what gets removed, how long it takes, and how to request deletion by email.",
+          "How to delete your Hygi account and all associated data: what gets removed, how long it takes, and how to request deletion by email.",
       },
-      { property: "og:title", content: "Delete Your Account & Data — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+      { property: "og:title", content: "Delete Your Account & Data — Hygi" },
       {
         property: "og:description",
         content:
-          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Step-by-step instructions to permanently delete your Hygi. account and every record tied to it.",
+          "How to delete your Hygi account and all associated data: what gets removed, how long it takes, and how to request deletion by email.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://digitalhygiene.app/delete-account" },
       { name: "twitter:card", content: "summary" },
     ],
+    links: [{ rel: "canonical", href: "https://digitalhygiene.app/delete-account" }],
   }),
   component: DeleteAccountPage,
 });
