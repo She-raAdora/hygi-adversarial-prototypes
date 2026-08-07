@@ -131,6 +131,7 @@ function GlossaryPage() {
                     ) : null}
                   </dt>
                   <dd className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                    <span className="font-medium text-foreground">What it means: </span>
                     {item.definition}
                   </dd>
                   <dd className="mt-3 space-y-2 text-sm leading-relaxed">
