@@ -590,6 +590,13 @@ function Quiz({
         disabled={picked === null}
         onClick={() => {
           const nextPicks = [...picks, picked!];
+          recordQuestionResult({
+            lessonId: lesson.id,
+            lessonTitle: lesson.title,
+            questionIndex: step,
+            question: q.q,
+            correct: picked === q.answer,
+          });
           if (nextPicks.length >= total) {
             const finalScore = nextPicks.reduce(
               (acc, p, i) => acc + (p === lesson.quiz[i].answer ? 1 : 0),
