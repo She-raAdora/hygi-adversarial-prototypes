@@ -9,16 +9,17 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
-      { title: "Admin — Manage Hygi. Access" },
+      { title: "Admin — Manage Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
       {
         name: "description",
         content:
-          "Admin-only console for Hygi.: review accounts and grant or revoke admin access to the analytics dashboard.",
+          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Admin-only console for Hygi.: review accounts and grant or revoke admin access to the analytics dashboard.",
       },
-      { property: "og:title", content: "Admin — Manage Hygi. Access" },
+      { property: "og:title", content: "Admin — Manage Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
       {
         property: "og:description",
-        content: "Review accounts and grant or revoke admin access to Hygi. analytics.",
+        content:
+          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Review accounts and grant or revoke admin access to Hygi. analytics.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

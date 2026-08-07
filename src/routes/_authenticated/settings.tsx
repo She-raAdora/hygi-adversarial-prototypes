@@ -11,16 +11,17 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/_authenticated/settings")({
   head: () => ({
     meta: [
-      { title: "Account Settings — Hygi." },
+      { title: "Account Settings — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
       {
         name: "description",
         content:
-          "Manage your Hygi. account: control admin notification emails and permanently delete your account and data.",
+          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Manage your Hygi. account: control admin notification emails and permanently delete your account and data.",
       },
-      { property: "og:title", content: "Account Settings — Hygi." },
+      { property: "og:title", content: "Account Settings — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
       {
         property: "og:description",
-        content: "Control notification emails or delete your Hygi. account.",
+        content:
+          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Control notification emails or delete your Hygi. account.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

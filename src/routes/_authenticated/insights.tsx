@@ -20,17 +20,17 @@ import { homeCtaVariantLabels } from "@/lib/experiments";
 export const Route = createFileRoute("/_authenticated/insights")({
   head: () => ({
     meta: [
-      { title: "Insights — Your Hygi. Analytics Dashboard" },
+      { title: "Insights — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
       {
         name: "description",
         content:
-          "See your home-screen install funnel and quiz completion by day and by lesson. Measured on this device only.",
+          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. See your home-screen install funnel and quiz completion by day and by lesson. Measured on this device only.",
       },
-      { property: "og:title", content: "Insights — Your Hygi. Analytics Dashboard" },
+      { property: "og:title", content: "Insights — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
       {
         property: "og:description",
         content:
-          "See your home-screen install funnel and quiz completion by day and by lesson. Measured on this device only.",
+          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. See your home-screen install funnel and quiz completion by day and by lesson. Measured on this device only.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
