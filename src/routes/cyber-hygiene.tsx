@@ -82,7 +82,7 @@ export const Route = createFileRoute("/cyber-hygiene")({
       { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "article" },
       { property: "og:url", content: URL },
-      { name: "twitter:card", content: "summary" },
+      ...socialImageMeta,
     ],
     links: [{ rel: "canonical", href: URL }],
     scripts: [
