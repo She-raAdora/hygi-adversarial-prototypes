@@ -190,7 +190,7 @@ function AuthPage() {
           </div>
 
           <div aria-live="polite">
-            {error ? <p className="text-sm text-destructive">{error}</p> : null}
+            {error ? <p className="text-sm text-destructive-strong">{error}</p> : null}
             {message ? <p className="text-sm text-muted-foreground">{message}</p> : null}
           </div>
 

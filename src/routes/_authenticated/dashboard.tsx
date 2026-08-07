@@ -70,7 +70,7 @@ function DashboardPage() {
           Loading site stats…
         </p>
       ) : isError ? (
-        <p className="mt-10 text-sm text-destructive">
+        <p className="mt-10 text-sm text-destructive-strong">
           Couldn't load site stats — admin access is required to view them.
         </p>
       ) : !data.allowed ? (

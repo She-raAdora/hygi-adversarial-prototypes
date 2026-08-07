@@ -160,7 +160,7 @@ function BadgesPage() {
               <p className="mt-1 text-xs text-muted-foreground">{l.tagline}</p>
               {done ? (
                 <>
-                  <span className="mt-4 inline-flex items-center gap-1 rounded-full bg-success/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-success">
+                  <span className="mt-4 inline-flex items-center gap-1 rounded-full bg-success/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-success-strong">
                     <Trophy className="h-3 w-3" /> Earned
                   </span>
                   {l.urgency && (

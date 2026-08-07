@@ -201,7 +201,7 @@ function ChatPanel({
           <div role="status" aria-live="polite" className="contents">
             {status === "submitted" ? <Shimmer className="text-sm">Thinking…</Shimmer> : null}
             {error ? (
-              <p className="text-sm text-destructive">
+              <p className="text-sm text-destructive-strong">
                 Something went wrong reaching the helper. Please try again in a moment.
               </p>
             ) : null}

@@ -158,7 +158,7 @@ function SupportPage() {
           <button
             type="button"
             onClick={clearProgress}
-            className="mt-3 rounded-full border border-destructive/40 bg-background px-4 py-2 text-sm font-medium text-destructive transition-colors hover:bg-destructive/10"
+            className="mt-3 rounded-full border border-destructive/40 bg-background px-4 py-2 text-sm font-medium text-destructive-strong transition-colors hover:bg-destructive/10"
           >
             Reset progress
           </button>

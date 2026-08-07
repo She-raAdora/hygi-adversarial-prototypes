@@ -181,7 +181,7 @@ function Index() {
                     <BookOpen className="h-4 w-4" /> {l.sections.length} sections · {l.quiz.length} quiz
                   </span>
                   {done ? (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-success/15 px-2 py-0.5 text-xs font-medium text-success">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-success/15 px-2 py-0.5 text-xs font-medium text-success-strong">
                       <Trophy className="h-3 w-3" /> Earned
                     </span>
                   ) : score > 0 ? (
@@ -224,7 +224,7 @@ function Index() {
                   </div>
                 ))}
               </div>
-              <div className="mt-4 rounded-lg bg-success/10 p-3 text-sm text-success">
+              <div className="mt-4 rounded-lg bg-success/10 p-3 text-sm text-success-strong">
                 <strong>Correct:</strong> {previewQuestion.options[previewQuestion.answer]}
                 <p className="mt-1 text-xs opacity-90">{previewQuestion.explain}</p>
               </div>

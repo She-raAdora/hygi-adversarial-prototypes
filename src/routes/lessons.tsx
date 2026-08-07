@@ -96,7 +96,7 @@ function LessonsPage() {
                       Lesson {i + 1}
                     </span>
                     {done && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-success/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-success">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-success/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-success-strong">
                         <Trophy className="h-3 w-3" aria-hidden="true" /> Badge earned
                       </span>
                     )}

@@ -164,7 +164,7 @@ function Delta({ value, label }: { value: number | null; label: string }) {
   if (value === null) return null;
   const dir = value > 0 ? "up" : value < 0 ? "down" : "flat";
   const tone =
-    dir === "up" ? "text-primary" : dir === "down" ? "text-destructive" : "text-muted-foreground";
+    dir === "up" ? "text-primary" : dir === "down" ? "text-destructive-strong" : "text-muted-foreground";
   const arrow = dir === "up" ? "▲" : dir === "down" ? "▼" : "→";
   return (
     <span className={`text-xs font-medium tabular-nums ${tone}`}>

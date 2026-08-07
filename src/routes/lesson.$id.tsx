@@ -202,7 +202,7 @@ function LessonPage() {
                     key={t}
                     className="flex items-start gap-3 rounded-xl border border-border bg-card px-4 py-3 text-sm"
                   >
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" aria-hidden="true" />
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-success-strong" aria-hidden="true" />
                     <span>
                       <GlossaryText text={t} seen={glossarySeen} />
                     </span>
@@ -391,12 +391,12 @@ function Quiz({
                 <div className="flex items-start gap-2">
                   {isCorrect ? (
                     <Check
-                      className="mt-0.5 h-4 w-4 shrink-0 text-success"
+                      className="mt-0.5 h-4 w-4 shrink-0 text-success-strong"
                       aria-hidden="true"
                     />
                   ) : (
                     <X
-                      className="mt-0.5 h-4 w-4 shrink-0 text-destructive"
+                      className="mt-0.5 h-4 w-4 shrink-0 text-destructive-strong"
                       aria-hidden="true"
                     />
                   )}
@@ -440,7 +440,7 @@ function Quiz({
           <ul className="mt-3 space-y-2">
             {Array.from(new Set(lesson.quiz.map((qq) => qq.explain))).map((line) => (
               <li key={line} className="flex items-start gap-2 text-sm text-muted-foreground">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-success" aria-hidden="true" />
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-success-strong" aria-hidden="true" />
                 <span>{line}</span>
               </li>
             ))}
@@ -583,10 +583,10 @@ function Quiz({
                   <span>{opt}</span>
                 </span>
                 {reveal && isAnswer && (
-                  <Check className="h-4 w-4 shrink-0 text-success" aria-hidden="true" />
+                  <Check className="h-4 w-4 shrink-0 text-success-strong" aria-hidden="true" />
                 )}
                 {reveal && isPicked && !isAnswer && (
-                  <X className="h-4 w-4 shrink-0 text-destructive" aria-hidden="true" />
+                  <X className="h-4 w-4 shrink-0 text-destructive-strong" aria-hidden="true" />
                 )}
               </label>
             );

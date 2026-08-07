@@ -179,7 +179,7 @@ function CyberHygienePage() {
         <ul className="mt-6 space-y-4">
           {practices.map((p) => (
             <li key={p.name} className="flex gap-3 rounded-2xl border border-border bg-card p-5">
-              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" aria-hidden="true" />
+              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success-strong" aria-hidden="true" />
               <div>
                 <h3 className="font-semibold tracking-tight">{p.name}</h3>
                 <p className="mt-1 text-sm text-muted-foreground">{p.detail}</p>
