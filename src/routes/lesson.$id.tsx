@@ -8,6 +8,7 @@ import { ShareResultButton } from "@/components/ShareResultButton";
 import { GlossaryText } from "@/components/GlossaryText";
 import { ReferralGate } from "@/components/ReferralGate";
 import { gateFor, isLocked, useReferrals } from "@/lib/referrals";
+import { recordQuestionResult } from "@/lib/metrics";
 import {
   trackAllLessonsComplete,
   trackQuizComplete,
