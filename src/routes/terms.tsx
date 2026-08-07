@@ -4,27 +4,29 @@ import { FileText, CheckCircle, AlertCircle, Ban, Mail } from "lucide-react";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Terms of Service — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+      { title: "Terms of Service — Hygi" },
       {
         name: "description",
         content:
-          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Terms of Service for Hygi. Learn how you may use the app, what you can expect, and what is not allowed.",
+          "Terms of Service for Hygi: how you may use the app, what you can expect from us, and what is not allowed.",
       },
-      { property: "og:title", content: "Terms of Service — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+      { property: "og:title", content: "Terms of Service — Hygi" },
       {
         property: "og:description",
         content:
-          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Terms of Service for Hygi. Learn how you may use the app, what you can expect, and what is not allowed.",
+          "Terms of Service for Hygi: how you may use the app, what you can expect from us, and what is not allowed.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://digitalhygiene.app/terms" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "Terms of Service — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+      { name: "twitter:title", content: "Terms of Service — Hygi" },
       {
         name: "twitter:description",
         content:
-          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Terms of Service for Hygi. Learn how you may use the app, what you can expect, and what is not allowed.",
+          "Terms of Service for Hygi: how you may use the app, what you can expect from us, and what is not allowed.",
       },
     ],
+    links: [{ rel: "canonical", href: "https://digitalhygiene.app/terms" }],
   }),
   component: TermsPage,
 });
