@@ -6,8 +6,6 @@ import { sectionSlug, topicForQuestion } from "@/lib/quizTopics";
 import { awardBadge, useProgress } from "@/lib/progress";
 import { ShareResultButton } from "@/components/ShareResultButton";
 import { GlossaryText } from "@/components/GlossaryText";
-import { ReferralGate } from "@/components/ReferralGate";
-import { gateFor, isLocked, useReferrals } from "@/lib/referrals";
 import { recordQuestionResult } from "@/lib/metrics";
 import { socialImageMeta } from "@/lib/seo";
 import {
@@ -113,7 +111,6 @@ function LessonPage() {
   const { lesson } = Route.useLoaderData() as { lesson: Lesson };
   const [mode, setMode] = useState<"learn" | "quiz">("learn");
   const [anchor, setAnchor] = useState<string | null>(null);
-  const referrals = useReferrals();
   const progress = useProgress();
 
   // Reset to learn view when navigating between lessons (component is reused).
@@ -138,10 +135,6 @@ function LessonPage() {
   const idx = lessons.findIndex((l) => l.id === lesson.id);
   const next = lessons[idx + 1];
   const prev = lessons[idx - 1];
-  const locked = isLocked(idx, referrals);
-  const gate = gateFor(idx);
-  const badgesEarned = lessons.filter((l) => (progress[l.id] ?? 0) >= l.quiz.length).length;
-
   // Fresh each render: only the first mention of each glossary term is highlighted.
   const glossarySeen = new Set<string>();
 
@@ -167,14 +160,7 @@ function LessonPage() {
         <p className="mt-3 text-lg text-muted-foreground">{lesson.tagline}</p>
       </header>
 
-      {locked && gate ? (
-        <ReferralGate
-          index={idx}
-          after={gate.after}
-          badgesEarned={badgesEarned}
-          totalBadges={lessons.length}
-        />
-      ) : mode === "learn" ? (
+      {mode === "learn" ? (
         <article className="mt-10 space-y-10">
           <p className="rounded-2xl border border-border bg-card px-4 py-3 text-xs text-muted-foreground">
             <span className="mr-1 rounded-md bg-primary/10 px-1 font-medium text-foreground underline decoration-primary decoration-dotted decoration-2 underline-offset-4">
