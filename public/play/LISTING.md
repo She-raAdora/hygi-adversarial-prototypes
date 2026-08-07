@@ -3,20 +3,21 @@
 App name: Hygi. — Digital Hygiene
 
 Short description (78 chars):
-15 short lessons on digital hygiene. Quiz yourself, earn badges, stay safer.
+22 short lessons on digital hygiene. Quiz yourself, earn badges, stay safer.
 
 Full description:
-Hygi. turns digital hygiene into 15 short, readable lessons — each with a pop quiz
-at the end. Pass the quiz and you earn a badge. Finish all 15 and you earn the
+Hygi. turns digital hygiene into 22 short, readable lessons — each with a mini-quiz
+at the end. Pass the quiz and you earn a badge. Finish all 22 and you earn the
 Digital Hygiene Champion trophy.
 
 What you learn:
 - Protecting personal information and auditing your digital footprint
-- Strong passwords, MFA, and locking down accounts
+- Strong passwords, MFA, passkeys, and locking down accounts
 - Safe browsing, scams, and AI-powered phishing (deepfakes, voice clones, BEC)
 - Securing phones, workstations, public computers, and networked devices
 - Ransomware defence, backups, and protecting sensitive work
 - Recognising online harassment and staying safe in public life
+- Security awareness and reporting habits from CISA's Secure Our World guidance
 
 Why people like it:
 - No account required. Every lesson, quiz, and badge is free and open.
@@ -24,9 +25,10 @@ Why people like it:
 - Answer review after every quiz explains why the right answer is right.
 - Share your badges as an image card in landscape, square, or portrait.
 - Works offline-friendly on the home screen, and analytics only run if you opt in.
+- Ask Hygi Helper for help with any lesson, glossary term, or cyber hygiene topic.
 
 Lesson content is based on public cybersecurity and digital safety guidance from
-Dartmouth College, Caltech, Cal Poly, and Harvard University. Hygi. is not
+Dartmouth College, Caltech, Cal Poly, Harvard University, and CISA. Hygi. is not
 affiliated with or endorsed by those institutions.
 
 Brought to you by NorthBridge.
@@ -39,13 +41,18 @@ Contains ads: No
 In-app purchases: No
 
 ## Data safety answers
-- Collects data: Yes — approximate analytics (page views, quiz completions) and
-  email address for staff accounts only.
-- Shared with third parties: Google Analytics (analytics purpose only).
+- Collects data: Yes — approximate analytics (page views, quiz completions, badge
+  milestones, install events, glossary taps, missed questions, and shares) and
+  email address for staff accounts only. Help chat messages are sent to an AI
+  assistant but are not stored on our servers.
+- Shared with third parties: Google Analytics (analytics), Cloudflare Turnstile
+  (CAPTCHA), Lovable AI Gateway / Google Gemini (help chat responses), and Apple
+  or Google (staff sign-in only).
 - Encrypted in transit: Yes.
 - Users can request deletion: Yes — in-app (Account settings) and via
   https://digitalhygiene.app/delete-account.
-- Data collection optional: Yes — analytics require explicit opt-in.
+- Data collection optional: Yes — analytics and anonymous lesson metrics require
+  explicit opt-in; the help chat is optional and can be closed.
 
 ## Content rating (IARC questionnaire answers)
 - Category: Reference, News, or Educational
@@ -74,6 +81,10 @@ In-app purchases: No
 - Login credentials for review: Not required — all lessons, quizzes, and badges
   are usable with no account. Accounts exist only for internal staff analytics
   pages (/insights, /admin).
+- AI / generative AI: Yes — the optional Hygi Helper chat uses Google Gemini via
+  Lovable AI Gateway to answer questions about the course content, glossary, and
+  cyber hygiene guide. It is limited to those topics and does not collect personal
+  data.
 
 ## Packaging steps (Trusted Web Activity via Bubblewrap)
 1. `npm i -g @bubblewrap/cli`
@@ -82,7 +93,7 @@ In-app purchases: No
    `twa-manifest.json` and run `bubblewrap update`)
 3. `bubblewrap build` -> produces `app-release-bundle.aab`
 4. Upload the .aab to Play Console. Under Release > Setup > App signing, copy
-   the **SHA-256 certificate fingerprint** of the app signing key.
+    the **SHA-256 certificate fingerprint** of the app signing key.
 5. Back in this project run:
    `node scripts/set-assetlinks-fingerprint.mjs <SHA-256>`
    then publish. This writes /.well-known/assetlinks.json, which is what
