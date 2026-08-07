@@ -231,6 +231,13 @@ function RootComponent() {
               <Link to="/accessibility" className="transition-colors hover:text-foreground">
                 Accessibility
               </Link>
+              <button
+                type="button"
+                onClick={openConsentBanner}
+                className="transition-colors hover:text-foreground"
+              >
+                Cookie settings
+              </button>
             </div>
           </div>
         </footer>
