@@ -26,6 +26,32 @@ export const Route = createFileRoute("/badges")({
       { name: "twitter:card", content: "summary" },
     ],
     links: [{ rel: "canonical", href: "https://digitalhygiene.app/badges" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "Your Badges — Hygi Digital Hygiene",
+          description:
+            "Track your Hygi progress, view every digital hygiene badge you have earned, and unlock the trophy for finishing all lessons.",
+          url: "https://digitalhygiene.app/badges",
+          isPartOf: { "@type": "WebSite", name: "Hygi", url: "https://digitalhygiene.app" },
+          mainEntity: {
+            "@type": "ItemList",
+            name: "Hygi digital hygiene badges",
+            numberOfItems: lessons.length,
+            itemListElement: lessons.map((l, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              name: `${l.title} badge`,
+              description: l.tagline,
+              url: `https://digitalhygiene.app/lesson/${l.id}`,
+            })),
+          },
+        }),
+      },
+    ],
   }),
   component: BadgesPage,
 });
