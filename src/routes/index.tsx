@@ -4,6 +4,7 @@ import { lessons } from "@/lib/lessons";
 import { useProgress } from "@/lib/progress";
 import { useHomeCtaVariant } from "@/lib/useHomeCtaVariant";
 import { trackCtaClick } from "@/lib/analytics";
+import { socialImageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -21,16 +22,7 @@ export const Route = createFileRoute("/")({
           "Learn digital and cyber hygiene in bite-sized lessons from university and government security guides. Take a mini-quiz and earn a badge per topic.",
       },
       { property: "og:url", content: "https://digitalhygiene.app/" },
-      {
-        property: "og:image",
-        content:
-          "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/87cf0ff7-cc52-415f-b7ba-f9cf8a6fd547",
-      },
-      {
-        name: "twitter:image",
-        content:
-          "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/87cf0ff7-cc52-415f-b7ba-f9cf8a6fd547",
-      },
+      ...socialImageMeta,
     ],
     links: [{ rel: "canonical", href: "https://digitalhygiene.app/" }],
   }),
