@@ -8,6 +8,7 @@ import {
   type ShareFormat,
 } from "@/lib/shareCard";
 import { recordReferral } from "@/lib/referrals";
+import { recordShare } from "@/lib/metrics";
 
 type Props = {
   card: ShareCard;
@@ -17,6 +18,10 @@ type Props = {
   label?: string;
   variant?: "solid" | "outline";
   className?: string;
+  /** Where the share happened, for admin share metrics. */
+  lessonId?: string;
+  lessonTitle?: string;
+  source?: string;
 };
 
 /** Creates a PNG result card on-device and shares or downloads it. */
@@ -26,6 +31,9 @@ export function ShareResultButton({
   label = "Share result",
   variant = "outline",
   className = "",
+  lessonId,
+  lessonTitle,
+  source,
 }: Props) {
   const [state, setState] = useState<
     "idle" | "busy" | "downloading" | "shared" | "saved" | "opened" | "error"
@@ -46,6 +54,7 @@ export function ShareResultButton({
     try {
       const outcome = await shareResultCard(card, text, format);
       recordReferral();
+      recordShare({ format, lessonId, lessonTitle, source: source ?? "share" });
       setState(outcome === "downloaded" ? "saved" : "idle");
     } catch {
       setState("error");
@@ -58,6 +67,7 @@ export function ShareResultButton({
     try {
       const outcome = await downloadResultCard(card, format);
       recordReferral();
+      recordShare({ format, lessonId, lessonTitle, source: source ?? "download" });
       setState(outcome === "opened" ? "opened" : "saved");
       setTimeout(() => setState("idle"), 6000);
     } catch {
