@@ -22,7 +22,12 @@ export function Analytics() {
 
     // Boot GA the moment the visitor opts in, without a page reload.
     const stopConsentWatch = onConsentChange((state) => {
-      if (state === "granted") initAnalytics();
+      if (state === "granted") {
+        initAnalytics();
+        // The launch (and any first-standalone install conversion) was dropped
+        // before opt-in, so report it now that reporting is allowed.
+        trackAppLaunch();
+      }
     });
 
     const onPrompt = () => trackInstallPromptAvailable();

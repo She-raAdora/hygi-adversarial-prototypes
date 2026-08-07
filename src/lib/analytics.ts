@@ -24,7 +24,13 @@ let initialized = false;
 export function gtag(...args: unknown[]) {
   if (typeof window === "undefined") return;
   window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push(args);
+  // gtag.js only processes `arguments`-shaped entries. Pushing a plain array is
+  // silently ignored by the GA4 container, so events never reach the property.
+  // eslint-disable-next-line prefer-rest-params
+  (function pushAsArguments() {
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer!.push(arguments);
+  })(...(args as []));
 }
 
 export function isAnalyticsInitialized() {
@@ -131,7 +137,9 @@ export function trackAppInstalled(method: string) {
 /** Fires the conversion the first time the app is opened from the home screen. */
 export function trackFirstStandaloneLaunch() {
   if (!isStandalone()) return;
-  if (once("hygi-analytics-standalone-launch")) {
+  // Only burn the once-per-browser marker when the conversion can actually be
+  // reported. Otherwise a pre-consent launch silently swallows the conversion.
+  if (hasAnalyticsConsent() && once("hygi-analytics-standalone-launch")) {
     trackEvent("install_conversion", { method: "add_to_home_screen" });
   }
   trackEvent("app_launch", { display_mode: "standalone" });
