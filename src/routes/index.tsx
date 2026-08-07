@@ -8,17 +8,17 @@ import { trackCtaClick } from "@/lib/analytics";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Hygi. — Digital & Cyber Hygiene in 22 Lessons" },
+      { title: "Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
       {
         name: "description",
         content:
-          "Learn digital and cyber hygiene in 22 short lessons from university security guides. Quiz yourself after each one and earn a badge per topic.",
+          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits.",
       },
-      { property: "og:title", content: "Hygi. — Digital & Cyber Hygiene in 22 Lessons" },
+      { property: "og:title", content: "Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
       {
         property: "og:description",
         content:
-          "Learn digital and cyber hygiene in 22 short lessons from university security guides. Quiz yourself after each one and earn a badge per topic.",
+          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits.",
       },
       { property: "og:url", content: "https://digitalhygiene.app/" },
       {
