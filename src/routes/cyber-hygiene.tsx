@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, CheckCircle2, ShieldCheck } from "lucide-react";
 import { lessons } from "@/lib/lessons";
+import { socialImageMeta } from "@/lib/seo";
 
 const TITLE = "What Is Cyber Hygiene? A Practical Guide";
 const DESCRIPTION =
