@@ -80,8 +80,8 @@ export function GlossaryTerm({ term, children }: Props) {
         aria-expanded={open}
         aria-controls={panelId}
         aria-describedby={open ? panelId : undefined}
-        onClick={() => setOpen((v) => !v)}
-        aria-label={`${label} — what does this mean? Press Enter for the definition.`}
+        onClick={show}
+        aria-label={`${label} — what does this mean? Press Enter to read the definition, Escape to close.`}
         className="cursor-help rounded-md bg-primary/10 px-1 font-medium text-foreground underline decoration-primary decoration-dotted decoration-2 underline-offset-4 transition-colors hover:bg-primary/20 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         {children ?? entry.term}
