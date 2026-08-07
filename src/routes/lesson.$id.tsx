@@ -7,6 +7,7 @@ import { awardBadge, useProgress } from "@/lib/progress";
 import { ShareResultButton } from "@/components/ShareResultButton";
 import { GlossaryText } from "@/components/GlossaryText";
 import { recordQuestionResult } from "@/lib/metrics";
+import { pathwayOf, pathwayChipStyle } from "@/lib/pathways";
 import { socialImageMeta } from "@/lib/seo";
 import {
   trackAllLessonsComplete,
@@ -155,6 +156,15 @@ function LessonPage() {
           <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             Lesson {idx + 1}
           </span>
+          {pathwayOf(lesson.id) && (
+            <span
+              style={pathwayChipStyle(pathwayOf(lesson.id)!.hue)}
+              className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider"
+            >
+              <span aria-hidden="true">{pathwayOf(lesson.id)!.emoji}</span>
+              {pathwayOf(lesson.id)!.name} pathway
+            </span>
+          )}
         </div>
         <h1 className="mt-4 text-4xl font-semibold tracking-tight">{lesson.title}</h1>
         <p className="mt-3 text-lg text-muted-foreground">{lesson.tagline}</p>
