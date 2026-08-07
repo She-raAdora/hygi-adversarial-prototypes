@@ -47,7 +47,7 @@ export function GlossaryTerm({ term, children }: Props) {
           if (e.key === "Escape") setOpen(false);
         }}
         aria-label={`${children ? String(children) : entry.term} — what does this mean?`}
-        className="cursor-help rounded-sm font-medium text-foreground underline decoration-primary decoration-dotted decoration-2 underline-offset-4 transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        className="cursor-help rounded-md bg-primary/10 px-1 font-medium text-foreground underline decoration-primary decoration-dotted decoration-2 underline-offset-4 transition-colors hover:bg-primary/20 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         {children ?? entry.term}
       </button>
