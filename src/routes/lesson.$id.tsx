@@ -29,7 +29,7 @@ export const Route = createFileRoute("/lesson/$id")({
           const title =
             (base + suffix).length > 60 ? base.slice(0, 60 - suffix.length - 1).trimEnd() + "…" + suffix : base + suffix;
           const intro = loaderData.lesson.intro;
-          const description = intro.length > 160 ? intro.slice(0, 157).trimEnd() + "…" : intro;
+          const description = intro.length > 150 ? intro.slice(0, 147).trimEnd() + "…" : intro;
           return [
             { title },
             { name: "description", content: description },
