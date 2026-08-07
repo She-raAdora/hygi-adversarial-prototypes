@@ -441,6 +441,9 @@ function Quiz({
             }}
             text={`I scored ${score}/${total} on the "${lesson.title}" digital hygiene quiz on Hygi.`}
             label="Share result"
+            lessonId={lesson.id}
+            lessonTitle={lesson.title}
+            source="quiz result"
           />
           {next ? (
             <Link
