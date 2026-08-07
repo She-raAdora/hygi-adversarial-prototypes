@@ -82,8 +82,8 @@ function PrivacyPage() {
         </p>
         <p>
           The learning data Hygi. stores is your progress — which lessons you have finished, quiz
-          scores, badges, the trophy, and how many badge cards you have shared. This is written to
-          your device's local storage. It is not transmitted to us, it is
+          scores, badges, and the trophy. This is written to your device's local storage. It is not
+          transmitted to us, it is
           not linked to your identity, and we cannot read it.
         </p>
         <p>
@@ -184,7 +184,7 @@ function PrivacyPage() {
             Support page
           </Link>
           , or by deleting the app from your home screen. That clears lessons, quizzes, badges, the
-          trophy, share counts, and the on-device event log.
+          trophy, and the on-device event log.
         </p>
         <p>
           If you hold a staff account, you can permanently delete it — along with your email
