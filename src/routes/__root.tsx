@@ -14,6 +14,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { Analytics } from "@/components/Analytics";
 import { AnalyticsDebugPanel } from "@/components/AnalyticsDebugPanel";
 import { ConsentBanner } from "@/components/ConsentBanner";
+import { HelpChat } from "@/components/HelpChat";
 import { appleSplashLinks } from "@/lib/splashLinks";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -234,6 +235,7 @@ function RootComponent() {
           </div>
         </footer>
         <ConsentBanner />
+        <HelpChat />
       </div>
     </QueryClientProvider>
   );
