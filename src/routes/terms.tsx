@@ -27,6 +27,23 @@ export const Route = createFileRoute("/terms")({
       },
     ],
     links: [{ rel: "canonical", href: "https://digitalhygiene.app/terms" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "Terms of Service — Hygi",
+          description:
+            "Terms of Service for Hygi: how you may use the app, what you can expect from us, and what is not allowed.",
+          url: "https://digitalhygiene.app/terms",
+          inLanguage: "en",
+          dateModified: "2026-08-01",
+          isPartOf: { "@type": "WebSite", name: "Hygi", url: "https://digitalhygiene.app" },
+          publisher: { "@type": "Organization", name: "NorthBridge" },
+        }),
+      },
+    ],
   }),
   component: TermsPage,
 });
