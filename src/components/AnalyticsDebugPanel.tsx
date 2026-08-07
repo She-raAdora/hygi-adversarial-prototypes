@@ -9,7 +9,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 const STORAGE_KEY = "hygi-analytics-debug-open";
 
-function isDebugMode() {
+function isDebugEnabled() {
   if (typeof window === "undefined") return false;
   return (
     window.location.search.includes("debug=analytics") ||
