@@ -9,6 +9,7 @@ import { GlossaryText } from "@/components/GlossaryText";
 import { ReferralGate } from "@/components/ReferralGate";
 import { gateFor, isLocked, useReferrals } from "@/lib/referrals";
 import { recordQuestionResult } from "@/lib/metrics";
+import { socialImageMeta } from "@/lib/seo";
 import {
   trackAllLessonsComplete,
   trackQuizComplete,
