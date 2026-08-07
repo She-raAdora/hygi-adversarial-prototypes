@@ -29,6 +29,14 @@ export function gtag(...args: unknown[]) {
   window.dataLayer.push(args);
 }
 
+export function isAnalyticsInitialized() {
+  return initialized;
+}
+
+export function getMeasurementId() {
+  return MEASUREMENT_ID;
+}
+
 /**
  * Loads gtag.js once. No-ops on the server, when the ID is unconfigured, or
  * until the visitor has explicitly opted in to analytics.
@@ -47,6 +55,7 @@ export function initAnalytics() {
   // send_page_view is off: the SPA sends page_view itself on every route change.
   gtag("config", MEASUREMENT_ID, { send_page_view: false });
 }
+
 
 export function trackEvent(name: string, params: Record<string, unknown> = {}) {
   // Stamp the visitor's A/B variant onto every event so downstream engagement
