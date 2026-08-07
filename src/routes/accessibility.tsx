@@ -122,7 +122,7 @@ function AccessibilityPage() {
       <Section icon={<Mail className="h-4 w-4" />} title="Feedback and contact">
         <p>
           If you encounter an accessibility barrier or have suggestions, contact NorthBridge at{" "}
-          <a href="mailto:builtstrong1@outlook.com" className="text-primary hover:underline">
+          <a href="mailto:builtstrong1@outlook.com" className="text-primary underline underline-offset-2">
             builtstrong1@outlook.com
           </a>
           . We will review your message and work to make the experience better.

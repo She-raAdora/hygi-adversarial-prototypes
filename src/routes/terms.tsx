@@ -137,7 +137,7 @@ function TermsPage() {
         <p>
           We may update these Terms of Service from time to time. The latest version will always be
           posted on this page with the updated date. If you have questions, contact NorthBridge at{" "}
-          <a href="mailto:builtstrong1@outlook.com" className="text-primary hover:underline">
+          <a href="mailto:builtstrong1@outlook.com" className="text-primary underline underline-offset-2">
             builtstrong1@outlook.com
           </a>
           .
