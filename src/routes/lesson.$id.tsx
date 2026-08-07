@@ -7,6 +7,7 @@ import { awardBadge, useProgress } from "@/lib/progress";
 import { ShareResultButton } from "@/components/ShareResultButton";
 import { GlossaryText } from "@/components/GlossaryText";
 import { recordQuestionResult } from "@/lib/metrics";
+import { pathwayOf, pathwayChipStyle } from "@/lib/pathways";
 import { socialImageMeta } from "@/lib/seo";
 import {
   trackAllLessonsComplete,
