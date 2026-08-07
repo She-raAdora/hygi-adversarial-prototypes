@@ -1,8 +1,8 @@
 {
   "id": "/",
-  "name": "Hygi — Learn Digital Hygiene",
+  "name": "Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons",
   "short_name": "Hygi",
-  "description": "Bite-sized lessons and pop quizzes on digital hygiene. Earn a badge for every topic you master.",
+  "description": "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits.",
   "lang": "en",
   "dir": "ltr",
   "start_url": "/",
