@@ -24,10 +24,10 @@ export const Route = createFileRoute("/lesson/$id")({
   head: ({ loaderData }) => ({
     meta: loaderData
       ? [
-          { title: `${loaderData.lesson.title} — Hygi` },
-          { name: "description", content: loaderData.lesson.intro },
-          { property: "og:title", content: `${loaderData.lesson.title} — Hygi` },
-          { property: "og:description", content: loaderData.lesson.intro },
+          { title: `${loaderData.lesson.title} — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons` },
+          { name: "description", content: `${loaderData.lesson.intro} — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons. Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits.` },
+          { property: "og:title", content: `${loaderData.lesson.title} — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons` },
+          { property: "og:description", content: `${loaderData.lesson.intro} — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons. Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits.` },
           { property: "og:type", content: "article" },
           { name: "twitter:card", content: "summary" },
         ]

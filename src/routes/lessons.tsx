@@ -8,17 +8,17 @@ import { lessonTint } from "@/lib/lessonTints";
 export const Route = createFileRoute("/lessons")({
   head: () => ({
     meta: [
-      { title: "Lessons — Hygi" },
+      { title: "Lessons — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
       {
         name: "description",
         content:
-          "Browse the full digital hygiene curriculum — 22 short lessons with pop quizzes and a badge for every topic you master.",
+          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Browse the full digital hygiene curriculum — short lessons with pop quizzes and a badge for every topic you master.",
       },
-      { property: "og:title", content: "Lessons — Hygi" },
+      { property: "og:title", content: "Lessons — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
       {
         property: "og:description",
         content:
-          "Browse the full digital hygiene curriculum — 22 short lessons with pop quizzes and a badge for every topic you master.",
+          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Browse the full digital hygiene curriculum — short lessons with pop quizzes and a badge for every topic you master.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

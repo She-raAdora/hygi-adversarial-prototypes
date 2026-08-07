@@ -7,16 +7,17 @@ import { ContactRequestForm } from "@/components/ContactRequestForm";
 export const Route = createFileRoute("/support")({
   head: () => ({
     meta: [
-      { title: "Support & Help — Hygi." },
+      { title: "Support & Help — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
       {
         name: "description",
         content:
-          "Get help with Hygi.: contact support, reset your lesson progress, control analytics, and find privacy and accessibility information.",
+          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Get help with Hygi.: contact support, reset your lesson progress, control analytics, and find privacy and accessibility information.",
       },
-      { property: "og:title", content: "Support & Help — Hygi." },
+      { property: "og:title", content: "Support & Help — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
       {
         property: "og:description",
-        content: "Contact Hygi. support, manage your data, and control analytics preferences.",
+        content:
+          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Contact Hygi. support, manage your data, and control analytics preferences.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
