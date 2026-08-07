@@ -5,7 +5,6 @@ import { LogIn, ShieldCheck } from "lucide-react";
 import { useProgress } from "@/lib/progress";
 import { lessons } from "@/lib/lessons";
 import { supabase } from "@/integrations/supabase/client";
-import { getStoredHeaderIcon, iconPath } from "@/lib/headerIcon";
 
 export function SiteHeader() {
   const progress = useProgress();
@@ -13,18 +12,6 @@ export function SiteHeader() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [signedIn, setSignedIn] = useState<boolean | null>(null);
-  const [headerIcon, setHeaderIcon] = useState<string | null>(null);
-
-  useEffect(() => {
-    setHeaderIcon(getStoredHeaderIcon());
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === "hygi-header-icon") {
-        setHeaderIcon(getStoredHeaderIcon());
-      }
-    };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
-  }, []);
 
   useEffect(() => {
     let active = true;
@@ -52,18 +39,10 @@ export function SiteHeader() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <Link to="/" className="flex items-center gap-2 font-semibold tracking-tight">
           <span
-            className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl text-primary-foreground"
-            style={{ background: headerIcon ? undefined : "var(--gradient-hero)", boxShadow: "var(--shadow-glow)" }}
+            className="flex h-9 w-9 items-center justify-center rounded-xl text-primary-foreground"
+            style={{ background: "var(--gradient-hero)", boxShadow: "var(--shadow-glow)" }}
           >
-            {headerIcon ? (
-              <img
-                src={iconPath(headerIcon)}
-                alt="Hygi."
-                className="h-full w-full object-contain"
-              />
-            ) : (
-              <ShieldCheck className="h-5 w-5" />
-            )}
+            <ShieldCheck className="h-5 w-5" />
           </span>
           <span>Hygi<span className="text-primary">.</span></span>
         </Link>

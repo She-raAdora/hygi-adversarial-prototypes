@@ -210,9 +210,6 @@ function RootComponent() {
               <Link to="/glossary" className="transition-colors hover:text-foreground">
                 Glossary
               </Link>
-              <Link to="/brand" className="transition-colors hover:text-foreground">
-                Brand icon
-              </Link>
               <Link to="/admin" className="transition-colors hover:text-foreground">
                 Admin
               </Link>
