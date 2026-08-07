@@ -137,7 +137,9 @@ export function trackAppInstalled(method: string) {
 /** Fires the conversion the first time the app is opened from the home screen. */
 export function trackFirstStandaloneLaunch() {
   if (!isStandalone()) return;
-  if (once("hygi-analytics-standalone-launch")) {
+  // Only burn the once-per-browser marker when the conversion can actually be
+  // reported. Otherwise a pre-consent launch silently swallows the conversion.
+  if (hasAnalyticsConsent() && once("hygi-analytics-standalone-launch")) {
     trackEvent("install_conversion", { method: "add_to_home_screen" });
   }
   trackEvent("app_launch", { display_mode: "standalone" });
