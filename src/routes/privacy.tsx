@@ -68,7 +68,7 @@ function PrivacyPage() {
 
       <p className="mt-8 rounded-2xl border border-border/60 bg-secondary/50 p-5 text-sm leading-relaxed">
         Short version: Hygi. is a free learning app — no learner account, no sign-in, and no ads.
-        Your lesson progress, badges, and share history are saved only on your device. We do collect
+        Your lesson progress and badges are saved only on your device. We do collect
         anonymous, opt-in usage stats to see which lessons help most, and staff accounts (for the
         admin dashboard) store an email address and role. We never sell data or build advertising
         profiles.
@@ -103,9 +103,13 @@ function PrivacyPage() {
         </p>
         <p>
           With your consent, we also collect anonymous lesson metrics in the backend to improve the
-          course: which quiz questions are missed most, which glossary terms people tap, how often
-          result cards are shared, and how many trophies are earned. These rows are stored in our
-          database but contain no account ID, name, email, or anything else that could identify you.
+          course: which quiz questions are missed most, which glossary terms people tap, how many
+          result-card images are shared or downloaded (and from which lesson or screen), and how many
+          trophies are earned. Sharing a result card is optional and never required to open a lesson.
+          Hygi. has no referral or invite programme: we do not read your contacts, we do not know who
+          you shared with, and we never receive the recipient's details — only an anonymous count of
+          the share action. These rows are stored in our database but contain no account ID, name,
+          email, or anything else that could identify you.
         </p>
       </Section>
 
@@ -263,7 +267,7 @@ const disclosures: { q: string; a: string }[] = [
   },
   {
     q: "Data not linked to you",
-    a: "Product interaction and usage data: page views, quiz starts/completions with score, badge and trophy milestones, home-screen install events, glossary taps, missed quiz questions, result-card shares, and homepage A/B variant. Collected anonymously via Google Analytics or stored in aggregate backend metrics only after the user opts in, and not linked to any identity. Your saved progress, badges, and chat history remain in on-device storage only.",
+    a: "Product interaction and usage data: page views, quiz starts/completions with score, badge and trophy milestones, home-screen install events, glossary taps, missed quiz questions, optional result-card shares or downloads (an anonymous count only, with no recipient data), and homepage A/B variant. Collected anonymously via Google Analytics or stored in aggregate backend metrics only after the user opts in, and not linked to any identity. Your saved progress, badges, and chat history remain in on-device storage only.",
   },
   {
     q: "Contact info, identifiers, location, health, financials, contacts, photos, browsing history",
