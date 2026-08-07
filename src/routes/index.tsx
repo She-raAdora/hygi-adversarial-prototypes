@@ -66,7 +66,7 @@ function Index() {
   const ctaAboveHeadline = variant.placement === "above-headline";
 
   return (
-    <main>
+    <main id="main-content">
       <section
         className="relative overflow-hidden"
         style={{ background: "var(--gradient-soft)" }}
