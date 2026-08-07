@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Lock, RotateCcw, Sparkles, Trophy } from "lucide-react";
+import { CircleDashed, RotateCcw, Sparkles, Trophy } from "lucide-react";
 import { lessons } from "@/lib/lessons";
 import { resetProgress, useProgress } from "@/lib/progress";
 import { ShareResultButton } from "@/components/ShareResultButton";
@@ -180,7 +180,8 @@ function BadgesPage() {
                   params={{ id: l.id }}
                   className="mt-4 inline-flex items-center gap-1 rounded-full bg-background px-3 py-1 text-xs font-medium text-muted-foreground hover:text-foreground"
                 >
-                  <Lock className="h-3 w-3" /> {score > 0 ? `${score}/${l.quiz.length} — try again` : "Locked"}
+                  <CircleDashed className="h-3 w-3" />{" "}
+                  {score > 0 ? `${score}/${l.quiz.length} — try again` : "Take the quiz"}
                 </Link>
               )}
           </div>
