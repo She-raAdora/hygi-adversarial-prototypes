@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ShieldCheck, Database, Server, Trash2, Mail } from "lucide-react";
+import { ShieldCheck, Database, Server, Trash2, Mail, Bot, BarChart3 } from "lucide-react";
 
 export const Route = createFileRoute("/privacy")({
   head: () => ({
@@ -8,13 +8,13 @@ export const Route = createFileRoute("/privacy")({
       {
         name: "description",
         content:
-          "How Hygi handles your data: progress and badges stay on your device, usage is measured anonymously, and no personal data is required.",
+          "How Hygi handles your data: progress and badges stay on your device, usage is measured anonymously, and no learner account is required.",
       },
       { property: "og:title", content: "Privacy Policy — Hygi" },
       {
         property: "og:description",
         content:
-          "How Hygi handles your data: progress and badges stay on your device, usage is measured anonymously, and no personal data is required.",
+          "How Hygi handles your data: progress and badges stay on your device, usage is measured anonymously, and no learner account is required.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://digitalhygiene.app/privacy" },
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/privacy")({
       {
         name: "twitter:description",
         content:
-          "How Hygi handles your data: progress and badges stay on your device, usage is measured anonymously, and no personal data is required.",
+          "How Hygi handles your data: progress and badges stay on your device, usage is measured anonymously, and no learner account is required.",
       },
     ],
     links: [{ rel: "canonical", href: "https://digitalhygiene.app/privacy" }],
@@ -35,10 +35,10 @@ export const Route = createFileRoute("/privacy")({
           "@type": "WebPage",
           name: "Privacy Policy — Hygi",
           description:
-            "How Hygi handles your data: progress and badges stay on your device, usage is measured anonymously, and no personal data is required.",
+            "How Hygi handles your data: progress and badges stay on your device, usage is measured anonymously, and no learner account is required.",
           url: "https://digitalhygiene.app/privacy",
           inLanguage: "en",
-          dateModified: "2026-08-01",
+          dateModified: "2026-08-07",
           isPartOf: { "@type": "WebSite", name: "Hygi", url: "https://digitalhygiene.app" },
           publisher: { "@type": "Organization", name: "NorthBridge" },
         }),
@@ -48,7 +48,7 @@ export const Route = createFileRoute("/privacy")({
   component: PrivacyPage,
 });
 
-const LAST_UPDATED = "August 1, 2026";
+const LAST_UPDATED = "August 7, 2026";
 
 function PrivacyPage() {
   return (
@@ -67,84 +67,124 @@ function PrivacyPage() {
       </div>
 
       <p className="mt-8 rounded-2xl border border-border/60 bg-secondary/50 p-5 text-sm leading-relaxed">
-        Short version: Hygi. has no accounts, no sign-in, and no ads. We do not collect, sell, or
-        share personal information. Your lesson progress and badges are saved only in your own
-        browser or device storage. We do measure anonymous, aggregate usage — such as which pages
-        are viewed, how many quizzes are finished, and how often the app is added to a home screen
-        — using Google Analytics.
+        Short version: Hygi. is a free learning app — no learner account, no sign-in, and no ads.
+        Your lesson progress, badges, and share history are saved only on your device. We do collect
+        anonymous, opt-in usage stats to see which lessons help most, and staff accounts (for the
+        admin dashboard) store an email address and role. We never sell data or build advertising
+        profiles.
       </p>
 
       <Section icon={<Database className="h-4 w-4" />} title="Information we collect">
         <p>
-          <strong className="font-medium text-foreground">None that identifies you.</strong> Hygi.
-          does not ask for your name, email address, phone number, contacts, photos, precise or
-          coarse location, health data, or payment details. There is no account to create.
+          <strong className="font-medium text-foreground">Learners — no personal data required.</strong>{" "}
+          Hygi. does not ask for your name, email, phone number, contacts, photos, location, health
+          data, or payment details. There is no learner account to create.
         </p>
         <p>
-          The only data Hygi. stores is your learning progress — which lessons you have finished,
-          your quiz scores, and which badges and the final trophy you have earned. This is written
-          to your device's local storage on your device. It is not transmitted to us, it is not
-          linked to your identity, and we cannot read it.
+          The learning data Hygi. stores is your progress — which lessons you have finished, quiz
+          scores, badges, the trophy, and how many badge cards you have shared to unlock later
+          lessons. This is written to your device's local storage. It is not transmitted to us, it is
+          not linked to your identity, and we cannot read it.
         </p>
         <p>
-          Hygi. also keeps a copy of its own anonymous usage events (quiz starts and completions,
-          badge milestones, and home-screen install signals) in that same on-device storage so the
-          in-app <strong className="font-medium text-foreground">Insights</strong> dashboard can show
-          you your activity. That log stays on your device, and the "Clear this device's data" button
-          on the Insights page erases it.
+          Hygi. also keeps a copy of anonymous usage events (quiz starts and completions, badge
+          milestones, home-screen install signals, and which glossary terms you tap) in the same
+          on-device storage so the in-app{" "}
+          <strong className="font-medium text-foreground">Insights</strong> dashboard can show you
+          your activity. That log stays on your device and the "Clear this device's data" button on
+          the Insights page erases it.
         </p>
         <p>
           Separately, we collect anonymous product analytics so we can tell whether the lessons are
           working: page views, quiz starts and completions (lesson title, score out of total, and
-          pass/fail), badge and trophy milestones, and whether the app was launched from a home
-          screen. These events carry no name, email, account, quiz answer text, or precise location.
+          pass/fail), badge and trophy milestones, whether the app was launched from a home screen, and
+          which homepage CTA variant you saw. These events carry no name, email, account, quiz answer
+          text, or precise location. Analytics only runs after you tap "Allow analytics".
+        </p>
+        <p>
+          With your consent, we also collect anonymous lesson metrics in the backend to improve the
+          course: which quiz questions are missed most, which glossary terms people tap, how often
+          result cards are shared, and how many trophies are earned. These rows are stored in our
+          database but contain no account ID, name, email, or anything else that could identify you.
+        </p>
+      </Section>
+
+      <Section icon={<Bot className="h-4 w-4" />} title="Help chat">
+        <p>
+          The floating Hygi Helper chat lets you ask questions about the course, glossary, and the
+          cyber hygiene guide. Your conversation history is stored only in your browser's local
+          storage; we do not keep it on our servers. When you send a message, it is passed to our AI
+          gateway (Google Gemini via Lovable AI Gateway) to generate a response. Do not include
+          passwords, account numbers, or other personal information in your messages. You can clear
+          the chat history at any time by pressing the "Start a new conversation" button in the chat
+          panel.
         </p>
       </Section>
 
       <Section icon={<Server className="h-4 w-4" />} title="Third parties and tracking">
         <p>
           Hygi. contains no advertising SDKs and no cross-app or cross-site tracking, and we do not
-          sell data or build advertising profiles. We use one analytics provider, Google Analytics
-          4, and it only loads after you tap "Allow analytics" — until then nothing is sent and no
-          analytics cookies or identifiers are set. Once enabled it counts returning visits in
-          aggregate; Google's handling of that data is governed by the{" "}
-          <a
-            href="https://policies.google.com/privacy"
-            target="_blank"
-            rel="noreferrer"
-            className="text-primary underline underline-offset-2"
-          >
-            Google Privacy Policy
-          </a>
-          . You can turn analytics back off at any time from the{" "}
-          <Link to="/support" className="text-primary underline underline-offset-2">
-            Support page
-          </Link>
-          , or block it with your browser's tracking protection or a content blocker.
+          sell data or build advertising profiles. Services we use:
         </p>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            <strong className="font-medium text-foreground">Google Analytics 4</strong> — anonymous
+            product analytics only after you opt in. Google's handling of that data is governed by the{" "}
+            <a
+              href="https://policies.google.com/privacy"
+              target="_blank"
+              rel="noreferrer"
+              className="text-primary underline underline-offset-2"
+            >
+              Google Privacy Policy
+            </a>
+            .
+          </li>
+          <li>
+            <strong className="font-medium text-foreground">Cloudflare Turnstile</strong> — an
+            invisible CAPTCHA used on sign-in, support, and account-deletion forms to keep bots out.
+            It may collect a token and basic technical signals to verify the request is from a human.
+          </li>
+          <li>
+            <strong className="font-medium text-foreground">Lovable AI Gateway / Google Gemini</strong>{" "}
+            — powers the help chat. Chat messages are sent to generate replies but are not stored on
+            our servers.
+          </li>
+          <li>
+            <strong className="font-medium text-foreground">Sign-in with Apple or Google</strong> —
+            offered only to staff who need the admin and Insights pages. It is never required to read
+            lessons, take quizzes, or earn badges, and we receive nothing from those providers beyond
+            the email address tied to the account.
+          </li>
+        </ul>
         <p>
-          Sign-in with Apple or Google is offered only to staff who need the admin and Insights
-          pages. It is never required to read lessons, take quizzes, or earn badges, and we receive
-          nothing from those providers beyond the email address tied to the account.
+          Lesson pages link out to public cybersecurity guides published by Dartmouth, Caltech, Cal
+          Poly, Harvard T.H. Chan School of Public Health, and CISA. If you follow one of those links,
+          that organization's own privacy practices apply. Our hosting provider may keep standard,
+          short-lived server logs (such as IP address and requested page) for security and
+          reliability; these are not used to build a profile of you.
         </p>
+      </Section>
+
+      <Section icon={<BarChart3 className="h-4 w-4" />} title="A/B testing">
         <p>
-          Lesson pages link out to public cybersecurity guides published by Dartmouth, Caltech,
-          Cal Poly, and Harvard T.H. Chan School of Public Health. If you follow one of those
-          links, that organization's own privacy practices apply. Our hosting provider may keep
-          standard, short-lived server logs (such as IP address and requested page) for security
-          and reliability; these are not used to build a profile of you.
+          The homepage may show different wording or placement for the "Start Learning" button so we
+          can learn which version helps more people begin a lesson. We assign a random variant when you
+          first visit and stamp it on anonymous analytics events. The variant ID is not linked to any
+          personal information.
         </p>
       </Section>
 
       <Section icon={<Trash2 className="h-4 w-4" />} title="Your control and data deletion">
         <p>
-          Because your progress lives only on your device, you are always in control. You can
-          erase everything at any time by clearing site data for Hygi. in your browser or device
-          settings, using "Reset progress" on the{" "}
+          Because your progress lives only on your device, you are always in control. You can erase
+          everything at any time by clearing site data for Hygi. in your browser or device settings,
+          using "Reset progress" on the{" "}
           <Link to="/support" className="text-primary underline underline-offset-2">
             Support page
           </Link>
-          , or by deleting the app from your home screen.
+          , or by deleting the app from your home screen. That clears lessons, quizzes, badges, the
+          trophy, referral counts, and the on-device event log.
         </p>
         <p>
           If you hold a staff account, you can permanently delete it — along with your email
@@ -152,13 +192,22 @@ function PrivacyPage() {
           immediate and cannot be undone. You can also email builtstrong1@outlook.com to request
           deletion.
         </p>
+        <p>
+          You can turn analytics off at any time from the{" "}
+          <Link to="/support" className="text-primary underline underline-offset-2">
+            Support page
+          </Link>
+          , or block it with your browser's tracking protection or a content blocker. Turning analytics
+          off stops new anonymous events from being sent; it does not delete your on-device learning
+          progress.
+        </p>
       </Section>
 
       <Section icon={<ShieldCheck className="h-4 w-4" />} title="Children's privacy">
         <p>
-          Hygi. is an educational app suitable for general audiences. It does not knowingly
-          collect personal information from anyone, including children under 13, and it contains
-          no ads, in-app purchases, or user-to-user communication.
+          Hygi. is an educational app suitable for general audiences. It does not knowingly collect
+          personal information from anyone, including children under 13, and it contains no ads, in-app
+          purchases, or user-to-user communication.
         </p>
       </Section>
 
@@ -214,11 +263,11 @@ const disclosures: { q: string; a: string }[] = [
   },
   {
     q: "Data not linked to you",
-    a: "Product interaction and diagnostic-free usage data: page views, quiz starts/completions with score, badge and trophy milestones, and home-screen install events. Collected anonymously via Google Analytics only after the user opts in, and not linked to any identity. Your saved progress and badges remain in on-device storage only.",
+    a: "Product interaction and usage data: page views, quiz starts/completions with score, badge and trophy milestones, home-screen install events, glossary taps, missed quiz questions, result-card shares, and homepage A/B variant. Collected anonymously via Google Analytics or stored in aggregate backend metrics only after the user opts in, and not linked to any identity. Your saved progress, badges, referral counts, and chat history remain in on-device storage only.",
   },
   {
     q: "Contact info, identifiers, location, health, financials, contacts, photos, browsing history",
-    a: "Only an email address for optional staff sign-in (Apple, Google, or email/password). No location, health, financial, contacts, photo, or browsing-history data is collected.",
+    a: "Only an email address for optional staff sign-in (Apple, Google, or email/password). No location, health, financial, contacts, photo, or browsing-history data is collected. CAPTCHA tokens are processed by Cloudflare Turnstile only when a form is submitted.",
   },
   {
     q: "Usage data / diagnostics / crash data",
@@ -226,15 +275,15 @@ const disclosures: { q: string; a: string }[] = [
   },
   {
     q: "Data encryption in transit",
-    a: "Yes. The app is served over HTTPS/TLS.",
+    a: "Yes. The app is served over HTTPS/TLS and all third-party API calls (analytics, CAPTCHA, AI gateway) use encrypted connections.",
   },
   {
     q: "Data deletion request method",
-    a: "In-app: staff accounts are deleted from Account settings (Delete account), which removes the auth user, email preferences, and roles immediately. Learners clear on-device data with Reset progress on the Support page, by clearing site data, or by removing the app. Anonymous analytics events cannot be tied to an individual; requests can also be sent to builtstrong1@outlook.com.",
+    a: "In-app: staff accounts are deleted from Account settings (Delete account), which removes the auth user, email preferences, and roles immediately. Learners clear on-device data with Reset progress on the Support page, by clearing site data, or by removing the app. Anonymous analytics and lesson-metric events cannot be tied to an individual; requests can also be sent to builtstrong1@outlook.com.",
   },
   {
     q: "Account creation, third-party login, ads, in-app purchases, user-generated content",
-    a: "None of these are present in the app.",
+    a: "Accounts exist only for optional staff sign-in. No ads, no in-app purchases, and no user-generated content. Chat messages are processed by an AI assistant but are not stored on our servers or shared.",
   },
   {
     q: "Age rating / audience",

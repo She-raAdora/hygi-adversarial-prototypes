@@ -45,7 +45,7 @@ export const Route = createFileRoute("/support")({
 const FAQ = [
   {
     q: "Do I need an account to use Hygi.?",
-    a: "No. All 15 lessons, quizzes, badges, and the trophy are free and open with no sign-in. Accounts exist only for staff who need the admin and Insights pages.",
+    a: "No. All 22 lessons, quizzes, badges, and the trophy are free and open with no sign-in. Accounts exist only for staff who need the admin and Insights pages.",
   },
   {
     q: "Where is my progress stored?",
