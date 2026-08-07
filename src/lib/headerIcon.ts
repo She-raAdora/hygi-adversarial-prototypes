@@ -43,11 +43,25 @@ export function getStoredHeaderIcon(): string | null {
 export function setStoredHeaderIcon(filename: string) {
   if (typeof window === "undefined") return;
   window.localStorage.setItem(HEADER_ICON_KEY, filename);
+  dispatchIconStorageEvent(filename);
 }
 
 export function clearStoredHeaderIcon() {
   if (typeof window === "undefined") return;
   window.localStorage.removeItem(HEADER_ICON_KEY);
+  dispatchIconStorageEvent(null);
+}
+
+function dispatchIconStorageEvent(filename: string | null) {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(
+    new StorageEvent("storage", {
+      key: HEADER_ICON_KEY,
+      newValue: filename,
+      oldValue: null,
+      storageArea: window.localStorage,
+    })
+  );
 }
 
 export function iconPath(filename: string): string {
