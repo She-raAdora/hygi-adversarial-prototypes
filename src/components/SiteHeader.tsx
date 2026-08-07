@@ -5,6 +5,7 @@ import { LogIn, ShieldCheck } from "lucide-react";
 import { useProgress } from "@/lib/progress";
 import { lessons } from "@/lib/lessons";
 import { supabase } from "@/integrations/supabase/client";
+import { getStoredHeaderIcon, iconPath } from "@/lib/headerIcon";
 
 export function SiteHeader() {
   const progress = useProgress();
