@@ -7,21 +7,23 @@ import { GLOSSARY_CATEGORIES, glossary } from "@/lib/glossary";
 export const Route = createFileRoute("/glossary")({
   head: () => ({
     meta: [
-      { title: "Digital Safety Glossary — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+      { title: "Digital Safety Glossary — Hygi" },
       {
         name: "description",
         content:
-          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Plain-language definitions of scam, password, device, privacy, internet, and AI safety terms used across Hygi. lessons.",
+          "Plain-language definitions of phishing, MFA, passkeys, VPNs, deepfakes, and other digital safety terms used across Hygi lessons.",
       },
-      { property: "og:title", content: "Digital Safety Glossary — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+      { property: "og:title", content: "Digital Safety Glossary — Hygi" },
       {
         property: "og:description",
         content:
-          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Plain-language definitions for phishing, MFA, passkeys, deepfakes, VPNs, and every other term Hygi. lessons use.",
+          "Plain-language definitions of phishing, MFA, passkeys, VPNs, deepfakes, and other digital safety terms used across Hygi lessons.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://digitalhygiene.app/glossary" },
       { name: "twitter:card", content: "summary" },
     ],
+    links: [{ rel: "canonical", href: "https://digitalhygiene.app/glossary" }],
     scripts: [
       {
         type: "application/ld+json",

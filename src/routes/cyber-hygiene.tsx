@@ -2,9 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, CheckCircle2, ShieldCheck } from "lucide-react";
 import { lessons } from "@/lib/lessons";
 
-const TITLE = "What Is Cyber Hygiene? A Practical Guide — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons";
+const TITLE = "What Is Cyber Hygiene? A Practical Guide";
 const DESCRIPTION =
-  "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Cyber hygiene is the small, repeatable habits that keep your accounts, devices, and data secure. Learn the core practices and a checklist you can finish today.";
+  "Cyber hygiene is the small, repeatable habits that keep your accounts, devices, and data secure. Learn the core practices and a checklist for today.";
 const URL = "https://digitalhygiene.app/cyber-hygiene";
 
 const practices = [

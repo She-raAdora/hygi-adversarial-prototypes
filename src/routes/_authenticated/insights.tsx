@@ -20,21 +20,24 @@ import { homeCtaVariantLabels } from "@/lib/experiments";
 export const Route = createFileRoute("/_authenticated/insights")({
   head: () => ({
     meta: [
-      { title: "Insights — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+      { title: "Insights — Hygi Analytics" },
       {
         name: "description",
         content:
-          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. See your home-screen install funnel and quiz completion by day and by lesson. Measured on this device only.",
+          "See the Hygi home-screen install funnel and quiz completion by day and by lesson. Measured on this device only.",
       },
-      { property: "og:title", content: "Insights — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+      { property: "og:title", content: "Insights — Hygi Analytics" },
       {
         property: "og:description",
         content:
-          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. See your home-screen install funnel and quiz completion by day and by lesson. Measured on this device only.",
+          "See the Hygi home-screen install funnel and quiz completion by day and by lesson. Measured on this device only.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://digitalhygiene.app/insights" },
+      { name: "robots", content: "noindex" },
       { name: "twitter:card", content: "summary" },
     ],
+    links: [{ rel: "canonical", href: "https://digitalhygiene.app/insights" }],
   }),
   component: InsightsGate,
 });

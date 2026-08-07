@@ -4,27 +4,29 @@ import { Eye, CheckCircle, Settings, Keyboard, Mail, AlertCircle } from "lucide-
 export const Route = createFileRoute("/accessibility")({
   head: () => ({
     meta: [
-      { title: "Accessibility Statement — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+      { title: "Accessibility Statement — Hygi" },
       {
         name: "description",
         content:
-          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Accessibility Statement for Hygi. Learn how the app supports inclusive access and how to report accessibility issues.",
+          "How Hygi supports keyboard, screen reader, and low-vision access across lessons and quizzes, and how to report an accessibility issue.",
       },
-      { property: "og:title", content: "Accessibility Statement — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+      { property: "og:title", content: "Accessibility Statement — Hygi" },
       {
         property: "og:description",
         content:
-          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Accessibility Statement for Hygi. Learn how the app supports inclusive access and how to report accessibility issues.",
+          "How Hygi supports keyboard, screen reader, and low-vision access across lessons and quizzes, and how to report an accessibility issue.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://digitalhygiene.app/accessibility" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "Accessibility Statement — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+      { name: "twitter:title", content: "Accessibility Statement — Hygi" },
       {
         name: "twitter:description",
         content:
-          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Accessibility Statement for Hygi. Learn how the app supports inclusive access and how to report accessibility issues.",
+          "How Hygi supports keyboard, screen reader, and low-vision access across lessons and quizzes, and how to report an accessibility issue.",
       },
     ],
+    links: [{ rel: "canonical", href: "https://digitalhygiene.app/accessibility" }],
   }),
   component: AccessibilityPage,
 });

@@ -11,21 +11,24 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/_authenticated/settings")({
   head: () => ({
     meta: [
-      { title: "Account Settings — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+      { title: "Account Settings — Hygi" },
       {
         name: "description",
         content:
-          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Manage your Hygi. account: control admin notification emails and permanently delete your account and data.",
+          "Manage your Hygi account: control admin notification emails and permanently delete your account and all associated data.",
       },
-      { property: "og:title", content: "Account Settings — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+      { property: "og:title", content: "Account Settings — Hygi" },
       {
         property: "og:description",
         content:
-          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Control notification emails or delete your Hygi. account.",
+          "Manage your Hygi account: control admin notification emails and permanently delete your account and all associated data.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://digitalhygiene.app/settings" },
+      { name: "robots", content: "noindex" },
       { name: "twitter:card", content: "summary" },
     ],
+    links: [{ rel: "canonical", href: "https://digitalhygiene.app/settings" }],
   }),
   component: SettingsPage,
 });

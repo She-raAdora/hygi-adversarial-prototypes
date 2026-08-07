@@ -4,27 +4,29 @@ import { ShieldCheck, Database, Server, Trash2, Mail } from "lucide-react";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy Policy — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+      { title: "Privacy Policy — Hygi" },
       {
         name: "description",
         content:
-          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. How Hygi. handles your data: no accounts and no personal data. Progress and badges stay on your device; usage is measured anonymously.",
+          "How Hygi handles your data: progress and badges stay on your device, usage is measured anonymously, and no personal data is required.",
       },
-      { property: "og:title", content: "Privacy Policy — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+      { property: "og:title", content: "Privacy Policy — Hygi" },
       {
         property: "og:description",
         content:
-          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Hygi. collects no personal data. Progress and badges are stored locally on your device.",
+          "How Hygi handles your data: progress and badges stay on your device, usage is measured anonymously, and no personal data is required.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://digitalhygiene.app/privacy" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "Privacy Policy — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+      { name: "twitter:title", content: "Privacy Policy — Hygi" },
       {
         name: "twitter:description",
         content:
-          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Hygi. collects no personal data. Progress and badges are stored locally on your device.",
+          "How Hygi handles your data: progress and badges stay on your device, usage is measured anonymously, and no personal data is required.",
       },
     ],
+    links: [{ rel: "canonical", href: "https://digitalhygiene.app/privacy" }],
   }),
   component: PrivacyPage,
 });

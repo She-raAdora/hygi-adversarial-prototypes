@@ -9,21 +9,23 @@ import { verifyAuthCaptcha } from "@/lib/captcha.functions";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Sign in — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+      { title: "Sign in — Hygi" },
       {
         name: "description",
         content:
-          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Sign in to Hygi. to reach the admin-only Insights dashboard. Lessons and badges stay open to everyone.",
+          "Sign in to Hygi to reach the admin-only dashboard and Insights. Lessons, quizzes, and badges stay open to everyone, no account needed.",
       },
-      { property: "og:title", content: "Sign in — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
+      { property: "og:title", content: "Sign in — Hygi" },
       {
         property: "og:description",
         content:
-          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Sign in to Hygi. to reach the admin-only Insights dashboard.",
+          "Sign in to Hygi to reach the admin-only dashboard and Insights. Lessons, quizzes, and badges stay open to everyone, no account needed.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://digitalhygiene.app/auth" },
       { name: "twitter:card", content: "summary" },
     ],
+    links: [{ rel: "canonical", href: "https://digitalhygiene.app/auth" }],
   }),
   component: AuthPage,
 });
