@@ -58,7 +58,7 @@ export function ReferralGate({ index, after, badgesEarned, totalBadges }: Props)
             title: "Learn safer habits with Hygi.",
             stat: `${badgesEarned} / ${totalBadges} badges`,
             emoji: "🛡️",
-            note: "Join me — 15 short lessons on protecting your digital life.",
+            note: "Join me — 22 short lessons on protecting your digital life.",
           }}
           text={`I've earned ${badgesEarned}/${totalBadges} digital hygiene badges on Hygi. Try it: https://digitalhygiene.app`}
           label="Share referral"
