@@ -5,6 +5,7 @@ import { BarChart3, Inbox, ScanSearch, Settings, ShieldCheck, Users } from "luci
 
 import { getSiteStats } from "@/lib/dashboard.functions";
 import { lessons } from "@/lib/lessons";
+import { LessonMetricsPanel } from "@/components/LessonMetricsPanel";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
@@ -109,6 +110,14 @@ function DashboardPage() {
           />
         </div>
       )}
+
+      <h2 className="mt-14 text-xl font-semibold tracking-tight">Lesson metrics</h2>
+      <p className="mt-2 text-sm text-muted-foreground">
+        Anonymous, aggregate activity from every visitor who opted in to analytics.
+      </p>
+      <div className="mt-4">
+        <LessonMetricsPanel />
+      </div>
 
       <h2 className="mt-14 text-xl font-semibold tracking-tight">Quick links</h2>
       <ul className="mt-4 grid gap-3 sm:grid-cols-2">

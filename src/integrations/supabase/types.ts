@@ -62,6 +62,42 @@ export type Database = {
         }
         Relationships: []
       }
+      lesson_metric_events: {
+        Row: {
+          created_at: string
+          id: string
+          kind: string
+          lesson_id: string | null
+          lesson_title: string | null
+          question: string | null
+          question_index: number | null
+          share_format: string | null
+          term: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          kind: string
+          lesson_id?: string | null
+          lesson_title?: string | null
+          question?: string | null
+          question_index?: number | null
+          share_format?: string | null
+          term?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          kind?: string
+          lesson_id?: string | null
+          lesson_title?: string | null
+          question?: string | null
+          question_index?: number | null
+          share_format?: string | null
+          term?: string | null
+        }
+        Relationships: []
+      }
       seo_scan_runs: {
         Row: {
           base_url: string
