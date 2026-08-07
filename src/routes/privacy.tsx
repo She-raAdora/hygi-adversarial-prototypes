@@ -263,7 +263,7 @@ const disclosures: { q: string; a: string }[] = [
   },
   {
     q: "Data not linked to you",
-    a: "Product interaction and usage data: page views, quiz starts/completions with score, badge and trophy milestones, home-screen install events, glossary taps, missed quiz questions, result-card shares, and homepage A/B variant. Collected anonymously via Google Analytics or stored in aggregate backend metrics only after the user opts in, and not linked to any identity. Your saved progress, badges, share counts, and chat history remain in on-device storage only.",
+    a: "Product interaction and usage data: page views, quiz starts/completions with score, badge and trophy milestones, home-screen install events, glossary taps, missed quiz questions, result-card shares, and homepage A/B variant. Collected anonymously via Google Analytics or stored in aggregate backend metrics only after the user opts in, and not linked to any identity. Your saved progress, badges, and chat history remain in on-device storage only.",
   },
   {
     q: "Contact info, identifiers, location, health, financials, contacts, photos, browsing history",
