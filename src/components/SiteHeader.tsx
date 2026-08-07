@@ -13,6 +13,18 @@ export function SiteHeader() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [signedIn, setSignedIn] = useState<boolean | null>(null);
+  const [headerIcon, setHeaderIcon] = useState<string | null>(null);
+
+  useEffect(() => {
+    setHeaderIcon(getStoredHeaderIcon());
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === "hygi-header-icon") {
+        setHeaderIcon(getStoredHeaderIcon());
+      }
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
 
   useEffect(() => {
     let active = true;
