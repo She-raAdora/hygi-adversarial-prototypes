@@ -56,6 +56,7 @@ function BadgesPage() {
             }}
             text={`I've earned ${earned.length}/${lessons.length} digital hygiene badges on Hygi.`}
             label="Share progress"
+            source="badge progress"
           />
           <button
             onClick={() => {
@@ -98,6 +99,7 @@ function BadgesPage() {
               text={`I completed all ${lessons.length} Hygi. lessons and earned the Digital Hygiene Champion trophy.`}
               label="Share trophy"
               variant="solid"
+              source="trophy"
             />
           </div>
           <LessonSources />
