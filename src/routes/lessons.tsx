@@ -25,6 +25,32 @@ export const Route = createFileRoute("/lessons")({
       { name: "twitter:card", content: "summary" },
     ],
     links: [{ rel: "canonical", href: "https://digitalhygiene.app/lessons" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "Hygi Digital Hygiene Curriculum",
+          description:
+            "Browse the full Hygi curriculum: short digital hygiene lessons, each with a mini-quiz and a badge for every topic you master.",
+          url: "https://digitalhygiene.app/lessons",
+          isPartOf: { "@type": "WebSite", name: "Hygi", url: "https://digitalhygiene.app" },
+          mainEntity: {
+            "@type": "ItemList",
+            name: "Digital hygiene lessons",
+            numberOfItems: lessons.length,
+            itemListElement: lessons.map((l, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              name: l.title,
+              description: l.tagline,
+              url: `https://digitalhygiene.app/lesson/${l.id}`,
+            })),
+          },
+        }),
+      },
+    ],
   }),
   component: LessonsPage,
 });
