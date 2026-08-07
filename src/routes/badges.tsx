@@ -5,6 +5,7 @@ import { resetProgress, useProgress } from "@/lib/progress";
 import { ShareResultButton } from "@/components/ShareResultButton";
 import { LessonSources } from "@/components/LessonSources";
 import { lessonTint, lessonTintShadow } from "@/lib/lessonTints";
+import { socialImageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/badges")({
   head: () => ({
@@ -23,7 +24,7 @@ export const Route = createFileRoute("/badges")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://digitalhygiene.app/badges" },
-      { name: "twitter:card", content: "summary" },
+      ...socialImageMeta,
     ],
     links: [{ rel: "canonical", href: "https://digitalhygiene.app/badges" }],
     scripts: [
