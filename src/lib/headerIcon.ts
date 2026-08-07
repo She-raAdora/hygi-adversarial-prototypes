@@ -2,7 +2,7 @@
 
 export const HEADER_ICON_KEY = "hygi-header-icon";
 
-export const DEFAULT_HEADER_ICON = "splash-640x1136.png";
+export const DEFAULT_HEADER_ICON = null;
 
 export const SPLASH_ICONS = [
   "splash-640x1136.png",
@@ -35,9 +35,9 @@ export const SPLASH_ICONS = [
   "splash-2796x1290.png",
 ];
 
-export function getStoredHeaderIcon(): string {
-  if (typeof window === "undefined") return DEFAULT_HEADER_ICON;
-  return window.localStorage.getItem(HEADER_ICON_KEY) || DEFAULT_HEADER_ICON;
+export function getStoredHeaderIcon(): string | null {
+  if (typeof window === "undefined") return null;
+  return window.localStorage.getItem(HEADER_ICON_KEY);
 }
 
 export function setStoredHeaderIcon(filename: string) {
