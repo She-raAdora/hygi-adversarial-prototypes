@@ -99,9 +99,15 @@
     "vite": "^7.3.1"
   },
   "overrides": {
-    "seroval": "^1.5.3"
+    "seroval": "^1.5.3",
+    "undici": "^7.29.0",
+    "ws": "^8.21.2",
+    "sharp": "^0.35.3"
   },
   "resolutions": {
-    "seroval": "^1.5.3"
+    "seroval": "^1.5.3",
+    "undici": "^7.29.0",
+    "ws": "^8.21.2",
+    "sharp": "^0.35.3"
   }
 }
