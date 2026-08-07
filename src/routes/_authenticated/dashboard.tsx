@@ -5,6 +5,7 @@ import { BarChart3, Inbox, ScanSearch, Settings, ShieldCheck, Users } from "luci
 
 import { getSiteStats } from "@/lib/dashboard.functions";
 import { lessons } from "@/lib/lessons";
+import { LessonMetricsPanel } from "@/components/LessonMetricsPanel";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
