@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Trophy } from "lucide-react";
+import { useState } from "react";
 import { lessons } from "@/lib/lessons";
 import { useProgress } from "@/lib/progress";
 import { lessonTint } from "@/lib/lessonTints";
+import { pathways, pathwayOf, pathwayChipStyle } from "@/lib/pathways";
 import { socialImageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/lessons")({
@@ -57,16 +59,66 @@ export const Route = createFileRoute("/lessons")({
 
 function LessonsPage() {
   const progress = useProgress();
+  const [filter, setFilter] = useState<string | null>(null);
+  const shown = lessons.filter((l) => !filter || pathwayOf(l.id)?.id === filter);
   return (
     <main id="main-content" className="mx-auto max-w-3xl px-6 py-16">
       <h1 className="text-4xl font-semibold tracking-tight">Lessons</h1>
       <p className="mt-3 text-muted-foreground">
         Each one ends with a short pop quiz — work through them in any order.
       </p>
-      <ul className="mt-10 space-y-3">
-        {lessons.map((l, i) => {
+
+      <section aria-labelledby="pathways" className="mt-8">
+        <h2 id="pathways" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+          Browse by pathway
+        </h2>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <button
+            type="button"
+            aria-pressed={filter === null}
+            onClick={() => setFilter(null)}
+            className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+              filter === null
+                ? "border-primary/50 bg-primary/10 text-foreground"
+                : "border-border bg-card text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            All {lessons.length} lessons
+          </button>
+          {pathways.map((p) => {
+            const active = filter === p.id;
+            return (
+              <button
+                key={p.id}
+                type="button"
+                aria-pressed={active}
+                onClick={() => setFilter(active ? null : p.id)}
+                title={p.blurb}
+                style={active ? pathwayChipStyle(p.hue) : undefined}
+                className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                  active
+                    ? "border-transparent"
+                    : "border-border bg-card text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <span aria-hidden="true">{p.emoji}</span> {p.name} ({p.lessonIds.length})
+              </button>
+            );
+          })}
+        </div>
+        <p aria-live="polite" className="mt-3 text-sm text-muted-foreground">
+          {filter
+            ? `${pathwayOf(shown[0]?.id ?? "")?.blurb ?? ""} Showing ${shown.length} of ${lessons.length} lessons.`
+            : "Pathways are just themes — pick anything that looks useful."}
+        </p>
+      </section>
+
+      <ul className="mt-8 space-y-3">
+        {shown.map((l) => {
+          const i = lessons.indexOf(l);
           const score = progress[l.id] ?? 0;
           const done = score >= l.quiz.length;
+          const path = pathwayOf(l.id);
           return (
             <li key={l.id}>
               <Link
@@ -89,6 +141,14 @@ function LessonsPage() {
                     {done && (
                       <span className="inline-flex items-center gap-1 rounded-full bg-success/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-success-strong">
                         <Trophy className="h-3 w-3" aria-hidden="true" /> Badge earned
+                      </span>
+                    )}
+                    {path && (
+                      <span
+                        style={pathwayChipStyle(path.hue)}
+                        className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
+                      >
+                        {path.name}
                       </span>
                     )}
                   </div>
