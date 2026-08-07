@@ -61,7 +61,15 @@ export function AnalyticsDebugPanel() {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setOpen(isDebugMode());
+    const enabled = isDebugEnabled();
+    setOpen(enabled);
+    if (enabled) {
+      try {
+        localStorage.setItem(STORAGE_KEY, "true");
+      } catch {
+        /* ignore */
+      }
+    }
     setConsent(readConsent());
     setDataLayerLength(typeof window !== "undefined" ? window.dataLayer?.length || 0 : 0);
 
