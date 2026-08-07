@@ -9,17 +9,17 @@ import { lessonTint, lessonTintShadow } from "@/lib/lessonTints";
 export const Route = createFileRoute("/badges")({
   head: () => ({
     meta: [
-      { title: "Your Badges — Hygi" },
+      { title: "Your Badges — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
       {
         name: "description",
         content:
-          "Track your progress and view every digital hygiene badge you have earned, plus the trophy for finishing all 22 lessons.",
+          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Track your progress and view every digital hygiene badge you have earned, plus the trophy for finishing all lessons.",
       },
-      { property: "og:title", content: "Your Badges — Hygi" },
+      { property: "og:title", content: "Your Badges — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
       {
         property: "og:description",
         content:
-          "Track your progress and view every digital hygiene badge you have earned, plus the trophy for finishing all 22 lessons.",
+          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Track your progress and view every digital hygiene badge you have earned, plus the trophy for finishing all lessons.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
