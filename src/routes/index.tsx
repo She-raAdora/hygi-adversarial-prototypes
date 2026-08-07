@@ -106,7 +106,7 @@ function Index() {
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
             5-minute bite-sized lessons from Dartmouth, Caltech, Cal Poly, Harvard, and CISA. Read a lesson, take a
-            3-question quiz, and earn a badge for every topic you master.
+            mini-quiz, and earn a badge for every topic you master.
           </p>
           {ctaAboveHeadline ? null : (
             <>
@@ -130,7 +130,7 @@ function Index() {
                 <CircleCheck className="h-5 w-5" />
               </div>
               <div className="text-sm">
-                <p className="font-semibold text-foreground">3-question quiz</p>
+                <p className="font-semibold text-foreground">Mini-quiz</p>
                 <p className="text-muted-foreground">After each lesson</p>
               </div>
             </div>
@@ -256,7 +256,7 @@ function Index() {
               {[
                 { title: "Choose a lesson", body: "Pick any topic — there is no fixed order." },
                 { title: "Read quick tips", body: "Each lesson is a short, practical guide with actionable advice." },
-                { title: "Take the quiz", body: "Answer 3 questions to test what you learned." },
+                { title: "Take the mini-quiz", body: "Answer a few quick questions to test what you learned." },
                 { title: "Earn your badge", body: "Get a badge for every topic you master, then win the trophy." },
               ].map((step, i) => (
                 <li key={i} className="flex gap-4">
