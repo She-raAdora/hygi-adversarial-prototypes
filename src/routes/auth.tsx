@@ -9,16 +9,17 @@ import { verifyAuthCaptcha } from "@/lib/captcha.functions";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Sign in — Hygi. Analytics Access" },
+      { title: "Sign in — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
       {
         name: "description",
         content:
-          "Sign in to Hygi. to reach the admin-only Insights dashboard. Lessons and badges stay open to everyone.",
+          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Sign in to Hygi. to reach the admin-only Insights dashboard. Lessons and badges stay open to everyone.",
       },
-      { property: "og:title", content: "Sign in — Hygi. Analytics Access" },
+      { property: "og:title", content: "Sign in — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
       {
         property: "og:description",
-        content: "Sign in to Hygi. to reach the admin-only Insights dashboard.",
+        content:
+          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Sign in to Hygi. to reach the admin-only Insights dashboard.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

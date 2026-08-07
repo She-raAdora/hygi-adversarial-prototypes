@@ -10,16 +10,17 @@ import { LessonMetricsPanel } from "@/components/LessonMetricsPanel";
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
-      { title: "Admin Dashboard — Hygi." },
+      { title: "Admin Dashboard — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
       {
         name: "description",
         content:
-          "Admin overview for Hygi.: contact requests, latest SEO scan health, curriculum size, and quick links to analytics and access management.",
+          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Admin overview for Hygi.: contact requests, latest SEO scan health, curriculum size, and quick links to analytics and access management.",
       },
-      { property: "og:title", content: "Admin Dashboard — Hygi." },
+      { property: "og:title", content: "Admin Dashboard — Hygi — Learn Digital & Cyber Hygiene in Bite-Sized Lessons" },
       {
         property: "og:description",
-        content: "Site stats and quick links for Hygi. administrators.",
+        content:
+          "Master digital and cyber hygiene in short, practical lessons from university and government security guides. Take a quick quiz, earn a badge, and build safer online habits. Site stats and quick links for Hygi. administrators.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
