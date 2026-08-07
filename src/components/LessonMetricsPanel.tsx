@@ -76,19 +76,36 @@ export function LessonMetricsPanel() {
         )}
       </Card>
 
-      <Card title="Result card shares" icon={Share2}>
+      <Card title="Result cards shared" icon={Share2}>
         <p className="text-3xl font-semibold tracking-tight">{data.shares.total}</p>
-        <p className="text-xs text-muted-foreground">Shares and downloads combined</p>
-        {data.shares.bySource.length > 0 && (
+        <p className="text-xs text-muted-foreground">
+          Times learners shared or saved a result card image
+        </p>
+        {data.shares.byPlace.length > 0 && (
           <>
             <p className="mt-4 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              Where they shared from
+              Screen it was shared from
             </p>
             <ul className="mt-2 space-y-1">
-              {data.shares.bySource.map((s) => (
+              {data.shares.byPlace.map((s) => (
                 <li key={s.label} className="flex items-baseline justify-between gap-4 text-sm">
                   <span>{s.label}</span>
                   <span className="text-xs text-muted-foreground">{s.shares}</span>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+        {data.shares.byLesson.length > 0 && (
+          <>
+            <p className="mt-4 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              Shares by lesson
+            </p>
+            <ul className="mt-2 space-y-1">
+              {data.shares.byLesson.map((l) => (
+                <li key={l.label} className="flex items-baseline justify-between gap-4 text-sm">
+                  <span>{l.label}</span>
+                  <span className="text-xs text-muted-foreground">{l.shares}</span>
                 </li>
               ))}
             </ul>
