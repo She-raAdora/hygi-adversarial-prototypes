@@ -205,6 +205,12 @@ function RootComponent() {
               <Link to="/cyber-hygiene" className="transition-colors hover:text-foreground">
                 What is cyber hygiene?
               </Link>
+              <Link
+                to="/passkeys-vs-passwords"
+                className="transition-colors hover:text-foreground"
+              >
+                Passkeys vs. passwords
+              </Link>
               <Link to="/insights" className="transition-colors hover:text-foreground">
                 Insights
               </Link>
