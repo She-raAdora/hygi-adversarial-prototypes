@@ -18,6 +18,7 @@ import { Route as CyberHygieneRouteImport } from './routes/cyber-hygiene'
 import { Route as DeleteAccountRouteImport } from './routes/delete-account'
 import { Route as GlossaryRouteImport } from './routes/glossary'
 import { Route as LessonsRouteImport } from './routes/lessons'
+import { Route as PasskeysVsPasswordsRouteImport } from './routes/passkeys-vs-passwords'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SupportRouteImport } from './routes/support'
@@ -72,6 +73,11 @@ const GlossaryRoute = GlossaryRouteImport.update({
 const LessonsRoute = LessonsRouteImport.update({
   id: '/lessons',
   path: '/lessons',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PasskeysVsPasswordsRoute = PasskeysVsPasswordsRouteImport.update({
+  id: '/passkeys-vs-passwords',
+  path: '/passkeys-vs-passwords',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -139,6 +145,7 @@ export interface FileRoutesByFullPath {
   '/delete-account': typeof DeleteAccountRoute
   '/glossary': typeof GlossaryRoute
   '/lessons': typeof LessonsRoute
+  '/passkeys-vs-passwords': typeof PasskeysVsPasswordsRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
@@ -160,6 +167,7 @@ export interface FileRoutesByTo {
   '/delete-account': typeof DeleteAccountRoute
   '/glossary': typeof GlossaryRoute
   '/lessons': typeof LessonsRoute
+  '/passkeys-vs-passwords': typeof PasskeysVsPasswordsRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
@@ -183,6 +191,7 @@ export interface FileRoutesById {
   '/delete-account': typeof DeleteAccountRoute
   '/glossary': typeof GlossaryRoute
   '/lessons': typeof LessonsRoute
+  '/passkeys-vs-passwords': typeof PasskeysVsPasswordsRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
@@ -206,6 +215,7 @@ export interface FileRouteTypes {
     | '/delete-account'
     | '/glossary'
     | '/lessons'
+    | '/passkeys-vs-passwords'
     | '/privacy'
     | '/sitemap.xml'
     | '/support'
@@ -227,6 +237,7 @@ export interface FileRouteTypes {
     | '/delete-account'
     | '/glossary'
     | '/lessons'
+    | '/passkeys-vs-passwords'
     | '/privacy'
     | '/sitemap.xml'
     | '/support'
@@ -249,6 +260,7 @@ export interface FileRouteTypes {
     | '/delete-account'
     | '/glossary'
     | '/lessons'
+    | '/passkeys-vs-passwords'
     | '/privacy'
     | '/sitemap.xml'
     | '/support'
@@ -272,6 +284,7 @@ export interface RootRouteChildren {
   DeleteAccountRoute: typeof DeleteAccountRoute
   GlossaryRoute: typeof GlossaryRoute
   LessonsRoute: typeof LessonsRoute
+  PasskeysVsPasswordsRoute: typeof PasskeysVsPasswordsRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SupportRoute: typeof SupportRoute
@@ -344,6 +357,13 @@ declare module '@tanstack/react-router' {
       path: '/lessons'
       fullPath: '/lessons'
       preLoaderRoute: typeof LessonsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/passkeys-vs-passwords': {
+      id: '/passkeys-vs-passwords'
+      path: '/passkeys-vs-passwords'
+      fullPath: '/passkeys-vs-passwords'
+      preLoaderRoute: typeof PasskeysVsPasswordsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -453,6 +473,7 @@ const rootRouteChildren: RootRouteChildren = {
   DeleteAccountRoute: DeleteAccountRoute,
   GlossaryRoute: GlossaryRoute,
   LessonsRoute: LessonsRoute,
+  PasskeysVsPasswordsRoute: PasskeysVsPasswordsRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SupportRoute: SupportRoute,
