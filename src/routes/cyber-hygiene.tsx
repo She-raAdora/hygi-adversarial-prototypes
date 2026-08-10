@@ -147,6 +147,16 @@ function CyberHygienePage() {
           The two terms are often used interchangeably, and the habits overlap almost completely.
           The useful distinction is one of scope.
         </p>
+        <p className="mt-3 text-muted-foreground">
+          Wondering whether to drop passwords entirely? See{" "}
+          <Link
+            to="/passkeys-vs-passwords"
+            className="font-medium text-foreground underline underline-offset-4"
+          >
+            passkeys vs. passwords
+          </Link>
+          .
+        </p>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           <div className="rounded-2xl border border-border bg-card p-5">
             <h3 className="font-semibold tracking-tight">Cyber hygiene</h3>
