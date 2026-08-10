@@ -25,7 +25,14 @@ export interface SeoAuditResult {
 }
 
 /** Pages worth auditing every week — the highest-value indexable routes. */
-const AUDIT_PATHS = ["/", "/lessons", "/cyber-hygiene", "/badges", "/support"];
+const AUDIT_PATHS = [
+  "/",
+  "/lessons",
+  "/cyber-hygiene",
+  "/passkeys-vs-passwords",
+  "/badges",
+  "/support",
+];
 
 const MIN_DESCRIPTION = 70;
 const MAX_DESCRIPTION = 160;
