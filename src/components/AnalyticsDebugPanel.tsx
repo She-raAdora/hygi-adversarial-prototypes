@@ -147,32 +147,36 @@ export function AnalyticsDebugPanel() {
         <CardHeader className="flex flex-row items-center justify-between space-y-0 px-4 py-3">
           <CardTitle className="text-sm font-semibold">Analytics Debug</CardTitle>
           <div className="flex items-center gap-1">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-7 px-2 text-xs"
-              onClick={() => {
-                const blob = new Blob([JSON.stringify(events, null, 2)], {
-                  type: "application/json",
-                });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = `hygi-analytics-events-${new Date().toISOString().slice(0, 10)}.json`;
-                a.click();
-                URL.revokeObjectURL(url);
-              }}
-            >
-              Export
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-7 px-2 text-xs"
-              onClick={clearEventLog}
-            >
-              Clear
-            </Button>
+            {canInspect ? (
+              <>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-7 px-2 text-xs"
+                  onClick={() => {
+                    const blob = new Blob([JSON.stringify(events, null, 2)], {
+                      type: "application/json",
+                    });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = `hygi-analytics-events-${new Date().toISOString().slice(0, 10)}.json`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                  }}
+                >
+                  Export
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-7 px-2 text-xs"
+                  onClick={clearEventLog}
+                >
+                  Clear
+                </Button>
+              </>
+            ) : null}
             <Button
               variant="ghost"
               size="sm"
