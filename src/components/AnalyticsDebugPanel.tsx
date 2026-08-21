@@ -54,6 +54,7 @@ function EventRow({ event }: { event: LoggedEvent }) {
 }
 
 export function AnalyticsDebugPanel() {
+  const [enabled, setEnabled] = useState(false);
   const [open, setOpen] = useState(false);
   const [consent, setConsent] = useState<ConsentState>("unset");
   const [dataLayerLength, setDataLayerLength] = useState(0);
@@ -62,6 +63,7 @@ export function AnalyticsDebugPanel() {
 
   useEffect(() => {
     const enabled = isDebugEnabled();
+    setEnabled(enabled);
     setOpen(enabled);
     if (enabled) {
       try {
@@ -106,6 +108,10 @@ export function AnalyticsDebugPanel() {
 
   const pageViews = useMemo(() => events.filter((e) => e.n === "page_view").length, [events]);
   const recentEvents = useMemo(() => [...events].reverse().slice(0, 100), [events]);
+
+  // Debug tooling: never render anything for normal visitors. Enabled only via
+  // ?debug=analytics (which persists the localStorage flag for that browser).
+  if (!enabled) return null;
 
   if (!open) {
     return (
