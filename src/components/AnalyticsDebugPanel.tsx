@@ -1,4 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { getMyAccess } from "@/lib/access.functions";
 import { isAnalyticsInitialized, getMeasurementId } from "@/lib/analytics";
 import { readConsent, type ConsentState } from "@/lib/consent";
 import { useEventLog, clearEventLog, type LoggedEvent } from "@/lib/eventLog";
