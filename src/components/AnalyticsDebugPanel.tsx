@@ -209,26 +209,34 @@ export function AnalyticsDebugPanel() {
               <div className="font-medium">{dataLayerLength} items</div>
             </div>
           </div>
-          <div className="mb-2 flex items-center justify-between text-xs">
-            <span className="text-muted-foreground">
-              {events.length} events · {pageViews} page_view
-            </span>
-            <span className="text-muted-foreground">showing newest first</span>
-          </div>
-          <ScrollArea className="h-64 pr-2">
-            <div className="space-y-2">
-              {recentEvents.length === 0 ? (
-                <p className="text-center text-xs text-muted-foreground">
-                  No events logged yet. Navigate to a route to see a page_view.
-                </p>
-              ) : (
-                recentEvents.map((event, i) => (
-                  <EventRow key={`${event.t}-${event.n}-${i}`} event={event} />
-                ))
-              )}
-              <div ref={bottomRef} />
-            </div>
-          </ScrollArea>
+          {canInspect ? (
+            <>
+              <div className="mb-2 flex items-center justify-between text-xs">
+                <span className="text-muted-foreground">
+                  {events.length} events · {pageViews} page_view
+                </span>
+                <span className="text-muted-foreground">showing newest first</span>
+              </div>
+              <ScrollArea className="h-64 pr-2">
+                <div className="space-y-2">
+                  {recentEvents.length === 0 ? (
+                    <p className="text-center text-xs text-muted-foreground">
+                      No events logged yet. Navigate to a route to see a page_view.
+                    </p>
+                  ) : (
+                    recentEvents.map((event, i) => (
+                      <EventRow key={`${event.t}-${event.n}-${i}`} event={event} />
+                    ))
+                  )}
+                  <div ref={bottomRef} />
+                </div>
+              </ScrollArea>
+            </>
+          ) : (
+            <p className="rounded-md bg-muted p-3 text-xs text-muted-foreground">
+              Sign in with an admin account to view the raw event log and export or clear it.
+            </p>
+          )}
         </CardContent>
       </Card>
     </div>
