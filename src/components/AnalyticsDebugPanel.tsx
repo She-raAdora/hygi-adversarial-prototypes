@@ -1,4 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { getMyAccess } from "@/lib/access.functions";
 import { isAnalyticsInitialized, getMeasurementId } from "@/lib/analytics";
 import { readConsent, type ConsentState } from "@/lib/consent";
 import { useEventLog, clearEventLog, type LoggedEvent } from "@/lib/eventLog";
@@ -60,6 +63,19 @@ export function AnalyticsDebugPanel() {
   const [dataLayerLength, setDataLayerLength] = useState(0);
   const events = useEventLog();
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  // Raw event data and the Export/Clear controls require a real admin session,
+  // not just the debug flag. Unauthenticated calls throw 401, which we treat as
+  // "no capability" rather than an error state.
+  const fetchAccess = useServerFn(getMyAccess);
+  const { data: access } = useQuery({
+    queryKey: ["analytics-debug-access"],
+    queryFn: () => fetchAccess().catch(() => ({ isAdmin: false })),
+    enabled,
+    retry: false,
+    staleTime: 60_000,
+  });
+  const canInspect = access?.isAdmin === true;
 
   useEffect(() => {
     const enabled = isDebugEnabled();
@@ -131,32 +147,36 @@ export function AnalyticsDebugPanel() {
         <CardHeader className="flex flex-row items-center justify-between space-y-0 px-4 py-3">
           <CardTitle className="text-sm font-semibold">Analytics Debug</CardTitle>
           <div className="flex items-center gap-1">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-7 px-2 text-xs"
-              onClick={() => {
-                const blob = new Blob([JSON.stringify(events, null, 2)], {
-                  type: "application/json",
-                });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = `hygi-analytics-events-${new Date().toISOString().slice(0, 10)}.json`;
-                a.click();
-                URL.revokeObjectURL(url);
-              }}
-            >
-              Export
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-7 px-2 text-xs"
-              onClick={clearEventLog}
-            >
-              Clear
-            </Button>
+            {canInspect ? (
+              <>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-7 px-2 text-xs"
+                  onClick={() => {
+                    const blob = new Blob([JSON.stringify(events, null, 2)], {
+                      type: "application/json",
+                    });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = `hygi-analytics-events-${new Date().toISOString().slice(0, 10)}.json`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                  }}
+                >
+                  Export
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-7 px-2 text-xs"
+                  onClick={clearEventLog}
+                >
+                  Clear
+                </Button>
+              </>
+            ) : null}
             <Button
               variant="ghost"
               size="sm"
@@ -189,26 +209,34 @@ export function AnalyticsDebugPanel() {
               <div className="font-medium">{dataLayerLength} items</div>
             </div>
           </div>
-          <div className="mb-2 flex items-center justify-between text-xs">
-            <span className="text-muted-foreground">
-              {events.length} events · {pageViews} page_view
-            </span>
-            <span className="text-muted-foreground">showing newest first</span>
-          </div>
-          <ScrollArea className="h-64 pr-2">
-            <div className="space-y-2">
-              {recentEvents.length === 0 ? (
-                <p className="text-center text-xs text-muted-foreground">
-                  No events logged yet. Navigate to a route to see a page_view.
-                </p>
-              ) : (
-                recentEvents.map((event, i) => (
-                  <EventRow key={`${event.t}-${event.n}-${i}`} event={event} />
-                ))
-              )}
-              <div ref={bottomRef} />
-            </div>
-          </ScrollArea>
+          {canInspect ? (
+            <>
+              <div className="mb-2 flex items-center justify-between text-xs">
+                <span className="text-muted-foreground">
+                  {events.length} events · {pageViews} page_view
+                </span>
+                <span className="text-muted-foreground">showing newest first</span>
+              </div>
+              <ScrollArea className="h-64 pr-2">
+                <div className="space-y-2">
+                  {recentEvents.length === 0 ? (
+                    <p className="text-center text-xs text-muted-foreground">
+                      No events logged yet. Navigate to a route to see a page_view.
+                    </p>
+                  ) : (
+                    recentEvents.map((event, i) => (
+                      <EventRow key={`${event.t}-${event.n}-${i}`} event={event} />
+                    ))
+                  )}
+                  <div ref={bottomRef} />
+                </div>
+              </ScrollArea>
+            </>
+          ) : (
+            <p className="rounded-md bg-muted p-3 text-xs text-muted-foreground">
+              Sign in with an admin account to view the raw event log and export or clear it.
+            </p>
+          )}
         </CardContent>
       </Card>
     </div>
