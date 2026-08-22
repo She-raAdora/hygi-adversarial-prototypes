@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { BarChart3, Inbox, ScanSearch, Settings, ShieldCheck, Users } from "lucide-react";
+import { BarChart3, Inbox, Link2, ScanSearch, Settings, ShieldCheck, Users } from "lucide-react";
 
 import { getSiteStats } from "@/lib/dashboard.functions";
 import { lessons } from "@/lib/lessons";
@@ -34,6 +34,7 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
 
 const quickLinks = [
   { to: "/insights", label: "Analytics & SEO health", icon: BarChart3 },
+  { to: "/backlinks", label: "Backlink monitoring", icon: Link2 },
   { to: "/admin", label: "Manage admin access", icon: Users },
   { to: "/settings", label: "Email preferences", icon: Settings },
   { to: "/lessons", label: "View the curriculum", icon: ShieldCheck },
