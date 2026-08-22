@@ -16,6 +16,7 @@ export type DomainRisk = {
   score: number;
   level: RiskLevel;
   reasons: string[];
+  trusted?: boolean;
 };
 
 export type AnchorRisk = {
@@ -25,6 +26,7 @@ export type AnchorRisk = {
   score: number;
   level: RiskLevel;
   reasons: string[];
+  trusted?: boolean;
 };
 
 /** TLDs heavily used by throwaway link-selling sites. */
@@ -198,6 +200,42 @@ export function scoreAnchor(input: {
   };
 }
 
+/** Lowercase + strip protocol/www so allowlist matching is forgiving. */
+export function normalizeDomain(value: string) {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/^https?:\/\//, "")
+    .replace(/^www\./, "")
+    .replace(/\/.*$/, "");
+}
+
+export function normalizeAnchor(value: string) {
+  return value.trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+/** A domain is trusted when it matches an entry exactly or is a subdomain of it. */
+export function isDomainTrusted(domain: string, trusted: Iterable<string>) {
+  const d = normalizeDomain(domain);
+  for (const entry of trusted) {
+    const t = normalizeDomain(entry);
+    if (!t) continue;
+    if (d === t || d.endsWith(`.${t}`)) return true;
+  }
+  return false;
+}
+
+export function isAnchorTrusted(anchor: string, trusted: Iterable<string>) {
+  const a = normalizeAnchor(anchor);
+  for (const entry of trusted) {
+    const t = normalizeAnchor(entry);
+    if (t && a === t) return true;
+  }
+  return false;
+}
+
+const TRUSTED_REASON = "Marked trusted — excluded from flagging and alerts";
+
 export type RiskAssessment = {
   domains: DomainRisk[];
   anchors: AnchorRisk[];
@@ -213,9 +251,28 @@ export type RiskAssessment = {
 export function assessBacklinkRisk(input: {
   domains: { domain: string; authority: number | null; backlinks: number | null }[];
   anchors: { anchor: string; domains: number | null; backlinks: number | null }[];
+  /** Allowlisted referring domains — scored 0 and never flagged or alerted. */
+  trustedDomains?: string[];
+  /** Allowlisted anchor texts — scored 0 and never flagged or alerted. */
+  trustedAnchors?: string[];
 }): RiskAssessment {
-  const domains = input.domains.map(scoreDomain).sort((a, b) => b.score - a.score);
-  const anchors = input.anchors.map(scoreAnchor).sort((a, b) => b.score - a.score);
+  const trustedDomains = input.trustedDomains ?? [];
+  const trustedAnchors = input.trustedAnchors ?? [];
+
+  const domains = input.domains
+    .map((d) => {
+      const scored = scoreDomain(d);
+      if (!isDomainTrusted(d.domain, trustedDomains)) return scored;
+      return { ...scored, score: 0, level: "low" as RiskLevel, reasons: [TRUSTED_REASON], trusted: true };
+    })
+    .sort((a, b) => b.score - a.score);
+  const anchors = input.anchors
+    .map((a) => {
+      const scored = scoreAnchor(a);
+      if (!isAnchorTrusted(a.anchor, trustedAnchors)) return scored;
+      return { ...scored, score: 0, level: "low" as RiskLevel, reasons: [TRUSTED_REASON], trusted: true };
+    })
+    .sort((a, b) => b.score - a.score);
 
   const flaggedDomains = domains.filter((d) => d.level !== "low").length;
   const flaggedAnchors = anchors.filter((a) => a.level !== "low").length;

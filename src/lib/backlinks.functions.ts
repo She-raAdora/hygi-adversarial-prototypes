@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { raiseRiskAlerts } from "@/lib/backlink-alerting";
 
 export interface BacklinkSnapshot {
   id: string;
@@ -73,7 +74,7 @@ export const refreshBacklinkSnapshot = createServerFn({ method: "POST" })
 
     const { data: previous } = await context.supabase
       .from("backlink_snapshots")
-      .select("domains")
+      .select("domains, anchors")
       .eq("target", TARGET)
       .order("captured_at", { ascending: false })
       .limit(1)
@@ -84,6 +85,11 @@ export const refreshBacklinkSnapshot = createServerFn({ method: "POST" })
         domain: string;
       }[]).map((d) => d.domain),
     );
+    const previousAnchors = new Set(
+      (((previous as { anchors?: { anchor: string }[] } | null)?.anchors ?? []) as {
+        anchor: string;
+      }[]).map((a) => a.anchor),
+    );
     const currentDomains = new Set(report.domains.map((d) => d.domain));
 
     const newDomains = [...currentDomains].filter((d) => !previousDomains.has(d));
@@ -91,26 +97,41 @@ export const refreshBacklinkSnapshot = createServerFn({ method: "POST" })
       ? [...previousDomains].filter((d) => !currentDomains.has(d))
       : [];
 
-    const { error: insertError } = await context.supabase.from("backlink_snapshots").insert({
+    const { data: inserted, error: insertError } = await context.supabase
+      .from("backlink_snapshots")
+      .insert({
+        target: TARGET,
+        authority_score: report.authorityScore,
+        trust_score: report.trustScore,
+        total_backlinks: report.totalBacklinks,
+        referring_domains: report.referringDomains,
+        referring_ips: report.referringIps,
+        follow_links: report.followLinks,
+        nofollow_links: report.nofollowLinks,
+        domains: report.domains,
+        anchors: report.anchors,
+        new_domains: newDomains,
+        lost_domains: lostDomains,
+      } as never)
+      .select("id")
+      .maybeSingle();
+    if (insertError) throw insertError;
+
+    const alerts = await raiseRiskAlerts({
+      supabase: context.supabase,
       target: TARGET,
-      authority_score: report.authorityScore,
-      trust_score: report.trustScore,
-      total_backlinks: report.totalBacklinks,
-      referring_domains: report.referringDomains,
-      referring_ips: report.referringIps,
-      follow_links: report.followLinks,
-      nofollow_links: report.nofollowLinks,
+      snapshotId: (inserted as { id?: string } | null)?.id ?? null,
+      newDomains,
       domains: report.domains,
       anchors: report.anchors,
-      new_domains: newDomains,
-      lost_domains: lostDomains,
-    } as never);
-    if (insertError) throw insertError;
+      previousAnchors: previousAnchors,
+    });
 
     return {
       ok: true as const,
       newDomains: newDomains.length,
       lostDomains: lostDomains.length,
       referringDomains: report.referringDomains,
+      alerts,
     };
   });

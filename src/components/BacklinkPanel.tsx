@@ -8,6 +8,8 @@ import {
   type BacklinkSnapshot,
 } from "@/lib/backlinks.functions";
 import { assessBacklinkRisk, type RiskLevel } from "@/lib/backlinkRisk";
+import { getBacklinkAlertData } from "@/lib/backlink-alerts.functions";
+import { BACKLINK_ALERT_QUERY_KEY } from "@/components/BacklinkAlertsPanel";
 
 const RISK_STYLES: Record<RiskLevel, string> = {
   low: "bg-primary/10 text-primary",
@@ -96,16 +98,37 @@ export function BacklinkPanel() {
     staleTime: 60_000,
   });
 
+  const fetchAlertData = useServerFn(getBacklinkAlertData);
+  const { data: alertData } = useQuery({
+    queryKey: BACKLINK_ALERT_QUERY_KEY,
+    queryFn: () => fetchAlertData(),
+    staleTime: 60_000,
+  });
+  const trustedDomains = (alertData?.trusted ?? [])
+    .filter((t) => t.kind === "domain")
+    .map((t) => t.value);
+  const trustedAnchors = (alertData?.trusted ?? [])
+    .filter((t) => t.kind === "anchor")
+    .map((t) => t.value);
+
   const capture = useMutation({
     mutationFn: () => refresh(),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["backlink-snapshots"] }),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ["backlink-snapshots"] });
+      void queryClient.invalidateQueries({ queryKey: BACKLINK_ALERT_QUERY_KEY });
+    },
   });
 
   const latest = snapshots?.[0];
   const previous = snapshots?.[1];
   const signals = latest ? qualitySignals(latest) : null;
   const risk = latest
-    ? assessBacklinkRisk({ domains: latest.domains ?? [], anchors: latest.anchors ?? [] })
+    ? assessBacklinkRisk({
+        domains: latest.domains ?? [],
+        anchors: latest.anchors ?? [],
+        trustedDomains,
+        trustedAnchors,
+      })
     : null;
   const riskByDomain = new Map((risk?.domains ?? []).map((d) => [d.domain, d]));
 
@@ -133,6 +156,20 @@ export function BacklinkPanel() {
         {capture.data && capture.data.ok === false ? (
           <p className="rounded-xl border border-border bg-card p-4 text-sm text-destructive-strong">
             {capture.data.message}
+          </p>
+        ) : null}
+        {capture.data && capture.data.ok === true ? (
+          <p className="rounded-xl border border-border bg-card p-4 text-sm text-muted-foreground">
+            Snapshot captured: +{capture.data.newDomains} new / −{capture.data.lostDomains} lost
+            referring domains
+            {capture.data.alerts
+              ? capture.data.alerts.enabled === false
+                ? " · alerting is muted"
+                : ` · ${capture.data.alerts.raised} new risk alert${
+                    capture.data.alerts.raised === 1 ? "" : "s"
+                  } at threshold ${capture.data.alerts.threshold}`
+              : ""}
+            .
           </p>
         ) : null}
         {capture.isError ? (
@@ -337,7 +374,8 @@ export function BacklinkPanel() {
                 )}
 
                 <p className="mt-4 text-xs text-muted-foreground">
-                  Heuristic scoring of Semrush data — throwaway TLDs, link-farm naming patterns,
+                  Trusted domains and anchors are excluded from these lists. Heuristic scoring of
+                  Semrush data — throwaway TLDs, link-farm naming patterns,
                   very low authority, and paid-link anchor phrasing. Review before disavowing
                   anything.
                 </p>
@@ -375,7 +413,9 @@ export function BacklinkPanel() {
                           return scored ? (
                             <>
                               <RiskBadge level={scored.level} />{" "}
-                              <span className="text-muted-foreground">{scored.score}</span>
+                              <span className="text-muted-foreground">
+                                {scored.trusted ? "trusted" : scored.score}
+                              </span>
                             </>
                           ) : (
                             "—"

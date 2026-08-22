@@ -14,6 +14,83 @@ export type Database = {
   }
   public: {
     Tables: {
+      backlink_alert_settings: {
+        Row: {
+          created_at: string
+          enabled: boolean
+          id: string
+          threshold: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          threshold?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          threshold?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      backlink_alerts: {
+        Row: {
+          acknowledged_at: string | null
+          acknowledged_by: string | null
+          created_at: string
+          id: string
+          kind: string
+          level: string
+          reasons: string[]
+          score: number
+          snapshot_id: string | null
+          target: string
+          updated_at: string
+          value: string
+        }
+        Insert: {
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          created_at?: string
+          id?: string
+          kind: string
+          level: string
+          reasons?: string[]
+          score: number
+          snapshot_id?: string | null
+          target: string
+          updated_at?: string
+          value: string
+        }
+        Update: {
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          created_at?: string
+          id?: string
+          kind?: string
+          level?: string
+          reasons?: string[]
+          score?: number
+          snapshot_id?: string | null
+          target?: string
+          updated_at?: string
+          value?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "backlink_alerts_snapshot_id_fkey"
+            columns: ["snapshot_id"]
+            isOneToOne: false
+            referencedRelation: "backlink_snapshots"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       backlink_snapshots: {
         Row: {
           anchors: Json
@@ -62,6 +139,36 @@ export type Database = {
           target?: string
           total_backlinks?: number | null
           trust_score?: number | null
+        }
+        Relationships: []
+      }
+      backlink_trusted_entries: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          kind: string
+          note: string | null
+          updated_at: string
+          value: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          kind: string
+          note?: string | null
+          updated_at?: string
+          value: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          kind?: string
+          note?: string | null
+          updated_at?: string
+          value?: string
         }
         Relationships: []
       }
