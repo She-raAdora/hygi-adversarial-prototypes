@@ -66,17 +66,18 @@ export function AnalyticsDebugPanel() {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   // Raw event data and the Export/Clear controls require a real admin session,
-  // not just the debug flag. Unauthenticated calls throw 401, which we treat as
-  // "no capability" rather than an error state.
-  const fetchAccess = useServerFn(getMyAccess);
-  const { data: access } = useQuery({
-    queryKey: ["analytics-debug-access"],
-    queryFn: () => fetchAccess().catch(() => ({ isAdmin: false })),
+  // not just the debug flag. The capability is decided on the server (403 when
+  // the session lacks the admin role), so forcing this UI open grants nothing.
+  const checkCapability = useServerFn(requireAnalyticsDebugCapability);
+  const { data: capability } = useQuery({
+    queryKey: ["analytics-debug-capability"],
+    queryFn: () => checkCapability().catch(() => ({ canInspect: false as const })),
     enabled,
     retry: false,
     staleTime: 60_000,
   });
-  const canInspect = access?.isAdmin === true;
+  const canInspect = capability?.canInspect === true;
+
 
   useEffect(() => {
     const enabled = isDebugEnabled();
