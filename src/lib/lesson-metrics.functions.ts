@@ -74,6 +74,9 @@ export const getLessonMetrics = createServerFn({ method: "GET" })
     let totalMissed = 0;
     let shares = 0;
     let trophies = 0;
+    const sources = new Map<string, AttributionRow>();
+    let onboardingStarts = 0;
+    let quizCompletions = 0;
 
     for (const r of rows) {
       if (r.kind === "question_missed" || r.kind === "question_answered") {
