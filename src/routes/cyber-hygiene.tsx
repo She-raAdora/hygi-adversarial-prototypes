@@ -8,6 +8,51 @@ const DESCRIPTION =
   "Cyber hygiene is the small, repeatable habits that keep your accounts, devices, and data secure. Learn the core practices and a checklist for today.";
 const URL = "https://digitalhygiene.app/cyber-hygiene";
 
+/** Lessons adapted directly from Dartmouth's digital hygiene guidance. */
+const DARTMOUTH_LESSON_IDS = [
+  "safe-browsing",
+  "accounts",
+  "ai-phishing",
+  "devices",
+  "incident-plan",
+  "footprint",
+  "personal-info",
+];
+
+const dartmouthLessons = lessons.filter((l) => DARTMOUTH_LESSON_IDS.includes(l.id));
+const dartmouthQuestions = dartmouthLessons.reduce((n, l) => n + l.quiz.length, 0);
+const dartmouthTips = dartmouthLessons.reduce(
+  (n, l) => n + l.sections.reduce((s, sec) => s + sec.tips.length, 0),
+  0,
+);
+
+const caseStudyMetrics = [
+  {
+    label: "Guide topics turned into lessons",
+    value: String(dartmouthLessons.length),
+    note: `Expanded to ${lessons.length} lessons with other university and CISA sources.`,
+  },
+  {
+    label: "Quiz questions on those lessons",
+    value: String(dartmouthQuestions),
+    note: "Every lesson ends in a mini-quiz before its badge unlocks.",
+  },
+  {
+    label: "Concrete action steps",
+    value: String(dartmouthTips),
+    note: "Each step is something a learner can finish the same day.",
+  },
+  {
+    label: "Badge pass requirement",
+    value: "100%",
+    note: "A badge is only awarded on a perfect mini-quiz, so it signals comprehension.",
+  },
+];
+
+const CITATION =
+  "NorthBridge. (2026). Hygi. — Digital hygiene curriculum, adapted from Dartmouth College digital hygiene guidance. https://digitalhygiene.app/cyber-hygiene";
+
+
 const practices = [
   {
     name: "Use a password manager and unique passwords",
@@ -212,6 +257,84 @@ function CyberHygienePage() {
           <li>Delete or lock down five accounts you no longer use.</li>
           <li>Write down who you would report a suspected compromise to, and how.</li>
         </ol>
+      </section>
+
+      <section aria-labelledby="case-study" className="mt-12">
+        <h2 id="case-study" className="text-2xl font-semibold tracking-tight">
+          Case study: turning the Dartmouth digital hygiene guide into measurable lessons
+        </h2>
+        <p className="mt-3 text-muted-foreground">
+          Hygi. began as a straight adaptation of Dartmouth College&rsquo;s digital hygiene guidance.
+          Each guide topic became a five-minute lesson with a mini-quiz, so learning could be
+          measured rather than assumed. The figures below describe this curriculum as published — they
+          are counts of what we built from the guide, not outcome claims made by Dartmouth.
+        </p>
+
+        <dl className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {caseStudyMetrics.map((m) => (
+            <div key={m.label} className="rounded-2xl border border-border bg-card p-5">
+              <dt className="text-sm text-muted-foreground">{m.label}</dt>
+              <dd className="mt-1 text-2xl font-semibold tracking-tight">{m.value}</dd>
+              <dd className="mt-1 text-xs text-muted-foreground">{m.note}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <h3 className="mt-8 font-semibold tracking-tight">How outcomes are measured</h3>
+        <ul className="mt-3 space-y-2 text-muted-foreground">
+          <li>
+            <strong className="font-medium text-foreground">Comprehension.</strong> Every lesson ends
+            in a mini-quiz; a badge is awarded only when all questions are answered correctly, so a
+            badge is evidence of comprehension rather than time spent.
+          </li>
+          <li>
+            <strong className="font-medium text-foreground">Misconception tracking.</strong> Missed
+            questions are counted anonymously and only with consent, which shows which habits need
+            clearer explanation.
+          </li>
+          <li>
+            <strong className="font-medium text-foreground">Vocabulary support.</strong> Jargon is
+            linked to a plain-language glossary, and tapped terms are counted anonymously to reveal
+            where wording is still too technical.
+          </li>
+          <li>
+            <strong className="font-medium text-foreground">Completion.</strong> Finishing every
+            lesson earns a trophy, giving a single end-to-end completion signal per learner.
+          </li>
+        </ul>
+
+        <div className="mt-8 rounded-3xl border border-border bg-card p-6">
+          <h3 className="font-semibold tracking-tight">Citations welcome</h3>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Educators, IT teams, and student-life offices are welcome to cite, link to, or assign this
+            curriculum. If you adapt it for a course or awareness campaign, we&rsquo;d like to hear
+            about it — reach us at{" "}
+            <a
+              href="mailto:builtstrong1@outlook.com"
+              className="font-medium text-primary underline underline-offset-4"
+            >
+              builtstrong1@outlook.com
+            </a>
+            .
+          </p>
+          <p className="mt-4 text-xs uppercase tracking-wide text-muted-foreground">Suggested citation</p>
+          <p className="mt-1 rounded-2xl bg-muted/40 p-4 text-sm text-muted-foreground">
+            {CITATION}
+          </p>
+          <p className="mt-4 text-sm text-muted-foreground">
+            Primary source:{" "}
+            <a
+              href="https://services.dartmouth.edu/TDClient/1806/Portal/KB/ArticleDet?ID=134176"
+              target="_blank"
+              rel="noreferrer"
+              className="font-medium text-primary underline underline-offset-4"
+            >
+              Dartmouth College digital hygiene guidance
+            </a>
+            . Later lessons also draw on Caltech, Cal Poly, Harvard University&rsquo;s, and CISA&rsquo;s
+            digital safety resources.
+          </p>
+        </div>
       </section>
 
       <section aria-labelledby="faq-heading" className="mt-12">
