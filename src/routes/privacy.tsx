@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ShieldCheck, Database, Server, Trash2, Mail, Bot, BarChart3 } from "lucide-react";
+import { socialImageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/privacy")({
   head: () => ({
@@ -18,7 +19,7 @@ export const Route = createFileRoute("/privacy")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://digitalhygiene.app/privacy" },
-      { name: "twitter:card", content: "summary" },
+      ...socialImageMeta,
       { name: "twitter:title", content: "Privacy Policy — Hygi" },
       {
         name: "twitter:description",

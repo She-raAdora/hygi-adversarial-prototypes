@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Eye, CheckCircle, Settings, Keyboard, Mail, AlertCircle } from "lucide-react";
+import { socialImageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/accessibility")({
   head: () => ({
@@ -18,7 +19,7 @@ export const Route = createFileRoute("/accessibility")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://digitalhygiene.app/accessibility" },
-      { name: "twitter:card", content: "summary" },
+      ...socialImageMeta,
       { name: "twitter:title", content: "Accessibility Statement — Hygi" },
       {
         name: "twitter:description",
