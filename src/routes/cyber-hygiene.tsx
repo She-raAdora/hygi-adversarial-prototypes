@@ -214,6 +214,84 @@ function CyberHygienePage() {
         </ol>
       </section>
 
+      <section aria-labelledby="case-study" className="mt-12">
+        <h2 id="case-study" className="text-2xl font-semibold tracking-tight">
+          Case study: turning the Dartmouth digital hygiene guide into measurable lessons
+        </h2>
+        <p className="mt-3 text-muted-foreground">
+          Hygi. began as a straight adaptation of Dartmouth College&rsquo;s digital hygiene guidance.
+          Each guide topic became a five-minute lesson with a mini-quiz, so learning could be
+          measured rather than assumed. The figures below describe this curriculum as published — they
+          are counts of what we built from the guide, not outcome claims made by Dartmouth.
+        </p>
+
+        <dl className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {caseStudyMetrics.map((m) => (
+            <div key={m.label} className="rounded-2xl border border-border bg-card p-5">
+              <dt className="text-sm text-muted-foreground">{m.label}</dt>
+              <dd className="mt-1 text-2xl font-semibold tracking-tight">{m.value}</dd>
+              <dd className="mt-1 text-xs text-muted-foreground">{m.note}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <h3 className="mt-8 font-semibold tracking-tight">How outcomes are measured</h3>
+        <ul className="mt-3 space-y-2 text-muted-foreground">
+          <li>
+            <strong className="font-medium text-foreground">Comprehension.</strong> Every lesson ends
+            in a mini-quiz; a badge is awarded only when all questions are answered correctly, so a
+            badge is evidence of comprehension rather than time spent.
+          </li>
+          <li>
+            <strong className="font-medium text-foreground">Misconception tracking.</strong> Missed
+            questions are counted anonymously and only with consent, which shows which habits need
+            clearer explanation.
+          </li>
+          <li>
+            <strong className="font-medium text-foreground">Vocabulary support.</strong> Jargon is
+            linked to a plain-language glossary, and tapped terms are counted anonymously to reveal
+            where wording is still too technical.
+          </li>
+          <li>
+            <strong className="font-medium text-foreground">Completion.</strong> Finishing every
+            lesson earns a trophy, giving a single end-to-end completion signal per learner.
+          </li>
+        </ul>
+
+        <div className="mt-8 rounded-3xl border border-border bg-card p-6">
+          <h3 className="font-semibold tracking-tight">Citations welcome</h3>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Educators, IT teams, and student-life offices are welcome to cite, link to, or assign this
+            curriculum. If you adapt it for a course or awareness campaign, we&rsquo;d like to hear
+            about it — reach us at{" "}
+            <a
+              href="mailto:builtstrong1@outlook.com"
+              className="font-medium text-primary underline underline-offset-4"
+            >
+              builtstrong1@outlook.com
+            </a>
+            .
+          </p>
+          <p className="mt-4 text-xs uppercase tracking-wide text-muted-foreground">Suggested citation</p>
+          <p className="mt-1 rounded-2xl bg-muted/40 p-4 text-sm text-muted-foreground">
+            {CITATION}
+          </p>
+          <p className="mt-4 text-sm text-muted-foreground">
+            Primary source:{" "}
+            <a
+              href="https://services.dartmouth.edu/TDClient/1806/Portal/KB/ArticleDet?ID=134176"
+              target="_blank"
+              rel="noreferrer"
+              className="font-medium text-primary underline underline-offset-4"
+            >
+              Dartmouth College digital hygiene guidance
+            </a>
+            . Later lessons also draw on Caltech, Cal Poly, Harvard University&rsquo;s, and CISA&rsquo;s
+            digital safety resources.
+          </p>
+        </div>
+      </section>
+
       <section aria-labelledby="faq-heading" className="mt-12">
         <h2 id="faq-heading" className="text-2xl font-semibold tracking-tight">
           Frequently asked questions
