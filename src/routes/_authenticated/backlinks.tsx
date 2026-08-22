@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
+import { BacklinkAlertsPanel } from "@/components/BacklinkAlertsPanel";
 import { BacklinkPanel } from "@/components/BacklinkPanel";
 
 export const Route = createFileRoute("/_authenticated/backlinks")({
@@ -38,6 +39,10 @@ function BacklinksPage() {
 
       <div className="mt-10">
         <BacklinkPanel />
+      </div>
+
+      <div className="mt-14">
+        <BacklinkAlertsPanel />
       </div>
 
       <p className="mt-12 text-xs text-muted-foreground">
