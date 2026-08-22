@@ -16,3 +16,22 @@ export const getMyAccess = createServerFn({ method: "GET" })
       isAdmin: data === true,
     };
   });
+
+/**
+ * Authoritative, server-side capability check for the analytics debug tooling.
+ *
+ * Forcing the client UI open cannot grant this: the answer is derived from the
+ * verified session and the admin role in the database. Returns 403 rather than
+ * a soft `false` so callers cannot mistake a denial for a successful read.
+ */
+export const requireAnalyticsDebugCapability = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { data, error } = await context.supabase.rpc("current_user_has_role", {
+      _role: "admin",
+    });
+    if (error) throw error;
+    if (data !== true) throw new Response("Forbidden", { status: 403 });
+    return { canInspect: true as const };
+  });
+
