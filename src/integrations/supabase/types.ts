@@ -14,6 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
+      backlink_snapshots: {
+        Row: {
+          anchors: Json
+          authority_score: number | null
+          captured_at: string
+          domains: Json
+          follow_links: number | null
+          id: string
+          lost_domains: Json
+          new_domains: Json
+          nofollow_links: number | null
+          referring_domains: number | null
+          referring_ips: number | null
+          target: string
+          total_backlinks: number | null
+          trust_score: number | null
+        }
+        Insert: {
+          anchors?: Json
+          authority_score?: number | null
+          captured_at?: string
+          domains?: Json
+          follow_links?: number | null
+          id?: string
+          lost_domains?: Json
+          new_domains?: Json
+          nofollow_links?: number | null
+          referring_domains?: number | null
+          referring_ips?: number | null
+          target: string
+          total_backlinks?: number | null
+          trust_score?: number | null
+        }
+        Update: {
+          anchors?: Json
+          authority_score?: number | null
+          captured_at?: string
+          domains?: Json
+          follow_links?: number | null
+          id?: string
+          lost_domains?: Json
+          new_domains?: Json
+          nofollow_links?: number | null
+          referring_domains?: number | null
+          referring_ips?: number | null
+          target?: string
+          total_backlinks?: number | null
+          trust_score?: number | null
+        }
+        Relationships: []
+      }
       contact_requests: {
         Row: {
           captcha_verified: boolean
