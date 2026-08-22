@@ -48,9 +48,19 @@ export function clearEventLog() {
   window.dispatchEvent(new Event("hygi-events"));
 }
 
-export function useEventLog() {
+/**
+ * Reads the device-local event log.
+ *
+ * `enabled` lets callers keep raw events out of component state until a
+ * capability check (server-verified admin role) has passed.
+ */
+export function useEventLog(enabled = true) {
   const [events, setEvents] = useState<LoggedEvent[]>([]);
   useEffect(() => {
+    if (!enabled) {
+      setEvents([]);
+      return;
+    }
     const sync = () => setEvents(readEventLog());
     sync();
     window.addEventListener("hygi-events", sync);
@@ -59,9 +69,10 @@ export function useEventLog() {
       window.removeEventListener("hygi-events", sync);
       window.removeEventListener("storage", sync);
     };
-  }, []);
+  }, [enabled]);
   return events;
 }
+
 
 /* --------------------------------------------------------------- summaries */
 
