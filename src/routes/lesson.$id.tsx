@@ -212,6 +212,7 @@ function LessonPage() {
             type="button"
             onClick={() => {
               trackQuizStart(lesson.id, lesson.title);
+              recordOnboardingStart(lesson.id, lesson.title);
               setMode("quiz");
             }}
             className="group inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-4 font-medium text-primary-foreground transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
