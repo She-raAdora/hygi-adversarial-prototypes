@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { BarChart3, Inbox, ScanSearch, Settings, ShieldCheck, Users } from "lucide-react";
+import { BarChart3, Inbox, Link2, ScanSearch, Settings, ShieldCheck, Users } from "lucide-react";
 
 import { getSiteStats } from "@/lib/dashboard.functions";
 import { lessons } from "@/lib/lessons";

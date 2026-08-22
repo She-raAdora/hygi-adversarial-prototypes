@@ -24,6 +24,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedBacklinksRouteImport } from './routes/_authenticated/backlinks'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
@@ -105,6 +106,11 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedBacklinksRoute = AuthenticatedBacklinksRouteImport.update({
+  id: '/backlinks',
+  path: '/backlinks',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -151,6 +157,7 @@ export interface FileRoutesByFullPath {
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/backlinks': typeof AuthenticatedBacklinksRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/insights': typeof AuthenticatedInsightsRoute
   '/settings': typeof AuthenticatedSettingsRoute
@@ -173,6 +180,7 @@ export interface FileRoutesByTo {
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/backlinks': typeof AuthenticatedBacklinksRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/insights': typeof AuthenticatedInsightsRoute
   '/settings': typeof AuthenticatedSettingsRoute
@@ -197,6 +205,7 @@ export interface FileRoutesById {
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/backlinks': typeof AuthenticatedBacklinksRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/insights': typeof AuthenticatedInsightsRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
@@ -221,6 +230,7 @@ export interface FileRouteTypes {
     | '/support'
     | '/terms'
     | '/admin'
+    | '/backlinks'
     | '/dashboard'
     | '/insights'
     | '/settings'
@@ -243,6 +253,7 @@ export interface FileRouteTypes {
     | '/support'
     | '/terms'
     | '/admin'
+    | '/backlinks'
     | '/dashboard'
     | '/insights'
     | '/settings'
@@ -266,6 +277,7 @@ export interface FileRouteTypes {
     | '/support'
     | '/terms'
     | '/_authenticated/admin'
+    | '/_authenticated/backlinks'
     | '/_authenticated/dashboard'
     | '/_authenticated/insights'
     | '/_authenticated/settings'
@@ -401,6 +413,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/backlinks': {
+      id: '/_authenticated/backlinks'
+      path: '/backlinks'
+      fullPath: '/backlinks'
+      preLoaderRoute: typeof AuthenticatedBacklinksRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -448,6 +467,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedBacklinksRoute: typeof AuthenticatedBacklinksRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
@@ -455,6 +475,7 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedBacklinksRoute: AuthenticatedBacklinksRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
