@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 import { Turnstile, type CaptchaState } from "@/components/Turnstile";
 import { verifyAuthCaptcha } from "@/lib/captcha.functions";
+import { socialImageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -23,7 +24,7 @@ export const Route = createFileRoute("/auth")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://digitalhygiene.app/auth" },
-      { name: "twitter:card", content: "summary" },
+      ...socialImageMeta,
     ],
     links: [{ rel: "canonical", href: "https://digitalhygiene.app/auth" }],
   }),

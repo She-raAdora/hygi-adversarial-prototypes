@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { FileText, CheckCircle, AlertCircle, Ban, Mail } from "lucide-react";
+import { socialImageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/terms")({
   head: () => ({
@@ -18,7 +19,7 @@ export const Route = createFileRoute("/terms")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://digitalhygiene.app/terms" },
-      { name: "twitter:card", content: "summary" },
+      ...socialImageMeta,
       { name: "twitter:title", content: "Terms of Service — Hygi" },
       {
         name: "twitter:description",

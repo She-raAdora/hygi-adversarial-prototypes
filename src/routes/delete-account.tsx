@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { ContactRequestForm } from "@/components/ContactRequestForm";
+import { socialImageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/delete-account")({
   head: () => ({
@@ -19,7 +20,7 @@ export const Route = createFileRoute("/delete-account")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://digitalhygiene.app/delete-account" },
-      { name: "twitter:card", content: "summary" },
+      ...socialImageMeta,
     ],
     links: [{ rel: "canonical", href: "https://digitalhygiene.app/delete-account" }],
   }),
