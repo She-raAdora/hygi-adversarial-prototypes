@@ -25,19 +25,16 @@ export type TrustedEntry = {
 
 export type AlertSettings = { threshold: number; enabled: boolean };
 
-async function assertAdmin(context: { supabase: { rpc: (fn: string, args: unknown) => unknown } }) {
-  const { data: isAdmin, error } = (await (
-    context.supabase.rpc as (fn: string, args: unknown) => Promise<{ data: unknown; error: unknown }>
-  )("current_user_has_role", { _role: "admin" })) as { data: unknown; error: unknown };
-  if (error) throw error;
-  if (isAdmin !== true) throw new Response("Forbidden", { status: 403 });
-}
-
 /** Admin-only: alert feed, allowlist, and the alert threshold in one round trip. */
 export const getBacklinkAlertData = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertAdmin(context);
+    const { data: isAdmin, error: roleError } = await context.supabase.rpc(
+      "current_user_has_role",
+      { _role: "admin" },
+    );
+    if (roleError) throw roleError;
+    if (isAdmin !== true) throw new Response("Forbidden", { status: 403 });
 
     const [alerts, trusted, settings] = await Promise.all([
       context.supabase
@@ -75,7 +72,12 @@ export const acknowledgeBacklinkAlert = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: { id: string; acknowledged: boolean }) => input)
   .handler(async ({ data, context }) => {
-    await assertAdmin(context);
+    const { data: isAdmin, error: roleError } = await context.supabase.rpc(
+      "current_user_has_role",
+      { _role: "admin" },
+    );
+    if (roleError) throw roleError;
+    if (isAdmin !== true) throw new Response("Forbidden", { status: 403 });
     const { error } = await context.supabase
       .from("backlink_alerts")
       .update({
@@ -95,7 +97,12 @@ export const updateBacklinkAlertSettings = createServerFn({ method: "POST" })
     enabled: Boolean(input.enabled),
   }))
   .handler(async ({ data, context }) => {
-    await assertAdmin(context);
+    const { data: isAdmin, error: roleError } = await context.supabase.rpc(
+      "current_user_has_role",
+      { _role: "admin" },
+    );
+    if (roleError) throw roleError;
+    if (isAdmin !== true) throw new Response("Forbidden", { status: 403 });
     const { error } = await context.supabase
       .from("backlink_alert_settings")
       .upsert({ id: "default", threshold: data.threshold, enabled: data.enabled } as never)
@@ -121,7 +128,12 @@ export const addTrustedBacklinkEntry = createServerFn({ method: "POST" })
     return { kind, value, note: note || null };
   })
   .handler(async ({ data, context }) => {
-    await assertAdmin(context);
+    const { data: isAdmin, error: roleError } = await context.supabase.rpc(
+      "current_user_has_role",
+      { _role: "admin" },
+    );
+    if (roleError) throw roleError;
+    if (isAdmin !== true) throw new Response("Forbidden", { status: 403 });
 
     const { error } = await context.supabase.from("backlink_trusted_entries").upsert(
       {
@@ -162,7 +174,12 @@ export const removeTrustedBacklinkEntry = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: { id: string }) => input)
   .handler(async ({ data, context }) => {
-    await assertAdmin(context);
+    const { data: isAdmin, error: roleError } = await context.supabase.rpc(
+      "current_user_has_role",
+      { _role: "admin" },
+    );
+    if (roleError) throw roleError;
+    if (isAdmin !== true) throw new Response("Forbidden", { status: 403 });
     const { error } = await context.supabase
       .from("backlink_trusted_entries")
       .delete()
