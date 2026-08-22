@@ -87,6 +87,10 @@ export function BacklinkPanel() {
   const latest = snapshots?.[0];
   const previous = snapshots?.[1];
   const signals = latest ? qualitySignals(latest) : null;
+  const risk = latest
+    ? assessBacklinkRisk({ domains: latest.domains ?? [], anchors: latest.anchors ?? [] })
+    : null;
+  const riskByDomain = new Map((risk?.domains ?? []).map((d) => [d.domain, d]));
 
   return (
     <section aria-labelledby="backlinks-heading">
