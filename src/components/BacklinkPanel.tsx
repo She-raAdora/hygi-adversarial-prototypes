@@ -158,6 +158,20 @@ export function BacklinkPanel() {
             {capture.data.message}
           </p>
         ) : null}
+        {capture.data && capture.data.ok === true ? (
+          <p className="rounded-xl border border-border bg-card p-4 text-sm text-muted-foreground">
+            Snapshot captured: +{capture.data.newDomains} new / −{capture.data.lostDomains} lost
+            referring domains
+            {capture.data.alerts
+              ? capture.data.alerts.enabled === false
+                ? " · alerting is muted"
+                : ` · ${capture.data.alerts.raised} new risk alert${
+                    capture.data.alerts.raised === 1 ? "" : "s"
+                  } at threshold ${capture.data.alerts.threshold}`
+              : ""}
+            .
+          </p>
+        ) : null}
         {capture.isError ? (
           <p className="rounded-xl border border-border bg-card p-4 text-sm text-destructive-strong">
             Couldn't capture a snapshot — admin access is required.
