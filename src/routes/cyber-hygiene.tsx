@@ -8,6 +8,51 @@ const DESCRIPTION =
   "Cyber hygiene is the small, repeatable habits that keep your accounts, devices, and data secure. Learn the core practices and a checklist for today.";
 const URL = "https://digitalhygiene.app/cyber-hygiene";
 
+/** Lessons adapted directly from Dartmouth's digital hygiene guidance. */
+const DARTMOUTH_LESSON_IDS = [
+  "safe-browsing",
+  "accounts",
+  "ai-phishing",
+  "devices",
+  "incident-plan",
+  "footprint",
+  "personal-info",
+];
+
+const dartmouthLessons = lessons.filter((l) => DARTMOUTH_LESSON_IDS.includes(l.id));
+const dartmouthQuestions = dartmouthLessons.reduce((n, l) => n + l.quiz.length, 0);
+const dartmouthTips = dartmouthLessons.reduce(
+  (n, l) => n + l.sections.reduce((s, sec) => s + sec.tips.length, 0),
+  0,
+);
+
+const caseStudyMetrics = [
+  {
+    label: "Guide topics turned into lessons",
+    value: String(dartmouthLessons.length),
+    note: `Expanded to ${lessons.length} lessons with other university and CISA sources.`,
+  },
+  {
+    label: "Quiz questions on those lessons",
+    value: String(dartmouthQuestions),
+    note: "Every lesson ends in a mini-quiz before its badge unlocks.",
+  },
+  {
+    label: "Concrete action steps",
+    value: String(dartmouthTips),
+    note: "Each step is something a learner can finish the same day.",
+  },
+  {
+    label: "Badge pass requirement",
+    value: "100%",
+    note: "A badge is only awarded on a perfect mini-quiz, so it signals comprehension.",
+  },
+];
+
+const CITATION =
+  "NorthBridge. (2026). Hygi. — Digital hygiene curriculum, adapted from Dartmouth College digital hygiene guidance. https://digitalhygiene.app/cyber-hygiene";
+
+
 const practices = [
   {
     name: "Use a password manager and unique passwords",
