@@ -62,7 +62,6 @@ export function AnalyticsDebugPanel() {
   const [open, setOpen] = useState(false);
   const [consent, setConsent] = useState<ConsentState>("unset");
   const [dataLayerLength, setDataLayerLength] = useState(0);
-  const events = useEventLog();
   const bottomRef = useRef<HTMLDivElement>(null);
 
   // Raw event data and the Export/Clear controls require a real admin session,
@@ -77,6 +76,9 @@ export function AnalyticsDebugPanel() {
     staleTime: 60_000,
   });
   const canInspect = capability?.canInspect === true;
+  // Raw events never enter component state (or the DOM) without the capability.
+  const events = useEventLog(canInspect);
+
 
 
   useEffect(() => {
