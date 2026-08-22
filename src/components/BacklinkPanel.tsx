@@ -7,6 +7,23 @@ import {
   refreshBacklinkSnapshot,
   type BacklinkSnapshot,
 } from "@/lib/backlinks.functions";
+import { assessBacklinkRisk, type RiskLevel } from "@/lib/backlinkRisk";
+
+const RISK_STYLES: Record<RiskLevel, string> = {
+  low: "bg-primary/10 text-primary",
+  medium: "bg-amber-500/15 text-amber-700 dark:text-amber-400",
+  high: "bg-destructive/15 text-destructive-strong",
+};
+
+function RiskBadge({ level }: { level: RiskLevel }) {
+  return (
+    <span
+      className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${RISK_STYLES[level]}`}
+    >
+      {level === "low" ? "Low risk" : level === "medium" ? "Medium risk" : "High risk"}
+    </span>
+  );
+}
 
 function formatWhen(iso: string) {
   return new Date(iso).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
