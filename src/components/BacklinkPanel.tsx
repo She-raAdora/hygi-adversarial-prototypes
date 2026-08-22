@@ -234,6 +234,95 @@ export function BacklinkPanel() {
               </div>
             </div>
 
+            {risk ? (
+              <div className="rounded-2xl border border-border bg-card p-5">
+                <h3 className="flex items-center gap-2 text-sm font-semibold">
+                  <ShieldAlert className="h-4 w-4" aria-hidden="true" />
+                  Spam &amp; risk score
+                </h3>
+                <div className="mt-3 flex flex-wrap items-baseline gap-x-8 gap-y-3">
+                  <div>
+                    <p className="text-3xl font-semibold tracking-tight">
+                      {risk.profileScore ?? "—"}
+                      <span className="text-base font-normal text-muted-foreground">/100</span>
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Profile risk — <RiskBadge level={risk.level} />
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-3xl font-semibold tracking-tight">
+                      {risk.spamShare === null ? "—" : `${risk.spamShare}%`}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Referring domains flagged ({risk.flaggedDomains} of {risk.domains.length})
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-3xl font-semibold tracking-tight">{risk.flaggedAnchors}</p>
+                    <p className="text-xs text-muted-foreground">Suspicious anchor texts</p>
+                  </div>
+                </div>
+
+                <h4 className="mt-5 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  Flagged referring domains
+                </h4>
+                {risk.domains.filter((d) => d.level !== "low").length === 0 ? (
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Nothing flagged in this snapshot.
+                  </p>
+                ) : (
+                  <ul className="mt-2 space-y-2">
+                    {risk.domains
+                      .filter((d) => d.level !== "low")
+                      .slice(0, 10)
+                      .map((d) => (
+                        <li key={d.domain} className="text-sm">
+                          <span className="font-medium">{d.domain}</span>{" "}
+                          <RiskBadge level={d.level} /> <span className="text-muted-foreground">
+                            {d.score}/100 · authority {d.authority ?? "—"} · {d.backlinks ?? "—"}{" "}
+                            links
+                          </span>
+                          <p className="text-xs text-muted-foreground">{d.reasons.join(" · ")}</p>
+                        </li>
+                      ))}
+                  </ul>
+                )}
+
+                <h4 className="mt-5 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  Flagged anchor text
+                </h4>
+                {risk.anchors.filter((a) => a.level !== "low").length === 0 ? (
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    No suspicious anchors in this snapshot.
+                  </p>
+                ) : (
+                  <ul className="mt-2 space-y-2">
+                    {risk.anchors
+                      .filter((a) => a.level !== "low")
+                      .slice(0, 10)
+                      .map((a) => (
+                        <li key={a.anchor} className="text-sm">
+                          <span className="font-medium break-words">“{a.anchor}”</span>{" "}
+                          <RiskBadge level={a.level} />{" "}
+                          <span className="text-muted-foreground">
+                            {a.score}/100 · {a.backlinks ?? "—"} links from {a.domains ?? "—"}{" "}
+                            domains
+                          </span>
+                          <p className="text-xs text-muted-foreground">{a.reasons.join(" · ")}</p>
+                        </li>
+                      ))}
+                  </ul>
+                )}
+
+                <p className="mt-4 text-xs text-muted-foreground">
+                  Heuristic scoring of Semrush data — throwaway TLDs, link-farm naming patterns,
+                  very low authority, and paid-link anchor phrasing. Review before disavowing
+                  anything.
+                </p>
+              </div>
+            ) : null}
+
             <div className="overflow-x-auto rounded-2xl border border-border bg-card">
               <table className="w-full text-left text-sm">
                 <caption className="sr-only">Top referring domains in the latest snapshot</caption>
@@ -248,6 +337,9 @@ export function BacklinkPanel() {
                     <th scope="col" className="px-5 py-3 font-medium">
                       Backlinks
                     </th>
+                    <th scope="col" className="px-5 py-3 font-medium">
+                      Risk
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -256,6 +348,19 @@ export function BacklinkPanel() {
                       <td className="px-5 py-2.5">{d.domain}</td>
                       <td className="px-5 py-2.5">{d.authority ?? "—"}</td>
                       <td className="px-5 py-2.5">{d.backlinks ?? "—"}</td>
+                      <td className="px-5 py-2.5">
+                        {(() => {
+                          const scored = riskByDomain.get(d.domain);
+                          return scored ? (
+                            <>
+                              <RiskBadge level={scored.level} />{" "}
+                              <span className="text-muted-foreground">{scored.score}</span>
+                            </>
+                          ) : (
+                            "—"
+                          );
+                        })()}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
