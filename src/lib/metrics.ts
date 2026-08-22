@@ -10,9 +10,17 @@
 
 import { supabase } from "@/integrations/supabase/client";
 import { hasAnalyticsConsent } from "./consent";
+import { getAttribution } from "./attribution";
 
 type MetricRow = {
-  kind: "question_missed" | "question_answered" | "glossary_open" | "share" | "trophy";
+  kind:
+    | "question_missed"
+    | "question_answered"
+    | "glossary_open"
+    | "share"
+    | "trophy"
+    | "onboarding_start"
+    | "quiz_complete";
   lesson_id?: string | null;
   lesson_title?: string | null;
   question_index?: number | null;
@@ -24,10 +32,40 @@ type MetricRow = {
 /** Fire-and-forget insert. Failures are ignored: metrics must never block the UI. */
 function record(row: MetricRow) {
   if (typeof window === "undefined" || !hasAnalyticsConsent()) return;
+  const attribution = getAttribution();
   void supabase
     .from("lesson_metric_events")
-    .insert(row)
+    .insert({
+      ...row,
+      referrer_domain: attribution?.referrerDomain ?? null,
+      utm_source: attribution?.utmSource ?? null,
+      landing_path: attribution?.landingPath ?? null,
+    })
     .then(() => undefined, () => undefined);
+}
+
+/**
+ * A visitor opened their first quiz — the onboarding step we attribute to the
+ * referring domain.
+ */
+export function recordOnboardingStart(lessonId: string, lessonTitle: string) {
+  record({ kind: "onboarding_start", lesson_id: lessonId, lesson_title: lessonTitle });
+}
+
+/** A quiz was finished. `passed` is recorded as the share_format flag. */
+export function recordQuizComplete(args: {
+  lessonId: string;
+  lessonTitle: string;
+  score: number;
+  passed: boolean;
+}) {
+  record({
+    kind: "quiz_complete",
+    lesson_id: args.lessonId,
+    lesson_title: args.lessonTitle,
+    question_index: args.score,
+    share_format: args.passed ? "passed" : "failed",
+  });
 }
 
 export function recordQuestionResult(args: {
