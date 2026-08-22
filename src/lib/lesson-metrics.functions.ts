@@ -13,6 +13,17 @@ export type MissedQuestionRow = {
 export type TermRow = { term: string; label: string; taps: number };
 export type ShareRow = { label: string; shares: number };
 
+/** Onboarding and quiz outcomes grouped by the referring domain that sent the visitor. */
+export type AttributionRow = {
+  source: string;
+  onboardingStarts: number;
+  quizCompletions: number;
+  quizPasses: number;
+  trophies: number;
+  /** Quiz completions per onboarding start, as a percentage. */
+  completionRate: number | null;
+};
+
 export type LessonMetrics = {
   allowed: true;
   totalAnswers: number;
@@ -26,6 +37,11 @@ export type LessonMetrics = {
     byLesson: ShareRow[];
   };
   trophies: number;
+  attribution: {
+    onboardingStarts: number;
+    quizCompletions: number;
+    sources: AttributionRow[];
+  };
 };
 
 /** Admin-only aggregate of anonymous lesson activity. */
@@ -41,7 +57,9 @@ export const getLessonMetrics = createServerFn({ method: "GET" })
 
     const { data, error } = await context.supabase
       .from("lesson_metric_events")
-      .select("kind, lesson_id, lesson_title, question_index, question, term, share_format")
+      .select(
+        "kind, lesson_id, lesson_title, question_index, question, term, share_format, referrer_domain, utm_source",
+      )
       .order("created_at", { ascending: false })
       .limit(20000);
     if (error) throw error;
