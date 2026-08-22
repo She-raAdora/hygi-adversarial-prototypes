@@ -640,6 +640,12 @@ function Quiz({
               total,
               passed,
             });
+            recordQuizComplete({
+              lessonId: lesson.id,
+              lessonTitle: lesson.title,
+              score: finalScore,
+              passed,
+            });
             if (passed) {
               const mastered = new Set(
                 Object.entries(progress)
