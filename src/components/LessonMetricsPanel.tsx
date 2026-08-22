@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { BookOpen, HelpCircle, Share2, Trophy } from "lucide-react";
+import { BookOpen, HelpCircle, Link2 as LinkIcon, Share2, Trophy } from "lucide-react";
 
 import { getLessonMetrics } from "@/lib/lesson-metrics.functions";
 
@@ -124,6 +124,83 @@ export function LessonMetricsPanel() {
           People who finished every lesson and unlocked the Digital Hygiene Champion trophy.
         </p>
       </Card>
+
+      <div className="lg:col-span-2">
+        <Card title="Which links drive learners" icon={LinkIcon}>
+          <div className="flex flex-wrap gap-6">
+            <div>
+              <p className="text-3xl font-semibold tracking-tight">
+                {data.attribution.onboardingStarts}
+              </p>
+              <p className="text-xs text-muted-foreground">First quiz starts (onboarding)</p>
+            </div>
+            <div>
+              <p className="text-3xl font-semibold tracking-tight">
+                {data.attribution.quizCompletions}
+              </p>
+              <p className="text-xs text-muted-foreground">Quizzes completed</p>
+            </div>
+          </div>
+
+          {data.attribution.sources.length === 0 ? (
+            <p className="mt-3 text-sm text-muted-foreground">
+              No attributed activity yet. Once visitors arrive from a referring site, their
+              onboarding and quiz completions appear here.
+            </p>
+          ) : (
+            <div className="mt-4 overflow-x-auto">
+              <table className="w-full text-sm">
+                <caption className="sr-only">
+                  Onboarding and quiz outcomes by referring domain
+                </caption>
+                <thead>
+                  <tr className="text-left text-xs uppercase tracking-wider text-muted-foreground">
+                    <th scope="col" className="py-1 pr-4 font-medium">
+                      Source
+                    </th>
+                    <th scope="col" className="py-1 pr-4 font-medium">
+                      Starts
+                    </th>
+                    <th scope="col" className="py-1 pr-4 font-medium">
+                      Completions
+                    </th>
+                    <th scope="col" className="py-1 pr-4 font-medium">
+                      Passes
+                    </th>
+                    <th scope="col" className="py-1 pr-4 font-medium">
+                      Trophies
+                    </th>
+                    <th scope="col" className="py-1 font-medium">
+                      Completion rate
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.attribution.sources.map((s) => (
+                    <tr key={s.source} className="border-t border-border/60">
+                      <td className="py-1.5 pr-4 font-medium">
+                        {s.source === "direct" ? "Direct / no referrer" : s.source}
+                      </td>
+                      <td className="py-1.5 pr-4 text-muted-foreground">{s.onboardingStarts}</td>
+                      <td className="py-1.5 pr-4 text-muted-foreground">{s.quizCompletions}</td>
+                      <td className="py-1.5 pr-4 text-muted-foreground">{s.quizPasses}</td>
+                      <td className="py-1.5 pr-4 text-muted-foreground">{s.trophies}</td>
+                      <td className="py-1.5 text-muted-foreground">
+                        {s.completionRate === null ? "—" : `${s.completionRate}%`}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+          <p className="mt-3 text-xs text-muted-foreground">
+            First-touch attribution: the referring domain (or campaign source) recorded on a
+            visitor&rsquo;s first visit, matched to their later lesson activity. Anonymous and
+            consent-gated.
+          </p>
+        </Card>
+      </div>
     </div>
   );
 }

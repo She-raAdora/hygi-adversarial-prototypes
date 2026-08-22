@@ -13,6 +13,17 @@ export type MissedQuestionRow = {
 export type TermRow = { term: string; label: string; taps: number };
 export type ShareRow = { label: string; shares: number };
 
+/** Onboarding and quiz outcomes grouped by the referring domain that sent the visitor. */
+export type AttributionRow = {
+  source: string;
+  onboardingStarts: number;
+  quizCompletions: number;
+  quizPasses: number;
+  trophies: number;
+  /** Quiz completions per onboarding start, as a percentage. */
+  completionRate: number | null;
+};
+
 export type LessonMetrics = {
   allowed: true;
   totalAnswers: number;
@@ -26,6 +37,11 @@ export type LessonMetrics = {
     byLesson: ShareRow[];
   };
   trophies: number;
+  attribution: {
+    onboardingStarts: number;
+    quizCompletions: number;
+    sources: AttributionRow[];
+  };
 };
 
 /** Admin-only aggregate of anonymous lesson activity. */
@@ -41,7 +57,9 @@ export const getLessonMetrics = createServerFn({ method: "GET" })
 
     const { data, error } = await context.supabase
       .from("lesson_metric_events")
-      .select("kind, lesson_id, lesson_title, question_index, question, term, share_format")
+      .select(
+        "kind, lesson_id, lesson_title, question_index, question, term, share_format, referrer_domain, utm_source",
+      )
       .order("created_at", { ascending: false })
       .limit(20000);
     if (error) throw error;
@@ -56,6 +74,9 @@ export const getLessonMetrics = createServerFn({ method: "GET" })
     let totalMissed = 0;
     let shares = 0;
     let trophies = 0;
+    const sources = new Map<string, AttributionRow>();
+    let onboardingStarts = 0;
+    let quizCompletions = 0;
 
     for (const r of rows) {
       if (r.kind === "question_missed" || r.kind === "question_answered") {
@@ -95,6 +116,38 @@ export const getLessonMetrics = createServerFn({ method: "GET" })
       } else if (r.kind === "trophy") {
         trophies += 1;
       }
+
+      if (
+        r.kind === "onboarding_start" ||
+        r.kind === "quiz_complete" ||
+        r.kind === "trophy"
+      ) {
+        const source =
+          (r as { referrer_domain?: string | null }).referrer_domain ||
+          (r as { utm_source?: string | null }).utm_source ||
+          "unknown";
+        const row =
+          sources.get(source) ??
+          {
+            source,
+            onboardingStarts: 0,
+            quizCompletions: 0,
+            quizPasses: 0,
+            trophies: 0,
+            completionRate: null,
+          };
+        if (r.kind === "onboarding_start") {
+          row.onboardingStarts += 1;
+          onboardingStarts += 1;
+        } else if (r.kind === "quiz_complete") {
+          row.quizCompletions += 1;
+          quizCompletions += 1;
+          if (r.share_format === "passed") row.quizPasses += 1;
+        } else {
+          row.trophies += 1;
+        }
+        sources.set(source, row);
+      }
     }
 
     const list = (m: Map<string, number>): ShareRow[] =>
@@ -119,5 +172,21 @@ export const getLessonMetrics = createServerFn({ method: "GET" })
         byLesson: list(shareLessons).slice(0, 15),
       },
       trophies,
+      attribution: {
+        onboardingStarts,
+        quizCompletions,
+        sources: [...sources.values()]
+          .map((s) => ({
+            ...s,
+            completionRate: s.onboardingStarts
+              ? Math.round((s.quizCompletions / s.onboardingStarts) * 100)
+              : null,
+          }))
+          .sort(
+            (a, b) =>
+              b.quizCompletions - a.quizCompletions || b.onboardingStarts - a.onboardingStarts,
+          )
+          .slice(0, 20),
+      },
     };
   });

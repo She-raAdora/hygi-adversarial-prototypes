@@ -118,34 +118,43 @@ export type Database = {
           created_at: string
           id: string
           kind: string
+          landing_path: string | null
           lesson_id: string | null
           lesson_title: string | null
           question: string | null
           question_index: number | null
+          referrer_domain: string | null
           share_format: string | null
           term: string | null
+          utm_source: string | null
         }
         Insert: {
           created_at?: string
           id?: string
           kind: string
+          landing_path?: string | null
           lesson_id?: string | null
           lesson_title?: string | null
           question?: string | null
           question_index?: number | null
+          referrer_domain?: string | null
           share_format?: string | null
           term?: string | null
+          utm_source?: string | null
         }
         Update: {
           created_at?: string
           id?: string
           kind?: string
+          landing_path?: string | null
           lesson_id?: string | null
           lesson_title?: string | null
           question?: string | null
           question_index?: number | null
+          referrer_domain?: string | null
           share_format?: string | null
           term?: string | null
+          utm_source?: string | null
         }
         Relationships: []
       }

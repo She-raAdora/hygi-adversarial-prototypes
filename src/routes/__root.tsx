@@ -10,6 +10,7 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { captureAttribution } from "@/lib/attribution";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Analytics } from "@/components/Analytics";
 import { AnalyticsDebugPanel } from "@/components/AnalyticsDebugPanel";
@@ -175,6 +176,10 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const router = useRouter();
+
+  useEffect(() => {
+    captureAttribution();
+  }, []);
 
   useEffect(() => {
     const { data } = supabase.auth.onAuthStateChange((event) => {
