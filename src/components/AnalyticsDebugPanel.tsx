@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { getMyAccess } from "@/lib/access.functions";
+import { requireAnalyticsDebugCapability } from "@/lib/access.functions";
 import { isAnalyticsInitialized, getMeasurementId } from "@/lib/analytics";
 import { readConsent, type ConsentState } from "@/lib/consent";
 import { useEventLog, clearEventLog, type LoggedEvent } from "@/lib/eventLog";
@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
+
 
 const STORAGE_KEY = "hygi-analytics-debug-open";
 
