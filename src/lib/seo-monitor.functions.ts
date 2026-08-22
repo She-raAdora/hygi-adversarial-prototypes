@@ -15,6 +15,14 @@ export interface SeoScanRun {
 export const getSeoScanRuns = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
+    const { data: isAdmin, error: roleError } = await context.supabase.rpc(
+      "current_user_has_role",
+      { _role: "admin" },
+    );
+    if (roleError) throw roleError;
+    if (isAdmin !== true) throw new Response("Forbidden", { status: 403 });
+
+
     const { data, error } = await context.supabase
       .from("seo_scan_runs")
       .select("id, ran_at, status, failing_count, passing_count, checks, regressions")

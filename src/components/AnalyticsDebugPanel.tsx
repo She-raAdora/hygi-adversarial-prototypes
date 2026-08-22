@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { getMyAccess } from "@/lib/access.functions";
+import { requireAnalyticsDebugCapability } from "@/lib/access.functions";
 import { isAnalyticsInitialized, getMeasurementId } from "@/lib/analytics";
 import { readConsent, type ConsentState } from "@/lib/consent";
 import { useEventLog, clearEventLog, type LoggedEvent } from "@/lib/eventLog";
@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
+
 
 const STORAGE_KEY = "hygi-analytics-debug-open";
 
@@ -61,21 +62,24 @@ export function AnalyticsDebugPanel() {
   const [open, setOpen] = useState(false);
   const [consent, setConsent] = useState<ConsentState>("unset");
   const [dataLayerLength, setDataLayerLength] = useState(0);
-  const events = useEventLog();
   const bottomRef = useRef<HTMLDivElement>(null);
 
   // Raw event data and the Export/Clear controls require a real admin session,
-  // not just the debug flag. Unauthenticated calls throw 401, which we treat as
-  // "no capability" rather than an error state.
-  const fetchAccess = useServerFn(getMyAccess);
-  const { data: access } = useQuery({
-    queryKey: ["analytics-debug-access"],
-    queryFn: () => fetchAccess().catch(() => ({ isAdmin: false })),
+  // not just the debug flag. The capability is decided on the server (403 when
+  // the session lacks the admin role), so forcing this UI open grants nothing.
+  const checkCapability = useServerFn(requireAnalyticsDebugCapability);
+  const { data: capability } = useQuery({
+    queryKey: ["analytics-debug-capability"],
+    queryFn: () => checkCapability().catch(() => ({ canInspect: false as const })),
     enabled,
     retry: false,
     staleTime: 60_000,
   });
-  const canInspect = access?.isAdmin === true;
+  const canInspect = capability?.canInspect === true;
+  // Raw events never enter component state (or the DOM) without the capability.
+  const events = useEventLog(canInspect);
+
+
 
   useEffect(() => {
     const enabled = isDebugEnabled();
