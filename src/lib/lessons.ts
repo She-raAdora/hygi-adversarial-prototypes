@@ -103,6 +103,16 @@ const rawLessons: Lesson[] = [
           "Verify by visiting the site directly in your browser.",
         ],
       },
+      {
+        heading: "Let phishing-resistant sign-in do the checking",
+        body: "NIST Special Publication 800-63B calls an authenticator phishing-resistant when it is cryptographically bound to the real website address. Passkeys and security keys simply refuse to work on a lookalike domain, so even a convincing fake page gets nothing. A typed password or a six-digit code, by contrast, can be relayed to the real site by an attacker in real time — which is why 'the code arrived, so it must be legit' is not a safe assumption.",
+        tips: [
+          "Set up a passkey or security key wherever it's offered — it removes the judgment call.",
+          "Never type a one-time code into a page you reached from a link or a phone call.",
+          "If your password manager doesn't auto-fill, treat it as a domain mismatch warning.",
+          "Nobody legitimate will ever ask you to read out an MFA code.",
+        ],
+      },
     ],
     quiz: [
       {
@@ -123,8 +133,32 @@ const rawLessons: Lesson[] = [
         answer: 0,
         explain: "VirusTotal and Google Safe Browsing scan URLs for known threats.",
       },
+      {
+        q: "Why does a passkey protect you on a lookalike phishing site?",
+        options: [
+          "It's a longer password",
+          "It's cryptographically bound to the real domain, so it won't work elsewhere",
+          "It changes every 30 seconds",
+          "It emails you a warning",
+        ],
+        answer: 1,
+        explain:
+          "NIST SP 800-63B calls this phishing resistance: the authenticator checks the site's real address for you, so a fake page gets nothing.",
+      },
+      {
+        q: "Your password manager won't auto-fill on a login page you expected. What's the likely reason?",
+        options: [
+          "The site is faster than usual",
+          "The domain doesn't match the saved entry — it may be a fake",
+          "Your password expired",
+          "You need to disable HTTPS",
+        ],
+        answer: 1,
+        explain: "Auto-fill matches on exact domain, so a silent failure is a useful lookalike-domain warning.",
+      },
     ],
   },
+
   {
     id: "footprint",
     title: "Audit Your Digital Footprint",
@@ -192,81 +226,124 @@ const rawLessons: Lesson[] = [
     id: "accounts",
     title: "Protect Your Accounts",
     emoji: "🔐",
-    tagline: "Strong passwords + MFA = a much harder target",
+    tagline: "Long passphrases + phishing-resistant MFA",
     intro:
-      "The single biggest upgrade you can make to your digital security is unique passwords for every account, plus multi-factor authentication on the important ones.",
+      "NIST Special Publication 800-63B — the U.S. government's Digital Identity Guidelines for authentication — quietly overturned a lot of old password advice. Length beats complexity, forced monthly changes do more harm than good, and not every second factor is equal. Here's what the standard actually says, translated for everyday accounts.",
     sections: [
       {
-        heading: "Use a password manager",
-        body: "Built-in managers (iCloud Keychain, Google Password Manager, Windows/Edge) generate and store unique strong passwords so you never reuse one.",
+        heading: "Length beats complexity",
+        body: "NIST 800-63B tells services to accept passwords of at least 8 characters and to allow at least 64, including spaces and any printable character. It explicitly recommends against forcing arbitrary mixes of uppercase, symbols, and digits, because those rules push people toward predictable patterns like 'Password1!'. A long passphrase of unrelated words is stronger and easier to remember.",
         tips: [
-          "Never reuse a password across services.",
-          "Let your password manager generate them.",
-          "Lock your device + manager with MFA.",
+          "Aim for 15+ characters; use a passphrase of several unrelated words.",
+          "Spaces and emoji are valid characters — use them if the site allows.",
+          "Never reuse a password; one breach becomes many (credential stuffing).",
+          "Let a password manager generate and store the long random ones for you.",
         ],
       },
       {
-        heading: "Turn on multi-factor authentication",
-        body: "MFA adds a second factor (an app code, a hardware key) so a stolen password alone isn't enough.",
+        heading: "Stop rotating passwords for no reason",
+        body: "The standard says verifiers should NOT require periodic password changes, and should not use password hints or knowledge-based questions like your mother's maiden name. Change a password when there is evidence it was compromised — not on a calendar. Routine rotation just makes people increment a number on the end.",
         tips: [
-          "Prefer an authenticator app over SMS codes.",
-          "Save backup codes in a safe place.",
-          "Keep recovery email & phone up to date.",
+          "Change a password immediately if it appears in a breach.",
+          "Skip 'security questions' — or answer them with random stored strings.",
+          "Turn on breach monitoring in your password manager or browser.",
+          "Don't store password hints anywhere.",
         ],
       },
       {
-        heading: "Lock down account recovery (CISA)",
-        body: "CISA's Project Upskill stresses that recovery options are a back door around your password. If an attacker can reset your password, your MFA barely matters.",
+        heading: "Blocklists, not arbitrary rules",
+        body: "Good services check new passwords against a blocklist of previously breached, dictionary, and context-specific values (the site's own name, your username) and reject matches. You can apply the same test yourself before you commit to a password.",
         tips: [
-          "Use phishing-resistant MFA — passkeys or security keys — on email, banking, and work accounts.",
-          "Remove old recovery phone numbers and addresses you no longer control.",
-          "Answer security questions with random stored strings, not real facts.",
+          "Check candidate passwords against a breach service like Have I Been Pwned.",
+          "Avoid the service name, your name, or your email in the password.",
+          "Avoid keyboard walks (qwerty, 1q2w3e) and repeated characters.",
+        ],
+      },
+      {
+        heading: "Authenticators and assurance levels",
+        body: "800-63B ranks authentication into Authenticator Assurance Levels. AAL1 is a single factor; AAL2 requires two distinct factors; AAL3 requires a hardware-based, phishing-resistant authenticator. The standard restricts SMS and voice one-time codes as 'restricted' authenticators because the phone number can be hijacked via SIM swap or intercepted. Passkeys and security keys bind the login to the real website domain, so a fake site can't replay them.",
+        tips: [
+          "Use passkeys or a hardware security key on email, banking, and work accounts.",
+          "An authenticator app beats SMS; SMS still beats nothing.",
+          "Two factors must be different types: something you have plus something you know or are.",
+          "Store backup codes offline or in a separate vault — never in the account they protect.",
+        ],
+      },
+      {
+        heading: "Recovery is part of authentication",
+        body: "Recovery paths are a back door around everything above: if an attacker can reset your password, your MFA barely matters. NIST treats account recovery and re-binding of authenticators as part of the authentication lifecycle, and CISA's Project Upskill makes the same point for individuals.",
+        tips: [
           "Protect your primary email first — it unlocks every other account.",
+          "Remove old recovery phone numbers and addresses you no longer control.",
+          "Register at least two authenticators so losing one doesn't lock you out.",
+          "Re-check recovery settings after every phone or job change.",
         ],
       },
     ],
     quiz: [
       {
-        q: "Why does CISA tell you to secure account-recovery options?",
+        q: "According to NIST SP 800-63B, what matters most in a password?",
         options: [
-          "They speed up logins",
-          "An attacker who controls recovery can reset your password and bypass MFA",
-          "They are required for backups",
-          "They reduce data usage",
+          "A mix of uppercase, symbols, and digits",
+          "Length — longer passphrases beat complexity rules",
+          "Changing it every 30 days",
+          "A memorable hint stored with it",
         ],
         answer: 1,
-        explain: "Recovery email, phone, and security questions are a bypass route around your password.",
+        explain:
+          "NIST recommends allowing long passphrases (up to 64+ characters) and advises against forced composition rules, which push people toward predictable patterns.",
       },
       {
-        q: "Which is the strongest second factor?",
-        options: ["SMS code", "Authenticator app or hardware key", "Security question", "Email link"],
-        answer: 1,
-        explain: "Authenticator apps and hardware keys are far harder to intercept than SMS.",
-      },
-      {
-        q: "Why is reusing passwords risky?",
+        q: "What does NIST say about periodic (calendar-based) password changes?",
         options: [
-          "It's slow to type",
-          "One breach can compromise every account using that password",
-          "It uses more storage",
-          "It's against the law",
-        ],
-        answer: 1,
-        explain: "Attackers replay leaked credentials across many sites — credential stuffing.",
-      },
-      {
-        q: "Where should you store MFA backup codes?",
-        options: [
-          "On a sticky note on your laptop",
-          "Posted publicly on social media",
-          "In a secure place separate from your device",
-          "In the email you're protecting",
+          "Require them monthly",
+          "Require them yearly",
+          "Don't require them — change only on evidence of compromise",
+          "Only for admins",
         ],
         answer: 2,
-        explain: "Backup codes belong somewhere offline or in a separate secure vault.",
+        explain:
+          "Forced rotation leads to small predictable tweaks. Change a password when there's evidence it was breached.",
+      },
+      {
+        q: "Why does 800-63B treat SMS one-time codes as a 'restricted' authenticator?",
+        options: [
+          "They cost money to send",
+          "Phone numbers can be SIM-swapped or the code intercepted",
+          "They expire too quickly",
+          "They only work on iPhones",
+        ],
+        answer: 1,
+        explain:
+          "Out-of-band SMS relies on the phone network, which is vulnerable to SIM swapping and interception — usable, but the weakest common second factor.",
+      },
+      {
+        q: "Which authenticator is phishing-resistant, as required at the highest assurance level (AAL3)?",
+        options: [
+          "A security key or passkey bound to the site's domain",
+          "A security question",
+          "An emailed magic link",
+          "A six-digit code read over the phone",
+        ],
+        answer: 0,
+        explain:
+          "Passkeys and hardware security keys verify the real domain, so a lookalike phishing site cannot replay the login.",
+      },
+      {
+        q: "What should a good service do with a newly chosen password?",
+        options: [
+          "Store a hint for you",
+          "Check it against a blocklist of breached and dictionary passwords",
+          "Force a symbol into it",
+          "Truncate it to 12 characters",
+        ],
+        answer: 1,
+        explain:
+          "800-63B tells verifiers to screen new passwords against breached, dictionary, and context-specific values instead of imposing arbitrary composition rules.",
       },
     ],
   },
+
   {
     id: "devices",
     title: "Protect Your Devices",

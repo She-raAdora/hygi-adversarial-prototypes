@@ -97,7 +97,7 @@ function Index() {
             </span>
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-            5-minute bite-sized lessons informed by resources from Dartmouth, Caltech, Cal Poly, Harvard, and CISA.
+            5-minute bite-sized lessons informed by resources from Dartmouth, Caltech, Cal Poly, Harvard, CISA, and NIST.
             Read a lesson, take a mini-quiz, and earn a badge for every topic you master.
           </p>
           {ctaAboveHeadline ? null : (
