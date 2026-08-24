@@ -39,8 +39,8 @@ const SOURCES = [
     href: "https://www.cisa.gov/audiences/high-risk-communities",
   },
   {
-    label: "NIST SP 800-63B — Digital Identity Guidelines: Authentication",
-    href: "https://pages.nist.gov/800-63-3/sp800-63b.html",
+    label: "NIST SP 800-63B-4 — Digital Identity Guidelines: Authentication and Authenticator Management (July 2025)",
+    href: "https://pages.nist.gov/800-63-4/sp800-63b.html",
   },
 ];
 
