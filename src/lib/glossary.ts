@@ -134,64 +134,111 @@ export const glossary: GlossaryEntry[] = [
 
   // Passwords and account protection
   entry("Passwords and account protection", "Password manager", {
-    definition: "A protected tool that creates, stores, and fills unique passwords.",
+    definition:
+      "Software that generates, stores, and fills unique account passwords, and may also manage passkeys or other credentials.",
     example: "The manager generating and filling a 20-character password you never have to recall.",
     todo: "Set one up and move your email, banking, and cloud passwords into it first.",
     important: "Protect it with one strong passphrase plus MFA, and never share that passphrase.",
   }),
   entry("Passwords and account protection", "Multifactor authentication", {
     definition:
-      "A login method requiring more than one kind of proof that you are the authorized user.",
+      "Using more than one type of authentication evidence before an account grants access.",
     example: "Entering your password and then approving the login through an authenticator app.",
     todo: "Turn it on first for your email, financial, social-media, and cloud accounts.",
     important: "Never give an unexpected login code to someone who contacts you.",
     aliases: ["MFA"],
   }),
   entry("Passwords and account protection", "Two-factor authentication", {
-    definition: "A form of MFA that uses two authentication methods.",
+    definition: "A form of MFA that uses two authentication factors.",
     example: "Your password plus a rotating six-digit code from an app.",
-    todo: "Choose an app or security key over text-message codes when the site offers both.",
-    important: "Text-message codes can be stolen through SIM-swap fraud.",
+    todo: "Choose a passkey, security key, or app over text-message codes when a site offers both.",
+    important:
+      "Text codes are weaker than phishing-resistant options, but still better than a password alone.",
     aliases: ["2FA"],
   }),
   entry("Passwords and account protection", "Passkey", {
     definition:
-      "A sign-in method that uses the security of your device instead of a traditional password.",
-    example: "Signing in with your fingerprint or face instead of typing anything.",
-    todo: "Enable passkeys wherever they are offered, starting with your email account.",
+      "A phishing-resistant way to sign in using cryptographic credentials stored or managed by a trusted device or credential provider, instead of typing a reusable password.",
+    example: "Unlocking an account with your fingerprint, face, or device PIN — nothing to type.",
+    todo: "Consider a passkey when an important account offers one, starting with your email.",
     important: "Keep a device lock and a backup sign-in method in case you lose the device.",
   }),
+  entry("Passwords and account protection", "FIDO", {
+    definition:
+      "A family of open authentication standards designed to enable stronger, phishing-resistant sign-in methods.",
+    example: "A tap-to-approve security key described as “FIDO2 compatible”.",
+    todo: "Where a service lists FIDO or passkey sign-in, treat it as its strongest option.",
+    important: "FIDO is the standard behind passkeys and security keys, not a brand or an app.",
+    aliases: ["FIDO2", "FIDO Alliance"],
+  }),
+  entry("Passwords and account protection", "WebAuthn", {
+    definition:
+      "A web authentication standard used by browsers and websites to support public-key credentials such as passkeys and security keys.",
+    example: "A site asking your browser to “use your passkey” — WebAuthn is what makes that work.",
+    todo: "Keep your browser and phone updated so passkey sign-in works reliably.",
+    important: "You rarely see the word in daily use; it's the plumbing behind passkeys.",
+  }),
+  entry("Passwords and account protection", "Phishing-resistant authentication", {
+    definition:
+      "Authentication designed so credentials cannot simply be entered into, or replayed through, a convincing fake website.",
+    example: "A passkey that refuses to work on a lookalike login page.",
+    todo: "Choose it for email, banking, and other important accounts when it is offered.",
+    important:
+      "Codes you type by hand are not phishing-resistant, even when they come from an authenticator app.",
+  }),
+  entry("Passwords and account protection", "SIM swap", {
+    definition:
+      "An attack in which a criminal tries to take control of your phone number, which can affect text-message codes and account recovery.",
+    example: "Your phone loses service, and password reset texts start arriving somewhere else.",
+    todo: "Ask your mobile carrier to add a PIN or port-out lock to your account.",
+    important:
+      "It's one reason phishing-resistant sign-in is preferable to SMS where a service offers both.",
+  }),
+  entry("Passwords and account protection", "MFA fatigue", {
+    definition:
+      "Repeated login-approval prompts sent to pressure someone into approving a sign-in they did not start.",
+    example: "A stream of “Approve this login?” notifications at 2 a.m.",
+    todo: "Don't approve it. Change the password from a trusted device and review account activity.",
+    important: "Repeated prompts usually mean someone already has your password.",
+    aliases: ["push fatigue", "MFA bombing"],
+  }),
   entry("Passwords and account protection", "Authenticator app", {
-    definition: "An app that generates or approves sign-in codes.",
+    definition:
+      "An app that generates temporary login codes or supports account-approval methods.",
     example: "A six-digit code that changes every thirty seconds.",
     todo: "Install one, then enable its backup so a lost phone doesn't lock you out.",
     important: "No support agent ever needs you to read a code from this app aloud.",
   }),
   entry("Passwords and account protection", "Verification code", {
-    definition: "A temporary code used to confirm a login, payment, or identity.",
+    definition:
+      "A temporary code used to verify a login or action. Don't provide an unexpected code to an incoming caller or message.",
     example: "“Your verification code is 481920.”",
     todo: "Only enter a code on a page or app you opened yourself.",
-    important: "A code you didn't request means someone has your password — change it now.",
+    important:
+      "A code you didn't request often means someone has your password — change it from a trusted device.",
   }),
   entry("Passwords and account protection", "One-time password", {
     definition:
-      "A temporary sign-in code that should generally never be shared with another person.",
+      "A temporary code intended for a single authentication event, and never for sharing.",
     example: "A code texted to you while paying online.",
     todo: "Use it immediately, then let it expire.",
     important: "Never read it out to anyone, including someone claiming to be support.",
     aliases: ["OTP"],
   }),
   entry("Passwords and account protection", "Recovery code", {
-    definition: "A backup code used when a normal MFA method is unavailable.",
+    definition:
+      "A backup credential some services supply for regaining access when your normal authentication method is unavailable.",
     example: "The list of ten one-use codes shown when you first switch on MFA.",
     todo: "Save them in your password manager or print them and store them somewhere safe.",
     important: "They work like passwords, so never email them or store them in shared albums.",
   }),
   entry("Passwords and account protection", "Security key", {
-    definition: "A physical device used to verify account access.",
+    definition:
+      "A physical FIDO-compatible device used to provide strong, phishing-resistant authentication.",
     example: "A small USB or tap-to-approve key you use when signing in.",
     todo: "Register two keys: one for daily use and one kept in a safe place.",
-    important: "This is the strongest anti-phishing option, but keep the spare separate.",
+    important:
+      "Among the strongest practical options — no method makes an account impossible to compromise.",
   }),
   entry("Passwords and account protection", "Account recovery", {
     definition:
@@ -208,7 +255,7 @@ export const glossary: GlossaryEntry[] = [
   }),
   entry("Passwords and account protection", "Credential stuffing", {
     definition:
-      "Using stolen usernames and passwords from one breach to try to enter other accounts.",
+      "Automated attempts to use leaked username-and-password combinations on other websites.",
     example: "An old leaked password still unlocking your shopping account years later.",
     todo: "Give every account its own unique password.",
     important: "One reused password can expose dozens of accounts at once.",

@@ -28,7 +28,8 @@ const comparison = [
   {
     aspect: "Reuse risk",
     password: "High. One reused password turns a single breach into many account takeovers.",
-    passkey: "None. Every passkey is unique to one site and never leaves your authenticator.",
+    passkey:
+      "Minimal. Every passkey is unique to one site and never leaves your authenticator.",
   },
   {
     aspect: "Day-to-day effort",
