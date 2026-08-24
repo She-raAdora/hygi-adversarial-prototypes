@@ -6,6 +6,9 @@ import { sectionSlug, topicForQuestion } from "@/lib/quizTopics";
 import { awardBadge, useProgress } from "@/lib/progress";
 import { ShareResultButton } from "@/components/ShareResultButton";
 import { GlossaryText } from "@/components/GlossaryText";
+import { LessonEvidence } from "@/components/LessonEvidence";
+import { FiveDoorReset } from "@/components/FiveDoorReset";
+
 import { recordOnboardingStart, recordQuestionResult, recordQuizComplete } from "@/lib/metrics";
 import { pathwayOf, pathwayChipStyle } from "@/lib/pathways";
 import { socialImageMeta } from "@/lib/seo";
