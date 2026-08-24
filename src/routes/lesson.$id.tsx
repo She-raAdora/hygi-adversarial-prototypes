@@ -208,6 +208,12 @@ function LessonPage() {
             </section>
           ))}
 
+          {lesson.interactive === "five-door-reset" ? <FiveDoorReset /> : null}
+
+          {lesson.sources?.length ? <LessonEvidence sources={lesson.sources} /> : null}
+
+
+
           <button
             type="button"
             onClick={() => {
