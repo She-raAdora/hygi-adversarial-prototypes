@@ -103,6 +103,16 @@ const rawLessons: Lesson[] = [
           "Verify by visiting the site directly in your browser.",
         ],
       },
+      {
+        heading: "Let phishing-resistant sign-in do the checking",
+        body: "NIST Special Publication 800-63B calls an authenticator phishing-resistant when it is cryptographically bound to the real website address. Passkeys and security keys simply refuse to work on a lookalike domain, so even a convincing fake page gets nothing. A typed password or a six-digit code, by contrast, can be relayed to the real site by an attacker in real time — which is why 'the code arrived, so it must be legit' is not a safe assumption.",
+        tips: [
+          "Set up a passkey or security key wherever it's offered — it removes the judgment call.",
+          "Never type a one-time code into a page you reached from a link or a phone call.",
+          "If your password manager doesn't auto-fill, treat it as a domain mismatch warning.",
+          "Nobody legitimate will ever ask you to read out an MFA code.",
+        ],
+      },
     ],
     quiz: [
       {
@@ -123,8 +133,32 @@ const rawLessons: Lesson[] = [
         answer: 0,
         explain: "VirusTotal and Google Safe Browsing scan URLs for known threats.",
       },
+      {
+        q: "Why does a passkey protect you on a lookalike phishing site?",
+        options: [
+          "It's a longer password",
+          "It's cryptographically bound to the real domain, so it won't work elsewhere",
+          "It changes every 30 seconds",
+          "It emails you a warning",
+        ],
+        answer: 1,
+        explain:
+          "NIST SP 800-63B calls this phishing resistance: the authenticator checks the site's real address for you, so a fake page gets nothing.",
+      },
+      {
+        q: "Your password manager won't auto-fill on a login page you expected. What's the likely reason?",
+        options: [
+          "The site is faster than usual",
+          "The domain doesn't match the saved entry — it may be a fake",
+          "Your password expired",
+          "You need to disable HTTPS",
+        ],
+        answer: 1,
+        explain: "Auto-fill matches on exact domain, so a silent failure is a useful lookalike-domain warning.",
+      },
     ],
   },
+
   {
     id: "footprint",
     title: "Audit Your Digital Footprint",
