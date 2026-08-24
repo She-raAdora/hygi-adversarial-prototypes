@@ -38,7 +38,12 @@ const SOURCES = [
     label: "CISA — Resources for High-Risk Communities",
     href: "https://www.cisa.gov/audiences/high-risk-communities",
   },
+  {
+    label: "NIST SP 800-63B — Digital Identity Guidelines: Authentication",
+    href: "https://pages.nist.gov/800-63-3/sp800-63b.html",
+  },
 ];
+
 
 export function LessonSources() {
   const [open, setOpen] = useState(false);
