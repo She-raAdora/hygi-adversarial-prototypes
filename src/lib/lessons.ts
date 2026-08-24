@@ -15,6 +15,18 @@ export type Lesson = {
   quiz: QuizQ[];
   /** Why learning this lesson is urgent — shown when the badge is earned. */
   urgency?: string;
+  /** Authoritative references, shown in the expandable "Evidence behind this lesson" panel. */
+  sources?: LessonSource[];
+  /** Optional interactive exercise rendered after the lesson body. */
+  interactive?: "five-door-reset";
+};
+
+export type LessonSource = {
+  org: string;
+  title: string;
+  url: string;
+  /** What this source backs up, in one short phrase. */
+  note?: string;
 };
 
 const rawLessons: Lesson[] = [
@@ -177,26 +189,28 @@ const rawLessons: Lesson[] = [
         ],
       },
       {
-        heading: "Watch for breaches",
-        body: "Sign up for breach notifications on services like Have I Been Pwned to know the moment your email shows up in a leak.",
+        heading: "Watch for breaches — a smoke detector, not a certificate",
+        body: "Have I Been Pwned lets you check whether an email address appears in known breach data. Two things worth knowing: finding your email in a breach does not automatically mean someone currently controls your account, and not finding it does not prove your information has never been exposed. Think of a breach-checking tool as a smoke detector, not a certificate that everything is safe.",
         tips: [
-          "Subscribe to HIBP notifications.",
+          "Subscribe to breach notifications so you hear about new leaks early.",
+          "If a breached password was reused anywhere, change those accounts first.",
+          "Turn on breach monitoring in your password manager or browser too.",
           "Make WHOIS info private if you own a domain.",
-          "Rotate passwords on any breached account immediately.",
         ],
       },
     ],
     quiz: [
       {
-        q: "What does Have I Been Pwned do?",
+        q: "Your email appears in a known data breach. What does this definitely mean?",
         options: [
-          "Generates passwords",
-          "Tells you if your email appears in a known data breach",
-          "Blocks ads",
-          "Hides your IP",
+          "Criminals currently control your email",
+          "Information associated with your email appeared in known breach data",
+          "Your bank account has been compromised",
+          "You must delete your email account",
         ],
         answer: 1,
-        explain: "HIBP cross-references your email against leaked breach databases.",
+        explain:
+          "It means your address showed up in a leaked dataset — useful early warning, not proof of a takeover. Prioritize changing any password you reused elsewhere.",
       },
       {
         q: "Why set up a Google Alert for your name?",
@@ -226,124 +240,171 @@ const rawLessons: Lesson[] = [
     id: "accounts",
     title: "Protect Your Accounts",
     emoji: "🔐",
-    tagline: "Long passphrases + phishing-resistant MFA",
+    tagline: "Unique. Layered. Recoverable.",
     intro:
-      "NIST Special Publication 800-63B — the U.S. government's Digital Identity Guidelines for authentication — quietly overturned a lot of old password advice. Length beats complexity, forced monthly changes do more harm than good, and not every second factor is equal. Here's what the standard actually says, translated for everyday accounts.",
+      "Good digital hygiene means building a few protective habits that stay useful even as the technology changes. For accounts, the whole idea fits into three words. Unique: important accounts don't share a password. Layered: use the strongest practical sign-in the service offers. Recoverable: keep a safe way for you — the real owner — to get back in.",
     sections: [
       {
-        heading: "Length beats complexity",
-        body: "NIST 800-63B tells services to accept passwords of at least 8 characters and to allow at least 64, including spaces and any printable character. It explicitly recommends against forcing arbitrary mixes of uppercase, symbols, and digits, because those rules push people toward predictable patterns like 'Password1!'. A long passphrase of unrelated words is stronger and easier to remember.",
+        heading: "One account. One lock.",
+        body: "Reusing a password means a break-in somewhere unimportant can become a problem somewhere that matters. Criminals use automated systems to try stolen email-and-password combinations on other websites — this is called credential stuffing. So a password exposed at one company can threaten your other accounts if you reused it. The fix isn't heroic: it's one lock per door.",
         tips: [
-          "Aim for 15+ characters; use a passphrase of several unrelated words.",
-          "Spaces and emoji are valid characters — use them if the site allows.",
-          "Never reuse a password; one breach becomes many (credential stuffing).",
-          "Let a password manager generate and store the long random ones for you.",
+          "Give every important account a credential used nowhere else.",
+          "Where a service offers a passkey, consider it instead of relying only on a reusable password.",
+          "Adding a “1” or “!” to the end does not make it a different password.",
+          "Start with email, banking, and your password manager — then work outward.",
         ],
       },
       {
-        heading: "Stop rotating passwords for no reason",
-        body: "The standard says verifiers should NOT require periodic password changes, and should not use password hints or knowledge-based questions like your mother's maiden name. Change a password when there is evidence it was compromised — not on a calendar. Routine rotation just makes people increment a number on the end.",
+        heading: "Long. Unique. Never reused.",
+        body: "Password strength is mostly about length and uniqueness, not about forcing in an uppercase letter, a digit, and a symbol. Composition rules push people toward predictable patterns, and calendar-based changes every 30, 60, or 90 days mostly produce a bumped number on the end. Current NIST guidance asks services to drop both, and to screen new passwords against lists of previously breached ones instead.",
         tips: [
-          "Change a password immediately if it appears in a breach.",
-          "Skip 'security questions' — or answer them with random stored strings.",
-          "Turn on breach monitoring in your password manager or browser.",
-          "Don't store password hints anywhere.",
+          "If you create a password yourself, make it long and unique — aim for at least 15 characters.",
+          "A passphrase of several unrelated words is easy to remember and long by nature.",
+          "Change a password when there's a reason — suspected compromise, a breach notice, or a policy that requires it — not on a schedule.",
+          "Skip security questions where you can, or answer them with random text stored in your password manager.",
         ],
       },
       {
-        heading: "Blocklists, not arbitrary rules",
-        body: "Good services check new passwords against a blocklist of previously breached, dictionary, and context-specific values (the site's own name, your username) and reject matches. You can apply the same test yourself before you commit to a password.",
+        heading: "What a password manager actually does",
+        body: "A password manager generates and stores different passwords for your accounts so you do not have to memorize dozens of unrelated passwords. For most accounts, letting a reputable manager generate a long, random, unique password is easier and safer than inventing one yourself. It also fills passwords only on the matching website, which quietly catches some lookalike pages.",
         tips: [
-          "Check candidate passwords against a breach service like Have I Been Pwned.",
-          "Avoid the service name, your name, or your email in the password.",
-          "Avoid keyboard walks (qwerty, 1q2w3e) and repeated characters.",
+          "Look for one that works across your devices and generates unique passwords.",
+          "It should support secure sync, MFA on the vault itself, and passkeys where available.",
+          "Check that its recovery options make sense to you before you rely on it.",
+          "The best one is the one you will realistically use every day.",
         ],
       },
       {
-        heading: "Authenticators and assurance levels",
-        body: "800-63B ranks authentication into Authenticator Assurance Levels. AAL1 is a single factor; AAL2 requires two distinct factors; AAL3 requires a hardware-based, phishing-resistant authenticator. The standard restricts SMS and voice one-time codes as 'restricted' authenticators because the phone number can be hijacked via SIM swap or intercepted. Passkeys and security keys bind the login to the real website domain, so a fake site can't replay them.",
+        heading: "What is a passkey?",
+        body: "A passkey lets your device prove that you are authorized to enter an account without requiring you to type a reusable password into the website. You may unlock a passkey using your fingerprint, face, device PIN, or another device-level method. Passkeys are designed to resist many common phishing attacks, because the important credential is tied to the legitimate service rather than something you type into a convincing fake login page. Passwords haven't disappeared — most of us live in a mixed environment of passwords, password managers, passkeys, authenticator apps, device approvals, security keys, and SMS codes.",
         tips: [
-          "Use passkeys or a hardware security key on email, banking, and work accounts.",
-          "An authenticator app beats SMS; SMS still beats nothing.",
-          "Two factors must be different types: something you have plus something you know or are.",
-          "Store backup codes offline or in a separate vault — never in the account they protect.",
+          "Hygi Habit: if an important account offers a passkey, don't dismiss it just because it's unfamiliar — read what the service is offering and decide whether it suits you.",
+          "Keep a screen lock on any device that holds passkeys.",
+          "Set up a second sign-in method so a lost device doesn't lock you out.",
+          "A passkey is not just another password — there is nothing reusable to type or hand over.",
         ],
       },
       {
-        heading: "Recovery is part of authentication",
-        body: "Recovery paths are a back door around everything above: if an attacker can reset your password, your MFA barely matters. NIST treats account recovery and re-binding of authenticators as part of the authentication lifecycle, and CISA's Project Upskill makes the same point for individuals.",
+        heading: "The MFA ladder: pick the strongest practical rung",
+        body: "Strongest practical protection: passkeys or FIDO/WebAuthn security keys — these are designed to resist phishing because authentication is connected to the legitimate service. Strong: authenticator apps and secure device-approval methods — substantially more protection than a password alone, though manually entered one-time codes can still be stolen through phishing. Better than a password alone: SMS/text verification — real protection compared with password-only login, but more vulnerable than phishing-resistant methods. If a stronger practical method is offered, consider using it.",
         tips: [
-          "Protect your primary email first — it unlocks every other account.",
-          "Remove old recovery phone numbers and addresses you no longer control.",
-          "Register at least two authenticators so losing one doesn't lock you out.",
-          "Re-check recovery settings after every phone or job change.",
+          "Turn on the strongest option each service actually supports.",
+          "Never turn SMS codes off if the alternative is password-only sign-in.",
+          "Manually typed authenticator codes are strong, but they are not phishing-resistant.",
+          "No method makes an account unhackable — layers reduce risk substantially, and that's the goal.",
         ],
+      },
+      {
+        heading: "A verification code is a key.",
+        body: "A code sent to you is for you to enter — not for a stranger to collect. Say you get a call claiming to be from your bank, and during the call a six-digit code appears on your phone; the caller asks you to read it aloud. That is the moment to stop. Do not provide the code. End the incoming communication and contact the bank yourself using a number or app you already trust. Pause. Leave the message. Verify.",
+        tips: [
+          "Only enter a code into a page or app you opened yourself.",
+          "No legitimate representative needs you to read a code back to them.",
+          "If a login-approval prompt appears and you did not start a login, do not approve it just to make it stop.",
+          "Repeated unexpected prompts (MFA fatigue) usually mean someone has your password — change it from a trusted device.",
+        ],
+      },
+      {
+        heading: "Your master key account",
+        body: "Your primary email account may be used to reset passwords for many other services. That makes it one of the most important accounts to protect. Your primary email password should never be reused anywhere else.",
+        tips: [
+          "Give it a unique credential, and add a passkey if the provider offers one and it suits you.",
+          "Turn on the strongest MFA it supports.",
+          "Keep the recovery phone and recovery email current, and save any recovery codes it offers.",
+          "Read unexpected sign-in alerts instead of dismissing them — check the account through the app, not the alert's link.",
+        ],
+      },
+    ],
+    interactive: "five-door-reset",
+    sources: [
+      {
+        org: "NIST",
+        title: "SP 800-63B-4: Digital Identity Guidelines — Authentication and Authenticator Management (July 2025)",
+        url: "https://pages.nist.gov/800-63-4/sp800-63b.html",
+        note: "Password length over composition rules, no scheduled changes, breach blocklists, phishing resistance, authenticator and recovery management.",
+      },
+      {
+        org: "NIST",
+        title: "Cybersecurity consumer guidance: passwords, password managers, passkeys and MFA",
+        url: "https://www.nist.gov/cybersecurity",
+        note: "Plain-language consumer framing for long passwords, managers and multifactor sign-in.",
+      },
+      {
+        org: "CISA",
+        title: "Implementing Phishing-Resistant MFA",
+        url: "https://www.cisa.gov/sites/default/files/publications/fact-sheet-implementing-phishing-resistant-mfa-508c.pdf",
+        note: "Relative strength of FIDO/WebAuthn, authenticator apps and SMS.",
+      },
+      {
+        org: "CISA",
+        title: "Secure Our World — Use Strong Passwords and Turn On MFA",
+        url: "https://www.cisa.gov/secure-our-world",
+        note: "The consumer habits this lesson is built around.",
       },
     ],
     quiz: [
       {
-        q: "According to NIST SP 800-63B, what matters most in a password?",
+        q: "Your bank offers these authentication choices. Which provides the strongest protection against traditional phishing?",
         options: [
-          "A mix of uppercase, symbols, and digits",
-          "Length — longer passphrases beat complexity rules",
-          "Changing it every 30 days",
-          "A memorable hint stored with it",
+          "Password only",
+          "Password + SMS code",
+          "Password + manually entered authenticator code",
+          "A passkey or FIDO security key",
         ],
-        answer: 1,
+        answer: 3,
         explain:
-          "NIST recommends allowing long passphrases (up to 64+ characters) and advises against forced composition rules, which push people toward predictable patterns.",
+          "Passkeys and FIDO security keys are designed to provide phishing-resistant authentication. SMS and authenticator codes still provide important protection, but they can be vulnerable to some forms of phishing.",
       },
       {
-        q: "What does NIST say about periodic (calendar-based) password changes?",
+        q: "You receive an unexpected call claiming to be from your bank. A six-digit verification code appears on your phone, and the caller asks you to read it aloud. What should you do?",
         options: [
-          "Require them monthly",
-          "Require them yearly",
-          "Don't require them — change only on evidence of compromise",
-          "Only for admins",
+          "Read the code, because the bank sent it",
+          "Give only the first three digits",
+          "End the call and contact the bank through a trusted channel",
+          "Ask the caller to tell you your account number first",
         ],
         answer: 2,
         explain:
-          "Forced rotation leads to small predictable tweaks. Change a password when there's evidence it was breached.",
+          "A verification code is a key. Don't give unexpected callers verification codes. Pause, leave the communication, and verify independently.",
       },
       {
-        q: "Why does 800-63B treat SMS one-time codes as a 'restricted' authenticator?",
+        q: "If you're creating a password yourself, what matters most?",
         options: [
-          "They cost money to send",
-          "Phone numbers can be SIM-swapped or the code intercepted",
-          "They expire too quickly",
-          "They only work on iPhones",
+          "A mix of uppercase, symbols, and digits",
+          "Making it long and unique — aim for at least 15 characters",
+          "Changing it every 90 days",
+          "A memorable hint saved alongside it",
         ],
         answer: 1,
         explain:
-          "Out-of-band SMS relies on the phone network, which is vulnerable to SIM swapping and interception — usable, but the weakest common second factor.",
+          "Length and uniqueness carry the weight. Current NIST guidance asks services to drop forced composition rules, which push people toward predictable patterns.",
       },
       {
-        q: "Which authenticator is phishing-resistant, as required at the highest assurance level (AAL3)?",
+        q: "Which statement about SMS text codes is accurate?",
         options: [
-          "A security key or passkey bound to the site's domain",
-          "A security question",
-          "An emailed magic link",
-          "A six-digit code read over the phone",
+          "SMS is the strongest form of MFA",
+          "SMS is useless and should be switched off",
+          "SMS is better than password-only login, but weaker than phishing-resistant methods",
+          "SMS codes cannot be phished",
         ],
-        answer: 0,
+        answer: 2,
         explain:
-          "Passkeys and hardware security keys verify the real domain, so a lookalike phishing site cannot replay the login.",
+          "Text codes add real protection over a password alone. If the service offers something stronger and practical, prefer it — but don't disable SMS if the alternative is no second factor at all.",
       },
       {
-        q: "What should a good service do with a newly chosen password?",
+        q: "Why is your primary email described as your “master key account”?",
         options: [
-          "Store a hint for you",
-          "Check it against a blocklist of breached and dictionary passwords",
-          "Force a symbol into it",
-          "Truncate it to 12 characters",
+          "It stores your passwords",
+          "It can be used to reset the passwords of many other services",
+          "It's the only account with encryption",
+          "Email providers never get breached",
         ],
         answer: 1,
         explain:
-          "800-63B tells verifiers to screen new passwords against breached, dictionary, and context-specific values instead of imposing arbitrary composition rules.",
+          "Password resets usually land in email, so whoever controls that inbox can reach a lot of other accounts. Give it a unique credential, the strongest practical MFA, and current recovery details.",
       },
     ],
   },
-
   {
     id: "devices",
     title: "Protect Your Devices",
@@ -854,56 +915,105 @@ const rawLessons: Lesson[] = [
   },
   {
     id: "shield-accounts",
-    title: "Shield Your Accounts",
-    emoji: "🔐",
-    tagline: "Harden the accounts harassers try first",
+    title: "Lock Down Account Access",
+    emoji: "🗝️",
+    tagline: "A login can be strong while recovery is weak",
     intro:
-      "Attackers usually start with your accounts. A few settings changes make it dramatically harder for anyone to take them over or use them to reach you.",
+      "Protecting your accounts is about how you prove who you are. This lesson is about everything that surrounds that: recovery details, saved sessions, old devices, connected apps, and dormant accounts. A login can be strong while the recovery process is weak — and attackers know it.",
     sections: [
       {
-        heading: "Lock down logins",
-        body: "Assume every password will eventually leak. Layered protection is what actually keeps accounts yours.",
+        heading: "Strong locks need a safe spare key",
+        body: "Strong security should not accidentally leave the legitimate account owner permanently locked out. Recovery codes are emergency spare keys: store them somewhere secure that you could still reach if your primary device were unavailable. There's no single right place for everyone — a password manager, a printed copy in a safe, or a locked drawer can all work, as long as it isn't inside the account they unlock.",
         tips: [
-          "Turn on multi-factor auth everywhere — prefer an authenticator app over SMS.",
-          "Use a password manager and unique passwords for every account.",
-          "Review active sessions and sign out unknown devices.",
-          "Log out of email and social apps on shared or mobile devices when you're done.",
+          "Ask yourself: is my recovery phone number still correct, and is my recovery email still accessible?",
+          "Is that recovery email itself protected with a unique credential and strong MFA?",
+          "Did this service give me backup or recovery codes — and do I know where they are?",
+          "What happens if I lose my phone? Register a second method, or a backup security key, before you need it.",
         ],
       },
       {
-        heading: "Cut off the side doors",
-        body: "Recovery flows, connected apps, and old accounts are common ways in.",
+        heading: "Sessions, devices, and connected apps",
+        body: "Most services keep a list of everywhere you're currently signed in, plus every app you once granted access. Old laptops, borrowed tablets, and forgotten third-party tools stay logged in long after you've moved on.",
         tips: [
-          "Set a strong PIN or passcode on your phone number with your carrier.",
-          "Update recovery email and phone — remove any you no longer control.",
-          "Revoke third-party apps you no longer use.",
-          "Delete inactive accounts so they can't be hijacked and used against you.",
+          "Review active sessions and sign out anything you don't recognize.",
+          "Remove devices you no longer own or use.",
+          "Revoke third-party apps and permissions you no longer need.",
+          "Check for unfamiliar activity — new logins, new locations, changed settings.",
         ],
+      },
+      {
+        heading: "Close the side doors",
+        body: "A few quiet settings can hand over your account without touching your password. Email forwarding rules can copy your mail elsewhere. A phone number taken over in a SIM swap can intercept text codes and recovery calls. Dormant accounts you've forgotten can still be taken over and used against you.",
+        tips: [
+          "Check your email account for forwarding rules and filters you didn't create.",
+          "Ask your mobile carrier to add a PIN or port-out lock to your number.",
+          "Delete accounts you no longer use, especially ones tied to your main email.",
+          "Where a service offers phishing-resistant sign-in, it also reduces how much rides on your phone number.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        org: "NIST",
+        title: "SP 800-63B-4: Digital Identity Guidelines — Authentication and Authenticator Management (July 2025)",
+        url: "https://pages.nist.gov/800-63-4/sp800-63b.html",
+        note: "Account recovery and re-binding authenticators as part of the authentication lifecycle.",
+      },
+      {
+        org: "CISA",
+        title: "Project Upskill — securing accounts and devices for high-risk individuals",
+        url: "https://www.cisa.gov/audiences/high-risk-communities/project-upskill",
+        note: "Sessions, connected apps, SIM-swap risk and recovery hardening.",
       },
     ],
     quiz: [
       {
-        q: "Which MFA option is most resistant to SIM-swap attacks?",
-        options: ["SMS text codes", "Authenticator app or security key", "Email only", "No MFA"],
-        answer: 1,
-        explain: "Authenticator apps and hardware keys aren't tied to your phone number.",
-      },
-      {
-        q: "Why call your mobile carrier to add a PIN?",
+        q: "Why can an account with strong MFA still be taken over?",
         options: [
-          "It speeds up your data",
-          "It helps prevent SIM-swap account takeovers",
-          "It hides your number",
-          "It's required to receive MFA texts",
+          "MFA expires after a year",
+          "A weak or outdated recovery path can bypass the login entirely",
+          "Passwords always leak eventually",
+          "Sign-in alerts turn MFA off",
         ],
         answer: 1,
-        explain: "A carrier PIN makes it harder for someone to port your number and steal MFA codes.",
+        explain:
+          "Recovery is a back door around your login. If someone can reset access using an old phone number or an unprotected backup email, the strength of the front door matters much less.",
       },
       {
-        q: "What should you do with an old social account you no longer use?",
-        options: ["Leave it public", "Delete it", "Share the login", "Reuse the password elsewhere"],
+        q: "Where should recovery codes be stored?",
+        options: [
+          "Inside the account they unlock",
+          "Somewhere secure you could still reach if your primary device were unavailable",
+          "In a public cloud album",
+          "Nowhere — memorize them",
+        ],
         answer: 1,
-        explain: "Inactive accounts are easy takeover targets — delete them.",
+        explain:
+          "Recovery codes are emergency spare keys. A password manager, a printed copy in a safe place, or another secure spot all work — as long as it isn't locked behind the very account they're for.",
+      },
+      {
+        q: "What is a SIM swap?",
+        options: [
+          "Switching mobile carriers",
+          "An attempt to take control of your phone number, which can affect text codes and recovery",
+          "Upgrading to a new phone",
+          "A type of password reset email",
+        ],
+        answer: 1,
+        explain:
+          "If someone takes over your number, text-message codes and phone-based recovery can go to them. A carrier PIN or port-out lock makes that harder.",
+      },
+      {
+        q: "You find an email forwarding rule you didn't create. What does it suggest?",
+        options: [
+          "A normal provider feature",
+          "Someone may have had access and set up a way to keep reading your mail",
+          "Your inbox is full",
+          "Your MFA is working",
+        ],
+        answer: 1,
+        explain:
+          "Unexpected forwarding rules and filters are a common leave-behind after account access. Remove them, change the password from a trusted device, and review sessions and connected apps.",
       },
     ],
   },
@@ -1075,7 +1185,7 @@ const rawLessons: Lesson[] = [
         tips: [
           "Make passwords long, random, and unique — never reused.",
           "Add MFA to email, financial, social, cloud-storage, and work accounts first.",
-          "Prefer passkeys or security keys where offered.",
+          "Prefer passkeys or security keys where offered; an authenticator app next; SMS still beats password-only.",
           "Turn on automatic updates and replace gear that no longer gets security support.",
         ],
       },
@@ -1523,9 +1633,9 @@ const LESSON_URGENCY: Record<string, string> = {
   "safe-browsing":
     "Scams are the single most common way people lose money online. Fake bank, delivery, toll, tax, job, romance, and tech-support messages arrive every week, and AI now makes them read and sound convincing. Learning to stop, leave the message, and verify another way protects you more than any setting on your phone.",
   accounts:
-    "Your email is the master key to almost everything else — whoever controls it can reset your other passwords. Turning on multifactor authentication and using unique, long passwords from a password manager blocks the overwhelming majority of account takeovers, and a single reused password from an old breach is all an attacker needs.",
+    "Unique. Layered. Recoverable. Your email is the master key to almost everything else — whoever controls it can reset your other passwords. Turning on multifactor authentication and using unique, long passwords from a password manager blocks the overwhelming majority of account takeovers, and a single reused password from an old breach is all an attacker needs.",
   "shield-accounts":
-    "Attackers go straight for your highest-value accounts: email, banking, Apple/Google/Microsoft, social, health, and government. Hardening those five or six first, with passkeys or an authenticator app instead of SMS, closes the door before anyone tries it.",
+    "A login can be strong while the recovery process is weak. Old recovery phone numbers, forgotten sessions, stale connected apps, and dormant accounts are how takeovers actually happen — and each one takes a minute to fix.",
   "ai-phishing":
     "A familiar name, logo, voice, or photo is no longer proof of identity. Cloned voices and deepfaked video are already being used to request urgent payments, gift cards, crypto, and verification codes. Verifying money and sensitive information through a number you look up yourself is what stops these losses.",
   devices:
