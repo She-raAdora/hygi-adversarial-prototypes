@@ -40,6 +40,27 @@ const quickLinks = [
   { to: "/lessons", label: "View the curriculum", icon: ShieldCheck },
 ] as const;
 
+const pitchFiles = [
+  {
+    href: "/pitch/Hygi_Pitch_Deck_v2.pdf",
+    label: "Pitch deck (v2)",
+    hint: "12-slide PDF",
+    icon: Presentation,
+  },
+  {
+    href: "/pitch/Hygi_One_Pager_v2.pdf",
+    label: "One-pager (v2)",
+    hint: "Executive summary PDF",
+    icon: FileText,
+  },
+  {
+    href: "/pitch/Hygi_Talk_Track_v2.md",
+    label: "Talk track (v2)",
+    hint: "Markdown speaker notes",
+    icon: Mic,
+  },
+] as const;
+
 function Stat({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
     <div className="rounded-2xl border border-border bg-card p-5">
