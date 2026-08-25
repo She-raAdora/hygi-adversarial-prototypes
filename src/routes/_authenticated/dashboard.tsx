@@ -145,6 +145,38 @@ function DashboardPage() {
         ))}
       </ul>
 
+      <h2 className="mt-14 text-xl font-semibold tracking-tight">Pitch bundle</h2>
+      <p className="mt-2 text-sm text-muted-foreground">
+        Latest version, matching the modernized 22-lesson curriculum and NIST/CISA sourcing.
+      </p>
+      <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+        {pitchFiles.map(({ href, label, hint, icon: Icon }) => (
+          <li key={href}>
+            <a
+              href={href}
+              download
+              className="flex items-start gap-3 rounded-2xl border border-border bg-card p-4 text-sm font-medium transition-colors hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              <span
+                aria-hidden="true"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl"
+                style={{ background: "var(--gradient-soft)" }}
+              >
+                <Icon className="h-4 w-4" />
+              </span>
+              <span>
+                {label}
+                <span className="mt-0.5 block text-xs font-normal text-muted-foreground">
+                  {hint}
+                </span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+
+
       <p className="mt-12 flex items-center gap-2 text-xs text-muted-foreground">
         <ScanSearch className="h-3.5 w-3.5" aria-hidden="true" />
         Learner progress is stored on each device, so per-user quiz data isn't visible here.
