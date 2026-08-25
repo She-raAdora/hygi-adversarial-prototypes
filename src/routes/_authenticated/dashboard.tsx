@@ -1,7 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { BarChart3, Inbox, Link2, ScanSearch, Settings, ShieldCheck, Users } from "lucide-react";
+import {
+  BarChart3,
+  FileText,
+  Inbox,
+  Link2,
+  Mic,
+  Presentation,
+  ScanSearch,
+  Settings,
+  ShieldCheck,
+  Users,
+} from "lucide-react";
 
 import { getSiteStats } from "@/lib/dashboard.functions";
 import { lessons } from "@/lib/lessons";
@@ -38,6 +49,27 @@ const quickLinks = [
   { to: "/admin", label: "Manage admin access", icon: Users },
   { to: "/settings", label: "Email preferences", icon: Settings },
   { to: "/lessons", label: "View the curriculum", icon: ShieldCheck },
+] as const;
+
+const pitchFiles = [
+  {
+    href: "/pitch/Hygi_Pitch_Deck_v2.pdf",
+    label: "Pitch deck (v2)",
+    hint: "12-slide PDF",
+    icon: Presentation,
+  },
+  {
+    href: "/pitch/Hygi_One_Pager_v2.pdf",
+    label: "One-pager (v2)",
+    hint: "Executive summary PDF",
+    icon: FileText,
+  },
+  {
+    href: "/pitch/Hygi_Talk_Track_v2.md",
+    label: "Talk track (v2)",
+    hint: "Markdown speaker notes",
+    icon: Mic,
+  },
 ] as const;
 
 function Stat({ label, value, hint }: { label: string; value: string; hint?: string }) {
@@ -144,6 +176,38 @@ function DashboardPage() {
           </li>
         ))}
       </ul>
+
+      <h2 className="mt-14 text-xl font-semibold tracking-tight">Pitch bundle</h2>
+      <p className="mt-2 text-sm text-muted-foreground">
+        Latest version, matching the modernized 22-lesson curriculum and NIST/CISA sourcing.
+      </p>
+      <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+        {pitchFiles.map(({ href, label, hint, icon: Icon }) => (
+          <li key={href}>
+            <a
+              href={href}
+              download
+              className="flex items-start gap-3 rounded-2xl border border-border bg-card p-4 text-sm font-medium transition-colors hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              <span
+                aria-hidden="true"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl"
+                style={{ background: "var(--gradient-soft)" }}
+              >
+                <Icon className="h-4 w-4" />
+              </span>
+              <span>
+                {label}
+                <span className="mt-0.5 block text-xs font-normal text-muted-foreground">
+                  {hint}
+                </span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+
 
       <p className="mt-12 flex items-center gap-2 text-xs text-muted-foreground">
         <ScanSearch className="h-3.5 w-3.5" aria-hidden="true" />
