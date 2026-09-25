@@ -1282,6 +1282,102 @@ const rawLessons: Lesson[] = [
     ],
   },
   {
+    id: "image-based-abuse-response",
+    title: "When an Intimate Image Is Shared Without Consent",
+    emoji: "🫶",
+    tagline: "This is not your fault — here is what to do next",
+    intro:
+      "Image-based abuse happens when someone creates, shares, or threatens to share an intimate image without the depicted person's permission. It can involve a real image, a digitally altered image, an AI-generated deepfake, or something once shared privately. The abuse is not your fault, and you do not have to handle it alone. [1]",
+    sections: [
+      {
+        heading: "First, protect your safety",
+        body: "People may use intimate images for humiliation, coercive control, revenge, or financial extortion. If someone might monitor your phone, accounts, or email, use a safer device and an account they cannot access. Do not confront the person if that could put you in danger. [1]",
+        tips: [
+          "Move to a safer device or ask a trusted person to help if your device may be monitored.",
+          "Tell someone you trust; you deserve practical and emotional support.",
+          "If you face an immediate physical threat, contact local emergency services.",
+          "Do not pay, send more images, or give the person access to an account or device.",
+        ],
+      },
+      {
+        heading: "Preserve only what you need",
+        body: "Keep enough information to support a report without spreading the image further. Record the page URL, platform, account name, date and time, threats or demands, and later the removal-request date and confirmation number. [1]",
+        tips: [
+          "Save the URL, username, timestamps, and relevant messages.",
+          "Keep the platform's confirmation or case number.",
+          "Do not repost the image to explain what happened.",
+          "Never download, forward, or redistribute an intimate image of a minor.",
+        ],
+      },
+      {
+        heading: "Report it and start the 48-hour clock",
+        body: "Federal protections cover authentic intimate images, digitally altered images, and AI-generated deepfakes. Covered platforms must offer a removal process. After a valid request, the platform must remove the reported content and make reasonable efforts to remove known identical copies within 48 hours. This applies to the covered platform receiving the request; it cannot guarantee that every copy disappears from the internet. [1, 2, 3]",
+        tips: [
+          "Use the platform's official reporting option or help center.",
+          "Choose the closest reason: nonconsensual intimate image, sexual exploitation, or AI-generated sexual content.",
+          "Save the confirmation and note the exact time the platform received your request.",
+          "A trusted person can report on your behalf with your permission.",
+        ],
+      },
+      {
+        heading: "Escalate when the platform does not act",
+        body: "Report the platform at TakeItDown.ftc.gov if it does not remove the image and known identical copies within 48 hours, has no removal process, has a broken reporting system, or requires an account before accepting a request. The FTC portal records a platform-compliance complaint; it does not remove the image itself. [2, 3]",
+        tips: [
+          "For an adult depicted in the image, StopNCII.org can create a digital fingerprint to help participating platforms detect copies.",
+          "If the person was under 18 when the image was taken, use NCMEC's Take It Down service and, when appropriate, the CyberTipline.",
+          "These hashing tools create a digital fingerprint without requiring the image itself to leave the device.",
+          "For threats or blackmail, preserve the messages, stop responding when safe, and report the conduct to law enforcement.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        org: "Federal Trade Commission",
+        title: "Image-Based Abuse: What To Know and Do",
+        url: "https://consumer.ftc.gov/articles/image-based-abuse-what-know-and-do",
+        note: "Published May 19, 2026. Trauma-informed response steps and help resources.",
+      },
+      {
+        org: "Federal Trade Commission",
+        title: "What will the FTC's enforcement of the TAKE IT DOWN Act mean for you?",
+        url: "https://consumer.ftc.gov/consumer-alerts/2026/05/what-will-ftcs-enforcement-take-it-down-act-mean-you",
+        note: "Published May 19, 2026. Coverage, the 48-hour rule, and FTC reporting.",
+      },
+      {
+        org: "Federal Trade Commission",
+        title: "Complying With the Take It Down Act",
+        url: "https://www.ftc.gov/business-guidance/resources/complying-take-it-down-act",
+        note: "Published May 8, 2026. Platform notice-and-removal requirements.",
+      },
+    ],
+    quiz: [
+      {
+        q: "Someone posts an AI-generated intimate image that falsely depicts you. What should you do first?",
+        options: ["Pay the person to remove it", "Publicly repost it to explain that it is fake", "Report it to the platform and save the request confirmation", "Wait to see whether it spreads"],
+        answer: 2,
+        explain: "Federal protections include AI-generated deepfakes. Reporting promptly starts the platform's 48-hour response period.",
+      },
+      {
+        q: "What information is useful to preserve without spreading the image?",
+        options: ["The URL, username, timestamps, threats, and report confirmation", "Copies forwarded to several friends", "A public repost with the account tagged", "Only the person's display name"],
+        answer: 0,
+        explain: "URLs, account details, dates, threats, and case numbers support a report without redistributing the intimate image.",
+      },
+      {
+        q: "A covered platform has not acted 48 hours after receiving a valid removal request. What is the next step?",
+        options: ["Create a new account and post the image there", "Report the platform at TakeItDown.ftc.gov", "Pay anyone who promises instant removal", "Delete your evidence and start again"],
+        answer: 1,
+        explain: "TakeItDown.ftc.gov accepts reports about platforms that miss the deadline or fail to provide a working removal process.",
+      },
+      {
+        q: "Someone threatens to share an intimate image unless you pay. Which response is safest?",
+        options: ["Pay quickly before the deadline", "Send another image to show cooperation", "Preserve the threat, stop responding when safe, and seek trusted or official help", "Give them access to your account so they can delete it"],
+        answer: 2,
+        explain: "Paying or giving more access can deepen the abuse. Preserve the threat and bring in trusted support and law enforcement when appropriate.",
+      },
+    ],
+  },
+  {
     id: "core-four",
     title: "The Four Core Habits",
     emoji: "⭐",
@@ -1747,6 +1843,7 @@ const LESSON_ORDER: string[] = [
   "research-data",
   "recognize-harassment",
   "respond-harassment",
+  "image-based-abuse-response",
 ];
 
 /** Why each lesson matters right now — shown with the earned badge. */
