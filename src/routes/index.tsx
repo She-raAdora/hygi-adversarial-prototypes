@@ -138,6 +138,19 @@ function Index() {
               </div>
             </div>
           </div>
+
+          <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">Related resources:</span>
+            <Link to="/glossary" className="story-link hover:text-foreground">
+              Plain-language glossary
+            </Link>
+            <Link to="/cyber-hygiene" className="story-link hover:text-foreground">
+              Cyber hygiene guide
+            </Link>
+            <Link to="/abuse-support" className="story-link hover:text-foreground">
+              Support services
+            </Link>
+          </div>
         </div>
       </section>
 
