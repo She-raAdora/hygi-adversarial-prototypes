@@ -859,6 +859,127 @@ const rawLessons: Lesson[] = [
     ],
   },
   {
+    id: "ai-agents-guardrails",
+    title: "AI Agents Need Guardrails",
+    emoji: "🧱",
+    tagline: "Limit, approve, observe, revoke",
+    intro:
+      "A chatbot mainly gives you information. An AI agent can also take actions — reading files, sending messages, changing code, making purchases, or using connected accounts. The more an AI can access and act, the more carefully you must limit its permissions. [1, 2]",
+    sections: [
+      {
+        heading: "Access turns answers into actions",
+        body: "The important difference is authority. A normal chat cannot independently enter your accounts. Risk rises when an agent receives tools, credentials, internet access, or permission to act. In 2026, Anthropic documented four incidents in specially configured cybersecurity evaluations where models reached real external systems after an isolation failure. These were research environments running without ordinary safeguards — not everyday chatbot conversations escaping on their own. [1]",
+        tips: [
+          "Ask what the agent can read, change, send, buy, or delete.",
+          "Treat every connected account as a real permission, not a convenience toggle.",
+          "A claim such as 'read-only' does not make broad access necessary or harmless.",
+        ],
+      },
+      {
+        heading: "Use four guardrails",
+        body: "Use one rule whenever an AI can act: limit, approve, observe, revoke. OWASP identifies excessive autonomy, tool abuse, and high-impact actions without human oversight as agent risks. Its guidance calls for least privilege, explicit approval for consequential actions, monitoring, and a way to stop an agent. [2, 3]",
+        tips: [
+          "Limit: give access only to the files, accounts, and permissions needed now.",
+          "Approve: require confirmation before sending, publishing, purchasing, deleting, deploying, or changing an account.",
+          "Observe: review logs, sent messages, purchases, and account changes.",
+          "Revoke: disconnect the agent and remove temporary access when the task ends.",
+        ],
+      },
+      {
+        heading: "Share the receipt folder — not your digital life",
+        body: "Suppose an agent organizing travel receipts asks for your entire email account, cloud drive, calendar, and payment information. Do not grant broad access. Put copies of the relevant receipts in a separate folder and share only that folder. The safest permission is the smallest one that can complete the task. A 2026 NIST NCCoE draft concept paper identifies least-privilege authorization for software and AI agents as an important open challenge. [4]",
+        tips: [
+          "Do not connect a primary financial account for a receipt-organizing task.",
+          "Do not let the agent send messages or make purchases when the task needs neither.",
+          "Use a separate folder or temporary workspace when possible.",
+          "Remove access after checking the finished work.",
+        ],
+      },
+      {
+        heading: "Keep high-impact accounts behind stronger boundaries",
+        body: "Some connections can expose money, identity, health information, recovery access, or an entire organization. Do not connect them without narrow permissions, clear approval points, activity records, and a tested way to disconnect access. [2, 3]",
+        tips: [
+          "Banking and payment accounts",
+          "Password managers and primary email",
+          "Health portals and cloud-administrator accounts",
+          "Domain registrars and work systems containing personal or confidential information",
+        ],
+      },
+    ],
+    sources: [
+      {
+        org: "Anthropic",
+        title: "An alignment assessment of recent cybersecurity incidents",
+        url: "https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents",
+        note: "Published September 9, 2026. Four incidents in specially configured cybersecurity evaluations and their context.",
+      },
+      {
+        org: "OWASP Foundation",
+        title: "AI Agent Security Cheat Sheet",
+        url: "https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html",
+        note: "Least privilege, human oversight, monitoring, tool controls, and excessive autonomy risks.",
+      },
+      {
+        org: "OWASP Foundation",
+        title: "AI Security Verification Standard — Orchestration and Agentic Action",
+        url: "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md",
+        note: "Approval controls, reversibility, interruption, and high-impact agent actions.",
+      },
+      {
+        org: "NIST National Cybersecurity Center of Excellence",
+        title: "Accelerating the Adoption of Software and AI Agent Identity and Authorization",
+        url: "https://www.nccoe.nist.gov/sites/default/files/2026-02/accelerating-the-adoption-of-software-and-ai-agent-identity-and-authorization-concept-paper.pdf",
+        note: "Initial public draft, February 5, 2026. Agent identity, authorization, and least-privilege challenges.",
+      },
+    ],
+    quiz: [
+      {
+        q: "An AI agent asks for full access to your email so it can find one document. What is safest?",
+        options: [
+          "Grant access because the agent says it is read-only",
+          "Grant access and check the account afterward",
+          "Put the document in a separate folder and share only that folder",
+          "Give it your password temporarily",
+        ],
+        answer: 2,
+        explain: "Read-only access can still expose far more than the task requires. Share only the specific document or folder.",
+      },
+      {
+        q: "Which action should always require your approval?",
+        options: [
+          "Renaming files in a temporary practice folder",
+          "Sending a message, making a purchase, or deleting data",
+          "Sorting a list you already copied into the chat",
+          "Drafting a checklist without connected tools",
+        ],
+        answer: 1,
+        explain: "Externally visible, financial, destructive, and account-changing actions need explicit human approval.",
+      },
+      {
+        q: "What does 'revoke' mean in the Hygi guardrail rule?",
+        options: [
+          "Give the agent more permissions if it works well",
+          "Delete every file the agent used",
+          "Disconnect the agent and remove temporary access when the task ends",
+          "Trust the agent to disconnect itself",
+        ],
+        answer: 2,
+        explain: "Temporary access should end with the temporary task. Disconnect it and confirm the permission is gone.",
+      },
+      {
+        q: "Which set correctly states the four guardrails?",
+        options: [
+          "Connect, automate, ignore, repeat",
+          "Limit, approve, observe, revoke",
+          "Download, delegate, delete, deny",
+          "Ask, trust, share, save",
+        ],
+        answer: 1,
+        explain: "Limit access, approve important actions, observe activity, and revoke access after the task.",
+      },
+    ],
+  },
+  {
     id: "mobile",
     title: "Lock Down Your Phone",
     emoji: "📱",
@@ -1825,6 +1946,7 @@ const LESSON_ORDER: string[] = [
   "accounts",
   "shield-accounts",
   "ai-phishing",
+  "ai-agents-guardrails",
   "devices",
   "incident-plan",
   "footprint",
@@ -1858,6 +1980,8 @@ const LESSON_URGENCY: Record<string, string> = {
     "A login can be strong while the recovery process is weak. Old recovery phone numbers, forgotten sessions, stale connected apps, and dormant accounts are how takeovers actually happen — and each one takes a minute to fix.",
   "ai-phishing":
     "A familiar name, logo, voice, or photo is no longer proof of identity. Cloned voices and deepfaked video are already being used to request urgent payments, gift cards, crypto, and verification codes. Verifying money and sensitive information through a number you look up yourself is what stops these losses.",
+  "ai-agents-guardrails":
+    "An AI agent can act with every permission you give it. Narrow access, human approval, activity checks, and prompt revocation keep one task from becoming broad exposure of your messages, money, files, or accounts.",
   devices:
     "Most successful attacks exploit a flaw that was already patched. Turning on automatic updates for your operating system, browser, and apps — and replacing devices that no longer get security updates — is the highest protection for the least ongoing effort.",
   "incident-plan":

@@ -16,13 +16,13 @@ export const Route = createFileRoute("/_authenticated/settings")({
       {
         name: "description",
         content:
-          "Manage your Hygi account: control admin notification emails and permanently delete your account and all associated data.",
+          "Manage your Hygi account security, admin notification emails, and account data.",
       },
       { property: "og:title", content: "Account Settings — Hygi" },
       {
         property: "og:description",
         content:
-          "Manage your Hygi account: control admin notification emails and permanently delete your account and all associated data.",
+          "Manage your Hygi account security, admin notification emails, and account data.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://digitalhygiene.app/settings" },
@@ -130,7 +130,11 @@ function SettingsPage() {
         </p>
       </section>
 
-      {accessQuery.data?.isAdmin ? <AdminMfaSettings /> : null}
+      {accessQuery.data?.isAdmin ? (
+        <section className="mt-8 rounded-2xl border border-border/60 bg-card p-6">
+          <AdminMfaSettings />
+        </section>
+      ) : null}
 
       <p className="mt-6 text-xs text-muted-foreground">
         Security notices required to keep your account safe are always sent, regardless of this

@@ -99,7 +99,7 @@ export function AdminMfaSettings() {
   }
 
   return (
-    <section className="mt-8 border-t border-border pt-8" aria-labelledby="admin-mfa-heading">
+    <div aria-labelledby="admin-mfa-heading">
       <div className="flex items-start gap-3">
         <KeyRound className="mt-0.5 size-5 text-primary" aria-hidden="true" />
         <div>
@@ -184,6 +184,6 @@ export function AdminMfaSettings() {
       <p className="mt-3 text-sm text-destructive-strong" aria-live="polite">
         {error ?? (factorsQuery.isError ? "Authenticator status couldn't be loaded." : "")}
       </p>
-    </section>
+    </div>
   );
 }

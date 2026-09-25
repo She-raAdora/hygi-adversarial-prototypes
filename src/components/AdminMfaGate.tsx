@@ -72,6 +72,15 @@ export function AdminMfaGate({ children }: { children: React.ReactNode }) {
     );
   }
 
+  if (accessQuery.isError || (accessQuery.data?.isAdmin && mfaQuery.isError)) {
+    return (
+      <main id="main-content" className="mx-auto max-w-xl px-6 py-20">
+        <h1 className="text-2xl font-semibold">Account security check unavailable</h1>
+        <p className="mt-3 text-sm text-muted-foreground">Reload the page to try again. Admin tools remain closed until the check succeeds.</p>
+      </main>
+    );
+  }
+
   if (!needsChallenge) return children;
 
   return (
