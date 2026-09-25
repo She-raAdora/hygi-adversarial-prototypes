@@ -1408,11 +1408,11 @@ const rawLessons: Lesson[] = [
     emoji: "🫶",
     tagline: "This is not your fault — here is what to do next",
     intro:
-      "Image-based abuse happens when someone creates, shares, or threatens to share an intimate image without the depicted person's permission. It can involve a real image, a digitally altered image, an AI-generated deepfake, or something once shared privately. The abuse is not your fault, and you do not have to handle it alone. [1]",
+      "Image-based abuse happens when someone creates, shares, or threatens to share an intimate image without the depicted person's permission. It can involve a real image, a digitally altered image, an AI-generated deepfake, or something once shared privately. The abuse is not your fault, and you do not have to handle it alone. [1, 4]",
     sections: [
       {
         heading: "First, protect your safety",
-        body: "People may use intimate images for humiliation, coercive control, revenge, or financial extortion. If someone might monitor your phone, accounts, or email, use a safer device and an account they cannot access. Do not confront the person if that could put you in danger. [1]",
+        body: "People may use intimate images for humiliation, coercive control, revenge, or financial extortion. If someone might monitor your phone, accounts, or email, use a safer device and an account they cannot access. Do not confront the person if that could put you in danger. You choose which steps feel safe and manageable. [1, 4, 5, 6]",
         tips: [
           "Move to a safer device or ask a trusted person to help if your device may be monitored.",
           "Tell someone you trust; you deserve practical and emotional support.",
@@ -1469,6 +1469,27 @@ const rawLessons: Lesson[] = [
         title: "Complying With the Take It Down Act",
         url: "https://www.ftc.gov/business-guidance/resources/complying-take-it-down-act",
         note: "Published May 8, 2026. Platform notice-and-removal requirements.",
+      },
+      {
+        org: "National Domestic Violence Hotline",
+        title: "Technology-Facilitated Abuse",
+        url: "https://www.thehotline.org/resources/technology-facilitated-abuse/",
+        note:
+          "Published May 28, 2025. Defines image-based sexual abuse and sextortion as forms of technology-facilitated abuse used for power and control.",
+      },
+      {
+        org: "National Domestic Violence Hotline",
+        title: "Internet Safety for Survivors",
+        url: "https://www.thehotline.org/plan-for-safety/internet-safety/",
+        note:
+          "Survivor-centered guidance on monitored devices, safer technology use, and the limits of deleting browsing history.",
+      },
+      {
+        org: "National Domestic Violence Hotline",
+        title: "Emotional Safety Planning",
+        url: "https://www.thehotline.org/resources/emotional-safety-planning/",
+        note:
+          "Trauma-informed guidance that centers personal choice, manageable next steps, trusted support, and emotional safety.",
       },
     ],
     quiz: [
