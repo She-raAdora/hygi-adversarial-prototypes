@@ -46,7 +46,7 @@ export function SiteHeader() {
           </span>
           <span>Hygi<span className="text-primary">.</span></span>
         </Link>
-        <nav className="flex items-center gap-1 text-sm">
+        <nav className="flex max-w-[calc(100vw-7.5rem)] items-center gap-1 overflow-x-auto text-sm sm:max-w-none">
           <Link
             to="/"
             className="rounded-full px-4 py-2 text-muted-foreground transition-colors hover:text-foreground"
