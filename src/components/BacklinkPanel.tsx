@@ -163,11 +163,11 @@ export function BacklinkPanel() {
             Snapshot captured: +{capture.data.newDomains} new / −{capture.data.lostDomains} lost
             referring domains
             {capture.data.alerts
-              ? capture.data.alerts.enabled === false
-                ? " · alerting is muted"
-                : ` · ${capture.data.alerts.raised} new risk alert${
+              ? capture.data.alerts.enabled === false && capture.data.alerts.abuseEnabled === false
+                ? " · all alerting is muted"
+                : ` · ${capture.data.alerts.raised} new spam or abuse alert${
                     capture.data.alerts.raised === 1 ? "" : "s"
-                  } at threshold ${capture.data.alerts.threshold}`
+                  }`
               : ""}
             .
           </p>
@@ -405,9 +405,8 @@ export function BacklinkPanel() {
 
                 <p className="mt-4 text-xs text-muted-foreground">
                   Trusted domains and anchors are excluded from these lists. Heuristic scoring of
-                  Semrush data — throwaway TLDs, link-farm naming patterns,
-                  very low authority, and paid-link anchor phrasing. Review before disavowing
-                  anything.
+                  Semrush data checks link-farm signals separately from abuse-related language.
+                  A flag is a review prompt, not a verdict; review before disavowing anything.
                 </p>
               </div>
             ) : null}
