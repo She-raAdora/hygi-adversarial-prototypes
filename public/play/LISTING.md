@@ -3,11 +3,11 @@
 App name: Hygi. — Digital Hygiene
 
 Short description (78 chars):
-27 short lessons on digital hygiene. Quiz yourself, earn badges, stay safer.
+29 short lessons on digital hygiene. Quiz yourself, earn badges, stay safer.
 
 Full description:
-Hygi. turns digital hygiene into 27 short, readable lessons — each with a mini-quiz
-at the end. Pass the quiz and you earn a badge. Finish all 27 and you earn the
+Hygi. turns digital hygiene into 29 short, readable lessons — each with a mini-quiz
+at the end. Pass the quiz and you earn a badge. Finish all 29 and you earn the
 Digital Hygiene Champion trophy.
 
 What you learn:
