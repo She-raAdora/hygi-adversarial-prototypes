@@ -111,6 +111,11 @@ function LessonsPage() {
             ? `${pathwayOf(shown[0]?.id ?? "")?.blurb ?? ""} Showing ${shown.length} of ${lessons.length} lessons.`
             : "Pathways are just themes — pick anything that looks useful."}
         </p>
+        {filter === "response" && (
+          <Link to="/safety-response" className="mt-2 inline-block text-sm font-medium text-primary underline">
+            Track this pathway and earn its completion certificate →
+          </Link>
+        )}
       </section>
 
       <ul className="mt-8 space-y-3">
