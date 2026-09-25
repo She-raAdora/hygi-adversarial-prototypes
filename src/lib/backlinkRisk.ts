@@ -16,6 +16,9 @@ export type DomainRisk = {
   score: number;
   level: RiskLevel;
   reasons: string[];
+  abuseScore: number;
+  abuseLevel: RiskLevel;
+  abuseReasons: string[];
   trusted?: boolean;
 };
 
@@ -26,6 +29,9 @@ export type AnchorRisk = {
   score: number;
   level: RiskLevel;
   reasons: string[];
+  abuseScore: number;
+  abuseLevel: RiskLevel;
+  abuseReasons: string[];
   trusted?: boolean;
 };
 
@@ -84,6 +90,42 @@ const SPAM_ANCHOR_WORDS = [
   "free download",
   "click here",
 ];
+
+const ABUSE_TERMS: { term: string; weight: number; label: string }[] = [
+  { term: "revenge porn", weight: 90, label: "non-consensual intimate imagery" },
+  { term: "revengeporn", weight: 90, label: "non-consensual intimate imagery" },
+  { term: "nonconsensual", weight: 75, label: "non-consensual content" },
+  { term: "non consensual", weight: 75, label: "non-consensual content" },
+  { term: "sextortion", weight: 90, label: "sexual extortion" },
+  { term: "deepfake nude", weight: 90, label: "sexualized deepfake content" },
+  { term: "deepfake porn", weight: 90, label: "sexualized deepfake content" },
+  { term: "nude leak", weight: 85, label: "intimate-image leaking" },
+  { term: "leaked nude", weight: 85, label: "intimate-image leaking" },
+  { term: "doxxing", weight: 75, label: "doxxing" },
+  { term: "doxxed", weight: 75, label: "doxxing" },
+  { term: "blackmail", weight: 70, label: "blackmail" },
+  { term: "extortion", weight: 70, label: "extortion" },
+  { term: "underage", weight: 80, label: "possible child exploitation" },
+  { term: "csam", weight: 100, label: "child sexual abuse material" },
+];
+
+function scoreAbuse(value: string) {
+  const normalized = value.toLowerCase().replace(/[-_.]+/g, " ").replace(/\s+/g, " ");
+  const matches = ABUSE_TERMS.filter(({ term }) => normalized.includes(term));
+  if (!matches.length) {
+    return { score: 0, level: "low" as RiskLevel, reasons: [] as string[] };
+  }
+  const score = Math.min(
+    100,
+    Math.max(...matches.map(({ weight }) => weight)) + (matches.length - 1) * 5,
+  );
+  const labels = [...new Set(matches.map(({ label }) => label))];
+  return {
+    score,
+    level: levelFor(score),
+    reasons: labels.map((label) => `Possible ${label} signal`),
+  };
+}
 
 function levelFor(score: number): RiskLevel {
   if (score >= 60) return "high";
