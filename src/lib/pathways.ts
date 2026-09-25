@@ -1,5 +1,5 @@
 /**
- * Pathway (category) metadata layered over the existing 26 lessons.
+ * Pathway (category) metadata layered over the existing 27 lessons.
  *
  * Pathways are descriptive only — they group related topics so people can
  * browse by theme. Nothing here gates or orders access: every lesson stays

@@ -2089,7 +2089,7 @@ const rawLessons: Lesson[] = [
     emoji: "\ud83c\udfaf",
     tagline: "Test the click, not the person",
     intro:
-      "A phishing simulation is meant to measure and improve real-world resilience \u2014 not to trap or embarrass people. NIST and CISA guidance points to a scoped, non-punitive, well-documented process that stays clearly separate from a real incident.",
+      "A phishing simulation is meant to measure and improve real-world resilience — not to trap or embarrass people. NIST and CISA guidance supports a scoped, non-punitive, well-documented exercise that strengthens reporting and response. [1, 2, 3, 4]",
     sections: [
       {
         heading: "Scope it before you send anything",
@@ -2107,6 +2107,7 @@ const rawLessons: Lesson[] = [
           "Never collect real passwords, MFA codes, or other sensitive data through a simulated page.",
           "Use a harmless landing page and disable any real malicious functionality.",
           "Minimize what's logged about each person to what's needed for training metrics.",
+          "Avoid lures built around trauma, health, layoffs, immigration, or personal emergencies, and make the teaching page accessible.",
         ],
       },
       {
@@ -2120,9 +2121,9 @@ const rawLessons: Lesson[] = [
       },
       {
         heading: "Keep it separate from real incidents, and repeat it",
-        body: "CISA's guidance keeps phishing simulation, reporting, and incident response as distinct tracks: simulations measure susceptibility, while a real suspected compromise goes through incident response and escalation. Run assessments repeatedly (CISA's own service spans six weeks) so you can track improvement over time instead of judging from a single snapshot. [2, 3, 4]",
+        body: "A simulation must never weaken the response to a genuine threat: keep the real reporting channel active, brief the small response team that needs to know, and stop the exercise if it causes unexpected risk. Run assessments repeatedly (CISA's own service spans six weeks) so you can track improvement over time instead of judging from a single snapshot. [2, 3, 4]",
         tips: [
-          "Make sure your simulation platform is clearly distinguishable from real attacker infrastructure.",
+          "Make sure responders can distinguish the simulation platform from real attacker infrastructure.",
           "Give staff one unambiguous way to report anything that might be a real phishing attempt.",
           "Re-run assessments on a regular cadence and compare trends, not one-off scores.",
         ],

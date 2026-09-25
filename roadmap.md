@@ -6,3 +6,4 @@
 - [x] Add trauma-informed abuse resources page and link it from the abuse lesson
 - [x] Expand the abuse lesson evidence panel with trauma-informed sources
 - [x] Add an FTC-cited online abuse lesson with mini-quiz, badge, and pathway placement
+- [x] Add a NIST- and CISA-cited safe phishing simulations lesson with mini-quiz, badge, and pathway placement
