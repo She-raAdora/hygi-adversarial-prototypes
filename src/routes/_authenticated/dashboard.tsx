@@ -47,7 +47,7 @@ const quickLinks = [
   { to: "/insights", label: "Analytics & SEO health", icon: BarChart3 },
   { to: "/backlinks", label: "Backlink monitoring", icon: Link2 },
   { to: "/admin", label: "Manage admin access", icon: Users },
-  { to: "/settings", label: "Email preferences", icon: Settings },
+  { to: "/settings", label: "Account security", icon: Settings },
   { to: "/lessons", label: "View the curriculum", icon: ShieldCheck },
 ] as const;
 

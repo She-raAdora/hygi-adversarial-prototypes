@@ -161,7 +161,7 @@ function AdminUsers({ email, onSignOut }: { email: string | null; onSignOut: () 
             to="/settings"
             className="inline-flex items-center rounded-xl border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
-            Email settings
+            Account security
           </Link>
           <button
             type="button"

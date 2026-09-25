@@ -512,6 +512,18 @@ export const glossary: GlossaryEntry[] = [
     todo: "Treat its answer as a helpful draft, not as an authority.",
     important: "Assume anything you type into it may be stored or reviewed.",
   }),
+  entry("AI and synthetic media", "AI agent", {
+    definition: "An AI system that can use tools or connected accounts to take actions, not just answer questions.",
+    example: "An assistant that reads a receipt folder, creates an expense report, and asks before submitting it.",
+    todo: "Give it only the access needed for the current task, require approval for important actions, and disconnect it afterward.",
+    important: "An agent can act with your permissions, so broad access creates broad risk.",
+  }),
+  entry("AI and synthetic media", "Least privilege", {
+    definition: "Giving a person, app, or AI only the minimum access needed for a specific task.",
+    example: "Sharing one receipt folder instead of an entire email account and cloud drive.",
+    todo: "Choose the narrowest folder, account, and permission that can complete the task.",
+    important: "Read-only access can still expose sensitive information that the task never required.",
+  }),
   entry("AI and synthetic media", "Manipulated media", {
     definition: "Real media that has been edited, removed from context, or misleadingly presented.",
     example: "A clip cut so the moments before and after change its meaning.",
