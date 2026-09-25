@@ -1532,6 +1532,240 @@ const rawLessons: Lesson[] = [
     ],
   },
   {
+    id: "account-takeover-recovery",
+    title: "Recover From Account Takeover",
+    emoji: "🔓",
+    tagline: "Take back the door, then change the locks",
+    intro:
+      "Account takeover is when someone else gets into your email, social media, bank, or shopping account and starts acting as you. It often starts with a reused password, a phishing link, a leaked code, or a SIM swap. Your email account matters most, because it can reset the passwords to almost everything else. [1, 2]",
+    sections: [
+      {
+        heading: "Spot the signs early",
+        body: "Warning signs include password-reset emails you did not request, sign-in alerts from new places or devices, messages or posts you did not send, changed recovery details, new forwarding rules, and friends saying you asked them for money. Act on these quickly — every hour gives the intruder more time to lock you out. [1, 2]",
+        tips: [
+          "Treat an unexpected verification code as a warning: someone may be trying your password right now.",
+          "Never read a code back to someone who calls or messages you, even if they claim to be support. [3]",
+          "Check your email's sent folder and filters for things you did not create.",
+        ],
+      },
+      {
+        heading: "Take the account back",
+        body: "Use a device you trust and go to the official app or type the site address yourself — never follow a link in a 'recover your account' message. Use the provider's recovery process to reset the password. If you are locked out, the provider's official account-recovery page is the only safe route; people who offer to 'recover' accounts for a fee are often scammers. [1, 2]",
+        tips: [
+          "Change to a long, unique password or passphrase you use nowhere else. [4]",
+          "Sign out of all other sessions and devices.",
+          "Remove recovery emails, phone numbers, and connected apps you do not recognize.",
+          "If the same password was used anywhere else, change those accounts too.",
+        ],
+      },
+      {
+        heading: "Change the locks",
+        body: "Once you are back in, add multifactor authentication so a stolen password alone is not enough. Passkeys and security keys resist phishing best; an authenticator app is a strong next step; text-message codes are better than nothing. Save your recovery codes somewhere offline. [3, 4]",
+        tips: [
+          "Turn on a passkey or authenticator app for email first, then banking, then social media.",
+          "Ask your mobile carrier about a port-out or SIM lock to reduce SIM-swap risk.",
+          "Run your device's security updates and scan for malware if you clicked a suspicious link.",
+        ],
+      },
+      {
+        heading: "Limit the damage",
+        body: "Tell friends and followers through a different channel that your account was hacked and to ignore requests for money or codes. If money moved, contact your bank or payment app right away. If personal information was exposed and could be used to open accounts, follow an identity theft recovery plan at IdentityTheft.gov. [1, 5]",
+        tips: [
+          "Report fake posts or messages to the platform so it can remove them.",
+          "Report scams or money lost to ReportFraud.ftc.gov.",
+          "Keep a short log of what happened and any case or ticket numbers.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        org: "Federal Trade Commission",
+        title: "How To Recover Your Hacked Email or Social Media Account",
+        url: "https://consumer.ftc.gov/articles/how-recover-your-hacked-email-or-social-media-account",
+        note: "Warning signs, official recovery steps, and how to protect contacts after a takeover.",
+      },
+      {
+        org: "Federal Trade Commission",
+        title: "Email or Social Media Hacked? Here's What To Do",
+        url: "https://consumer.ftc.gov/consumer-alerts/2024/10/email-or-social-media-hacked-heres-what-do",
+        note: "Published October 29, 2024. Sign out other sessions, reset passwords, add multifactor, and fix recovery details.",
+      },
+      {
+        org: "CISA",
+        title: "Turn On Multifactor Authentication",
+        url: "https://www.cisa.gov/secure-our-world/turn-mfa",
+        note: "Secure Our World guidance on MFA and why phishing-resistant methods are strongest.",
+      },
+      {
+        org: "NIST",
+        title: "SP 800-63B-4: Authentication and Authenticator Management",
+        url: "https://pages.nist.gov/800-63-4/sp800-63b.html",
+        note: "Length over complexity, no forced rotation, and phishing-resistant authenticators.",
+      },
+      {
+        org: "Federal Trade Commission",
+        title: "IdentityTheft.gov",
+        url: "https://www.identitytheft.gov/",
+        note: "Official FTC identity theft reporting and personal recovery plans.",
+      },
+    ],
+    quiz: [
+      {
+        q: "You get a sign-in code you didn't request. What does it most likely mean?",
+        options: [
+          "Nothing — ignore it",
+          "Someone may have your password; change it and review sessions",
+          "Your provider is testing the system",
+          "You should reply with the code to cancel it",
+        ],
+        answer: 1,
+        explain: "An unrequested code often means someone is trying your password. Change it, sign out other sessions, and never share the code.",
+      },
+      {
+        q: "A message says 'Click here to recover your hacked account.' What's safest?",
+        options: [
+          "Click it quickly before the account is deleted",
+          "Pay the recovery fee it mentions",
+          "Go to the official app or type the site address yourself",
+          "Forward it to friends to ask what they think",
+        ],
+        answer: 2,
+        explain: "Recovery should always go through the provider's official site or app, never a link in a message.",
+      },
+      {
+        q: "After you get back in, which step does the most to stop it happening again?",
+        options: [
+          "Adding a number to the end of your old password",
+          "A unique password plus multifactor such as a passkey or authenticator app",
+          "Deleting old posts",
+          "Changing your profile picture",
+        ],
+        answer: 1,
+        explain: "A unique password and strong multifactor mean a stolen password alone can't unlock the account.",
+      },
+      {
+        q: "Your hacked account messaged friends asking for gift cards. What should you do?",
+        options: [
+          "Nothing, friends will figure it out",
+          "Warn them through a different channel and report the posts",
+          "Post the hacker's messages publicly",
+          "Ask friends to send the cards to you instead",
+        ],
+        answer: 1,
+        explain: "A separate trusted channel reaches friends even if the hacker still controls the account, and reports help remove the scam.",
+      },
+    ],
+  },
+  {
+    id: "identity-theft-recovery",
+    title: "Identity Theft: Freeze, Report, Recover",
+    emoji: "🪪",
+    tagline: "Freeze your credit, report it, follow the plan",
+    intro:
+      "Identity theft is when someone uses your personal information — like your name, Social Security number, or account numbers — to open accounts, make charges, file taxes, or get benefits in your name. It is not your fault, and there is an official, step-by-step way to recover. [1, 2]",
+    sections: [
+      {
+        heading: "Know the warning signs",
+        body: "Signs include bills or collection calls for things you did not buy, unfamiliar accounts or inquiries on your credit report, missing mail, denied credit you did not expect, and a tax return rejected because one was already filed with your number. [1, 5]",
+        tips: [
+          "Read bank and card statements every month, even small charges.",
+          "Check your credit reports free at AnnualCreditReport.com. [4]",
+          "Open letters about accounts you don't recognize instead of throwing them away.",
+        ],
+      },
+      {
+        heading: "Freeze or flag your credit",
+        body: "A credit freeze stops lenders from seeing your credit report, which makes it hard to open new accounts in your name. It is free, does not affect your score, and you can lift it when you need credit. You contact each of the three bureaus — Equifax, Experian, and TransUnion — separately. A fraud alert is a lighter option that asks lenders to verify your identity; placing one with one bureau notifies the other two. [3]",
+        tips: [
+          "Freeze credit at all three bureaus, not just one.",
+          "Save the PIN or account login each bureau gives you to lift the freeze later.",
+          "Consider freezing a child's credit too — children are common identity theft targets.",
+        ],
+      },
+      {
+        heading: "Report it and get a recovery plan",
+        body: "Go to IdentityTheft.gov to report what happened. It creates an FTC Identity Theft Report and a personal recovery plan with pre-filled letters for businesses and credit bureaus. Then call the fraud departments of any company where accounts were opened or misused, and ask them to close or freeze those accounts. [2]",
+        tips: [
+          "Change passwords and add multifactor on any affected online accounts.",
+          "Ask credit bureaus to remove fraudulent accounts and inquiries using your Identity Theft Report.",
+          "Keep copies of every letter, report number, and the name of each person you speak with.",
+        ],
+      },
+      {
+        heading: "Protect your taxes and follow up",
+        body: "If someone used your Social Security number for taxes, respond to any IRS notice promptly. An IRS Identity Protection PIN is a six-digit number that helps stop anyone else from filing a return with your number; anyone who can verify their identity can get one. Keep checking credit reports and statements for a year or more, since fraud can reappear later. [5, 4]",
+        tips: [
+          "Get an IRS Identity Protection PIN at IRS.gov — it's free.",
+          "Set calendar reminders to check your credit reports every few months.",
+          "Be wary of 'recovery' services that charge fees for what IdentityTheft.gov does free.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        org: "Federal Trade Commission",
+        title: "What To Know About Identity Theft",
+        url: "https://consumer.ftc.gov/articles/what-know-about-identity-theft",
+        note: "Warning signs, protective steps, and where to report.",
+      },
+      {
+        org: "Federal Trade Commission",
+        title: "IdentityTheft.gov",
+        url: "https://www.identitytheft.gov/",
+        note: "Official FTC Identity Theft Report, personal recovery plan, and pre-filled letters.",
+      },
+      {
+        org: "Federal Trade Commission",
+        title: "Credit Freezes and Fraud Alerts",
+        url: "https://consumer.ftc.gov/articles/what-know-about-credit-freezes-and-fraud-alerts",
+        note: "Free credit freezes at each bureau and how fraud alerts differ.",
+      },
+      {
+        org: "Federal Trade Commission",
+        title: "Free Credit Reports",
+        url: "https://consumer.ftc.gov/articles/free-credit-reports",
+        note: "Checking reports free through AnnualCreditReport.com.",
+      },
+      {
+        org: "Internal Revenue Service",
+        title: "Get an Identity Protection PIN",
+        url: "https://www.irs.gov/identity-theft-fraud-scams/get-an-identity-protection-pin",
+        note: "Six-digit IP PIN that helps prevent tax-related identity theft.",
+      },
+    ],
+    quiz: [
+      {
+        q: "What does a credit freeze do?",
+        options: [
+          "Lowers your credit score",
+          "Stops lenders from seeing your report, making new accounts hard to open",
+          "Closes all your existing cards",
+          "Costs a monthly fee",
+        ],
+        answer: 1,
+        explain: "A freeze blocks access to your credit report for new accounts. It's free and doesn't affect your score.",
+      },
+      {
+        q: "How many credit bureaus do you contact to freeze your credit?",
+        options: ["Just one — it spreads automatically", "Two", "All three: Equifax, Experian, and TransUnion", "None, the FTC does it"],
+        answer: 2,
+        explain: "Freezes must be placed at each bureau separately. (Fraud alerts are the one that spreads from one bureau to the others.)",
+      },
+      {
+        q: "Where do you get an FTC Identity Theft Report and a personal recovery plan?",
+        options: ["IdentityTheft.gov", "A paid recovery company", "Your social media settings", "A search engine"],
+        answer: 0,
+        explain: "IdentityTheft.gov is the free official FTC site that creates your report and recovery plan.",
+      },
+      {
+        q: "Which helps stop someone from filing a tax return with your Social Security number?",
+        options: ["A fraud alert", "An IRS Identity Protection PIN", "Changing your email password", "Shredding old receipts"],
+        answer: 1,
+        explain: "An IRS IP PIN is required to file with your number, so a thief without it can't file in your name.",
+      },
+    ],
+  },
+  {
     id: "image-based-abuse-response",
     title: "When an Intimate Image Is Shared Without Consent",
     emoji: "🫶",
@@ -2236,6 +2470,8 @@ const LESSON_ORDER: string[] = [
   "recognize-harassment",
   "respond-harassment",
   "online-abuse-action-plan",
+  "account-takeover-recovery",
+  "identity-theft-recovery",
   "image-based-abuse-response",
 ];
 
@@ -2293,6 +2529,10 @@ const LESSON_URGENCY: Record<string, string> = {
     "In the middle of an attack there is no time to research. Having the emergency checklist ready — lock accounts, preserve evidence, report, get support — protects your safety and your record.",
   "online-abuse-action-plan":
     "Online abuse can jump between platforms, accounts, personal information, and real-world safety. A calm action plan — move to safety, preserve a focused record, report through the right channel, secure accounts, and bring in support — helps limit harm without forcing you to face it alone.",
+  "account-takeover-recovery":
+    "Your email can reset nearly every other account, so one takeover can spread fast. Knowing the warning signs and the official recovery steps lets you shut the door before an intruder locks you out or scams the people you know.",
+  "identity-theft-recovery":
+    "Identity theft can quietly damage your credit, taxes, and benefits for months before you notice. A free credit freeze, an IdentityTheft.gov report, and an IRS IP PIN are the fastest ways to stop the harm and start recovering.",
   "image-based-abuse-response":
     "Image-based abuse can involve a real image, an altered image, or an AI-generated deepfake, and none of it is the victim's fault. Knowing how to report safely, preserve only essential information, start the 48-hour removal process, and escalate a platform failure gives people a clear path forward when they need it most.",
 };
