@@ -97,8 +97,10 @@ function Index() {
             </span>
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-            5-minute bite-sized lessons informed by resources from Dartmouth, Caltech, Cal Poly, Harvard, CISA, and NIST.
-            Read a lesson, take a mini-quiz, and earn a badge for every topic you master.
+            5-minute bite-sized lessons grounded in official guidance — not just one source, but a dozen:
+            universities like Dartmouth, Caltech, Cal Poly, and Harvard; agencies like CISA, NIST, the FTC, and the FBI;
+            and security teams like OWASP and Microsoft. Every lesson cites its sources, and each pairs with related
+            resources — a plain-language glossary, deep-dive guides, and support services when a topic hits close to home.
           </p>
           {ctaAboveHeadline ? null : (
             <>
