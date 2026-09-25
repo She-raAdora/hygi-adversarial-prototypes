@@ -2687,6 +2687,7 @@ const rawLessons: Lesson[] = [
 const LESSON_ORDER: string[] = [
   "safe-browsing",
   "phishing-prevention-tactics",
+  "phishing-case-study",
   "device-code-phishing",
   "phishing-simulations-safely",
   "accounts",
@@ -2723,6 +2724,8 @@ const LESSON_URGENCY: Record<string, string> = {
     "Scams are the single most common way people lose money online. Fake bank, delivery, toll, tax, job, romance, and tech-support messages arrive every week, and AI now makes them read and sound convincing. Learning to stop, leave the message, and verify another way protects you more than any setting on your phone.",
   "phishing-prevention-tactics":
     "Phishing is the front door to most account takeovers, and the defense is three habits you can practice today: verify senders through a channel you control, read the real destination of every link, and let a password manager refuse to fill on fake sign-in pages.",
+  "phishing-case-study":
+    "A real case shows how little it takes: phone calls posing as internal IT, a fake login page, a relayed one-time code \u2014 and within 24 hours 130 high-profile accounts were posting a bitcoin scam. Studying what failed, and what contained it, is the fastest way to recognize the same moves aimed at you.",
   "device-code-phishing":
     "A genuine sign-in page is not proof that a request is safe. Device-code phishing can turn one code entry into an authorized criminal session, giving an attacker time to read email, study financial relationships, and prepare convincing fraud. Only approve device sign-ins you started yourself.",
   "phishing-simulations-safely":
