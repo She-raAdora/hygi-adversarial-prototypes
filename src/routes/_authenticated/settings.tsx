@@ -7,6 +7,7 @@ import { getMyAccess } from "@/lib/access.functions";
 import { getMyEmailPreferences, updateMyEmailPreferences } from "@/lib/email-prefs.functions";
 import { deleteMyAccount } from "@/lib/account.functions";
 import { supabase } from "@/integrations/supabase/client";
+import { AdminMfaSettings } from "@/components/AdminMfaSettings";
 
 export const Route = createFileRoute("/_authenticated/settings")({
   head: () => ({
@@ -128,6 +129,8 @@ function SettingsPage() {
           )}
         </p>
       </section>
+
+      {accessQuery.data?.isAdmin ? <AdminMfaSettings /> : null}
 
       <p className="mt-6 text-xs text-muted-foreground">
         Security notices required to keep your account safe are always sent, regardless of this
