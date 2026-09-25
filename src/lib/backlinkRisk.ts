@@ -144,6 +144,7 @@ export function scoreDomain(input: {
   backlinks: number | null;
 }): DomainRisk {
   const domain = input.domain.toLowerCase();
+  const abuse = scoreAbuse(domain);
   const reasons: string[] = [];
   let score = 0;
 
@@ -198,6 +199,9 @@ export function scoreDomain(input: {
     score,
     level: levelFor(score),
     reasons,
+    abuseScore: abuse.score,
+    abuseLevel: abuse.level,
+    abuseReasons: abuse.reasons,
   };
 }
 
@@ -207,6 +211,7 @@ export function scoreAnchor(input: {
   backlinks: number | null;
 }): AnchorRisk {
   const anchor = input.anchor.toLowerCase();
+  const abuse = scoreAbuse(anchor);
   const reasons: string[] = [];
   let score = 0;
 
@@ -239,6 +244,9 @@ export function scoreAnchor(input: {
     score,
     level: levelFor(score),
     reasons,
+    abuseScore: abuse.score,
+    abuseLevel: abuse.level,
+    abuseReasons: abuse.reasons,
   };
 }
 
@@ -288,6 +296,10 @@ export type RiskAssessment = {
   /** Weighted profile risk, 0-100. */
   profileScore: number | null;
   level: RiskLevel;
+  flaggedAbuseDomains: number;
+  flaggedAbuseAnchors: number;
+  abuseProfileScore: number | null;
+  abuseLevel: RiskLevel;
 };
 
 export function assessBacklinkRisk(input: {
@@ -305,24 +317,28 @@ export function assessBacklinkRisk(input: {
     .map((d) => {
       const scored = scoreDomain(d);
       if (!isDomainTrusted(d.domain, trustedDomains)) return scored;
-      return { ...scored, score: 0, level: "low" as RiskLevel, reasons: [TRUSTED_REASON], trusted: true };
+       return { ...scored, score: 0, level: "low" as RiskLevel, reasons: [TRUSTED_REASON], abuseScore: 0, abuseLevel: "low" as RiskLevel, abuseReasons: [TRUSTED_REASON], trusted: true };
     })
     .sort((a, b) => b.score - a.score);
   const anchors = input.anchors
     .map((a) => {
       const scored = scoreAnchor(a);
       if (!isAnchorTrusted(a.anchor, trustedAnchors)) return scored;
-      return { ...scored, score: 0, level: "low" as RiskLevel, reasons: [TRUSTED_REASON], trusted: true };
+       return { ...scored, score: 0, level: "low" as RiskLevel, reasons: [TRUSTED_REASON], abuseScore: 0, abuseLevel: "low" as RiskLevel, abuseReasons: [TRUSTED_REASON], trusted: true };
     })
     .sort((a, b) => b.score - a.score);
 
   const flaggedDomains = domains.filter((d) => d.level !== "low").length;
   const flaggedAnchors = anchors.filter((a) => a.level !== "low").length;
+  const flaggedAbuseDomains = domains.filter((d) => d.abuseLevel !== "low").length;
+  const flaggedAbuseAnchors = anchors.filter((a) => a.abuseLevel !== "low").length;
 
   const spamShare = domains.length ? Math.round((flaggedDomains / domains.length) * 100) : null;
   const profileScore = domains.length
     ? Math.round(domains.reduce((sum, d) => sum + d.score, 0) / domains.length)
     : null;
+  const abuseSignals = [...domains.map((d) => d.abuseScore), ...anchors.map((a) => a.abuseScore)];
+  const abuseProfileScore = abuseSignals.length ? Math.max(...abuseSignals) : null;
 
   return {
     domains,
@@ -332,5 +348,9 @@ export function assessBacklinkRisk(input: {
     spamShare,
     profileScore,
     level: levelFor(profileScore ?? 0),
+    flaggedAbuseDomains,
+    flaggedAbuseAnchors,
+    abuseProfileScore,
+    abuseLevel: levelFor(abuseProfileScore ?? 0),
   };
 }
