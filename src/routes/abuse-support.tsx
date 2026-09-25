@@ -132,3 +132,28 @@ function AbuseSupportPage() {
         <Region id="canada" title="Canada" intro="Services and legal options vary by province and territory. These directories can help you find local support." resources={CANADA} />
         <Region id="europe" title="European Union" intro="Services vary by country. Use the country directories below rather than assuming one number works everywhere." resources={EUROPE} />
       </div>
+
+      <section id="image-removal" className="mt-12 scroll-mt-24 border-t border-border pt-10">
+        <h2 className="text-2xl font-semibold tracking-tight">Help removing an intimate image</h2>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">These tools create a digital fingerprint on your device. The image itself does not leave your device. They work only with participating platforms and cannot promise that every copy disappears.</p>
+        <div className="mt-5 grid gap-4 sm:grid-cols-2">
+          <ResourceCard resource={{ name: "NCMEC Take It Down", description: "For an image taken when the person shown was under 18. The service can be used without sharing personal information.", actions: [{ label: "Use Take It Down", href: "https://takeitdown.ncmec.org/" }] }} />
+          <ResourceCard resource={{ name: "StopNCII.org", description: "For adults who are 18 or older in the image. It helps participating platforms detect and remove matching copies.", actions: [{ label: "Use StopNCII", href: "https://stopncii.org/" }] }} />
+          <ResourceCard resource={{ name: "FTC platform report", description: "In the U.S., report a covered platform that has not acted within 48 hours after a valid removal request. The FTC does not remove the image itself.", actions: [{ label: "Report platform noncompliance", href: "https://takeitdown.ftc.gov/" }] }} />
+          <ResourceCard resource={{ name: "Your local advocate", description: "An advocate can help you make a safety plan, preserve only necessary evidence, and understand local reporting or legal choices.", actions: [{ label: "Find a U.S. advocate", href: "https://www.thehotline.org/get-help/domestic-violence-local-resources/" }, { label: "Find a Canadian shelter", href: "https://sheltersafe.ca/get-help/" }, { label: "Find European help", href: "https://wave-network.org/find-help/" }] }} />
+        </div>
+      </section>
+
+      <section className="mt-12 border-t border-border pt-8">
+        <h2 className="text-lg font-semibold">Before you contact a service</h2>
+        <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted-foreground">
+          <li>• You can ask what is confidential before sharing your name or details.</li>
+          <li>• You can end a call or chat if it does not feel safe or helpful.</li>
+          <li>• You can ask a trusted person to sit with you or help make the contact.</li>
+          <li>• Availability and eligibility can change; use each organization’s official site to confirm current details.</li>
+        </ul>
+        <p className="mt-6 text-xs leading-relaxed text-muted-foreground">Hygi provides educational links and is not a crisis service, law-enforcement agency, medical provider, or legal service.</p>
+      </section>
+    </main>
+  );
+}
