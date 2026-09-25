@@ -209,6 +209,15 @@ export const glossary: GlossaryEntry[] = [
     todo: "Install one, then enable its backup so a lost phone doesn't lock you out.",
     important: "No support agent ever needs you to read a code from this app aloud.",
   }),
+  entry("Passwords and account protection", "TOTP", {
+    definition:
+      "Time-based one-time password: a temporary login code your authenticator app generates from a shared secret, refreshing about every thirty seconds.",
+    example: "Typing the six-digit code currently shown in your authenticator app after your password.",
+    todo: "Prefer a passkey or security key where offered; if you set up TOTP, save the setup key in your password manager.",
+    important:
+      "Codes you type by hand aren't phishing-resistant — a code typed into a lookalike page goes straight to the attacker.",
+    aliases: ["Time-based one-time password"],
+  }),
   entry("Passwords and account protection", "Verification code", {
     definition:
       "A temporary code used to verify a login or action. Don't provide an unexpected code to an incoming caller or message.",
@@ -259,6 +268,15 @@ export const glossary: GlossaryEntry[] = [
     example: "An old leaked password still unlocking your shopping account years later.",
     todo: "Give every account its own unique password.",
     important: "One reused password can expose dozens of accounts at once.",
+  }),
+  entry("Passwords and account protection", "Account takeover", {
+    definition:
+      "When someone other than the owner gains control of an account, usually through a stolen or reused password, a phished code, or a SIM swap.",
+    example: "Friends receive money requests “from you,” and your email forwarding rules have changed on their own.",
+    todo: "From a trusted device, change the password, sign out all sessions, review recovery options, and turn on MFA.",
+    important:
+      "Email is the master key — protect it first, because attackers reset everything else through it.",
+    aliases: ["ATO"],
   }),
   entry("Passwords and account protection", "Password reuse", {
     definition: "Using the same or similar password for multiple accounts.",
