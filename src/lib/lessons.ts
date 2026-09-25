@@ -2677,6 +2677,129 @@ const rawLessons: Lesson[] = [
       },
     ],
   },
+  {
+    id: "consent-privacy-rights",
+    title: "Digital Consent & Privacy Rights",
+    emoji: "\ud83d\udcdc",
+    tagline: "You agreed to something \u2014 know what",
+    intro:
+      "Consent online is supposed to mean a real choice: you know what is being collected, why, and you can say no or change your mind. In practice it's buried in settings and 40-page policies. This lesson covers the rights you actually have \u2014 including the strong, specific protections children get under COPPA \u2014 and the handful of controls worth using today. [1, 2, 3]",
+    sections: [
+      {
+        heading: "What consent is supposed to mean",
+        body: "Real consent is informed, specific, and revocable. A company should tell you what it collects, what it does with it, and who it shares it with \u2014 and honor your choice when you turn something off. That's why the FTC treats a privacy promise as enforceable: if a service says it doesn't sell your data or share your location and then does, that's a deceptive practice, not a technicality. A pre-checked box, a \"we may share with partners\" catch-all, or a setting you can't find is not meaningful consent, and you're allowed to treat it with suspicion. [1, 3]",
+        tips: [
+          "Skim a privacy policy for three things: what's collected, who it's shared with, and how to delete it.",
+          "Treat \"we may share with trusted partners\" as \"this may go to data brokers and advertisers.\"",
+          "Consent you gave once can usually be withdrawn \u2014 look for a privacy or permissions page in the account settings.",
+          "Free apps are often paid for with your data; ask what the business model is.",
+        ],
+      },
+      {
+        heading: "Children get stronger rights: COPPA",
+        body: "The Children's Online Privacy Protection Rule applies to sites, apps, and services directed to children under 13 \u2014 and to general services that know they have under-13 users. Before collecting a child's personal information, the operator must post a clear privacy notice and get verifiable parental consent. Personal information here is broad: name, address, email, phone, photos, voice recordings, geolocation, and persistent identifiers used for tracking across apps. Operators must also keep the data only as long as needed, protect it, and not condition a child's participation in a game on handing over more than is reasonably necessary. [2, 4]",
+        tips: [
+          "Under 13 means parental consent is required before collection \u2014 not after.",
+          "Photos, voice recordings, and tracking identifiers all count as a child's personal information.",
+          "A game may not demand more personal information than it genuinely needs to let a child play.",
+          "\"Directed to children\" covers the content and audience, not just what the terms of service claim.",
+        ],
+      },
+      {
+        heading: "The rights parents can use",
+        body: "COPPA gives parents standing rights, not just a one-time yes or no. At any point a parent can ask to review what personal information a service has collected about their child, refuse to let it be collected any further, and require it to be deleted \u2014 and a service can't retaliate by cutting off features that don't depend on that data. Consent for collection does not automatically mean consent to disclose the data to third parties; parents can allow the first and refuse the second. To use these rights, look for the contact details the privacy notice is required to publish. [2, 4]",
+        tips: [
+          "Ask to see what's been collected \u2014 the operator must provide a way to review it.",
+          "You can revoke consent and require deletion at any time.",
+          "You can permit internal use while refusing third-party sharing.",
+          "Every covered service must publish contact details for privacy requests \u2014 use them in writing and keep a copy.",
+        ],
+      },
+      {
+        heading: "Exercising your own privacy controls",
+        body: "Don't wait for a policy to protect you. The FTC's practical advice is to limit what you hand over in the first place: give the minimum on sign-up forms, turn off the permissions an app doesn't need to do its job, opt out of ad personalization and cross-app tracking on your phone, and delete accounts and apps you no longer use so their data stops accumulating. Many states now also give you the right to request access to, correction of, or deletion of your data, and to opt out of its sale. And if a service broke its own privacy promise, you can report it to the FTC at ReportFraud.ftc.gov. [1, 3]",
+        tips: [
+          "Fill in only the required fields; skip optional birthdays, phone numbers, and addresses.",
+          "Turn off location, contacts, microphone, and cross-app tracking for anything that doesn't need them.",
+          "Use the privacy dashboard in your account settings to download or delete your history.",
+          "Delete dormant accounts and apps \u2014 unused data is still breachable data.",
+          "Report a broken privacy promise at ReportFraud.ftc.gov.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        org: "FTC",
+        title: "How To Protect Your Privacy Online",
+        url: "https://consumer.ftc.gov/articles/how-protect-your-privacy-online",
+        note: "Practical consumer steps: share less, tighten app permissions, limit tracking, and delete unused accounts.",
+      },
+      {
+        org: "FTC",
+        title: "Children's Privacy (COPPA business guidance)",
+        url: "https://www.ftc.gov/business-guidance/privacy-security/childrens-privacy",
+        note: "Who COPPA covers, verifiable parental consent, and parents' rights to review, refuse, and delete.",
+      },
+      {
+        org: "FTC",
+        title: "Protecting Your Child's Privacy Online",
+        url: "https://consumer.ftc.gov/articles/protecting-your-childs-privacy-online",
+        note: "What parents can ask for and how to act on a child's privacy online.",
+      },
+      {
+        org: "FTC",
+        title: "Complying with COPPA: Frequently Asked Questions",
+        url: "https://www.ftc.gov/business-guidance/resources/complying-coppa-frequently-asked-questions",
+        note: "Definition of a child's personal information, including photos, voice, geolocation and persistent identifiers.",
+      },
+    ],
+    quiz: [
+      {
+        q: "Under COPPA, when does a service directed to children under 13 need parental consent?",
+        options: [
+          "Before it collects the child's personal information",
+          "Within 30 days after collecting it",
+          "Only if the child spends money in the app",
+          "Only if the service shares the data with advertisers",
+        ],
+        answer: 0,
+        explain: "COPPA requires a clear privacy notice and verifiable parental consent before a child's personal information is collected.",
+      },
+      {
+        q: "Which of these counts as a child's \"personal information\" under COPPA?",
+        options: [
+          "Only a full legal name and home address",
+          "Photos, voice recordings, geolocation, and tracking identifiers as well as names and contact details",
+          "Nothing, as long as no real name is used",
+          "Only payment card details",
+        ],
+        answer: 1,
+        explain: "The definition is deliberately broad: it covers photos, voice recordings, precise location, and persistent identifiers used to track a child across apps.",
+      },
+      {
+        q: "A parent gave consent for a kids' app to collect their child's data. What can they still do later?",
+        options: [
+          "Nothing \u2014 consent given once is permanent",
+          "Only ask for a copy of the data",
+          "Review what was collected, refuse further collection, and require deletion",
+          "Only complain to the app store",
+        ],
+        answer: 2,
+        explain: "Parents keep ongoing rights: review the data, revoke consent, and have it deleted \u2014 and consent to collect isn't consent to share with third parties.",
+      },
+      {
+        q: "A free flashlight app asks for your contacts, location, and microphone. What's the most privacy-protective response?",
+        options: [
+          "Grant everything \u2014 the app store reviewed it",
+          "Deny the permissions it doesn't need to work, and choose another app if it won't run without them",
+          "Grant access, then delete the data later",
+          "Grant access but turn off your Wi-Fi",
+        ],
+        answer: 1,
+        explain: "Least data, least risk: an app should only get the permissions its actual function requires. If it insists on more, that's a reason to pick a different app.",
+      },
+    ],
+  },
 ];
 
 /**
@@ -2708,6 +2831,7 @@ const LESSON_ORDER: string[] = [
   "personal-info",
   "public-footprint",
   "smaller-trail",
+  "consent-privacy-rights",
   "ransomware",
   "research-data",
   "recognize-harassment",
@@ -2764,6 +2888,8 @@ const LESSON_URGENCY: Record<string, string> = {
     "Every detail you hand over gets stored, sold, and eventually breached. Setting boundaries about what you share, and with whom, shrinks the raw material available for fraud against you.",
   "public-footprint":
     "Data brokers and search results assemble a profile of you from scattered public pieces. Trimming and monitoring it makes you a harder target for impersonation, stalking, and account recovery attacks.",
+  "consent-privacy-rights":
+    "Most data about you is handed over, not stolen. Knowing what consent is supposed to mean \u2014 and the stronger rights children and their parents have under COPPA \u2014 lets you refuse collection you never really agreed to, and clean up what you already gave away.",
   "smaller-trail":
     "Posts, photos, and check-ins reveal patterns — where you live, when you're away, who your family is. Posting as if strangers are watching keeps ordinary sharing from becoming a targeting guide.",
   ransomware:
