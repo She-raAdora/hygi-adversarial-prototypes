@@ -1403,6 +1403,135 @@ const rawLessons: Lesson[] = [
     ],
   },
   {
+    id: "online-abuse-action-plan",
+    title: "Respond to Online Abuse",
+    emoji: "🧭",
+    tagline: "Recognize, record, report, and recover",
+    intro:
+      "Online abuse can include repeated harassment, impersonation, doxxing, cyberstalking, threats, account takeover, or technology used to monitor and control you. It is not your fault. You do not need to investigate the person yourself or respond publicly; your first job is to protect your safety and choose the next manageable step. [1, 2]",
+    sections: [
+      {
+        heading: "Recognize the pattern and check your safety",
+        body: "A single rude comment and a pattern of abuse are not the same. Repeated contact, fake profiles, exposure of private information, threats, location tracking, or knowledge someone should not have can signal escalation. The FTC warns that stalkerware can secretly reveal messages, photos, online activity, and location. If a device may be monitored, use a different device to seek help before changing or removing anything. [1, 2]",
+        tips: [
+          "For an immediate or specific threat, move to a safer place and contact local emergency services.",
+          "Do not meet the person, retaliate, or announce a safety plan if doing so could increase danger.",
+          "Use a safer device and account the abusive person has never accessed to contact support.",
+          "Ask a trusted person or advocate to help you decide what to do next; you remain in control of the choices.",
+        ],
+      },
+      {
+        heading: "Preserve useful evidence without amplifying it",
+        body: "Before a post, account, or message disappears, keep a focused record. Save the full URL, username or profile address, date and time, the content and surrounding context, and any report or case number. Avoid reposting abusive content to explain what happened; that can increase its reach. A trusted person can document it for you if reviewing it is distressing. [6]",
+        tips: [
+          "Capture the full screen and URL, not only a cropped message.",
+          "Keep a simple incident log showing dates, platforms, account names, and what changed.",
+          "Save copies somewhere the abusive person cannot access.",
+          "For suspected stalkerware, preserve safety first; removing it can alert the person who installed it. [2]",
+        ],
+      },
+      {
+        heading: "Report, block, and secure the doors",
+        body: "Use the platform's official abuse-reporting process, save its confirmation, then mute or block when that is safe. If someone took over your email or social account, use the provider's recovery process, change to a unique password, sign out other sessions, turn on strong multifactor authentication, and correct recovery details. The FTC recommends these steps because a hijacked account can expose personal information, spread malware, impersonate you, or scam people you know. [3]",
+        tips: [
+          "Report the specific behavior — harassment, impersonation, private information, threats, or account compromise.",
+          "Tell close contacts about a fake or stolen account through a different trusted channel.",
+          "Review active sessions, recovery email and phone, forwarding rules, and connected apps.",
+          "Do not send money or personal information to someone using pressure or threats. [4]",
+        ],
+      },
+      {
+        heading: "Choose the right official report",
+        body: "Different harms need different reports. Tell the platform about content or accounts that violate its rules. Report scam demands, financial loss, or impersonation used for fraud at ReportFraud.ftc.gov. If exposed information is used to open accounts, make charges, or otherwise steal your identity, use IdentityTheft.gov for an FTC identity theft report and a personal recovery plan. Direct or immediate safety threats belong with local emergency services, not the FTC. [4, 5]",
+        tips: [
+          "Contact your bank or payment provider immediately if money was sent or account details were exposed. [4]",
+          "Check financial statements and credit reports for activity you do not recognize. [5]",
+          "Keep confirmation numbers and add each report to your incident log.",
+          "Use Hygi's abuse-support page to find confidential advocates and local services.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        org: "Federal Trade Commission",
+        title: "Protecting Your Privacy Online",
+        url: "https://consumer.ftc.gov/features/protecting-your-privacy-online",
+        note: "FTC privacy hub covering online abuse, harassment, personal-data exposure, and safer online practices.",
+      },
+      {
+        org: "Federal Trade Commission",
+        title: "Stalkerware: What To Know",
+        url: "https://consumer.ftc.gov/articles/stalkerware-what-know",
+        note: "Published May 10, 2021. Warning signs, safer-device planning, and support when technology may be tracking someone.",
+      },
+      {
+        org: "Federal Trade Commission",
+        title: "Email or Social Media Hacked? Here's What To Do",
+        url: "https://consumer.ftc.gov/consumer-alerts/2024/10/email-or-social-media-hacked-heres-what-do",
+        note: "Published October 29, 2024. Account recovery, sign-out, password, multifactor, and recovery-information steps.",
+      },
+      {
+        org: "Federal Trade Commission",
+        title: "What To Do if You Were Scammed",
+        url: "https://consumer.ftc.gov/articles/what-do-if-you-were-scammed",
+        note: "Published July 2022. Financial recovery steps and reporting through ReportFraud.ftc.gov.",
+      },
+      {
+        org: "Federal Trade Commission",
+        title: "What To Know About Identity Theft",
+        url: "https://consumer.ftc.gov/articles/what-know-about-identity-theft",
+        note: "Identity-theft warning signs, protective steps, and recovery through IdentityTheft.gov.",
+      },
+      {
+        org: "Cyber Civil Rights Initiative",
+        title: "CCRI Safety Center",
+        url: "https://cybercivilrights.org/ccri-safety-center/",
+        note: "Victim-centered safety planning, documentation, reporting, and support for online abuse.",
+      },
+    ],
+    quiz: [
+      {
+        q: "Someone seems to know private conversations and your exact location. What is the safest first response?",
+        options: [
+          "Confront them from the possibly monitored phone",
+          "Immediately delete every unfamiliar app",
+          "Use a safer device to contact a trusted person or advocate and make a safety plan",
+          "Post publicly that you know they are tracking you",
+        ],
+        answer: 2,
+        explain: "Changing a monitored device can alert the person using stalkerware. Start from a safer device and plan around your safety.",
+      },
+      {
+        q: "Which record is most useful when documenting repeated online abuse?",
+        options: [
+          "A cropped screenshot with no date or account name",
+          "The full URL, profile, date, time, context, and report confirmation",
+          "A public repost asking followers to confront the person",
+          "Only your memory of what happened",
+        ],
+        answer: 1,
+        explain: "A focused record with identifying context and report numbers preserves useful evidence without amplifying the abuse.",
+      },
+      {
+        q: "A fake account uses your name to ask friends for money. What should you do?",
+        options: [
+          "Pay the account so it stops",
+          "Report the impersonation, warn contacts another way, and report the fraud to the FTC",
+          "Send the account your ID to prove who you are",
+          "Ignore it because no account was hacked",
+        ],
+        answer: 1,
+        explain: "The platform can act on impersonation, trusted channels can warn contacts, and ReportFraud.ftc.gov records the scam attempt.",
+      },
+      {
+        q: "Exposed personal information is used to open a credit account in your name. Which service provides an FTC identity theft report and recovery plan?",
+        options: ["ReportFraud.ftc.gov", "IdentityTheft.gov", "The social platform's block button", "A public search engine"],
+        answer: 1,
+        explain: "IdentityTheft.gov creates an FTC identity theft report and a recovery plan tailored to what happened.",
+      },
+    ],
+  },
+  {
     id: "image-based-abuse-response",
     title: "When an Intimate Image Is Shared Without Consent",
     emoji: "🫶",
@@ -1986,6 +2115,7 @@ const LESSON_ORDER: string[] = [
   "research-data",
   "recognize-harassment",
   "respond-harassment",
+  "online-abuse-action-plan",
   "image-based-abuse-response",
 ];
 
@@ -2039,6 +2169,8 @@ const LESSON_URGENCY: Record<string, string> = {
     "Coordinated harassment starts with recognizable tactics. Naming them early lets you document, report, and protect yourself before it escalates offline.",
   "respond-harassment":
     "In the middle of an attack there is no time to research. Having the emergency checklist ready — lock accounts, preserve evidence, report, get support — protects your safety and your record.",
+  "online-abuse-action-plan":
+    "Online abuse can jump between platforms, accounts, personal information, and real-world safety. A calm action plan — move to safety, preserve a focused record, report through the right channel, secure accounts, and bring in support — helps limit harm without forcing you to face it alone.",
   "image-based-abuse-response":
     "Image-based abuse can involve a real image, an altered image, or an AI-generated deepfake, and none of it is the victim's fault. Knowing how to report safely, preserve only essential information, start the 48-hour removal process, and escalate a platform failure gives people a clear path forward when they need it most.",
 };

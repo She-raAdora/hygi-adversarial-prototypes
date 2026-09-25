@@ -215,7 +215,7 @@ function LessonPage() {
 
           {lesson.sources?.length ? <LessonEvidence sources={lesson.sources} /> : null}
 
-          {lesson.id === "image-based-abuse-response" ? (
+          {["online-abuse-action-plan", "image-based-abuse-response"].includes(lesson.id) ? (
             <aside
               className="rounded-lg border border-primary/30 bg-primary/5 p-5"
               aria-labelledby="abuse-support-heading"

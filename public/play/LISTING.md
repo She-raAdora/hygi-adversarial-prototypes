@@ -3,11 +3,11 @@
 App name: Hygi. — Digital Hygiene
 
 Short description (78 chars):
-25 short lessons on digital hygiene. Quiz yourself, earn badges, stay safer.
+26 short lessons on digital hygiene. Quiz yourself, earn badges, stay safer.
 
 Full description:
-Hygi. turns digital hygiene into 25 short, readable lessons — each with a mini-quiz
-at the end. Pass the quiz and you earn a badge. Finish all 25 and you earn the
+Hygi. turns digital hygiene into 26 short, readable lessons — each with a mini-quiz
+at the end. Pass the quiz and you earn a badge. Finish all 26 and you earn the
 Digital Hygiene Champion trophy.
 
 What you learn:
@@ -18,6 +18,7 @@ What you learn:
 - Securing phones, workstations, public computers, and networked devices
 - Ransomware defence, backups, and protecting sensitive work
 - Recognising online harassment and staying safe in public life
+- Responding to online abuse, impersonation, cyberstalking, and identity misuse
 - Responding safely when intimate images or AI deepfakes are shared without consent
 - Security awareness and reporting habits from CISA's Secure Our World guidance
 
