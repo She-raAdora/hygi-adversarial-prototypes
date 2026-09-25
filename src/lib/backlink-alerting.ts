@@ -31,16 +31,16 @@ export async function raiseRiskAlerts(input: {
   const [{ data: settings }, { data: trusted }] = await Promise.all([
     supabase
       .from("backlink_alert_settings")
-      .select("threshold, enabled")
+      .select("threshold, enabled, abuse_threshold, abuse_enabled")
       .eq("id", "default")
       .maybeSingle(),
     supabase.from("backlink_trusted_entries").select("kind, value"),
   ]);
 
   const threshold = settings?.threshold ?? 60;
-  if (settings && settings.enabled === false) {
-    return { raised: 0, threshold, enabled: false as const };
-  }
+  const abuseThreshold = settings?.abuse_threshold ?? 60;
+  const enabled = settings?.enabled !== false;
+  const abuseEnabled = settings?.abuse_enabled !== false;
 
   const trustedRows = (trusted ?? []) as { kind: string; value: string }[];
   const trustedDomains = trustedRows.filter((r) => r.kind === "domain").map((r) => r.value);
@@ -55,49 +55,34 @@ export async function raiseRiskAlerts(input: {
     level: RiskLevel;
     reasons: string[];
     snapshot_id: string | null;
+    category: "spam" | "abuse";
   }[] = [];
 
   for (const domain of input.domains) {
     if (!newDomainSet.has(domain.domain)) continue;
     if (isDomainTrusted(domain.domain, trustedDomains)) continue;
     const scored = scoreDomain(domain);
-    if (scored.score < threshold) continue;
-    rows.push({
-      target: input.target,
-      kind: "domain",
-      value: domain.domain,
-      score: scored.score,
-      level: scored.level,
-      reasons: scored.reasons,
-      snapshot_id: input.snapshotId,
-    });
+    if (enabled && scored.score >= threshold) rows.push({ target: input.target, kind: "domain", value: domain.domain, score: scored.score, level: scored.level, reasons: scored.reasons, snapshot_id: input.snapshotId, category: "spam" });
+    if (abuseEnabled && scored.abuseScore >= abuseThreshold) rows.push({ target: input.target, kind: "domain", value: domain.domain, score: scored.abuseScore, level: scored.abuseLevel, reasons: scored.abuseReasons, snapshot_id: input.snapshotId, category: "abuse" });
   }
 
   for (const anchor of input.anchors) {
     if (input.previousAnchors.size && input.previousAnchors.has(anchor.anchor)) continue;
     if (isAnchorTrusted(anchor.anchor, trustedAnchors)) continue;
     const scored = scoreAnchor(anchor);
-    if (scored.score < threshold) continue;
-    rows.push({
-      target: input.target,
-      kind: "anchor",
-      value: anchor.anchor,
-      score: scored.score,
-      level: scored.level,
-      reasons: scored.reasons,
-      snapshot_id: input.snapshotId,
-    });
+    if (enabled && scored.score >= threshold) rows.push({ target: input.target, kind: "anchor", value: anchor.anchor, score: scored.score, level: scored.level, reasons: scored.reasons, snapshot_id: input.snapshotId, category: "spam" });
+    if (abuseEnabled && scored.abuseScore >= abuseThreshold) rows.push({ target: input.target, kind: "anchor", value: anchor.anchor, score: scored.abuseScore, level: scored.abuseLevel, reasons: scored.abuseReasons, snapshot_id: input.snapshotId, category: "abuse" });
   }
 
-  if (!rows.length) return { raised: 0, threshold, enabled: true as const };
+  if (!rows.length) return { raised: 0, threshold, enabled, abuseThreshold, abuseEnabled };
 
   const { error } = await supabase
     .from("backlink_alerts")
-    .upsert(rows as never, { onConflict: "target,kind,value", ignoreDuplicates: true });
+    .upsert(rows as never, { onConflict: "target,kind,value,category", ignoreDuplicates: true });
   if (error) {
     console.error("Couldn't record backlink risk alerts", error);
-    return { raised: 0, threshold, enabled: true as const };
+    return { raised: 0, threshold, enabled, abuseThreshold, abuseEnabled };
   }
 
-  return { raised: rows.length, threshold, enabled: true as const };
+  return { raised: rows.length, threshold, enabled, abuseThreshold, abuseEnabled };
 }
