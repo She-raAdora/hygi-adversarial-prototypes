@@ -94,6 +94,20 @@ export function AdminMfaSettings() {
     onError: (cause) => setError(cause instanceof Error ? cause.message : "Authenticator couldn't be removed."),
   });
 
+  const cancelEnrollment = async () => {
+    const factorId = enrollment?.factorId;
+    if (!factorId) return;
+    setError(null);
+    const { error: removeError } = await supabase.auth.mfa.unenroll({ factorId });
+    if (removeError) {
+      setError("Setup couldn't be cancelled. Reload the page before trying again.");
+      return;
+    }
+    setEnrollment(null);
+    setCode("");
+    await queryClient.invalidateQueries({ queryKey: ["mfa-factors"] });
+  };
+
   if (factorsQuery.isPending) {
     return <p className="mt-4 text-sm text-muted-foreground">Checking authenticator status…</p>;
   }
@@ -153,6 +167,9 @@ export function AdminMfaSettings() {
             />
             <Button type="submit" className="mt-3" disabled={verifyMutation.isPending || code.length !== 6}>
               {verifyMutation.isPending ? "Verifying…" : "Finish setup"}
+            </Button>
+            <Button type="button" variant="ghost" className="mt-3" onClick={() => void cancelEnrollment()}>
+              Cancel setup
             </Button>
           </form>
         </div>
