@@ -179,7 +179,7 @@ function DashboardPage() {
 
       <h2 className="mt-14 text-xl font-semibold tracking-tight">Pitch bundle</h2>
       <p className="mt-2 text-sm text-muted-foreground">
-        Latest version, matching the modernized 22-lesson curriculum and NIST/CISA sourcing.
+        Latest version, matching the modernized curriculum and NIST/CISA sourcing.
       </p>
       <ul className="mt-4 grid gap-3 sm:grid-cols-2">
         {pitchFiles.map(({ href, label, hint, icon: Icon }) => (
