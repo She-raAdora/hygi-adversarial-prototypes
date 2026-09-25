@@ -2558,6 +2558,125 @@ const rawLessons: Lesson[] = [
       },
     ],
   },
+  {
+    id: "phishing-case-study",
+    title: "Case Study: The Twitter Phone Phish",
+    emoji: "\ud83d\udd75\ufe0f",
+    tagline: "One phone call, 130 hijacked accounts",
+    intro:
+      "On July 15, 2020, attackers took over the Twitter accounts of Barack Obama, Elon Musk, Jeff Bezos, Kim Kardashian West, Apple, Uber and several cryptocurrency exchanges and posted a \"double your bitcoin\" scam. They didn't break any encryption. They phoned Twitter employees, pretended to be the company's own IT help desk, and walked them onto a fake login page. New York's Department of Financial Services investigated and called the attack \"unsophisticated\" \u2014 which is exactly why it is worth studying. [1, 2]",
+    sections: [
+      {
+        heading: "What actually happened",
+        body: "The attackers called Twitter staff claiming to be from the internal help desk, saying they were fixing VPN problems that were common while everyone worked from home. They asked each employee to log in at a site that looked like Twitter's real VPN page \u2014 and, because Twitter used one-time codes, they asked for the code too and entered it on the genuine page within seconds. Investigators found roughly 24 hours passed between the first phishing calls and the hijacked tweets. With internal support tools, the group targeted 130 accounts, reset the passwords of 45 of them, and posted the scam. [1, 2]",
+        tips: [
+          "A caller who knows internal jargon and a current company problem is not thereby proved to be an insider.",
+          "A typed one-time code can be relayed by an attacker in real time \u2014 it is not phishing-resistant.",
+          "Attacks travel fast: the whole event ran its course in about a day.",
+        ],
+      },
+      {
+        heading: "The impact",
+        body: "Consumers sent more than $118,000 worth of bitcoin to the scam addresses in a few hours. The damage went further than money: the attackers could read direct messages, and regulators pointed out that the same access, days before an election, could have moved markets or spread false announcements from the accounts of world leaders. Investigators also noted Twitter had no chief information security officer at the time. Prosecutors later charged three people, including a teenager, for their alleged roles. [1, 2, 3]",
+        tips: [
+          "The theft was small next to the potential for market and election manipulation.",
+          "Account takeover exposes private messages, not just public posts.",
+          "You do not need elite skills to cause this scale of harm \u2014 which means the defense has to be ordinary habits, not genius.",
+        ],
+      },
+      {
+        heading: "How the response limited the damage",
+        body: "Twitter locked all verified accounts, blocked tweeting, and pulled employee access to the internal tools while it investigated \u2014 a blunt move that stopped the scam mid-flight. Regulated cryptocurrency companies including Coinbase, Square, Gemini and Bitstamp blocklisted the scam bitcoin addresses within minutes to hours, preventing a further several hundred thousand dollars in attempted transfers. The lesson: a fast, deliberately over-broad containment step beats a careful one that arrives tomorrow. [1]",
+        tips: [
+          "Containment first: cut access, then investigate.",
+          "Blocking the payment path is often the fastest way to stop losses.",
+          "Have a plan written before the day you need it \u2014 see the Security incident plan lesson.",
+        ],
+      },
+      {
+        heading: "What this means for you",
+        body: "Everything that failed here has a personal equivalent. Nobody legitimate \u2014 not your bank, your employer's IT, or a platform's \"support\" \u2014 needs your password or your verification code, and CISA's guidance is to hang up and call back on a number you look up yourself. Where you can, replace typed codes with passkeys or a security key, which can't be relayed to a fake site. And keep the number of accounts that can reset everything else small. [3, 4]",
+        tips: [
+          "Never read a verification code to a caller, however official they sound.",
+          "Hang up and dial the number on your card, your bill, or the official app.",
+          "Move your most important accounts to passkeys or a hardware security key.",
+          "If you did give something away, change the password, sign out other sessions and reset MFA immediately.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        org: "NY Department of Financial Services",
+        title: "DFS Calls for Regulation of Social Media Giants After Twitter Hack Investigation (Oct 14, 2020)",
+        url: "https://www.dfs.ny.gov/reports_and_publications/press_releases/pr202010141",
+        note: "Official investigation findings: the attack method, 130 targeted accounts, $118,000 stolen, and the crypto firms' rapid blocklisting.",
+      },
+      {
+        org: "NYU Program on Corporate Compliance and Enforcement",
+        title: "Superintendent Lacewell Announces Release of the DFS Twitter Hack Report",
+        url: "https://wp.nyu.edu/compliance_enforcement/2020/10/15/superintendent-linda-lacewell-announces-release-of-new-york-state-department-of-financial-services-report-on-its-investigation-into-the-july-15-2020-hack-of-high-profile-twitter-accounts/",
+        note: "Summary of the report: attackers posed as Twitter's IT department and four employees handed over credentials.",
+      },
+      {
+        org: "U.S. Department of Justice",
+        title: "Three Individuals Charged For Alleged Roles In Twitter Hack",
+        url: "https://www.justice.gov/usao-ndca/pr/three-individuals-charged-alleged-roles-twitter-hack",
+        note: "Charges brought against those allegedly responsible, including the compromise of internal Twitter accounts.",
+      },
+      {
+        org: "CISA",
+        title: "Recognize and Report Phishing (Secure Our World)",
+        url: "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing",
+        note: "Why no legitimate contact asks for passwords or codes, and how to verify by calling back yourself.",
+      },
+    ],
+    quiz: [
+      {
+        q: "How did the attackers get into Twitter's systems on July 15, 2020?",
+        options: [
+          "They broke the encryption protecting Twitter's database",
+          "They phoned employees pretending to be Twitter's IT help desk and collected credentials on a fake login page",
+          "They exploited an unpatched server on the public internet",
+          "They bribed a Twitter executive",
+        ],
+        answer: 1,
+        explain: "Investigators described it as an unsophisticated social engineering attack: phone calls posing as internal IT, then a convincing fake VPN login page.",
+      },
+      {
+        q: "Twitter employees used one-time login codes. Why didn't that stop the attack?",
+        options: [
+          "The codes had expired and were no longer required",
+          "The attackers asked for the code too and relayed it to the real site within seconds",
+          "One-time codes only protect administrator accounts",
+          "The codes were sent by email rather than app",
+        ],
+        answer: 1,
+        explain: "A code you can read out or type can be relayed in real time. That's why passkeys and security keys are called phishing-resistant and typed codes are not.",
+      },
+      {
+        q: "Which response most directly stopped further money being lost?",
+        options: [
+          "Twitter published a blog post explaining the incident",
+          "Regulated cryptocurrency companies blocklisted the scam bitcoin addresses within minutes to hours",
+          "Users were advised to change their Twitter passwords",
+          "Regulators announced an investigation",
+        ],
+        answer: 1,
+        explain: "Blocking the payment path stopped hundreds of thousands of dollars in attempted transfers while the rest of the response was still underway.",
+      },
+      {
+        q: "Someone calls saying they're from your bank's fraud team and needs the code just texted to you. What's the right move?",
+        options: [
+          "Read the code \u2014 the caller already knew your name and account details",
+          "Hang up and call the number on your card or in the official app",
+          "Give only the first three digits to prove your identity",
+          "Ask them to email the request instead, then comply",
+        ],
+        answer: 1,
+        explain: "No legitimate bank, platform, or IT desk ever needs your verification code. Hang up and verify through a number you look up yourself.",
+      },
+    ],
+  },
 ];
 
 /**
@@ -2568,6 +2687,7 @@ const rawLessons: Lesson[] = [
 const LESSON_ORDER: string[] = [
   "safe-browsing",
   "phishing-prevention-tactics",
+  "phishing-case-study",
   "device-code-phishing",
   "phishing-simulations-safely",
   "accounts",
@@ -2604,6 +2724,8 @@ const LESSON_URGENCY: Record<string, string> = {
     "Scams are the single most common way people lose money online. Fake bank, delivery, toll, tax, job, romance, and tech-support messages arrive every week, and AI now makes them read and sound convincing. Learning to stop, leave the message, and verify another way protects you more than any setting on your phone.",
   "phishing-prevention-tactics":
     "Phishing is the front door to most account takeovers, and the defense is three habits you can practice today: verify senders through a channel you control, read the real destination of every link, and let a password manager refuse to fill on fake sign-in pages.",
+  "phishing-case-study":
+    "A real case shows how little it takes: phone calls posing as internal IT, a fake login page, a relayed one-time code \u2014 and within 24 hours 130 high-profile accounts were posting a bitcoin scam. Studying what failed, and what contained it, is the fastest way to recognize the same moves aimed at you.",
   "device-code-phishing":
     "A genuine sign-in page is not proof that a request is safe. Device-code phishing can turn one code entry into an authorized criminal session, giving an attacker time to read email, study financial relationships, and prepare convincing fraud. Only approve device sign-ins you started yourself.",
   "phishing-simulations-safely":
