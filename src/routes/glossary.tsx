@@ -77,6 +77,22 @@ function GlossaryPage() {
         word to read its definition without leaving the page — this glossary is the complete list.
       </p>
 
+      <Link
+        to="/security-glossary"
+        className="mt-6 flex items-start gap-4 rounded-2xl border border-border/60 bg-card p-5 transition-colors hover:bg-secondary/40"
+      >
+        <Lock className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+        <span>
+          <span className="block text-sm font-semibold text-foreground">
+            Security glossary: the seven essentials
+          </span>
+          <span className="mt-1 block text-sm text-muted-foreground">
+            Passkeys, FIDO, TOTP, MFA, phishing, credential stuffing, and account takeover —
+            explained in depth, with what to do about each.
+          </span>
+        </span>
+      </Link>
+
       <label className="relative mt-8 block">
         <span className="sr-only">Search glossary terms</span>
         <Search
