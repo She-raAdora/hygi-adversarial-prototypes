@@ -228,6 +228,9 @@ function RootComponent() {
               <Link to="/settings" className="transition-colors hover:text-foreground">
                 Account settings
               </Link>
+              <Link to="/abuse-support" className="transition-colors hover:text-foreground">
+                Abuse support
+              </Link>
               <Link to="/support" className="transition-colors hover:text-foreground">
                 Support
               </Link>
