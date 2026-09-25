@@ -150,7 +150,7 @@ const TERMS: SecurityTerm[] = [
       { label: "Safe Browsing & Scams", to: "/lesson/safe-browsing" },
       { label: "Stop Device-Code Phishing", to: "/lesson/device-code-phishing" },
       { label: "Spot AI Phishing", to: "/lesson/ai-phishing" },
-gt      { label: "Run Phishing Simulations Safely", to: "/lesson/phishing-simulations-safely" },
+      { label: "Run Phishing Simulations Safely", to: "/lesson/phishing-simulations-safely" },
     ],
   },
   {

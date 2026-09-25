@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { BookOpen, Search } from "lucide-react";
+import { BookOpen, Lock, Search } from "lucide-react";
 
 import { GLOSSARY_CATEGORIES, glossary } from "@/lib/glossary";
 import { socialImageMeta } from "@/lib/seo";
