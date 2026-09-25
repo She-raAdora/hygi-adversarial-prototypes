@@ -24,6 +24,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SafetyResponseRouteImport } from './routes/safety-response'
 import { Route as SecurityGlossaryRouteImport } from './routes/security-glossary'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SocialEngineeringDefenseRouteImport } from './routes/social-engineering-defense'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -109,6 +110,12 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SocialEngineeringDefenseRoute =
+  SocialEngineeringDefenseRouteImport.update({
+    id: '/social-engineering-defense',
+    path: '/social-engineering-defense',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const SupportRoute = SupportRouteImport.update({
   id: '/support',
   path: '/support',
@@ -175,6 +182,7 @@ export interface FileRoutesByFullPath {
   '/safety-response': typeof SafetyResponseRoute
   '/security-glossary': typeof SecurityGlossaryRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/social-engineering-defense': typeof SocialEngineeringDefenseRoute
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -201,6 +209,7 @@ export interface FileRoutesByTo {
   '/safety-response': typeof SafetyResponseRoute
   '/security-glossary': typeof SecurityGlossaryRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/social-engineering-defense': typeof SocialEngineeringDefenseRoute
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -229,6 +238,7 @@ export interface FileRoutesById {
   '/safety-response': typeof SafetyResponseRoute
   '/security-glossary': typeof SecurityGlossaryRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/social-engineering-defense': typeof SocialEngineeringDefenseRoute
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
@@ -257,6 +267,7 @@ export interface FileRouteTypes {
     | '/safety-response'
     | '/security-glossary'
     | '/sitemap.xml'
+    | '/social-engineering-defense'
     | '/support'
     | '/terms'
     | '/admin'
@@ -283,6 +294,7 @@ export interface FileRouteTypes {
     | '/safety-response'
     | '/security-glossary'
     | '/sitemap.xml'
+    | '/social-engineering-defense'
     | '/support'
     | '/terms'
     | '/admin'
@@ -310,6 +322,7 @@ export interface FileRouteTypes {
     | '/safety-response'
     | '/security-glossary'
     | '/sitemap.xml'
+    | '/social-engineering-defense'
     | '/support'
     | '/terms'
     | '/_authenticated/admin'
@@ -338,6 +351,7 @@ export interface RootRouteChildren {
   SafetyResponseRoute: typeof SafetyResponseRoute
   SecurityGlossaryRoute: typeof SecurityGlossaryRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SocialEngineeringDefenseRoute: typeof SocialEngineeringDefenseRoute
   SupportRoute: typeof SupportRoute
   TermsRoute: typeof TermsRoute
   ApiChatRoute: typeof ApiChatRoute
@@ -452,6 +466,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/social-engineering-defense': {
+      id: '/social-engineering-defense'
+      path: '/social-engineering-defense'
+      fullPath: '/social-engineering-defense'
+      preLoaderRoute: typeof SocialEngineeringDefenseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/support': {
       id: '/support'
       path: '/support'
@@ -560,6 +581,7 @@ const rootRouteChildren: RootRouteChildren = {
   SafetyResponseRoute: SafetyResponseRoute,
   SecurityGlossaryRoute: SecurityGlossaryRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SocialEngineeringDefenseRoute: SocialEngineeringDefenseRoute,
   SupportRoute: SupportRoute,
   TermsRoute: TermsRoute,
   ApiChatRoute: ApiChatRoute,
