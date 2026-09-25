@@ -12,6 +12,12 @@ Let administrators add, verify, use, and remove an authenticator-app factor from
 - Refresh the authenticated session after verification so protected admin requests use the stronger session.
 - State clearly that TOTP is stronger than password-only but is not phishing-resistant; passkeys or security keys remain the phishing-resistant option.
 
+## Cited AI-agent guardrails lesson
+- Add a 5–7 minute intermediate lesson explaining how agents differ from chatbots.
+- Teach “Limit, approve, observe, revoke,” least-privilege access, careful handling of sensitive accounts, and post-task revocation.
+- Include a realistic receipt-organizing scenario, a mini-quiz, badge, pathway placement, and exact citations beside supported claims.
+- Verify and cite the uploaded brief’s named primary sources before publishing the lesson text.
+
 ## Verification
 - Check enrollment, invalid-code feedback, successful verification, factor removal, keyboard labels, and mobile layout.
 - Confirm non-admin accounts do not see admin MFA controls.
