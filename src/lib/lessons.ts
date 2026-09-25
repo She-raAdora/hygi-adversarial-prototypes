@@ -2436,6 +2436,128 @@ const rawLessons: Lesson[] = [
       },
     ],
   },
+  {
+    id: "phishing-prevention-tactics",
+    title: "Stop Phishing Before You Click",
+    emoji: "\u2709\ufe0f",
+    tagline: "Verify the sender, check the link",
+    intro:
+      "Phishing is still the front door to most account takeovers, but it is also one of the most preventable attacks. Three habits cover almost every email scam: verify the sender through a channel you control, read the link before you click, and let a password manager guard the sign-in. [1, 2, 3]",
+    sections: [
+      {
+        heading: "Verify the sender, not the display name",
+        body: "The name at the top of an email \u2014 and even the logo \u2014 costs a scammer nothing to fake. The FTC's guidance is unambiguous: legitimate companies don't ask for passwords, payment details, or personal data by email, and any message that creates urgency (\"your account will be closed today\") is a pressure tactic. When a message claims to be from a company you actually deal with, don't reply or call the number in the email \u2014 reach the company through the number on your card, your app, or the address you type yourself. [2, 3]",
+        tips: [
+          "Expand the From details and compare the reply-to address with the sender's real domain.",
+          "Treat urgency, threats, and limited-time offers as red flags, not proof.",
+          "Verify any request to pay or update details using a phone number or website you look up yourself.",
+          "Unexpected attachments \u2014 even invoices \u2014 stay unopened until you confirm them.",
+        ],
+      },
+      {
+        heading: "Read the link before you click",
+        body: "A link's visible text can say anything; the real destination is in the address. Hover (or long-press) to preview the URL and read the domain from right to left: in login.yourbank.com.secure-check.example.net, the actual site is example.net \u2014 everything before it is decoration. Scammers also lean on lookalike characters and short links that hide the destination. And remember the padlock proves the connection is encrypted, not that the site is honest \u2014 plenty of phishing pages have valid HTTPS. [1, 3]",
+        tips: [
+          "Hover or long-press a link to preview the full destination address.",
+          "Read the domain right to left \u2014 the part just before the first single slash is who you're really visiting.",
+          "Watch for lookalike characters (rn for m, 0 for o) and be wary of shortened links.",
+          "Prefer bookmarks or typing the address yourself when you need your bank, school, or a government site.",
+          "Not sure about a link? Check it with Google Safe Browsing or VirusTotal before opening it.",
+        ],
+      },
+      {
+        heading: "Let a password manager be your gatekeeper",
+        body: "A password manager does more than remember logins \u2014 it quietly detects phishing. It saves each password against the exact site address, so it will only fill the form on the genuine domain. When a convincing 'bank' page appears and the manager offers nothing, that silence is the alarm. CISA recommends password managers as the easiest way to use strong, unique passwords everywhere, and NIST 800-63B backs the approach: length beats complexity tricks, so let the manager generate long random passwords and don't reuse or rotate them on a schedule. [1, 2, 4]",
+        tips: [
+          "Use a reputable password manager to generate a long, unique password for every account.",
+          "Treat a manager that won't autofill on a familiar site as a phishing warning \u2014 stop and check the address.",
+          "Never copy and paste a saved password into a page you arrived at from an email or text.",
+          "Skip 'compose a clever password' rules \u2014 length and uniqueness are what matter.",
+        ],
+      },
+      {
+        heading: "Report it, then move on",
+        body: "Reporting makes everyone safer: your workplace's report button lets defenders pull the campaign before others click, and forwarding scam texts to 7726 (SPAM) helps carriers block the sender. If you did click and entered a password, act fast \u2014 change that password everywhere it was reused, sign out other sessions, and turn on multifactor authentication. The full recovery sequence lives in the Security incident plan lesson. [1, 3]",
+        tips: [
+          "Report suspicious email through your email provider's or workplace's report option, then delete it.",
+          "Forward scam texts to 7726 so your carrier can act.",
+          "Clicked and typed a password? Change it now, sign out other sessions, and enable MFA.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        org: "CISA",
+        title: "Recognize and Report Phishing (Secure Our World)",
+        url: "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing",
+        note: "Spotting phishing red flags and reporting scam messages through the right channel.",
+      },
+      {
+        org: "CISA",
+        title: "Use Strong Passwords and Password Managers (Secure Our World)",
+        url: "https://www.cisa.gov/secure-our-world/use-strong-passwords",
+        note: "Password managers as the easiest route to long, unique passwords for every account.",
+      },
+      {
+        org: "FTC",
+        title: "How To Recognize and Avoid Phishing Scams",
+        url: "https://consumer.ftc.gov/articles/how-recognize-and-avoid-phishing-scams",
+        note: "Legitimate companies don't ask for sensitive data by email, and out-of-band verification steps.",
+      },
+      {
+        org: "NIST",
+        title: "Digital Identity Guidelines: Authentication (SP 800-63B)",
+        url: "https://pages.nist.gov/800-63-3/sp800-63b.html",
+        note: "Password length and uniqueness over composition tricks or scheduled rotation.",
+      },
+    ],
+    quiz: [
+      {
+        q: "An email that looks like your bank says your account will be closed today unless you 'verify' by replying. What's the safest move?",
+        options: [
+          "Reply with the details the email asks for",
+          "Call the phone number printed in the email",
+          "Contact the bank through the number on your card or its official app",
+          "Forward your account password to the sender to confirm it's really you",
+        ],
+        answer: 2,
+        explain: "Verify through a channel you control \u2014 never the contact details supplied inside a suspicious message.",
+      },
+      {
+        q: "In the link https://login.yourbank.com.secure-check.example.net, which part is the real website you'd be visiting?",
+        options: [
+          "yourbank.com",
+          "login.yourbank.com",
+          "example.net",
+          "secure-check",
+        ],
+        answer: 2,
+        explain: "Read domains right to left: everything after the first single slash belongs to example.net \u2014 the rest is decoration.",
+      },
+      {
+        q: "You open a page that looks exactly like your password manager's banking entry \u2014 but the manager doesn't offer to autofill. What does that usually mean?",
+        options: [
+          "The manager needs a restart",
+          "The site's address doesn't match the one the password was saved for \u2014 likely phishing",
+          "The bank blocked password managers",
+          "You should type the password manually instead",
+        ],
+        answer: 1,
+        explain: "A password manager only autofills on the exact domain it saved. Silence on a familiar-looking page is the alarm.",
+      },
+      {
+        q: "A site shows the padlock and starts with https. What does that actually prove?",
+        options: [
+          "The site is owned by a legitimate company",
+          "The connection is encrypted \u2014 but says nothing about who runs the site",
+          "The site has passed a security audit",
+          "Your password is safe there even if it's a scam",
+        ],
+        answer: 1,
+        explain: "HTTPS encrypts the connection, not the intentions. Plenty of phishing pages have valid certificates.",
+      },
+    ],
+  },
 ];
 
 /**
@@ -2445,6 +2567,7 @@ const rawLessons: Lesson[] = [
  */
 const LESSON_ORDER: string[] = [
   "safe-browsing",
+  "phishing-prevention-tactics",
   "device-code-phishing",
   "phishing-simulations-safely",
   "accounts",
@@ -2479,6 +2602,8 @@ const LESSON_ORDER: string[] = [
 const LESSON_URGENCY: Record<string, string> = {
   "safe-browsing":
     "Scams are the single most common way people lose money online. Fake bank, delivery, toll, tax, job, romance, and tech-support messages arrive every week, and AI now makes them read and sound convincing. Learning to stop, leave the message, and verify another way protects you more than any setting on your phone.",
+  "phishing-prevention-tactics":
+    "Phishing is the front door to most account takeovers, and the defense is three habits you can practice today: verify senders through a channel you control, read the real destination of every link, and let a password manager refuse to fill on fake sign-in pages.",
   "device-code-phishing":
     "A genuine sign-in page is not proof that a request is safe. Device-code phishing can turn one code entry into an authorized criminal session, giving an attacker time to read email, study financial relationships, and prepare convincing fraud. Only approve device sign-ins you started yourself.",
   "phishing-simulations-safely":
