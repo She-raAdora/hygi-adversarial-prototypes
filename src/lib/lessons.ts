@@ -1894,6 +1894,8 @@ const LESSON_URGENCY: Record<string, string> = {
     "Coordinated harassment starts with recognizable tactics. Naming them early lets you document, report, and protect yourself before it escalates offline.",
   "respond-harassment":
     "In the middle of an attack there is no time to research. Having the emergency checklist ready — lock accounts, preserve evidence, report, get support — protects your safety and your record.",
+  "image-based-abuse-response":
+    "Image-based abuse can involve a real image, an altered image, or an AI-generated deepfake, and none of it is the victim's fault. Knowing how to report safely, preserve only essential information, start the 48-hour removal process, and escalate a platform failure gives people a clear path forward when they need it most.",
 };
 
 export const lessons: Lesson[] = LESSON_ORDER.map((id): Lesson | undefined => {

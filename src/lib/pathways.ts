@@ -1,5 +1,5 @@
 /**
- * Pathway (category) metadata layered over the existing 23 lessons.
+ * Pathway (category) metadata layered over the existing 24 lessons.
  *
  * Pathways are descriptive only — they group related topics so people can
  * browse by theme. Nothing here gates or orders access: every lesson stays
@@ -73,7 +73,12 @@ export const pathways: Pathway[] = [
     emoji: "🚨",
     blurb: "What to do when something goes wrong — or someone targets you.",
     hue: 10,
-    lessonIds: ["incident-plan", "recognize-harassment", "respond-harassment"],
+    lessonIds: [
+      "incident-plan",
+      "recognize-harassment",
+      "respond-harassment",
+      "image-based-abuse-response",
+    ],
   },
 ];
 
