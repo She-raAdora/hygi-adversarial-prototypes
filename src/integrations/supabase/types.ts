@@ -16,6 +16,8 @@ export type Database = {
     Tables: {
       backlink_alert_settings: {
         Row: {
+          abuse_enabled: boolean
+          abuse_threshold: number
           created_at: string
           enabled: boolean
           id: string
@@ -23,6 +25,8 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          abuse_enabled?: boolean
+          abuse_threshold?: number
           created_at?: string
           enabled?: boolean
           id?: string
@@ -30,6 +34,8 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          abuse_enabled?: boolean
+          abuse_threshold?: number
           created_at?: string
           enabled?: boolean
           id?: string
@@ -42,6 +48,7 @@ export type Database = {
         Row: {
           acknowledged_at: string | null
           acknowledged_by: string | null
+          category: string
           created_at: string
           id: string
           kind: string
@@ -56,6 +63,7 @@ export type Database = {
         Insert: {
           acknowledged_at?: string | null
           acknowledged_by?: string | null
+          category?: string
           created_at?: string
           id?: string
           kind: string
@@ -70,6 +78,7 @@ export type Database = {
         Update: {
           acknowledged_at?: string | null
           acknowledged_by?: string | null
+          category?: string
           created_at?: string
           id?: string
           kind?: string
