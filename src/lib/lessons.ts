@@ -2083,6 +2083,125 @@ const rawLessons: Lesson[] = [
       },
     ],
   },
+  {
+    id: "phishing-simulations-safely",
+    title: "Run Phishing Simulations Safely",
+    emoji: "\ud83c\udfaf",
+    tagline: "Test the click, not the person",
+    intro:
+      "A phishing simulation is meant to measure and improve real-world resilience — not to trap or embarrass people. NIST and CISA guidance supports a scoped, non-punitive, well-documented exercise that strengthens reporting and response. [1, 2, 3, 4]",
+    sections: [
+      {
+        heading: "Scope it before you send anything",
+        body: "CISA's own Phishing Campaign Assessment is a defined, opt-in service: it targets a specific group of users, runs for a set period, and is set up through signed paperwork with the organization before a single email goes out. Treat any internal simulation the same way \u2014 written authorization, a defined target list, a fixed time window, and an agreed stop condition. [3, 4]",
+        tips: [
+          "Get written sign-off from leadership, legal, and IT/security before launch.",
+          "Define exactly who is in scope, for how long, and who can pause the exercise.",
+          "Confirm a stop condition in advance if the simulation causes unexpected disruption.",
+        ],
+      },
+      {
+        heading: "Simulate the click, not the harm",
+        body: "NIST's Phish Scale exists to rate how difficult a simulated email is to detect \u2014 it is a measurement tool for training design, not a method for extracting real passwords or delivering working malware. Keep simulations to lookalike lures that log an action (click, report) rather than pages that store real credentials or payloads that actually execute. [1]",
+        tips: [
+          "Never collect real passwords, MFA codes, or other sensitive data through a simulated page.",
+          "Use a harmless landing page and disable any real malicious functionality.",
+          "Minimize what's logged about each person to what's needed for training metrics.",
+          "Avoid lures built around trauma, health, layoffs, immigration, or personal emergencies, and make the teaching page accessible.",
+        ],
+      },
+      {
+        heading: "Teach the moment it happens \u2014 don't punish it",
+        body: "NIST's guidance frames click rate and report rate as metrics to interpret in context \u2014 how hard the lure actually was \u2014 so results can drive better just-in-time coaching rather than blame. CISA's phishing guidance likewise treats reporting as the goal to reinforce, with a clear, easy channel for anyone to flag a suspicious message. [1, 2]",
+        tips: [
+          "Deliver a short, friendly teaching moment immediately after a click, not a punishment.",
+          "Track and reward reporting behavior, not just avoiding a click.",
+          "Interpret results against the lure's difficulty, not as a simple pass/fail on each person.",
+        ],
+      },
+      {
+        heading: "Keep it separate from real incidents, and repeat it",
+        body: "A simulation must never weaken the response to a genuine threat: keep the real reporting channel active, brief the small response team that needs to know, and stop the exercise if it causes unexpected risk. Run assessments repeatedly (CISA's own service spans six weeks) so you can track improvement over time instead of judging from a single snapshot. [2, 3, 4]",
+        tips: [
+          "Make sure responders can distinguish the simulation platform from real attacker infrastructure.",
+          "Give staff one unambiguous way to report anything that might be a real phishing attempt.",
+          "Re-run assessments on a regular cadence and compare trends, not one-off scores.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        org: "NIST",
+        title: "NIST Phish Scale User Guide (NIST TN 2276)",
+        url: "https://www.nist.gov/publications/nist-phish-scale-user-guide",
+        note: "Rating simulated-email difficulty and reading click/report metrics in context, not as pass/fail judgments.",
+      },
+      {
+        org: "CISA, NSA, FBI, MS-ISAC",
+        title: "Phishing Guidance: Stopping the Attack Cycle at Phase One",
+        url: "https://www.cisa.gov/sites/default/files/2025-03/Phishing%20Guidance%20-%20Stopping%20the%20Attack%20Cycle%20at%20Phase%20One%20508.pdf",
+        note: "Reporting and incident-response guidance that keeps simulations distinct from real phishing incidents.",
+      },
+      {
+        org: "CISA",
+        title: "Capacity Enhancement Guide: Counter-Phishing Recommendations for Non-Federal Organizations",
+        url: "https://www.cisa.gov/sites/default/files/2023-09/CISA_CEG_Counter-Phishing_Guidance_for_Non_Federal_Orgs%20Aug-23%20Revision.pdf",
+        note: "Describes CISA's free, scoped, repeated six-week Phishing Campaign Assessment to measure susceptibility.",
+      },
+      {
+        org: "CISA",
+        title: "Phishing Vulnerability Scanning",
+        url: "https://www.cisa.gov/resources-tools/services/phishing-vulnerability-scanning",
+        note: "A mock phishing email sent to a defined, agreed group of users, with results reported for training \u2014 not exploitation.",
+      },
+    ],
+    quiz: [
+      {
+        q: "Before launching a phishing simulation, what should you have in place?",
+        options: [
+          "Nothing \u2014 surprise is the point",
+          "Written authorization, a defined target group, a time window, and a stop condition",
+          "A list of employees to fire if they click",
+          "Real malware to make it realistic",
+        ],
+        answer: 1,
+        explain: "CISA's own assessments are scoped, agreed in advance, and time-boxed \u2014 not open-ended surprises.",
+      },
+      {
+        q: "What should a simulated phishing page do if someone enters a password?",
+        options: [
+          "Store the real password for review",
+          "Not collect real credentials at all \u2014 it should log the action, not the data",
+          "Email the password to IT",
+          "Use it to test if the password is reused elsewhere",
+        ],
+        answer: 1,
+        explain: "Simulations should measure behavior (a click, a submission) without ever capturing or storing real sensitive data.",
+      },
+      {
+        q: "According to NIST's Phish Scale approach, how should click and report rates be used?",
+        options: [
+          "To rank and punish individual employees",
+          "As raw scores with no context",
+          "Interpreted alongside how difficult the lure actually was, to guide training",
+          "Ignored once the simulation ends",
+        ],
+        answer: 2,
+        explain: "The Phish Scale rates a lure's difficulty so click/report results can be read in context and used to improve training, not to blame people.",
+      },
+      {
+        q: "How should a phishing simulation relate to real incident response?",
+        options: [
+          "They should be run through the exact same alert channel with no distinction",
+          "Simulations should stay clearly separate, with a distinct reporting path from real suspected phishing",
+          "Simulations should replace incident response entirely",
+          "There's no need to ever report a real phishing email if simulations are running",
+        ],
+        answer: 1,
+        explain: "CISA guidance keeps simulation/assessment and real incident response as distinct tracks, each with its own clear reporting path.",
+      },
+    ],
+  },
 ];
 
 /**
@@ -2093,6 +2212,7 @@ const rawLessons: Lesson[] = [
 const LESSON_ORDER: string[] = [
   "safe-browsing",
   "device-code-phishing",
+  "phishing-simulations-safely",
   "accounts",
   "shield-accounts",
   "ai-phishing",
@@ -2125,6 +2245,8 @@ const LESSON_URGENCY: Record<string, string> = {
     "Scams are the single most common way people lose money online. Fake bank, delivery, toll, tax, job, romance, and tech-support messages arrive every week, and AI now makes them read and sound convincing. Learning to stop, leave the message, and verify another way protects you more than any setting on your phone.",
   "device-code-phishing":
     "A genuine sign-in page is not proof that a request is safe. Device-code phishing can turn one code entry into an authorized criminal session, giving an attacker time to read email, study financial relationships, and prepare convincing fraud. Only approve device sign-ins you started yourself.",
+  "phishing-simulations-safely":
+    "A phishing simulation run without scope, consent, or restraint can itself cause real harm \u2014 collected credentials, a punished workforce, or confusion with a genuine attack. Following NIST and CISA's approach (written scope, no real credential capture, non-punitive coaching, and a clean split from real incident response) keeps the exercise doing what it's for: building resilience.",
   accounts:
     "Unique. Layered. Recoverable. Your email is the master key to almost everything else — whoever controls it can reset your other passwords. Turning on multifactor authentication and using unique, long passwords from a password manager blocks the overwhelming majority of account takeovers, and a single reused password from an old breach is all an attacker needs.",
   "shield-accounts":
