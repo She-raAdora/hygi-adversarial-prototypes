@@ -90,6 +90,47 @@ export const glossary: GlossaryEntry[] = [
     example: "Someone posing as a new coworker who needs a shared password “quickly”.",
     todo: "Verify who you are talking to through a channel you already trust before acting.",
     important: "Pressure plus secrecy is the pattern to watch for, whatever the story.",
+    aliases: ["human hacking", "manipulation scam"],
+  }),
+  entry("Scams and manipulation", "Pretexting", {
+    definition:
+      "A social engineering tactic where the attacker invents a convincing story and role — HR, IT, a bank investigator — to get information or access.",
+    example: "A caller who says they're from payroll and needs your employee ID and birth date to “fix a deposit issue”.",
+    todo: "Hang up and contact the department or company yourself using a number you look up.",
+    important: "A detailed, plausible story is the trick, not proof — anyone can invent one.",
+    aliases: ["pretext", "fabricated scenario"],
+  }),
+  entry("Scams and manipulation", "Baiting", {
+    definition:
+      "A social engineering tactic that lures you with something tempting — a free download, a prize, a lost USB drive — to deliver malware or steal information.",
+    example: "A USB stick labeled “Layoffs” left in a parking lot, plugged in out of curiosity.",
+    todo: "Never plug in drives you didn't buy, and get software only from official stores or the maker's site.",
+    important: "Curiosity and greed are the hooks; if it's too good or too juicy, assume it's bait.",
+    aliases: ["bait attack", "lure"],
+  }),
+  entry("Scams and manipulation", "Quid pro quo scam", {
+    definition:
+      "A social engineering tactic that offers a benefit — a gift card, IT help, a contest win — in exchange for information or an action.",
+    example: "A “helpdesk” that fixes your laptop issue, then asks for your login to “finish the repair”.",
+    todo: "Accept nothing that requires sharing a password, code, or personal data to claim.",
+    important: "When someone gives you something and immediately wants access, the exchange is the scam.",
+    aliases: ["quid pro quo", "something-for-something scam"],
+  }),
+  entry("Scams and manipulation", "Tailgating", {
+    definition:
+      "A physical social engineering tactic where someone slips into a secure building behind an authorized person.",
+    example: "A stranger carrying boxes who asks you to hold the badge-controlled door open.",
+    todo: "Let the door close and ask visitors to check in at reception, kindly but firmly.",
+    important: "It's low-tech and effective — politeness and distraction are the tools.",
+    aliases: ["piggybacking", "door tailgating"],
+  }),
+  entry("Scams and manipulation", "Scareware", {
+    definition:
+      "Fake warnings or alerts that frighten you into installing software, paying for fake fixes, or handing over information.",
+    example: "A pop-up claiming “Your device has 17 viruses — call this number now”.",
+    todo: "Close the page without clicking anything and run a scan using security software you installed yourself.",
+    important: "Real security alerts come from the app on your device, not from a website or phone call.",
+    aliases: ["fake virus warning", "rogue security software"],
   }),
   entry("Scams and manipulation", "Impersonation scam", {
     definition:
