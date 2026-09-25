@@ -163,11 +163,11 @@ export function BacklinkPanel() {
             Snapshot captured: +{capture.data.newDomains} new / −{capture.data.lostDomains} lost
             referring domains
             {capture.data.alerts
-              ? capture.data.alerts.enabled === false
-                ? " · alerting is muted"
-                : ` · ${capture.data.alerts.raised} new risk alert${
+              ? capture.data.alerts.enabled === false && capture.data.alerts.abuseEnabled === false
+                ? " · all alerting is muted"
+                : ` · ${capture.data.alerts.raised} new spam or abuse alert${
                     capture.data.alerts.raised === 1 ? "" : "s"
-                  } at threshold ${capture.data.alerts.threshold}`
+                  }`
               : ""}
             .
           </p>
@@ -320,7 +320,37 @@ export function BacklinkPanel() {
                     <p className="text-3xl font-semibold tracking-tight">{risk.flaggedAnchors}</p>
                     <p className="text-xs text-muted-foreground">Suspicious anchor texts</p>
                   </div>
+                  <div>
+                    <p className="text-3xl font-semibold tracking-tight">
+                      {risk.abuseProfileScore ?? "—"}<span className="text-base font-normal text-muted-foreground">/100</span>
+                    </p>
+                    <p className="text-xs text-muted-foreground">Abuse risk — <RiskBadge level={risk.abuseLevel} /></p>
+                  </div>
                 </div>
+
+                <h4 className="mt-5 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  Abuse-related domains &amp; anchors
+                </h4>
+                {risk.flaggedAbuseDomains + risk.flaggedAbuseAnchors === 0 ? (
+                  <p className="mt-2 text-sm text-muted-foreground">No abuse-related signals in this snapshot.</p>
+                ) : (
+                  <ul className="mt-2 space-y-2">
+                    {risk.domains.filter((d) => d.abuseLevel !== "low").slice(0, 10).map((d) => (
+                      <li key={`abuse-domain-${d.domain}`} className="text-sm">
+                        <span className="font-medium">{d.domain}</span>{" "}<RiskBadge level={d.abuseLevel} />{" "}
+                        <span className="text-muted-foreground">{d.abuseScore}/100 · referring domain</span>
+                        <p className="text-xs text-muted-foreground">{d.abuseReasons.join(" · ")}</p>
+                      </li>
+                    ))}
+                    {risk.anchors.filter((a) => a.abuseLevel !== "low").slice(0, 10).map((a) => (
+                      <li key={`abuse-anchor-${a.anchor}`} className="text-sm">
+                        <span className="font-medium break-words">“{a.anchor}”</span>{" "}<RiskBadge level={a.abuseLevel} />{" "}
+                        <span className="text-muted-foreground">{a.abuseScore}/100 · anchor text</span>
+                        <p className="text-xs text-muted-foreground">{a.abuseReasons.join(" · ")}</p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
 
                 <h4 className="mt-5 text-xs font-medium uppercase tracking-wider text-muted-foreground">
                   Flagged referring domains
@@ -375,9 +405,8 @@ export function BacklinkPanel() {
 
                 <p className="mt-4 text-xs text-muted-foreground">
                   Trusted domains and anchors are excluded from these lists. Heuristic scoring of
-                  Semrush data — throwaway TLDs, link-farm naming patterns,
-                  very low authority, and paid-link anchor phrasing. Review before disavowing
-                  anything.
+                  Semrush data checks link-farm signals separately from abuse-related language.
+                  A flag is a review prompt, not a verdict; review before disavowing anything.
                 </p>
               </div>
             ) : null}

@@ -40,6 +40,7 @@ export function BacklinkAlertsPanel() {
   const [value, setValue] = useState("");
   const [note, setNote] = useState("");
   const [threshold, setThreshold] = useState<number | null>(null);
+  const [abuseThreshold, setAbuseThreshold] = useState<number | null>(null);
   const [formError, setFormError] = useState<string | null>(null);
 
   const invalidate = () => {
@@ -68,12 +69,13 @@ export function BacklinkAlertsPanel() {
     onSuccess: invalidate,
   });
   const settingsMutation = useMutation({
-    mutationFn: (input: { threshold: number; enabled: boolean }) => saveSettings({ data: input }),
+    mutationFn: (input: { threshold: number; enabled: boolean; abuseThreshold: number; abuseEnabled: boolean }) => saveSettings({ data: input }),
     onSuccess: invalidate,
   });
 
-  const settings = data?.settings ?? { threshold: 60, enabled: true };
+  const settings = data?.settings ?? { threshold: 60, enabled: true, abuse_threshold: 60, abuse_enabled: true };
   const currentThreshold = threshold ?? settings.threshold;
+  const currentAbuseThreshold = abuseThreshold ?? settings.abuse_threshold;
   const openAlerts = (data?.alerts ?? []).filter((a) => !a.acknowledged_at);
   const reviewedAlerts = (data?.alerts ?? []).filter((a) => a.acknowledged_at);
 
@@ -85,7 +87,7 @@ export function BacklinkAlertsPanel() {
         </h2>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
           Every snapshot capture checks newly seen referring domains and anchor texts against the
-          spam/risk threshold below and files an alert for anything that crosses it. Trusted entries
+          general spam and abuse thresholds below and files an alert for anything that crosses one. Trusted entries
           are skipped everywhere — no flag, no alert.
         </p>
       </div>
@@ -101,7 +103,7 @@ export function BacklinkAlertsPanel() {
           <div className="rounded-2xl border border-border bg-card p-5">
             <h3 className="flex items-center gap-2 text-sm font-semibold">
               <BellRing className="h-4 w-4" aria-hidden="true" />
-              Alert threshold
+               Alert thresholds
             </h3>
             <div className="mt-4 flex flex-wrap items-end gap-6">
               <div>
@@ -109,7 +111,7 @@ export function BacklinkAlertsPanel() {
                   htmlFor="alert-threshold"
                   className="block text-xs font-medium uppercase tracking-wider text-muted-foreground"
                 >
-                  Risk score that triggers an alert
+                  General spam score
                 </label>
                 <div className="mt-2 flex items-center gap-3">
                   <input
@@ -125,6 +127,15 @@ export function BacklinkAlertsPanel() {
                   <span className="text-lg font-semibold tabular-nums">{currentThreshold}</span>
                 </div>
               </div>
+              <div>
+                <label htmlFor="abuse-alert-threshold" className="block text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                  Abuse score
+                </label>
+                <div className="mt-2 flex items-center gap-3">
+                  <input id="abuse-alert-threshold" type="range" min={20} max={100} step={5} value={currentAbuseThreshold} onChange={(event) => setAbuseThreshold(Number(event.target.value))} className="w-48" />
+                  <span className="text-lg font-semibold tabular-nums">{currentAbuseThreshold}</span>
+                </div>
+              </div>
               <label className="flex items-center gap-2 text-sm">
                 <input
                   type="checkbox"
@@ -133,11 +144,17 @@ export function BacklinkAlertsPanel() {
                     settingsMutation.mutate({
                       threshold: currentThreshold,
                       enabled: event.target.checked,
+                      abuseThreshold: currentAbuseThreshold,
+                      abuseEnabled: settings.abuse_enabled,
                     })
                   }
                   className="h-4 w-4 rounded border-input"
                 />
                 Alerting on
+              </label>
+              <label className="flex items-center gap-2 text-sm">
+                <input type="checkbox" checked={settings.abuse_enabled} onChange={(event) => settingsMutation.mutate({ threshold: currentThreshold, enabled: settings.enabled, abuseThreshold: currentAbuseThreshold, abuseEnabled: event.target.checked })} className="h-4 w-4 rounded border-input" />
+                Abuse alerts on
               </label>
               <button
                 type="button"
@@ -145,9 +162,11 @@ export function BacklinkAlertsPanel() {
                   settingsMutation.mutate({
                     threshold: currentThreshold,
                     enabled: settings.enabled,
+                    abuseThreshold: currentAbuseThreshold,
+                    abuseEnabled: settings.abuse_enabled,
                   })
                 }
-                disabled={settingsMutation.isPending || currentThreshold === settings.threshold}
+                disabled={settingsMutation.isPending || (currentThreshold === settings.threshold && currentAbuseThreshold === settings.abuse_threshold)}
                 className="rounded-lg border border-input bg-background px-3 py-1.5 text-xs font-medium transition-colors hover:bg-accent disabled:opacity-60"
               >
                 {settingsMutation.isPending ? "Saving…" : "Save threshold"}
@@ -155,8 +174,8 @@ export function BacklinkAlertsPanel() {
             </div>
             <p className="mt-3 text-xs text-muted-foreground" aria-live="polite">
               {settings.enabled
-                ? `Alerting is on at ${settings.threshold}/100.`
-                : "Alerting is muted — new high-risk links are still scored, just not filed."}
+                ? `General alerts: ${settings.threshold}/100. Abuse alerts: ${settings.abuse_enabled ? `${settings.abuse_threshold}/100` : "muted"}.`
+                : `General alerts are muted. Abuse alerts: ${settings.abuse_enabled ? `${settings.abuse_threshold}/100` : "muted"}.`}
             </p>
           </div>
 
@@ -187,6 +206,9 @@ export function BacklinkAlertsPanel() {
                     <div className="flex flex-wrap items-baseline justify-between gap-2">
                       <p className="text-sm font-medium break-words">
                         {alert.kind === "anchor" ? `“${alert.value}”` : alert.value}{" "}
+                        <span className={alert.category === "abuse" ? "rounded-full bg-destructive/15 px-2 py-0.5 text-xs text-destructive-strong" : "rounded-full bg-secondary px-2 py-0.5 text-xs text-secondary-foreground"}>
+                          {alert.category === "abuse" ? "Abuse" : "Spam"}
+                        </span>{" "}
                         <span className="text-xs font-normal text-muted-foreground">
                           {alert.kind === "anchor" ? "anchor text" : "referring domain"} ·{" "}
                           {alert.score}/100 · {formatWhen(alert.created_at)}

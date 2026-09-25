@@ -7,6 +7,7 @@ export type BacklinkAlert = {
   id: string;
   target: string;
   kind: "domain" | "anchor";
+  category: "spam" | "abuse";
   value: string;
   score: number;
   level: string;
@@ -23,7 +24,12 @@ export type TrustedEntry = {
   created_at: string;
 };
 
-export type AlertSettings = { threshold: number; enabled: boolean };
+export type AlertSettings = {
+  threshold: number;
+  enabled: boolean;
+  abuse_threshold: number;
+  abuse_enabled: boolean;
+};
 
 /** Admin-only: alert feed, allowlist, and the alert threshold in one round trip. */
 export const getBacklinkAlertData = createServerFn({ method: "GET" })
@@ -39,7 +45,7 @@ export const getBacklinkAlertData = createServerFn({ method: "GET" })
     const [alerts, trusted, settings] = await Promise.all([
       context.supabase
         .from("backlink_alerts")
-        .select("id, target, kind, value, score, level, reasons, acknowledged_at, created_at")
+        .select("id, target, kind, category, value, score, level, reasons, acknowledged_at, created_at")
         .order("created_at", { ascending: false })
         .limit(100),
       context.supabase
@@ -48,7 +54,7 @@ export const getBacklinkAlertData = createServerFn({ method: "GET" })
         .order("created_at", { ascending: false }),
       context.supabase
         .from("backlink_alert_settings")
-        .select("threshold, enabled")
+        .select("threshold, enabled, abuse_threshold, abuse_enabled")
         .eq("id", "default")
         .maybeSingle(),
     ]);
@@ -63,6 +69,8 @@ export const getBacklinkAlertData = createServerFn({ method: "GET" })
       settings: ((settings.data as AlertSettings | null) ?? {
         threshold: 60,
         enabled: true,
+        abuse_threshold: 60,
+        abuse_enabled: true,
       }) as AlertSettings,
     };
   });
@@ -92,9 +100,11 @@ export const acknowledgeBacklinkAlert = createServerFn({ method: "POST" })
 /** Admin-only: change the risk score that triggers an alert, or mute alerts. */
 export const updateBacklinkAlertSettings = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { threshold: number; enabled: boolean }) => ({
+  .inputValidator((input: { threshold: number; enabled: boolean; abuseThreshold: number; abuseEnabled: boolean }) => ({
     threshold: Math.max(0, Math.min(100, Math.round(input.threshold))),
     enabled: Boolean(input.enabled),
+    abuseThreshold: Math.max(0, Math.min(100, Math.round(input.abuseThreshold))),
+    abuseEnabled: Boolean(input.abuseEnabled),
   }))
   .handler(async ({ data, context }) => {
     const { data: isAdmin, error: roleError } = await context.supabase.rpc(
@@ -105,7 +115,7 @@ export const updateBacklinkAlertSettings = createServerFn({ method: "POST" })
     if (isAdmin !== true) throw new Response("Forbidden", { status: 403 });
     const { error } = await context.supabase
       .from("backlink_alert_settings")
-      .upsert({ id: "default", threshold: data.threshold, enabled: data.enabled } as never)
+      .upsert({ id: "default", threshold: data.threshold, enabled: data.enabled, abuse_threshold: data.abuseThreshold, abuse_enabled: data.abuseEnabled } as never)
       .eq("id", "default");
     if (error) throw error;
     return { ok: true as const, ...data };
