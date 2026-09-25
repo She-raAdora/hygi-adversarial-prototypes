@@ -1,9 +1,11 @@
-# Admin TOTP multi-factor authentication
+# Ok Admin TOTP multi-factor authentication
 
 ## Goal
+
 Let administrators add, verify, use, and remove an authenticator-app factor from Account settings, then complete that factor when signing in.
 
 ## Changes
+
 - Add an Account security section visible to administrators only.
 - Show current authenticator status and verified factors.
 - Guide enrollment with a QR code, manual setup key, and six-digit verification step.
@@ -13,17 +15,20 @@ Let administrators add, verify, use, and remove an authenticator-app factor from
 - State clearly that TOTP is stronger than password-only but is not phishing-resistant; passkeys or security keys remain the phishing-resistant option.
 
 ## Cited AI-agent guardrails lesson
+
 - Add a 5–7 minute intermediate lesson explaining how agents differ from chatbots.
 - Teach “Limit, approve, observe, revoke,” least-privilege access, careful handling of sensitive accounts, and post-task revocation.
 - Include a realistic receipt-organizing scenario, a mini-quiz, badge, pathway placement, and exact citations beside supported claims.
 - Verify and cite the uploaded brief’s named primary sources before publishing the lesson text.
 
 ## Verification
+
 - Check enrollment, invalid-code feedback, successful verification, factor removal, keyboard labels, and mobile layout.
 - Confirm non-admin accounts do not see admin MFA controls.
 - Confirm the app builds cleanly and existing sign-in methods still work.
 
 ## Technical details
+
 - Use the existing authentication provider's native TOTP APIs; no QR or MFA secrets are stored by Hygi.
 - Keep factor secrets only in temporary page state during enrollment and never log them.
 - No database schema changes are required.
