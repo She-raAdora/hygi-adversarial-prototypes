@@ -135,13 +135,22 @@ function BadgesPage() {
         </div>
       )}
 
-      <Link
-        to="/safety-response"
-        className="mt-8 flex items-center justify-between gap-3 rounded-2xl border border-border bg-card p-4 text-sm hover:border-primary/40"
-      >
-        <span>🚨 <strong>Safety & Response pathway</strong> — finish its lessons to earn a completion certificate.</span>
-        <span className="text-primary">View →</span>
-      </Link>
+      <div className="mt-8 grid gap-3 sm:grid-cols-2">
+        <Link
+          to="/social-engineering-defense"
+          className="flex items-center justify-between gap-3 rounded-2xl border border-border bg-card p-4 text-sm hover:border-primary/40"
+        >
+          <span>🎣 <strong>Social Engineering Defense</strong> — six modules, scenario assessment, and certificate.</span>
+          <span className="text-primary">View →</span>
+        </Link>
+        <Link
+          to="/safety-response"
+          className="flex items-center justify-between gap-3 rounded-2xl border border-border bg-card p-4 text-sm hover:border-primary/40"
+        >
+          <span>🚨 <strong>Safety & Response pathway</strong> — finish its lessons to earn a completion certificate.</span>
+          <span className="text-primary">View →</span>
+        </Link>
+      </div>
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {lessons.map((l, i) => {

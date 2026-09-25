@@ -116,6 +116,11 @@ function LessonsPage() {
             Track this pathway and earn its completion certificate →
           </Link>
         )}
+        {filter === "scams" && (
+          <Link to="/social-engineering-defense" className="mt-2 inline-block text-sm font-medium text-primary underline">
+            Follow the six-module pathway and earn its completion certificate →
+          </Link>
+        )}
       </section>
 
       <ul className="mt-8 space-y-3">
