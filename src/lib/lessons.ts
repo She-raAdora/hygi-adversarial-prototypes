@@ -2831,6 +2831,7 @@ const LESSON_ORDER: string[] = [
   "personal-info",
   "public-footprint",
   "smaller-trail",
+  "consent-privacy-rights",
   "ransomware",
   "research-data",
   "recognize-harassment",
@@ -2887,6 +2888,8 @@ const LESSON_URGENCY: Record<string, string> = {
     "Every detail you hand over gets stored, sold, and eventually breached. Setting boundaries about what you share, and with whom, shrinks the raw material available for fraud against you.",
   "public-footprint":
     "Data brokers and search results assemble a profile of you from scattered public pieces. Trimming and monitoring it makes you a harder target for impersonation, stalking, and account recovery attacks.",
+  "consent-privacy-rights":
+    "Most data about you is handed over, not stolen. Knowing what consent is supposed to mean \u2014 and the stronger rights children and their parents have under COPPA \u2014 lets you refuse collection you never really agreed to, and clean up what you already gave away.",
   "smaller-trail":
     "Posts, photos, and check-ins reveal patterns — where you live, when you're away, who your family is. Posting as if strangers are watching keeps ordinary sharing from becoming a targeting guide.",
   ransomware:
