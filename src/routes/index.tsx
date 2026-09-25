@@ -113,7 +113,7 @@ function Index() {
                 <BookOpen className="h-5 w-5" />
               </div>
               <div className="text-sm">
-                <p className="font-semibold text-foreground">22 lessons</p>
+                <p className="font-semibold text-foreground">{lessons.length} lessons</p>
                 <p className="text-muted-foreground">5 minutes each</p>
               </div>
             </div>

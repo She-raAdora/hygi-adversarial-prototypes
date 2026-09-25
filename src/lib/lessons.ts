@@ -172,6 +172,126 @@ const rawLessons: Lesson[] = [
   },
 
   {
+    id: "device-code-phishing",
+    title: "Stop Device-Code Phishing",
+    emoji: "🎟️",
+    tagline: "A real sign-in page can still approve the wrong device",
+    intro:
+      "A device code is meant to help a television, printer, or other hard-to-type-on device sign in. A criminal can start that same process on their device, then trick you into approving it. The page and code may be real; the request is not.",
+    sections: [
+      {
+        heading: "Know the legitimate flow",
+        body: "Device-code sign-in was created for devices that are difficult to type on, such as smart televisions, printers, and conference-room equipment. The device displays a short code, which you enter into a browser on another device to authorize that specific sign-in. [1, 2]",
+        tips: [
+          "Only enter a device code when you personally started a sign-in on a device in front of you.",
+          "Match the service, device, and account shown on the approval screen to what you intended.",
+          "Treat an unexpected code like an unexpected login approval: do not enter or approve it.",
+        ],
+      },
+      {
+        heading: "See how criminals reverse it",
+        body: "In device-code phishing, the criminal—not your device—starts the sign-in. They send you their code and may direct you to the service's genuine website. If you enter that code and approve access, you can authorize the criminal's session even though the web address is real. [3]",
+        tips: [
+          "Pause when anyone sends you a code or asks you to open a device sign-in page.",
+          "Do not trust a request just because it uses a genuine Microsoft or other provider page.",
+          "Leave the message and verify through a contact method you already know.",
+          "Never enter a code to prove your identity to an incoming caller, texter, or chat participant.",
+        ],
+      },
+      {
+        heading: "Recognize why this matters now",
+        body: "Microsoft linked the AI-enabled EvilTokens service to more than 12,000 compromised inboxes across over 10,000 organizations. Attackers used stolen access to study email, identify financial relationships, and prepare impersonation and payment-redirection fraud. [3, 4]",
+        tips: [
+          "Warn coworkers if a message asks them to enter a device code on someone else's behalf.",
+          "Report unusual device-code requests through your organization's security channel.",
+          "Be especially cautious when the request is tied to a meeting, document, payment, or urgent account problem.",
+        ],
+      },
+      {
+        heading: "Recover beyond the password",
+        body: "If you entered an unsolicited device code, changing your password may not end the criminal's authorized session. Contact your organization's IT or security team immediately so they can revoke active sessions and refresh tokens, inspect registered devices and inbox rules, and temporarily disable the account when necessary. [3]",
+        tips: [
+          "From a trusted device, change the password and review recent sign-in activity.",
+          "Sign out other sessions and remove devices or connected apps you do not recognize.",
+          "Check for new email-forwarding rules, inbox rules, delegates, or recovery methods.",
+          "Tell your workplace or email provider exactly what happened: you entered an unsolicited device code.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        org: "Microsoft Learn",
+        title: "OAuth 2.0 device authorization grant",
+        url: "https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-device-code",
+        note: "How legitimate device-code sign-in works.",
+      },
+      {
+        org: "Internet Engineering Task Force",
+        title: "RFC 8628 — OAuth 2.0 Device Authorization Grant",
+        url: "https://datatracker.ietf.org/doc/html/rfc8628",
+        note: "The underlying standard, including remote-phishing safeguards in Section 5.4.",
+      },
+      {
+        org: "Microsoft Security",
+        title: "Unmasking EvilTokens: Getting to the root of device code phishing",
+        url: "https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/",
+        note: "Attack method, observed scale, and incident-response guidance.",
+      },
+      {
+        org: "Microsoft Digital Crimes Unit",
+        title: "Disrupting EvilTokens: The AI chatbot built for cybercrime",
+        url: "https://blogs.microsoft.com/on-the-issues/2026/09/22/disrupting-eviltokens-the-ai-chatbot-built-for-cybercrime/",
+        note: "Evidence of the campaign's reach and criminal use.",
+      },
+    ],
+    quiz: [
+      {
+        q: "When is it appropriate to enter a device code?",
+        options: [
+          "Whenever a coworker sends one",
+          "Only when you personally started sign-in on a device in front of you",
+          "Whenever the code opens a real Microsoft page",
+          "When a caller says it will verify your identity",
+        ],
+        answer: 1,
+        explain: "A device code should complete a sign-in you intentionally started on a device you control—not a request someone sent you.",
+      },
+      {
+        q: "Why can device-code phishing work even on a genuine sign-in website?",
+        options: [
+          "The website secretly disables encryption",
+          "Entering the criminal's code can authorize the session they started",
+          "Every device code reveals your password",
+          "The browser automatically shares your inbox",
+        ],
+        answer: 1,
+        explain: "The website can be genuine while the transaction is wrong: the code belongs to a sign-in initiated on the criminal's device.",
+      },
+      {
+        q: "Someone unexpectedly sends you a device code and asks you to enter it. What should you do?",
+        options: [
+          "Enter it, then ask why",
+          "Forward it to a friend to test",
+          "Do not enter it; leave the message and verify independently",
+          "Approve it if the sender knows your name",
+        ],
+        answer: 2,
+        explain: "An unsolicited code is an unexpected login approval. Pause, leave the message, and verify through a channel you already trust.",
+      },
+      {
+        q: "You entered an unsolicited device code. Is changing the password enough?",
+        options: [
+          "Always",
+          "No—report it, revoke active sessions and tokens, and inspect devices and inbox rules",
+          "Yes, if you wait 24 hours",
+          "No, but deleting your browser history fixes it",
+        ],
+        answer: 1,
+        explain: "The criminal may already hold an authorized session. Recovery must remove that access and check for changes they made inside the account.",
+      },
+    ],
+  },
+  {
     id: "footprint",
     title: "Audit Your Digital Footprint",
     emoji: "👣",
@@ -1605,6 +1725,7 @@ const rawLessons: Lesson[] = [
  */
 const LESSON_ORDER: string[] = [
   "safe-browsing",
+  "device-code-phishing",
   "accounts",
   "shield-accounts",
   "ai-phishing",
@@ -1632,6 +1753,8 @@ const LESSON_ORDER: string[] = [
 const LESSON_URGENCY: Record<string, string> = {
   "safe-browsing":
     "Scams are the single most common way people lose money online. Fake bank, delivery, toll, tax, job, romance, and tech-support messages arrive every week, and AI now makes them read and sound convincing. Learning to stop, leave the message, and verify another way protects you more than any setting on your phone.",
+  "device-code-phishing":
+    "A genuine sign-in page is not proof that a request is safe. Device-code phishing can turn one code entry into an authorized criminal session, giving an attacker time to read email, study financial relationships, and prepare convincing fraud. Only approve device sign-ins you started yourself.",
   accounts:
     "Unique. Layered. Recoverable. Your email is the master key to almost everything else — whoever controls it can reset your other passwords. Turning on multifactor authentication and using unique, long passwords from a password manager blocks the overwhelming majority of account takeovers, and a single reused password from an old breach is all an attacker needs.",
   "shield-accounts":
