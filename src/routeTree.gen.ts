@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AbuseSupportRouteImport } from './routes/abuse-support'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BadgesRouteImport } from './routes/badges'
@@ -39,6 +40,11 @@ const IndexRoute = IndexRouteImport.update({
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AbuseSupportRoute = AbuseSupportRouteImport.update({
+  id: '/abuse-support',
+  path: '/abuse-support',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AccessibilityRoute = AccessibilityRouteImport.update({
@@ -144,6 +150,7 @@ const ApiPublicHooksSeoScanRoute = ApiPublicHooksSeoScanRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/abuse-support': typeof AbuseSupportRoute
   '/accessibility': typeof AccessibilityRoute
   '/auth': typeof AuthRoute
   '/badges': typeof BadgesRoute
@@ -167,6 +174,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/abuse-support': typeof AbuseSupportRoute
   '/accessibility': typeof AccessibilityRoute
   '/auth': typeof AuthRoute
   '/badges': typeof BadgesRoute
@@ -192,6 +200,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/abuse-support': typeof AbuseSupportRoute
   '/accessibility': typeof AccessibilityRoute
   '/auth': typeof AuthRoute
   '/badges': typeof BadgesRoute
@@ -217,6 +226,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/abuse-support'
     | '/accessibility'
     | '/auth'
     | '/badges'
@@ -240,6 +250,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/abuse-support'
     | '/accessibility'
     | '/auth'
     | '/badges'
@@ -264,6 +275,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/abuse-support'
     | '/accessibility'
     | '/auth'
     | '/badges'
@@ -289,6 +301,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AbuseSupportRoute: typeof AbuseSupportRoute
   AccessibilityRoute: typeof AccessibilityRoute
   AuthRoute: typeof AuthRoute
   BadgesRoute: typeof BadgesRoute
@@ -320,6 +333,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/abuse-support': {
+      id: '/abuse-support'
+      path: '/abuse-support'
+      fullPath: '/abuse-support'
+      preLoaderRoute: typeof AbuseSupportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/accessibility': {
@@ -487,6 +507,7 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AbuseSupportRoute: AbuseSupportRoute,
   AccessibilityRoute: AccessibilityRoute,
   AuthRoute: AuthRoute,
   BadgesRoute: BadgesRoute,
