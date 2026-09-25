@@ -339,10 +339,12 @@ function Quiz({
     [picks, lesson],
   );
 
+  useEffect(() => {
+    if (step >= total && score > previousBest) awardBadge(lesson.id, score);
+  }, [lesson.id, previousBest, score, step, total]);
+
   if (step >= total) {
     const passed = score === total;
-    if (passed && score > previousBest) awardBadge(lesson.id, score);
-    else if (score > previousBest) awardBadge(lesson.id, score);
 
     return (
       <div className="mt-12 rounded-3xl border border-border bg-card p-8 text-center">
@@ -628,7 +630,8 @@ function Quiz({
         type="button"
         disabled={picked === null}
         onClick={() => {
-          const nextPicks = [...picks, picked!];
+          if (picked === null) return;
+          const nextPicks = [...picks, picked];
           recordQuestionResult({
             lessonId: lesson.id,
             lessonTitle: lesson.title,
