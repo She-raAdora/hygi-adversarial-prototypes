@@ -37,9 +37,9 @@ export const pathways: Pathway[] = [
   },
   {
     id: "scams",
-    name: "Scams & Social Engineering",
+    name: "Social Engineering Defense",
     emoji: "🎣",
-    blurb: "Recognising phishing, AI impersonation, and unsafe links.",
+    blurb: "Recognize pressure, verify requests, resist phishing, and respond safely.",
     hue: 30,
     lessonIds: ["safe-browsing", "phishing-prevention-tactics", "phishing-case-study", "device-code-phishing", "phishing-simulations-safely", "ai-phishing", "ai-agents-guardrails", "secure-comms"],
   },
