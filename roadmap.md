@@ -8,3 +8,4 @@
 - [x] Add an FTC-cited online abuse lesson with mini-quiz, badge, and pathway placement
 - [x] Add a NIST- and CISA-cited safe phishing simulations lesson with mini-quiz, badge, and pathway placement
 - [x] Build full Safety & Response pathway (account takeover + identity theft lessons, completion certificate)
+- [x] Add a cited phishing prevention tactics lesson (email verification, link checking, password managers) with mini-quiz, badge, and pathway placement
