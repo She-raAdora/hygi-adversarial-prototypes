@@ -87,11 +87,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "apple-mobile-web-app-status-bar-style", content: "default" },
       { name: "apple-mobile-web-app-title", content: "Hygi." },
       { name: "google-site-verification", content: "eULKPktRfXUW4MMdhEeLPtY8Ur6qbF22CeTobbcIUyo" },
-      { name: "author", content: "Lovable" },
+      { name: "author", content: "NorthBridge" },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Hygi." },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       {
