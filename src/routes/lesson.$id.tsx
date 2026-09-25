@@ -215,7 +215,27 @@ function LessonPage() {
 
           {lesson.sources?.length ? <LessonEvidence sources={lesson.sources} /> : null}
 
-
+          {lesson.id === "image-based-abuse-response" ? (
+            <aside
+              className="rounded-lg border border-primary/30 bg-primary/5 p-5"
+              aria-labelledby="abuse-support-heading"
+            >
+              <h2 id="abuse-support-heading" className="text-lg font-semibold">
+                You do not have to handle this alone
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Find crisis lines, confidential support, image-removal tools, and local
+                organizations in the U.S., Canada, and Europe.
+              </p>
+              <Link
+                to="/abuse-support"
+                className="mt-4 inline-flex items-center gap-2 font-medium text-primary underline underline-offset-4"
+              >
+                Open abuse support resources
+                <ArrowRight className="size-4" aria-hidden="true" />
+              </Link>
+            </aside>
+          ) : null}
 
           <button
             type="button"
