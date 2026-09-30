@@ -78,10 +78,9 @@ export const setAdminRole = createServerFn({ method: "POST" })
       if (error) throw error;
     }
 
-    // Respect the affected account's opt-out before notifying them.
-    const { wantsAdminRoleEmails } = await import("@/lib/notifications.server");
-    const notify = await wantsAdminRoleEmails(data.userId);
-    return { ok: true, notified: notify };
+    // The affected account's email preference stays server-side: it is only
+    // consulted when a notification is actually sent, never returned here.
+    return { ok: true };
   });
 
 /**
