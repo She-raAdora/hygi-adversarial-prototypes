@@ -98,7 +98,7 @@ function SafetyResponsePage() {
     const url = drawCertificate(name.trim(), items.length, date).toDataURL("image/png");
     const w = window.open("");
     if (!w) return download();
-    w.document.write(`<title>Certificate</title><img src="${url}" style="width:100%" onload="window.print()">`);
+    w.document.write(`<title>Certificate</title><img src="${url}" alt="Safety &amp; Response pathway completion certificate" style="width:100%" onload="window.print()">`);
   };
 
   return (
