@@ -238,6 +238,13 @@ function ChatPanel({
       </Conversation>
 
       <div className="border-t border-border/60 p-3">
+        {!sessionToken ? (
+          <div className="mb-2 space-y-1">
+            <p className="text-xs text-muted-foreground">Quick check before you chat:</p>
+            <Turnstile action="help_chat" onChange={(s) => void onCaptcha(s)} resetKey={captchaReset} />
+            {verifyError ? <p className="text-xs text-destructive-strong">{verifyError}</p> : null}
+          </div>
+        ) : null}
         <PromptInput
           onSubmit={(_message, event) => {
             event.preventDefault();
