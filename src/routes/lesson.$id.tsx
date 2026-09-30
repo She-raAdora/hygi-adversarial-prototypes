@@ -86,7 +86,9 @@ export const Route = createFileRoute("/lesson/$id")({
     return (
       <div className="mx-auto max-w-xl px-6 py-20 text-center">
         <h1 className="text-2xl font-semibold">Couldn't load this lesson</h1>
-        <p className="mt-2 text-muted-foreground">{error.message}</p>
+        <p className="mt-2 text-muted-foreground">
+          {error instanceof Error ? error.message : "Something went wrong."}
+        </p>
         <button
           type="button"
           onClick={() => {
