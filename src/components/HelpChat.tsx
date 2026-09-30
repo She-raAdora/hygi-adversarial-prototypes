@@ -16,6 +16,8 @@ import {
   PromptInputTextarea,
 } from "@/components/ai-elements/prompt-input";
 import { Shimmer } from "@/components/ai-elements/shimmer";
+import { Turnstile, type CaptchaState } from "@/components/Turnstile";
+import { startHelpChatSession } from "@/lib/help-chat.functions";
 
 const STORAGE_KEY = "hygi-help-chat";
 
@@ -55,12 +57,37 @@ function ChatPanel({
   const [input, setInput] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
+  const [sessionToken, setSessionToken] = useState<string | null>(null);
+  const [verifyError, setVerifyError] = useState<string | null>(null);
+  const [captchaReset, setCaptchaReset] = useState(0);
+  const tokenRef = useRef<string | null>(null);
+  tokenRef.current = sessionToken;
+  const [transport] = useState(
+    () =>
+      new DefaultChatTransport({
+        api: "/api/chat",
+        headers: (): Record<string, string> =>
+          tokenRef.current ? { "x-help-chat-token": tokenRef.current } : {},
+      }),
+  );
   const { messages, sendMessage, status, setMessages, error } = useChat({
     id: "hygi-help",
     messages: initialMessages,
-    transport: new DefaultChatTransport({ api: "/api/chat" }),
+    transport,
   });
   const busy = status === "submitted" || status === "streaming";
+
+  async function onCaptcha(state: CaptchaState) {
+    if (!state.token) return;
+    setVerifyError(null);
+    try {
+      const res = await startHelpChatSession({ data: { captchaToken: state.token } });
+      setSessionToken(res.token);
+    } catch {
+      setVerifyError("Verification failed. Please try again.");
+      setCaptchaReset((n) => n + 1);
+    }
+  }
 
   useEffect(() => {
     try {
