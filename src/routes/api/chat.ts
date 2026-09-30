@@ -35,11 +35,14 @@ export const Route = createFileRoute("/api/chat")({
       POST: async ({ request }) => {
         // Only allow the app's own pages to call this paid endpoint.
         const origin = request.headers.get("origin");
-        if (origin) {
-          const requestOrigin = new URL(request.url).origin;
-          if (origin !== requestOrigin) {
-            return new Response("Forbidden", { status: 403 });
-          }
+        if (!origin || origin !== new URL(request.url).origin) {
+          return new Response("Forbidden", { status: 403 });
+        }
+
+        // Require a short-lived session token issued after a human check.
+        const { verifyHelpChatToken } = await import("@/lib/help-chat-session.server");
+        if (!verifyHelpChatToken(request.headers.get("x-help-chat-token"))) {
+          return new Response("Unauthorized", { status: 401 });
         }
 
         const raw = await request.text();
