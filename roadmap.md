@@ -10,3 +10,4 @@
 - [x] Build full Safety & Response pathway (account takeover + identity theft lessons, completion certificate)
 - [x] Add a cited phishing prevention tactics lesson (email verification, link checking, password managers) with mini-quiz, badge, and pathway placement
 - [x] Build the Social Engineering Defense pathway with scenario assessment, prior badge credit, and one-year completion certificate
+- [x] Require sign-in for the Hygi Helper chat so strangers cannot run up AI costs

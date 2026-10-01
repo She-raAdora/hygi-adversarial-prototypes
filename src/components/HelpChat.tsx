@@ -16,8 +16,8 @@ import {
   PromptInputTextarea,
 } from "@/components/ai-elements/prompt-input";
 import { Shimmer } from "@/components/ai-elements/shimmer";
-import { Turnstile, type CaptchaState } from "@/components/Turnstile";
-import { startHelpChatSession } from "@/lib/help-chat.functions";
+import { Link } from "@tanstack/react-router";
+import { supabase } from "@/integrations/supabase/client";
 
 const STORAGE_KEY = "hygi-help-chat";
 
@@ -57,18 +57,17 @@ function ChatPanel({
   const [input, setInput] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
-  const [sessionToken, setSessionToken] = useState<string | null>(null);
-  const [verifyError, setVerifyError] = useState<string | null>(null);
-  const [captchaReset, setCaptchaReset] = useState(0);
-  const [captchaUnavailable, setCaptchaUnavailable] = useState(false);
-  const tokenRef = useRef<string | null>(null);
-  tokenRef.current = sessionToken;
+  // The Helper uses a paid AI service, so only signed-in people can chat.
+  const [signedIn, setSignedIn] = useState<boolean | null>(null);
   const [transport] = useState(
     () =>
       new DefaultChatTransport({
         api: "/api/chat",
-        headers: (): Record<string, string> =>
-          tokenRef.current ? { "x-help-chat-token": tokenRef.current } : {},
+        headers: async (): Promise<Record<string, string>> => {
+          const { data } = await supabase.auth.getSession();
+          const token = data.session?.access_token;
+          return token ? { Authorization: `Bearer ${token}` } : {};
+        },
       }),
   );
   const { messages, sendMessage, status, setMessages, error } = useChat({
@@ -77,21 +76,21 @@ function ChatPanel({
     transport,
   });
   const busy = status === "submitted" || status === "streaming";
+  const sessionToken = signedIn ? "ok" : null;
 
-  async function onCaptcha(state: CaptchaState) {
-    // The chat endpoint always needs a verified session, so a skipped or
-    // unconfigured check means chat cannot work — say so instead of failing silently.
-    setCaptchaUnavailable(!state.required);
-    if (!state.token) return;
-    setVerifyError(null);
-    try {
-      const res = await startHelpChatSession({ data: { captchaToken: state.token } });
-      setSessionToken(res.token);
-    } catch {
-      setVerifyError("Verification failed. Please try again.");
-      setCaptchaReset((n) => n + 1);
-    }
-  }
+  useEffect(() => {
+    let active = true;
+    void supabase.auth.getUser().then(({ data }) => {
+      if (active) setSignedIn(Boolean(data.user));
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSignedIn(Boolean(session?.user));
+    });
+    return () => {
+      active = false;
+      sub.subscription.unsubscribe();
+    };
+  }, []);
 
   useEffect(() => {
     try {
@@ -242,21 +241,15 @@ function ChatPanel({
       </Conversation>
 
       <div className="border-t border-border/60 p-3">
-        {!sessionToken ? (
-          <div className="mb-2 space-y-1">
-            {captchaUnavailable ? (
-              <p role="alert" className="text-xs text-destructive-strong">
-                The Helper is unavailable right now because the human check could not load. Please
-                try again later, or browse the glossary and lessons in the meantime.
-              </p>
-            ) : (
-              <p className="text-xs text-muted-foreground">Quick check before you chat:</p>
-            )}
-            <div className={captchaUnavailable ? "hidden" : undefined}>
-              <Turnstile action="help_chat" onChange={(s) => void onCaptcha(s)} resetKey={captchaReset} />
-            </div>
-            {verifyError ? <p className="text-xs text-destructive-strong">{verifyError}</p> : null}
-          </div>
+        {signedIn === false ? (
+          <p className="mb-2 text-xs text-muted-foreground">
+            Please{" "}
+            <Link to="/auth" className="font-medium text-foreground underline underline-offset-2">
+              sign in
+            </Link>{" "}
+            to chat with the Helper. You can still browse the glossary and lessons without an
+            account.
+          </p>
         ) : null}
         <PromptInput
           onSubmit={(_message, event) => {
@@ -268,7 +261,7 @@ function ChatPanel({
             ref={textareaRef}
             value={input}
             onChange={(event) => setInput(event.currentTarget.value)}
-            placeholder={sessionToken ? "Ask about a lesson or term…" : "Complete the check above to chat"}
+            placeholder={sessionToken ? "Ask about a lesson or term…" : "Sign in to chat with the Helper"}
             disabled={!sessionToken}
             aria-label="Ask the Hygi Helper a question"
             aria-describedby={`${panelId}-hint`}
