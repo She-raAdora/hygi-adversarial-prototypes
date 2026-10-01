@@ -39,9 +39,20 @@ export const Route = createFileRoute("/api/chat")({
           return new Response("Forbidden", { status: 403 });
         }
 
-        // Require a short-lived session token issued after a human check.
-        const { verifyHelpChatToken } = await import("@/lib/help-chat-session.server");
-        if (!verifyHelpChatToken(request.headers.get("x-help-chat-token"))) {
+        // Paid AI endpoint: only signed-in users may call it.
+        const authHeader = request.headers.get("authorization") ?? "";
+        const bearer = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : "";
+        const supabaseUrl = process.env["SUPABASE_URL"];
+        const publishableKey = process.env["SUPABASE_PUBLISHABLE_KEY"];
+        if (!bearer || bearer.split(".").length !== 3 || !supabaseUrl || !publishableKey) {
+          return new Response("Unauthorized", { status: 401 });
+        }
+        const { createClient } = await import("@supabase/supabase-js");
+        const authClient = createClient(supabaseUrl, publishableKey, {
+          auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
+        });
+        const { data: claimsData, error: claimsError } = await authClient.auth.getClaims(bearer);
+        if (claimsError || !claimsData?.claims?.sub) {
           return new Response("Unauthorized", { status: 401 });
         }
 
