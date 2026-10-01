@@ -16,8 +16,8 @@ import {
   PromptInputTextarea,
 } from "@/components/ai-elements/prompt-input";
 import { Shimmer } from "@/components/ai-elements/shimmer";
-import { Turnstile, type CaptchaState } from "@/components/Turnstile";
-import { startHelpChatSession } from "@/lib/help-chat.functions";
+import { Link } from "@tanstack/react-router";
+import { supabase } from "@/integrations/supabase/client";
 
 const STORAGE_KEY = "hygi-help-chat";
 
@@ -241,21 +241,15 @@ function ChatPanel({
       </Conversation>
 
       <div className="border-t border-border/60 p-3">
-        {!sessionToken ? (
-          <div className="mb-2 space-y-1">
-            {captchaUnavailable ? (
-              <p role="alert" className="text-xs text-destructive-strong">
-                The Helper is unavailable right now because the human check could not load. Please
-                try again later, or browse the glossary and lessons in the meantime.
-              </p>
-            ) : (
-              <p className="text-xs text-muted-foreground">Quick check before you chat:</p>
-            )}
-            <div className={captchaUnavailable ? "hidden" : undefined}>
-              <Turnstile action="help_chat" onChange={(s) => void onCaptcha(s)} resetKey={captchaReset} />
-            </div>
-            {verifyError ? <p className="text-xs text-destructive-strong">{verifyError}</p> : null}
-          </div>
+        {signedIn === false ? (
+          <p className="mb-2 text-xs text-muted-foreground">
+            Please{" "}
+            <Link to="/auth" className="font-medium text-foreground underline underline-offset-2">
+              sign in
+            </Link>{" "}
+            to chat with the Helper. You can still browse the glossary and lessons without an
+            account.
+          </p>
         ) : null}
         <PromptInput
           onSubmit={(_message, event) => {
