@@ -60,6 +60,7 @@ function ChatPanel({
   const [sessionToken, setSessionToken] = useState<string | null>(null);
   const [verifyError, setVerifyError] = useState<string | null>(null);
   const [captchaReset, setCaptchaReset] = useState(0);
+  const [captchaUnavailable, setCaptchaUnavailable] = useState(false);
   const tokenRef = useRef<string | null>(null);
   tokenRef.current = sessionToken;
   const [transport] = useState(
@@ -78,6 +79,9 @@ function ChatPanel({
   const busy = status === "submitted" || status === "streaming";
 
   async function onCaptcha(state: CaptchaState) {
+    // The chat endpoint always needs a verified session, so a skipped or
+    // unconfigured check means chat cannot work — say so instead of failing silently.
+    setCaptchaUnavailable(!state.required);
     if (!state.token) return;
     setVerifyError(null);
     try {
@@ -136,7 +140,7 @@ function ChatPanel({
 
   function ask(text: string) {
     const trimmed = text.trim();
-    if (!trimmed || busy) return;
+    if (!trimmed || busy || !sessionToken) return;
     setInput("");
     void sendMessage({ text: trimmed });
   }
@@ -240,8 +244,17 @@ function ChatPanel({
       <div className="border-t border-border/60 p-3">
         {!sessionToken ? (
           <div className="mb-2 space-y-1">
-            <p className="text-xs text-muted-foreground">Quick check before you chat:</p>
-            <Turnstile action="help_chat" onChange={(s) => void onCaptcha(s)} resetKey={captchaReset} />
+            {captchaUnavailable ? (
+              <p role="alert" className="text-xs text-destructive-strong">
+                The Helper is unavailable right now because the human check could not load. Please
+                try again later, or browse the glossary and lessons in the meantime.
+              </p>
+            ) : (
+              <p className="text-xs text-muted-foreground">Quick check before you chat:</p>
+            )}
+            <div className={captchaUnavailable ? "hidden" : undefined}>
+              <Turnstile action="help_chat" onChange={(s) => void onCaptcha(s)} resetKey={captchaReset} />
+            </div>
             {verifyError ? <p className="text-xs text-destructive-strong">{verifyError}</p> : null}
           </div>
         ) : null}
@@ -255,7 +268,8 @@ function ChatPanel({
             ref={textareaRef}
             value={input}
             onChange={(event) => setInput(event.currentTarget.value)}
-            placeholder="Ask about a lesson or term…"
+            placeholder={sessionToken ? "Ask about a lesson or term…" : "Complete the check above to chat"}
+            disabled={!sessionToken}
             aria-label="Ask the Hygi Helper a question"
             aria-describedby={`${panelId}-hint`}
           />
@@ -263,7 +277,7 @@ function ChatPanel({
             Press Enter to send, Shift plus Enter for a new line, Escape to close the chat.
           </p>
           <PromptInputFooter className="justify-end">
-            <PromptInputSubmit status={status} disabled={!input.trim() && !busy} />
+            <PromptInputSubmit status={status} disabled={!sessionToken || (!input.trim() && !busy)} />
           </PromptInputFooter>
         </PromptInput>
       </div>
