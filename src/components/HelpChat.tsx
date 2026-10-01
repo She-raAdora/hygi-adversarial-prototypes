@@ -261,7 +261,7 @@ function ChatPanel({
             ref={textareaRef}
             value={input}
             onChange={(event) => setInput(event.currentTarget.value)}
-            placeholder={sessionToken ? "Ask about a lesson or term…" : "Complete the check above to chat"}
+            placeholder={sessionToken ? "Ask about a lesson or term…" : "Sign in to chat with the Helper"}
             disabled={!sessionToken}
             aria-label="Ask the Hygi Helper a question"
             aria-describedby={`${panelId}-hint`}
