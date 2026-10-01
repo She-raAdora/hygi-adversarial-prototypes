@@ -57,18 +57,17 @@ function ChatPanel({
   const [input, setInput] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
-  const [sessionToken, setSessionToken] = useState<string | null>(null);
-  const [verifyError, setVerifyError] = useState<string | null>(null);
-  const [captchaReset, setCaptchaReset] = useState(0);
-  const [captchaUnavailable, setCaptchaUnavailable] = useState(false);
-  const tokenRef = useRef<string | null>(null);
-  tokenRef.current = sessionToken;
+  // The Helper uses a paid AI service, so only signed-in people can chat.
+  const [signedIn, setSignedIn] = useState<boolean | null>(null);
   const [transport] = useState(
     () =>
       new DefaultChatTransport({
         api: "/api/chat",
-        headers: (): Record<string, string> =>
-          tokenRef.current ? { "x-help-chat-token": tokenRef.current } : {},
+        headers: async (): Promise<Record<string, string>> => {
+          const { data } = await supabase.auth.getSession();
+          const token = data.session?.access_token;
+          return token ? { Authorization: `Bearer ${token}` } : {};
+        },
       }),
   );
   const { messages, sendMessage, status, setMessages, error } = useChat({
@@ -77,21 +76,21 @@ function ChatPanel({
     transport,
   });
   const busy = status === "submitted" || status === "streaming";
+  const sessionToken = signedIn ? "ok" : null;
 
-  async function onCaptcha(state: CaptchaState) {
-    // The chat endpoint always needs a verified session, so a skipped or
-    // unconfigured check means chat cannot work — say so instead of failing silently.
-    setCaptchaUnavailable(!state.required);
-    if (!state.token) return;
-    setVerifyError(null);
-    try {
-      const res = await startHelpChatSession({ data: { captchaToken: state.token } });
-      setSessionToken(res.token);
-    } catch {
-      setVerifyError("Verification failed. Please try again.");
-      setCaptchaReset((n) => n + 1);
-    }
-  }
+  useEffect(() => {
+    let active = true;
+    void supabase.auth.getUser().then(({ data }) => {
+      if (active) setSignedIn(Boolean(data.user));
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSignedIn(Boolean(session?.user));
+    });
+    return () => {
+      active = false;
+      sub.subscription.unsubscribe();
+    };
+  }, []);
 
   useEffect(() => {
     try {
