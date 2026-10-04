@@ -49,6 +49,26 @@ export const Route = createFileRoute("/api/chat")({
         }
         const { createClient } = await import("@supabase/supabase-js");
         const authClient = createClient(supabaseUrl, publishableKey, {
+          // New publishable keys are opaque strings, not JWTs: always send the
+          // apikey header and never forward it as a bearer token (matches the
+          // fetch wrapper in src/integrations/supabase/client.ts).
+          global: {
+            fetch: (input, init) => {
+              const headers = new Headers(
+                typeof Request !== "undefined" && input instanceof Request
+                  ? input.headers
+                  : undefined,
+              );
+              if (init?.headers) {
+                new Headers(init.headers).forEach((value, key) => headers.set(key, value));
+              }
+              if (headers.get("Authorization") === `Bearer ${publishableKey}`) {
+                headers.delete("Authorization");
+              }
+              headers.set("apikey", publishableKey);
+              return fetch(input, { ...init, headers });
+            },
+          },
           auth: { storage: undefined, persistSession: false, autoRefreshToken: false },
         });
         const { data: claimsData, error: claimsError } = await authClient.auth.getClaims(bearer);
