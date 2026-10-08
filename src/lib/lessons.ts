@@ -2912,6 +2912,118 @@ const rawLessons: Lesson[] = [
       },
     ],
   },
+  {
+    id: "dont-reply-to-spam",
+    title: "Why Replying to Spam Backfires",
+    emoji: "📭",
+    tagline: "Silence starves the spammer",
+    intro:
+      "That junk email sitting in your inbox feels harmless — and it is, as long as you leave it alone. The moment you reply, even just to say 'unsubscribe,' you tell the spammer something they care about: your address is real, someone reads it, and it's worth selling. [1, 2]",
+    sections: [
+      {
+        heading: "The reply that costs you",
+        body: "Microsoft's spam guidance is blunt: never reply to a spam message — not even to unsubscribe from a mailing list — unless you know and trust the sender. Answering spam confirms your email address is an active one, and active addresses are valuable. Spammers verify replies, then sell the confirmed list to other spammers, which is why one reply can turn a trickle of junk into a flood. [1]",
+        tips: [
+          "Never reply to spam — not even to unsubscribe or ask to be removed.",
+          "A reply proves a human reads that inbox, making it worth more to sell.",
+          "Real newsletters you signed up for are the only exception — unsubscribe through their genuine links or settings.",
+        ],
+      },
+      {
+        heading: "Signals you send without typing",
+        body: "You don't have to write back to give yourself away. Spam messages often load images from the sender's server — invisible 'web beacons' that report your address as live the moment the picture downloads. Responding to a spammer's meeting request or sending a read receipt confirms your address the same way. That's why email apps block remote images and receipts by default, and why you should leave them blocked for mail you don't trust. [1]",
+        tips: [
+          "Loading a spam email's images can verify your address — keep remote content blocked for unknown senders.",
+          "Decline meeting requests and read receipts from people you don't know.",
+          "Preview mail in the list, and only open messages you were expecting.",
+        ],
+      },
+      {
+        heading: "Why replying is risky",
+        body: "A reply doesn't just confirm your address — it opens a conversation with someone trying to take your money or identity. Microsoft warns that most legitimate companies will not ask you to send personal information by email, so a message asking you to reply with account details is a red flag for phishing, not a real verification step. And the FTC is clear that legitimate companies never ask for passwords, PINs, or account numbers by email or text. Once you reply, the scammer can escalate: more convincing follow-ups, phone calls referencing 'your exchange,' and pressure to act before you think. [1, 2, 3]",
+        tips: [
+          "Never send passwords, PINs, or account numbers by email — no real company asks.",
+          "Every reply teaches the scammer what works on you and invites the next move.",
+          "An urgent reply request is pressure, not proof.",
+        ],
+      },
+      {
+        heading: "What to do instead",
+        body: "The safe path takes less effort than replying: use your email app's 'Report' or 'Report phishing' option, or mark the message as junk and block the sender — this helps filters protect you and everyone else. Don't click links or open attachments, and don't call any phone number in the message. If the message claims to be from a company you actually do business with, contact it yourself using a number you find on your statement, its app, or its official website. Suspect a scam? Report it at ReportFraud.ftc.gov. [1, 2, 3]",
+        tips: [
+          "Report junk or phishing in your email app, then delete the message.",
+          "Verify companies through a number you find yourself — never one from the email.",
+          "Report scams at ReportFraud.ftc.gov to protect the next person.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        org: "Microsoft",
+        title: "10 tips on how to help reduce spam",
+        url: "https://support.microsoft.com/en-us/outlook/10-tips-on-how-to-help-reduce-spam",
+        note: "Never reply to spam — not even to unsubscribe; replies, image beacons, and read receipts all confirm your address is active.",
+      },
+      {
+        org: "Microsoft",
+        title: "Protect yourself from phishing",
+        url: "https://support.microsoft.com/en-US/security/protect-yourself-from-phishing",
+        note: "Phishing works by getting you to respond or click; pause, examine the sender, and never share personal information in a reply.",
+      },
+      {
+        org: "FTC",
+        title: "How To Recognize and Avoid Phishing Scams",
+        url: "https://consumer.ftc.gov/articles/how-recognize-and-avoid-phishing-scams",
+        note: "Legitimate companies never ask for passwords, PINs, or account numbers by email or text; report phishing instead of responding.",
+      },
+    ],
+    quiz: [
+      {
+        q: "A spam email says 'Reply UNSUBSCRIBE to be removed from this list.' What happens if you do?",
+        options: [
+          "The law requires the sender to remove you, and it works",
+          "You confirm your address is active, and the spammer can sell it to others",
+          "Nothing — spam senders ignore replies",
+          "Your email app automatically blocks the sender",
+        ],
+        answer: 1,
+        explain: "Microsoft's guidance: never reply to spam, even to unsubscribe — answering just confirms your address is active, and verified addresses get sold to more spammers.",
+      },
+      {
+        q: "What's the best way to handle a suspicious email sitting in your inbox?",
+        options: [
+          "Reply asking to be removed from the mailing list",
+          "Forward it to friends so they know to avoid it",
+          "Report it as junk or phishing, then delete it",
+          "Open the links so you can see what it wanted",
+        ],
+        answer: 2,
+        explain: "Use your email app's report or junk option, block the sender, and delete — no reply, no clicks, no attachments.",
+      },
+      {
+        q: "An email that looks like it's from your credit card company asks you to reply with your account number to 'verify your identity.' What's the right move?",
+        options: [
+          "Don't reply — call the company using a number from your statement or its official site",
+          "Reply but leave out the last four digits",
+          "Reply only if the email uses the company's logo",
+          "Reply with the number — companies verify by email all the time",
+        ],
+        answer: 0,
+        explain: "Microsoft and the FTC agree: legitimate companies don't ask for personal information over email, and you should verify through a number you find yourself — never one in the message.",
+      },
+      {
+        q: "Which of these can confirm to a spammer that your address is active even if you never type a word?",
+        options: [
+          "Leaving the message marked as unread",
+          "Moving the message to a folder",
+          "Nothing — only a reply can confirm it",
+          "Loading the message's remote images or sending a read receipt",
+        ],
+        answer: 3,
+        explain: "Invisible web beacons in images and automatic read receipts report back to the sender — that's why email apps block them by default for untrusted mail.",
+      },
+    ],
+  },
 ];
 
 /**
