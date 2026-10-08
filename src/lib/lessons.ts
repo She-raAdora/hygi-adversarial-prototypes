@@ -2800,6 +2800,118 @@ const rawLessons: Lesson[] = [
       },
     ],
   },
+  {
+    id: "quiz-sweepstakes-scams",
+    title: "The Quiz That Asks Too Much",
+    emoji: "🎪",
+    tagline: "Free fun, costly answers",
+    intro:
+      "Online quizzes, polls, and sweepstakes look like harmless fun — and that's exactly what makes them work. The answers feel trivial, but they can double as the answers to your account security questions, and a 'prize' that asks for a fee or your bank details is always a scam. [1, 2, 3]",
+    sections: [
+      {
+        heading: "Why quizzes harvest your data",
+        body: "Personality tests and 'What was your first car?' quizzes ask the same kinds of questions banks use to verify identity. The FTC warns that scammers phish for security-question answers through quizzes, then use them to reset your accounts and take over your email and bank logins. The more questions you answer truthfully, the more of your identity you hand over — and you rarely know who is collecting it or where it goes. [1]",
+        tips: [
+          "Treat every quiz question as public — never answer with anything a bank might use to verify you.",
+          "Ask who built the quiz and what they get out of your answers before you start.",
+          "A quiz that requires signing in with your email or social account is asking for more than fun.",
+        ],
+      },
+      {
+        heading: "Sweepstakes that ask you to pay",
+        body: "The FTC's prize-scam rules are simple: if you have to pay to get your prize, it's a scam; if you have to pay to increase your odds of winning, it's a scam; and if you have to give your financial or personal information to claim it, it's a scam. Real prizes are free — there is never a legitimate 'tax,' 'shipping fee,' or 'processing charge' you settle first, and no real sweepstakes needs your bank account or Social Security number to hand you a gift. [3]",
+        tips: [
+          "Real prizes are free — any fee before payout means walk away.",
+          "Never give bank, card, or identity numbers to claim a prize.",
+          "Didn't enter the contest? Then you didn't win — that message is bait.",
+        ],
+      },
+      {
+        heading: "How the game spreads",
+        body: "These scams lean on the same tools as every other con: a trusted sender (your friend's account, a brand you know), an urgent request ('only 3 spots left!'), and a link or attachment that does the damage. The FTC has also seen attackers hack social media accounts and send malware links to the account holder's friends under the guise of sharing a quiz — so a quiz link from someone you trust is not automatically safe. [1, 2]",
+        tips: [
+          "A quiz link from a friend can come from a hacked account — check before you tap.",
+          "Urgency and 'everyone's doing it' are pressure tactics, not proof.",
+          "Unexpected links and attachments in quiz results stay unopened.",
+        ],
+      },
+      {
+        heading: "Play, but play it safe",
+        body: "The FTC's advice is blunt: steer clear of online quizzes — or don't answer them truthfully. For accounts that genuinely use security questions, treat the answers like extra passwords: use random answers, and store them in your password manager. If you suspect a quiz is a phishing scam, don't share it, and report it to the FTC at ReportFraud.ftc.gov so the next person sees it sooner. [1, 3]",
+        tips: [
+          "Give fun quizzes fake answers — a superhero result doesn't need your real first car.",
+          "Answer real security questions with random words you store in your password manager.",
+          "Suspect a scam quiz? Report it at ReportFraud.ftc.gov instead of sharing it.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        org: "FTC",
+        title: "Don't answer another online quiz question until you read this",
+        url: "https://consumer.ftc.gov/consumer-alerts/2023/01/dont-answer-another-online-quiz-question-until-you-read",
+        note: "Quiz answers phished for security-question data, malware spread via shared quizzes, and random answers for real security questions.",
+      },
+      {
+        org: "Microsoft",
+        title: "Protect yourself from online scams and attacks",
+        url: "https://support.microsoft.com/en-us/security/protect-yourself-from-online-scams-and-attacks",
+        note: "The common anatomy of online scams: a trusted sender, an urgent request, and a link or attachment.",
+      },
+      {
+        org: "FTC",
+        title: "Fake Prize, Sweepstakes, and Lottery Scams",
+        url: "https://consumer.ftc.gov/articles/fake-prize-sweepstakes-and-lottery-scams",
+        note: "The three signs of a prize scam: pay to get the prize, pay to improve odds, or give financial or personal information.",
+      },
+    ],
+    quiz: [
+      {
+        q: "A 'Which celebrity is your twin?' quiz asks the model of your first car, your first pet's name, and your hometown. What's the real risk?",
+        options: [
+          "Nothing — quizzes can't access your accounts",
+          "These are common security-question answers a scammer could use to reset your accounts",
+          "It will automatically install a virus on your phone",
+          "Your phone's location is shared with the quiz maker",
+        ],
+        answer: 1,
+        explain: "The FTC warns that scammers phish for security-question data through quizzes, then use the answers to reset your accounts.",
+      },
+      {
+        q: "You get an email saying you won a sweepstakes, but you need to pay a $50 'processing fee' to claim it. What is this?",
+        options: [
+          "A normal fee that winners pay",
+          "A tax the government collects on winnings",
+          "A scam — real prizes never require payment",
+          "A refundable deposit once the prize arrives",
+        ],
+        answer: 2,
+        explain: "The FTC's rule: if you have to pay to get your prize, it's a scam. Real prizes are free.",
+      },
+      {
+        q: "A friend's account sends you a message with a link to a fun quiz. The message is a bit out of character. What should you consider?",
+        options: [
+          "It's safe — you trust your friend",
+          "The account could be hacked, using a quiz link to spread malware",
+          "It's only unsafe if the link is shortened",
+          "Quiz links are always safe when they come from friends",
+        ],
+        answer: 1,
+        explain: "The FTC has seen attackers hack social media accounts and send malware links to the holder's friends under the guise of sharing a quiz.",
+      },
+      {
+        q: "A bank site asks a security question: 'Mother's maiden name.' What's the smartest way to answer it?",
+        options: [
+          "Type the real answer so verification is easy",
+          "Use your pet's real name — it's memorable",
+          "Skip the question and contact the bank later",
+          "Give a random answer and store it in your password manager",
+        ],
+        answer: 3,
+        explain: "Treat security answers like extra passwords: random, long, and stored in your password manager so scammers can't guess or collect them.",
+      },
+    ],
+  },
 ];
 
 /**
@@ -2812,6 +2924,7 @@ const LESSON_ORDER: string[] = [
   "phishing-prevention-tactics",
   "phishing-case-study",
   "device-code-phishing",
+  "quiz-sweepstakes-scams",
   "phishing-simulations-safely",
   "accounts",
   "shield-accounts",
@@ -2852,6 +2965,8 @@ const LESSON_URGENCY: Record<string, string> = {
     "A real case shows how little it takes: phone calls posing as internal IT, a fake login page, a relayed one-time code \u2014 and within 24 hours 130 high-profile accounts were posting a bitcoin scam. Studying what failed, and what contained it, is the fastest way to recognize the same moves aimed at you.",
   "device-code-phishing":
     "A genuine sign-in page is not proof that a request is safe. Device-code phishing can turn one code entry into an authorized criminal session, giving an attacker time to read email, study financial relationships, and prepare convincing fraud. Only approve device sign-ins you started yourself.",
+  "quiz-sweepstakes-scams":
+    "Quizzes and prize offers are engineered to feel too harmless to question, which is exactly why they work. A handful of innocent-sounding answers can unlock your accounts, and a 'free prize' that asks for a fee or your bank details can drain them. Knowing the two plays — harvesting and bait — keeps the fun harmless.",
   "phishing-simulations-safely":
     "A phishing simulation run without scope, consent, or restraint can itself cause real harm \u2014 collected credentials, a punished workforce, or confusion with a genuine attack. Following NIST and CISA's approach (written scope, no real credential capture, non-punitive coaching, and a clean split from real incident response) keeps the exercise doing what it's for: building resilience.",
   accounts:
