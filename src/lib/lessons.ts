@@ -3037,6 +3037,7 @@ const LESSON_ORDER: string[] = [
   "phishing-case-study",
   "device-code-phishing",
   "quiz-sweepstakes-scams",
+  "dont-reply-to-spam",
   "phishing-simulations-safely",
   "accounts",
   "shield-accounts",
