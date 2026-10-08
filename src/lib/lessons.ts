@@ -3080,6 +3080,8 @@ const LESSON_URGENCY: Record<string, string> = {
     "A genuine sign-in page is not proof that a request is safe. Device-code phishing can turn one code entry into an authorized criminal session, giving an attacker time to read email, study financial relationships, and prepare convincing fraud. Only approve device sign-ins you started yourself.",
   "quiz-sweepstakes-scams":
     "Quizzes and prize offers are engineered to feel too harmless to question, which is exactly why they work. A handful of innocent-sounding answers can unlock your accounts, and a 'free prize' that asks for a fee or your bank details can drain them. Knowing the two plays — harvesting and bait — keeps the fun harmless.",
+  "dont-reply-to-spam":
+    "One reply — even 'unsubscribe' — tells a spammer your inbox is live, and verified addresses get sold to more spammers. Silence plus the report button costs ten seconds and quietly starves the whole spam economy.",
   "phishing-simulations-safely":
     "A phishing simulation run without scope, consent, or restraint can itself cause real harm \u2014 collected credentials, a punished workforce, or confusion with a genuine attack. Following NIST and CISA's approach (written scope, no real credential capture, non-punitive coaching, and a clean split from real incident response) keeps the exercise doing what it's for: building resilience.",
   accounts:

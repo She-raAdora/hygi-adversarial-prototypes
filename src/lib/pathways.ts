@@ -41,7 +41,7 @@ export const pathways: Pathway[] = [
     emoji: "🎣",
     blurb: "Recognize pressure, verify requests, resist phishing, and respond safely.",
     hue: 30,
-    lessonIds: ["safe-browsing", "phishing-prevention-tactics", "phishing-case-study", "device-code-phishing", "quiz-sweepstakes-scams", "phishing-simulations-safely", "ai-phishing", "ai-agents-guardrails", "secure-comms"],
+    lessonIds: ["safe-browsing", "phishing-prevention-tactics", "phishing-case-study", "device-code-phishing", "quiz-sweepstakes-scams", "dont-reply-to-spam", "phishing-simulations-safely", "ai-phishing", "ai-agents-guardrails", "secure-comms"],
   },
   {
     id: "devices",
