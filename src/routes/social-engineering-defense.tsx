@@ -198,7 +198,7 @@ function SocialEngineeringDefensePage() {
     const url = drawCertificate(name.trim(), savedPass).toDataURL("image/png");
     const popup = window.open("");
     if (!popup) return download();
-    popup.document.write(`<title>Social Engineering Defense Certificate</title><img alt="Certificate" src="${url}" style="width:100%" onload="window.print()">`);
+    popup.document.write(`<title>Social Engineering Defense Certificate</title><img alt="Social Engineering Defense pathway completion certificate" src="${url}" style="width:100%" onload="window.print()">`);
   };
 
   let questionIndex = 0;
