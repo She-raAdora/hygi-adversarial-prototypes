@@ -56,39 +56,6 @@ const EUROPE: Resource[] = [
   { name: "116 016 — violence against women helpline", description: "An EU-harmonized support number being introduced for people experiencing violence against women.", actions: [{ label: "Check EU country information", href: "https://www.consilium.europa.eu/en/policies/eu-measures-end-violence-against-women/" }], note: "This number is not yet active in every EU country. Use WAVE to confirm the right local helpline." },
 ];
 
-function ResourceCard({ resource }: { resource: Resource }) {
-  return (
-    <article className="rounded-lg border border-border bg-card p-5">
-      <h3 className="font-semibold text-card-foreground">{resource.name}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{resource.description}</p>
-      {resource.note ? <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{resource.note}</p> : null}
-      <div className="mt-4 flex flex-wrap gap-2">
-        {resource.actions.map((action) => {
-          const external = action.href.startsWith("http");
-          const Icon = action.kind === "phone" ? Phone : action.kind === "message" ? MessageCircle : ExternalLink;
-          return (
-            <Button key={action.href} asChild variant="outline" size="sm">
-              <a href={action.href} {...(external ? { target: "_blank", rel: "noreferrer" } : {})}>
-                <Icon aria-hidden="true" />{action.label}{external ? <span className="sr-only"> (opens in a new tab)</span> : null}
-              </a>
-            </Button>
-          );
-        })}
-      </div>
-    </article>
-  );
-}
-
-function Region({ id, title, intro, resources }: { id: string; title: string; intro: string; resources: Resource[] }) {
-  return (
-    <section id={id} className="scroll-mt-24 border-t border-border pt-10">
-      <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{intro}</p>
-      <div className="mt-5 grid gap-4 sm:grid-cols-2">{resources.map((resource) => <ResourceCard key={resource.name} resource={resource} />)}</div>
-    </section>
-  );
-}
-
 function AbuseSupportPage() {
   return (
     <main id="main-content" className="mx-auto max-w-4xl px-6 py-12">
@@ -157,3 +124,36 @@ function AbuseSupportPage() {
     </main>
   );
 }
+function Region({ id, title, intro, resources }: { id: string; title: string; intro: string; resources: Resource[] }) {
+  return (
+    <section id={id} className="scroll-mt-24 border-t border-border pt-10">
+      <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{intro}</p>
+      <div className="mt-5 grid gap-4 sm:grid-cols-2">{resources.map((resource) => <ResourceCard key={resource.name} resource={resource} />)}</div>
+    </section>
+  );
+}
+
+function ResourceCard({ resource }: { resource: Resource }) {
+  return (
+    <article className="rounded-lg border border-border bg-card p-5">
+      <h3 className="font-semibold text-card-foreground">{resource.name}</h3>
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{resource.description}</p>
+      {resource.note ? <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{resource.note}</p> : null}
+      <div className="mt-4 flex flex-wrap gap-2">
+        {resource.actions.map((action) => {
+          const external = action.href.startsWith("http");
+          const Icon = action.kind === "phone" ? Phone : action.kind === "message" ? MessageCircle : ExternalLink;
+          return (
+            <Button key={action.href} asChild variant="outline" size="sm">
+              <a href={action.href} {...(external ? { target: "_blank", rel: "noreferrer" } : {})}>
+                <Icon aria-hidden="true" />{action.label}{external ? <span className="sr-only"> (opens in a new tab)</span> : null}
+              </a>
+            </Button>
+          );
+        })}
+      </div>
+    </article>
+  );
+}
+
