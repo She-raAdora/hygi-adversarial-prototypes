@@ -3186,6 +3186,7 @@ const LESSON_ORDER: string[] = [
   "device-code-phishing",
   "quiz-sweepstakes-scams",
   "dont-reply-to-spam",
+  "clickfix",
   "phishing-simulations-safely",
   "accounts",
   "shield-accounts",
@@ -3230,6 +3231,8 @@ const LESSON_URGENCY: Record<string, string> = {
     "Quizzes and prize offers are engineered to feel too harmless to question, which is exactly why they work. A handful of innocent-sounding answers can unlock your accounts, and a 'free prize' that asks for a fee or your bank details can drain them. Knowing the two plays — harvesting and bait — keeps the fun harmless.",
   "dont-reply-to-spam":
     "One reply — even 'unsubscribe' — tells a spammer your inbox is live, and verified addresses get sold to more spammers. Silence plus the report button costs ten seconds and quietly starves the whole spam economy.",
+  clickfix:
+    "ClickFix doesn't hack your computer — it talks you into running the attack yourself, often disguised as a CAPTCHA, browser fix, or AI app install. A ten-second Stop — Check — Go pause before pasting any unexpected command breaks the whole scheme.",
   "phishing-simulations-safely":
     "A phishing simulation run without scope, consent, or restraint can itself cause real harm \u2014 collected credentials, a punished workforce, or confusion with a genuine attack. Following NIST and CISA's approach (written scope, no real credential capture, non-punitive coaching, and a clean split from real incident response) keeps the exercise doing what it's for: building resilience.",
   accounts:
