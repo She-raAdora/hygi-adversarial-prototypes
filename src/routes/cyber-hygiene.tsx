@@ -56,41 +56,49 @@ const CITATION =
 const practices = [
   {
     name: "Use a password manager and unique passwords",
+    lessonId: "accounts",
     detail:
       "Reused passwords turn one breach into many. A manager generates and remembers a long, unique password for every account so you only memorize one.",
   },
   {
     name: "Turn on multi-factor authentication",
+    lessonId: "shield-accounts",
     detail:
       "An app-based code or passkey stops most account takeovers even when your password leaks. Prioritize email, banking, and work accounts first.",
   },
   {
     name: "Patch quickly and automatically",
+    lessonId: "devices",
     detail:
       "Most successful attacks exploit a bug that already had a fix. Enable automatic updates for your operating system, browser, and apps.",
   },
   {
     name: "Slow down on links and attachments",
+    lessonId: "phishing-prevention-tactics",
     detail:
       "Phishing — increasingly written with AI — is still the most common way in. Verify unexpected requests through a channel you already trust.",
   },
   {
     name: "Encrypt devices and lock screens",
+    lessonId: "encrypt-backup",
     detail:
       "Full-disk encryption plus a strong passcode means a lost laptop or phone is an inconvenience, not a data breach.",
   },
   {
     name: "Back up on a schedule and test restores",
+    lessonId: "ransomware",
     detail:
       "Keep one backup offline or versioned. Ransomware only wins when the only copy of your data is the one it encrypted.",
   },
   {
     name: "Shrink what you expose",
+    lessonId: "footprint",
     detail:
       "Audit old accounts, tighten social privacy settings, and remove data you no longer need. Less exposure means less to protect.",
   },
   {
     name: "Know how to report a problem",
+    lessonId: "incident-plan",
     detail:
       "Decide in advance who you tell and how fast. Reporting early limits damage far more than trying to fix it quietly.",
   },
@@ -238,10 +246,46 @@ function CyberHygienePage() {
               <div>
                 <h3 className="font-semibold tracking-tight">{p.name}</h3>
                 <p className="mt-1 text-sm text-muted-foreground">{p.detail}</p>
+                <Link
+                  to="/lesson/$id"
+                  params={{ id: p.lessonId }}
+                  className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-primary underline underline-offset-4"
+                >
+                  Take the lesson: {lessons.find((l) => l.id === p.lessonId)?.title ?? "Start"}
+                  <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                </Link>
               </div>
             </li>
           ))}
         </ul>
+      </section>
+
+      <section aria-labelledby="official" className="mt-12">
+        <h2 id="official" className="text-2xl font-semibold tracking-tight">
+          What official security guidance agrees on
+        </h2>
+        <p className="mt-3 text-muted-foreground">
+          The U.S. Cybersecurity and Infrastructure Security Agency&rsquo;s{" "}
+          <a href="https://www.cisa.gov/secure-our-world" target="_blank" rel="noreferrer" className="font-medium text-foreground underline underline-offset-4">
+            Secure Our World<span className="sr-only"> (opens in a new tab)</span>
+          </a>{" "}
+          program boils everyday security down to four steps: use strong passwords and a password
+          manager, turn on multi-factor authentication, recognize and report phishing, and update
+          your software. Start with the{" "}
+          <Link to="/lesson/$id" params={{ id: "core-four" }} className="font-medium text-foreground underline underline-offset-4">
+            Core Four lesson
+          </Link>{" "}
+          if you only have ten minutes.
+        </p>
+        <p className="mt-3 text-muted-foreground">
+          NIST&rsquo;s digital identity guidelines (
+          <a href="https://pages.nist.gov/800-63-4/sp800-63b.html" target="_blank" rel="noreferrer" className="font-medium text-foreground underline underline-offset-4">
+            SP 800-63B<span className="sr-only"> (opens in a new tab)</span>
+          </a>
+          ) favor long passwords over complicated character rules, and say passwords should be changed
+          when there is evidence of compromise rather than on a fixed schedule. They also recommend
+          phishing-resistant sign-in, such as passkeys, where it is offered.
+        </p>
       </section>
 
       <section aria-labelledby="checklist" className="mt-12">
