@@ -3024,6 +3024,154 @@ const rawLessons: Lesson[] = [
       },
     ],
   },
+  {
+    id: "clickfix",
+    title: "ClickFix: When a Website Tells You to “Fix” Your Computer",
+    emoji: "🛑",
+    tagline: "Stop before following unexpected technical instructions",
+    intro:
+      "You search for a new AI tool, click a polished result, and a message appears: “Verification failed” or “Complete these steps to install.” It tells you to open Windows Run, PowerShell, Command Prompt, or Terminal and paste something in — maybe even to prove you're human. Stop. This is a social-engineering technique called ClickFix, and it works by persuading you to run the attack yourself. [1, 2]",
+    sections: [
+      {
+        heading: "What ClickFix is",
+        body: "Instead of breaking into your computer automatically, a ClickFix page gives you instructions that persuade you to copy, paste, or run something on your own device. The instructions pretend to fix a browser problem, complete a CAPTCHA, verify you're human, install or update software, open a document, or unlock a video. The command then downloads malware or does something you never intended. Microsoft has observed ClickFix campaigns reaching people through phishing, malicious ads, and compromised websites, targeting both Windows and macOS users — and one variant even crashed people's browsers on purpose, then offered a fake 'fix.' [2, 3, 4]",
+        tips: [
+          "Fake CAPTCHAs, browser-error pop-ups, and 'installation errors' are common ClickFix disguises.",
+          "A page that copies a command for you automatically is a warning sign, not a convenience.",
+          "It affects Windows and Mac users alike.",
+        ],
+      },
+      {
+        heading: "Why it works — they borrow your hands",
+        body: "ClickFix leans on a normal instinct: 'Something isn't working, I should fix it.' Confusion, impatience, curiosity, and worry make technical instructions feel more reasonable than they are. Because you perform the dangerous step yourself, using legitimate tools built into your computer, the activity can look like ordinary use — which is why it can slip past some traditional protections. [1, 2]",
+        tips: [
+          "Feeling rushed or confused by a 'broken' page is the moment to pause.",
+          "Legitimate system tools can be misused when a stranger chooses the command.",
+        ],
+      },
+      {
+        heading: "🚩 The Hygi red flag",
+        body: "A webpage should not need you to paste an unexpected command into your computer to prove you're human, fix your browser, or finish an ordinary download. Be especially cautious if a site unexpectedly tells you to open PowerShell, Windows Run, Command Prompt, Terminal, or another system tool. Those tools aren't dangerous on their own — the danger is letting an unfamiliar website decide what you run. [1, 2]",
+        tips: [
+          "Real CAPTCHAs never ask you to leave the browser.",
+          "Never paste a command from a website into Run, PowerShell, or Terminal unless you fully understand and expected it.",
+        ],
+      },
+      {
+        heading: "Why AI tools are the bait",
+        body: "Criminals borrow trusted brands and hot topics, and AI is both. Microsoft has documented campaigns impersonating ChatGPT, Copilot, Claude, and DeepSeek through phishing, malicious ads, fake installers, and credential-stealing malware. That doesn't mean those AI services were hacked — the attacker is wearing a fake employee badge, borrowing the company's name to look believable. Top search results and sponsored ads aren't proof of legitimacy either. [5]",
+        tips: [
+          "Find the company that actually makes the software, then go to its known official site or a trusted app store.",
+          "Check the web address before downloading.",
+          "Be suspicious if an install suddenly needs unusual technical steps.",
+        ],
+      },
+      {
+        heading: "The 10-second habit: Stop — Check — Go",
+        body: "STOP: don't copy, paste, download, or run anything yet. CHECK: Why does this site need me to do this? Did I expect it? Am I really on the company's official website? Is it asking me to leave the browser for a system tool? Could I do this through the official app instead? GO: continue only after you've verified the instructions independently. If anything still feels strange, close the page and start again from the official website. Browsers are adding help too — Google says Chrome's Enhanced Protection now warns about suspicious sites and scam tactics. [1]",
+        tips: [
+          "Give yourself ten seconds before acting on any unexpected technical instruction.",
+          "When in doubt, close the tab and navigate to the official site yourself.",
+          "Turn on your browser's strongest scam protection setting.",
+        ],
+      },
+      {
+        heading: "If you already ran the command",
+        body: "Don't panic, but don't ignore it. Stop entering sensitive information on that device and close the suspicious page — don't go back to 'undo' anything. Run the security tools built into your operating system or another product you trust, and consider disconnecting the computer from the internet while you check. From a separate, trusted device, secure your most important accounts first: primary email, financial accounts, password manager, your Apple, Google, or Microsoft account, and work accounts. Turn on multifactor authentication — passkeys or security keys where supported — and get qualified technical help if you're unsure, because an unknown command can make changes that are hard to see. At work, tell your IT team right away. [2, 4]",
+        tips: [
+          "Use a known-clean device to change passwords if you think information was stolen.",
+          "Start with email — it can reset everything else.",
+          "Ask for qualified help rather than guessing.",
+        ],
+      },
+      {
+        heading: "Your Hygi challenge",
+        body: "Over the next week, notice every time a website asks you to download, install, grant permission, copy something, change a setting, or enter a command. Before acting, ask: “Did I expect this — and can I verify it another way?” Practicing the pause when nothing is wrong makes it easier when something really is. Your promise: I will not paste an unexpected command from a webpage into my computer just because the website tells me to.",
+        tips: [
+          "Unexpected technical instructions deserve verification before action.",
+          "Next up: the Social Engineering Defense pathway, where trust itself is the attack surface.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        org: "Google Chrome Security",
+        title: "Our latest defenses against evolving web scams (Oct 20, 2026)",
+        url: "https://blog.google/security/our-latest-defenses-against-evolving-web-scams/",
+        note: "Chrome's new suspicious-site warnings and Enhanced Protection defenses against social engineering and scams.",
+      },
+      {
+        org: "Microsoft Threat Intelligence",
+        title: "Think before you Click(Fix): Analyzing the ClickFix social engineering technique (Aug 21, 2025)",
+        url: "https://www.microsoft.com/en-us/security/blog/2025/08/21/think-before-you-clickfix-analyzing-the-clickfix-social-engineering-technique/",
+        note: "ClickFix campaigns via phishing, malvertising, compromised sites, fake CAPTCHAs, Windows Run, Terminal, and PowerShell.",
+      },
+      {
+        org: "Microsoft Defender Security Research",
+        title: "New ClickFix variant ‘CrashFix’ deploying Python Remote Access Trojan (Feb 5, 2026)",
+        url: "https://www.microsoft.com/en-us/security/blog/2026/02/05/clickfix-variant-crashfix-deploying-python-rat-trojan/",
+        note: "A variant that deliberately breaks the browser, then presents fake instructions to 'fix' it.",
+      },
+      {
+        org: "Microsoft Security Research",
+        title: "From open lures to cloaked gates: How a macOS ClickFix campaign learned to hide (Aug 5, 2026)",
+        url: "https://www.microsoft.com/en-us/security/blog/2026/08/05/macos-clickfix-campaign-learned-hide/",
+        note: "ClickFix targeting macOS users to distribute information-stealing malware.",
+      },
+      {
+        org: "Microsoft Security",
+        title: "Detect and disrupt AI-themed attacks with Microsoft Defender (Sep 10, 2026)",
+        url: "https://www.microsoft.com/en-us/security/blog/2026/09/10/detect-and-disrupt-ai-themed-attacks-with-microsoft-defender/",
+        note: "Attackers impersonate ChatGPT, Copilot, Claude, and DeepSeek; the AI services themselves were not compromised.",
+      },
+    ],
+    quiz: [
+      {
+        q: "A CAPTCHA asks you to open PowerShell and paste a command. What is the safest response?",
+        options: [
+          "Follow the instructions because CAPTCHA systems prevent bots",
+          "Paste the command but don't press Enter yet",
+          "Stop and leave the page",
+          "Disable your antivirus first",
+        ],
+        answer: 2,
+        explain: "A human-verification check should never require you to run a system command. That's the core ClickFix red flag.",
+      },
+      {
+        q: "Why can ClickFix bypass some traditional security protections?",
+        options: [
+          "The victim is persuaded to perform part of the attack manually",
+          "PowerShell is always malware",
+          "Antivirus software never works",
+          "Search engines intentionally distribute malware",
+        ],
+        answer: 0,
+        explain: "ClickFix abuses legitimate tools and normal user actions, which can make malicious activity harder to tell apart from ordinary computer use.",
+      },
+      {
+        q: "You find an AI app through a search ad and the site shows an 'installation error' asking you to paste a command into Windows Run. What's the safest next step?",
+        options: [
+          "Run it — ads are screened",
+          "Try the command and cancel if something looks wrong",
+          "Close the page and get the app from the company's verified official site or a trusted app store",
+          "Trust it because the logo looks right and it says 'Official'",
+        ],
+        answer: 2,
+        explain: "Logos, ads, top search placement, and professional design can all be copied. Go to the official source yourself.",
+      },
+      {
+        q: "Which statement about ClickFix is most accurate?",
+        options: [
+          "It means the impersonated company was hacked",
+          "It only affects businesses",
+          "It's a social-engineering technique that convinces people to perform dangerous actions themselves",
+          "It only arrives through email",
+        ],
+        answer: 2,
+        explain: "Attackers reach people through email, ads, search results, and compromised websites — and borrowing a brand's name doesn't mean that brand was breached.",
+      },
+    ],
+  },
 ];
 
 /**
