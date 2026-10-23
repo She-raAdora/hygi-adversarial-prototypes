@@ -93,7 +93,20 @@ export const Route = createFileRoute("/api/chat")({
           return new Response("Messages are required", { status: 400 });
         }
 
-        const trimmed = messages.slice(-MAX_MESSAGES);
+        // Rebuild every message from scratch: only "user"/"assistant" roles and
+        // plain text parts survive, so callers can't inject system/tool messages.
+        const trimmed = messages.slice(-MAX_MESSAGES).map((message, index) => {
+          const m = (message ?? {}) as { role?: unknown };
+          const role: "user" | "assistant" = m.role === "assistant" ? "assistant" : "user";
+          return {
+            id: `m${index}`,
+            role,
+            parts: [{ type: "text" as const, text: messageText(message) }],
+          };
+        });
+        if (trimmed[trimmed.length - 1]?.role !== "user") {
+          return new Response("Last message must be from the user", { status: 400 });
+        }
         let totalChars = 0;
         for (const message of trimmed) {
           const text = messageText(message);
