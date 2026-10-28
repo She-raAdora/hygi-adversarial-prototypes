@@ -36,6 +36,12 @@ function BacklinksPage() {
         Who links to digitalhygiene.app, how trustworthy those links look, and what changed since
         the last capture.
       </p>
+      <p className="mt-3 text-sm">
+        <Link to="/backlinks/disavow" className="font-medium underline underline-offset-4">
+          Ask Google to ignore spam links →
+        </Link>
+      </p>
+
 
       <div className="mt-10">
         <BacklinkPanel />

@@ -34,6 +34,7 @@ import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as LessonIdRouteImport } from './routes/lesson.$id'
+import { Route as AuthenticatedBacklinksDisavowRouteImport } from './routes/_authenticated/backlinks_.disavow'
 import { Route as ApiPublicHooksSeoScanRouteImport } from './routes/api/public/hooks/seo-scan'
 
 const IndexRoute = IndexRouteImport.update({
@@ -161,6 +162,12 @@ const LessonIdRoute = LessonIdRouteImport.update({
   path: '/lesson/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedBacklinksDisavowRoute =
+  AuthenticatedBacklinksDisavowRouteImport.update({
+    id: '/backlinks_/disavow',
+    path: '/backlinks/disavow',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const ApiPublicHooksSeoScanRoute = ApiPublicHooksSeoScanRouteImport.update({
   id: '/api/public/hooks/seo-scan',
   path: '/api/public/hooks/seo-scan',
@@ -192,6 +199,7 @@ export interface FileRoutesByFullPath {
   '/settings': typeof AuthenticatedSettingsRoute
   '/api/chat': typeof ApiChatRoute
   '/lesson/$id': typeof LessonIdRoute
+  '/backlinks/disavow': typeof AuthenticatedBacklinksDisavowRoute
   '/api/public/hooks/seo-scan': typeof ApiPublicHooksSeoScanRoute
 }
 export interface FileRoutesByTo {
@@ -219,6 +227,7 @@ export interface FileRoutesByTo {
   '/settings': typeof AuthenticatedSettingsRoute
   '/api/chat': typeof ApiChatRoute
   '/lesson/$id': typeof LessonIdRoute
+  '/backlinks/disavow': typeof AuthenticatedBacklinksDisavowRoute
   '/api/public/hooks/seo-scan': typeof ApiPublicHooksSeoScanRoute
 }
 export interface FileRoutesById {
@@ -248,6 +257,7 @@ export interface FileRoutesById {
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/api/chat': typeof ApiChatRoute
   '/lesson/$id': typeof LessonIdRoute
+  '/_authenticated/backlinks_/disavow': typeof AuthenticatedBacklinksDisavowRoute
   '/api/public/hooks/seo-scan': typeof ApiPublicHooksSeoScanRoute
 }
 export interface FileRouteTypes {
@@ -277,6 +287,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/api/chat'
     | '/lesson/$id'
+    | '/backlinks/disavow'
     | '/api/public/hooks/seo-scan'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -304,6 +315,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/api/chat'
     | '/lesson/$id'
+    | '/backlinks/disavow'
     | '/api/public/hooks/seo-scan'
   id:
     | '__root__'
@@ -332,6 +344,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings'
     | '/api/chat'
     | '/lesson/$id'
+    | '/_authenticated/backlinks_/disavow'
     | '/api/public/hooks/seo-scan'
   fileRoutesById: FileRoutesById
 }
@@ -536,6 +549,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LessonIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/backlinks_/disavow': {
+      id: '/_authenticated/backlinks_/disavow'
+      path: '/backlinks/disavow'
+      fullPath: '/backlinks/disavow'
+      preLoaderRoute: typeof AuthenticatedBacklinksDisavowRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/api/public/hooks/seo-scan': {
       id: '/api/public/hooks/seo-scan'
       path: '/api/public/hooks/seo-scan'
@@ -552,6 +572,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+  AuthenticatedBacklinksDisavowRoute: typeof AuthenticatedBacklinksDisavowRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -560,6 +581,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
+  AuthenticatedBacklinksDisavowRoute: AuthenticatedBacklinksDisavowRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
