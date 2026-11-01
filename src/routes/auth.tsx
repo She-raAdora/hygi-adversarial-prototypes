@@ -152,10 +152,9 @@ function AuthPage() {
 
   return (
     <main id="main-content" className="mx-auto w-full max-w-md px-4 py-16">
-      <h1 className="text-3xl font-semibold tracking-tight text-foreground">Sign in</h1>
+      <h1 className="text-3xl font-semibold tracking-tight text-foreground">{mode === "signup" ? "Create your free account" : "Sign in"}</h1>
       <p className="mt-2 text-sm text-muted-foreground">
-        The Insights dashboard is admin-only. Lessons, quizzes, and badges stay open to everyone —
-        no account needed.
+        Create a free account to keep your badges, certificates and pathway progress on every device. Anything you've already earned here comes with you. Lessons stay open to everyone — no account needed.
       </p>
 
       <div className="mt-8 rounded-2xl border border-border/60 bg-card p-6">
