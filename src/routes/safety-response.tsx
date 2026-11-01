@@ -86,7 +86,7 @@ function SafetyResponsePage() {
   const date = new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
 
   const download = () => {
-    localStorage.setItem(NAME_KEY, name);
+    localStorage.setItem(NAME_KEY, name); window.dispatchEvent(new Event("dh-progress"));
     const url = drawCertificate(name.trim(), items.length, date).toDataURL("image/png");
     const a = document.createElement("a");
     a.href = url;
@@ -94,7 +94,7 @@ function SafetyResponsePage() {
     a.click();
   };
   const print = () => {
-    localStorage.setItem(NAME_KEY, name);
+    localStorage.setItem(NAME_KEY, name); window.dispatchEvent(new Event("dh-progress"));
     const url = drawCertificate(name.trim(), items.length, date).toDataURL("image/png");
     const w = window.open("");
     if (!w) return download();

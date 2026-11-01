@@ -13,5 +13,5 @@
 - [x] Require sign-in for the Hygi Helper chat so strangers cannot run up AI costs
 
 - [x] Under-13 age check at sign-up
-- [ ] Free account perks (waiting on user: what accounts should include)
-- [ ] Security check (Nov 1) — quick + parts fixed; deep review running
+- [x] Free account: saved badges, certificates, pathway progress + auto carry-over
+- [x] Security check (Nov 1)

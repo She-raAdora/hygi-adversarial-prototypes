@@ -178,7 +178,7 @@ function SocialEngineeringDefensePage() {
     if (passed) {
       const completedAt = new Date();
       const saved: SavedPass = { ...next, credentialId: savedPass?.credentialId ?? makeCredentialId(), completedAt: completedAt.toISOString(), renewBy: addYear(completedAt).toISOString() };
-      localStorage.setItem(RESULT_KEY, JSON.stringify(saved));
+      localStorage.setItem(RESULT_KEY, JSON.stringify(saved)); window.dispatchEvent(new Event("dh-progress"));
       setSavedPass(saved);
     }
   };
@@ -186,7 +186,7 @@ function SocialEngineeringDefensePage() {
   const certificateReady = completedModules.length === modules.length && Boolean(savedPass);
   const download = () => {
     if (!savedPass) return;
-    localStorage.setItem(NAME_KEY, name);
+    localStorage.setItem(NAME_KEY, name); window.dispatchEvent(new Event("dh-progress"));
     const anchor = document.createElement("a");
     anchor.href = drawCertificate(name.trim(), savedPass).toDataURL("image/png");
     anchor.download = "Hygi-Social-Engineering-Defense-Certificate.png";
@@ -194,7 +194,7 @@ function SocialEngineeringDefensePage() {
   };
   const print = () => {
     if (!savedPass) return;
-    localStorage.setItem(NAME_KEY, name);
+    localStorage.setItem(NAME_KEY, name); window.dispatchEvent(new Event("dh-progress"));
     const url = drawCertificate(name.trim(), savedPass).toDataURL("image/png");
     const popup = window.open("");
     if (!popup) return download();

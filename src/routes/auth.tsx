@@ -16,13 +16,13 @@ export const Route = createFileRoute("/auth")({
       {
         name: "description",
         content:
-          "Sign in to Hygi to reach the admin-only dashboard and Insights. Lessons, quizzes, and badges stay open to everyone, no account needed.",
+          "Sign in or create a free Hygi account to save your badges, certificates and pathway progress across devices.",
       },
       { property: "og:title", content: "Sign in — Hygi" },
       {
         property: "og:description",
         content:
-          "Sign in to Hygi to reach the admin-only dashboard and Insights. Lessons, quizzes, and badges stay open to everyone, no account needed.",
+          "Sign in or create a free Hygi account to save your badges, certificates and pathway progress across devices.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://digitalhygiene.app/auth" },
@@ -73,7 +73,7 @@ function AuthPage() {
   useEffect(() => {
     let active = true;
     void supabase.auth.getUser().then(({ data }) => {
-      if (active && data.user) void navigate({ to: "/dashboard", replace: true });
+      if (active && data.user) void navigate({ to: "/badges", replace: true });
     });
     return () => {
       active = false;
@@ -121,7 +121,7 @@ function AuthPage() {
         if (signInError) throw signInError;
       }
       await router.invalidate();
-      void navigate({ to: "/dashboard", replace: true });
+      void navigate({ to: "/badges", replace: true });
     } catch (err) {
       setCaptchaReset((n) => n + 1);
       setError(err instanceof Error ? err.message : "Something went wrong. Try again.");
@@ -147,15 +147,14 @@ function AuthPage() {
     }
     if (result.redirected) return;
     await router.invalidate();
-    void navigate({ to: "/dashboard", replace: true });
+    void navigate({ to: "/badges", replace: true });
   }
 
   return (
     <main id="main-content" className="mx-auto w-full max-w-md px-4 py-16">
-      <h1 className="text-3xl font-semibold tracking-tight text-foreground">Sign in</h1>
+      <h1 className="text-3xl font-semibold tracking-tight text-foreground">{mode === "signup" ? "Create your free account" : "Sign in"}</h1>
       <p className="mt-2 text-sm text-muted-foreground">
-        The Insights dashboard is admin-only. Lessons, quizzes, and badges stay open to everyone —
-        no account needed.
+        Create a free account to keep your badges, certificates and pathway progress on every device. Anything you've already earned here comes with you. Lessons stay open to everyone — no account needed.
       </p>
 
       <div className="mt-8 rounded-2xl border border-border/60 bg-card p-6">

@@ -29,6 +29,7 @@ export const Route = createFileRoute("/delete-account")({
 
 const DELETED = [
   "Your sign-in account (email address, password credential, and any linked Apple or Google identity)",
+  "Your saved badges, pathway progress and certificate details",
   "Your admin or staff role assignment, if you had one",
   "Your email notification preferences",
 ];

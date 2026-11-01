@@ -65,7 +65,7 @@ export function FiveDoorReset() {
     setState((prev) => {
       const next = { ...prev, [key]: !prev[key] };
       try {
-        localStorage.setItem(KEY, JSON.stringify(next));
+        localStorage.setItem(KEY, JSON.stringify(next)); window.dispatchEvent(new Event("dh-progress"));
       } catch {
         /* storage unavailable */
       }
