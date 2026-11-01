@@ -208,6 +208,33 @@ export type Database = {
         }
         Relationships: []
       }
+      disavow_uploads: {
+        Row: {
+          created_by: string
+          domains: string[]
+          domains_accepted: number
+          domains_selected: number
+          id: string
+          uploaded_at: string
+        }
+        Insert: {
+          created_by?: string
+          domains?: string[]
+          domains_accepted: number
+          domains_selected: number
+          id?: string
+          uploaded_at?: string
+        }
+        Update: {
+          created_by?: string
+          domains?: string[]
+          domains_accepted?: number
+          domains_selected?: number
+          id?: string
+          uploaded_at?: string
+        }
+        Relationships: []
+      }
       email_preferences: {
         Row: {
           admin_role_emails: boolean
