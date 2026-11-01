@@ -229,6 +229,30 @@ export type Database = {
         }
         Relationships: []
       }
+      learner_progress: {
+        Row: {
+          badges: Json
+          created_at: string
+          extras: Json
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          badges?: Json
+          created_at?: string
+          extras?: Json
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          badges?: Json
+          created_at?: string
+          extras?: Json
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       lesson_metric_events: {
         Row: {
           created_at: string
