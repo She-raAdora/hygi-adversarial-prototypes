@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { Input } from "@/components/ui/input";
 import { useServerFn } from "@tanstack/react-start";
 
 import { Button } from "@/components/ui/button";
@@ -165,9 +167,89 @@ function DisavowPage() {
         </p>
       </section>
 
+      <UploadLog selected={[...selected]} />
+
       <p className="mt-12 text-xs text-muted-foreground">
         <Link to="/backlinks" className="underline underline-offset-4 hover:text-foreground">Back to Backlinks</Link>
       </p>
     </main>
+  );
+}
+
+function UploadLog({ selected }: { selected: string[] }) {
+  const qc = useQueryClient();
+  const log = useQuery({
+    queryKey: ["disavow-uploads"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("disavow_uploads")
+        .select("id, uploaded_at, domains_selected, domains_accepted")
+        .order("uploaded_at", { ascending: false })
+        .limit(20);
+      if (error) throw error;
+      return data;
+    },
+  });
+  const [accepted, setAccepted] = useState("");
+  useEffect(() => setAccepted(String(selected.length)), [selected.length]);
+  const n = Number(accepted);
+  const valid = accepted !== "" && Number.isInteger(n) && n >= 0 && n <= selected.length;
+  const save = useMutation({
+    mutationFn: async () => {
+      const { error } = await supabase.from("disavow_uploads").insert({
+        domains_selected: selected.length,
+        domains_accepted: n,
+        domains: selected,
+      });
+      if (error) throw error;
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["disavow-uploads"] }),
+  });
+  const last = log.data?.[0];
+
+  return (
+    <section className="mt-12">
+      <h2 className="text-xl font-semibold">4. Mark as uploaded</h2>
+      <p className="mt-2 text-sm text-muted-foreground">
+        After uploading, Google shows how many domains it accepted. Enter that number to keep a record.
+      </p>
+      <div className="mt-4 flex flex-wrap items-end gap-3">
+        <label className="text-sm">
+          Domains Google accepted
+          <Input
+            type="number"
+            min={0}
+            max={selected.length}
+            value={accepted}
+            onChange={(e) => setAccepted(e.target.value)}
+            className="mt-1 w-32"
+          />
+        </label>
+        <span className="pb-2 text-sm text-muted-foreground">of {selected.length} in your file</span>
+        <Button onClick={() => save.mutate()} disabled={!valid || selected.length === 0 || save.isPending}>
+          {save.isPending ? "Saving…" : "Mark as uploaded"}
+        </Button>
+      </div>
+      {save.isError ? <p className="mt-2 text-sm text-destructive">Couldn't save. Try again.</p> : null}
+      {save.isSuccess ? <p className="mt-2 text-sm text-primary">Saved.</p> : null}
+      {last ? (
+        <p className="mt-6 text-sm">
+          Last upload {new Date(last.uploaded_at).toLocaleDateString()}: Google accepted{" "}
+          <strong>{last.domains_accepted}</strong> of {last.domains_selected} domains.
+        </p>
+      ) : log.isSuccess ? (
+        <p className="mt-6 text-sm text-muted-foreground">No uploads recorded yet.</p>
+      ) : null}
+      {log.data && log.data.length > 1 ? (
+        <ul className="mt-3 divide-y rounded-lg border text-sm">
+          {log.data.map((u) => (
+            <li key={u.id} className="flex justify-between p-3">
+              <span>{new Date(u.uploaded_at).toLocaleDateString()}</span>
+              <span>{u.domains_accepted} / {u.domains_selected} accepted</span>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </section>
   );
 }
