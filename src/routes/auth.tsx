@@ -6,6 +6,8 @@ import { lovable } from "@/integrations/lovable";
 import { Turnstile, type CaptchaState } from "@/components/Turnstile";
 import { verifyAuthCaptcha } from "@/lib/captcha.functions";
 import { socialImageMeta } from "@/lib/seo";
+import { AgeCheck, UnderAgeNotice } from "@/components/AgeCheck";
+import { AGE_STORAGE_KEY } from "@/lib/ageGate";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -42,6 +44,31 @@ function AuthPage() {
   const [error, setError] = useState<string | null>(null);
   const [captcha, setCaptcha] = useState<CaptchaState>({ required: false, token: null });
   const [captchaReset, setCaptchaReset] = useState(0);
+  const [age, setAge] = useState<"unknown" | "ok" | "under">("unknown");
+  const [pendingProvider, setPendingProvider] = useState<"google" | "apple" | null>(null);
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem(AGE_STORAGE_KEY);
+    if (saved === "ok" || saved === "under") setAge(saved);
+  }, []);
+
+  function onAgeResult(under: boolean) {
+    const next = under ? "under" : "ok";
+    window.localStorage.setItem(AGE_STORAGE_KEY, next);
+    setAge(next);
+    if (!under && pendingProvider) {
+      const provider = pendingProvider;
+      setPendingProvider(null);
+      void onOAuth(provider);
+    }
+  }
+
+  function startOAuth(provider: "google" | "apple") {
+    if (age === "ok") void onOAuth(provider);
+    else setPendingProvider(provider);
+  }
+
+  const showAgeCheck = age === "unknown" && (mode === "signup" || pendingProvider !== null);
 
   useEffect(() => {
     let active = true;
@@ -132,10 +159,28 @@ function AuthPage() {
       </p>
 
       <div className="mt-8 rounded-2xl border border-border/60 bg-card p-6">
+        {age === "under" ? (
+          <UnderAgeNotice />
+        ) : showAgeCheck ? (
+          <>
+            <AgeCheck onResult={onAgeResult} />
+            <button
+              type="button"
+              onClick={() => {
+                setPendingProvider(null);
+                setMode("signin");
+              }}
+              className="mt-4 w-full text-center text-sm text-muted-foreground underline underline-offset-4"
+            >
+              Back to sign in
+            </button>
+          </>
+        ) : (
+        <>
         <div className="space-y-3">
           <button
             type="button"
-            onClick={() => void onOAuth("apple")}
+            onClick={() => startOAuth("apple")}
             disabled={busy}
             className="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-accent disabled:opacity-60"
           >
@@ -143,7 +188,7 @@ function AuthPage() {
           </button>
           <button
             type="button"
-            onClick={() => void onOAuth("google")}
+            onClick={() => startOAuth("google")}
             disabled={busy}
             className="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-accent disabled:opacity-60"
           >
@@ -220,6 +265,8 @@ function AuthPage() {
             {mode === "signup" ? "Sign in" : "Sign up"}
           </button>
         </p>
+        </>
+        )}
       </div>
     </main>
   );

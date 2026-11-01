@@ -12,5 +12,6 @@
 - [x] Build the Social Engineering Defense pathway with scenario assessment, prior badge credit, and one-year completion certificate
 - [x] Require sign-in for the Hygi Helper chat so strangers cannot run up AI costs
 
-- [ ] Free account sign-up (waiting on user: what accounts should include)
+- [x] Under-13 age check at sign-up
+- [ ] Free account perks (waiting on user: what accounts should include)
 - [ ] Security check (Nov 1) — quick + parts fixed; deep review running
