@@ -9,13 +9,13 @@ export const Route = createFileRoute("/privacy")({
       {
         name: "description",
         content:
-          "How Hygi handles your data: progress and badges stay on your device, usage is measured anonymously, and no learner account is required.",
+          "How Hygi handles your data: lessons work without an account, a free account saves your email, progress and certificate names, and usage is measured anonymously.",
       },
       { property: "og:title", content: "Privacy Policy — Hygi" },
       {
         property: "og:description",
         content:
-          "How Hygi handles your data: progress and badges stay on your device, usage is measured anonymously, and no learner account is required.",
+          "How Hygi handles your data: lessons work without an account, a free account saves your email, progress and certificate names, and usage is measured anonymously.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://digitalhygiene.app/privacy" },
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/privacy")({
       {
         name: "twitter:description",
         content:
-          "How Hygi handles your data: progress and badges stay on your device, usage is measured anonymously, and no learner account is required.",
+          "How Hygi handles your data: lessons work without an account, a free account saves your email, progress and certificate names, and usage is measured anonymously.",
       },
     ],
     links: [{ rel: "canonical", href: "https://digitalhygiene.app/privacy" }],
@@ -36,7 +36,7 @@ export const Route = createFileRoute("/privacy")({
           "@type": "WebPage",
           name: "Privacy Policy — Hygi",
           description:
-            "How Hygi handles your data: progress and badges stay on your device, usage is measured anonymously, and no learner account is required.",
+            "How Hygi handles your data: lessons work without an account, a free account saves your email, progress and certificate names, and usage is measured anonymously.",
           url: "https://digitalhygiene.app/privacy",
           inLanguage: "en",
           dateModified: "2026-08-07",
@@ -49,7 +49,7 @@ export const Route = createFileRoute("/privacy")({
   component: PrivacyPage,
 });
 
-const LAST_UPDATED = "August 7, 2026";
+const LAST_UPDATED = "November 1, 2026";
 
 function PrivacyPage() {
   return (
@@ -68,24 +68,49 @@ function PrivacyPage() {
       </div>
 
       <p className="mt-8 rounded-2xl border border-border/60 bg-secondary/50 p-5 text-sm leading-relaxed">
-        Short version: Hygi. is a free learning app — no learner account, no sign-in, and no ads.
-        Your lesson progress and badges are saved only on your device. We do collect
-        anonymous, opt-in usage stats to see which lessons help most, and staff accounts (for the
-        admin dashboard) store an email address and role. We never sell data or build advertising
-        profiles.
+        Short version: Hygi. is a free learning app with no ads. You can learn without an account —
+        then your progress stays only on your device. If you create a free account, we store your
+        email address, your badges and pathway progress, and any name you type on a certificate,
+        so they follow you across devices. Usage stats are anonymous and opt-in. We never sell data
+        or build advertising profiles.
       </p>
 
       <Section icon={<Database className="h-4 w-4" />} title="Information we collect">
         <p>
-          <strong className="font-medium text-foreground">Learners — no personal data required.</strong>{" "}
+          <strong className="font-medium text-foreground">Without an account.</strong>{" "}
           Hygi. does not ask for your name, email, phone number, contacts, photos, location, health
-          data, or payment details. There is no learner account to create.
+          data, or payment details. Your progress — finished lessons, quiz scores, badges, the
+          trophy, pathway assessments, and certificate names — is written to your device's local
+          storage only. It is not sent to us and we cannot read it.
         </p>
         <p>
-          The learning data Hygi. stores is your progress — which lessons you have finished, quiz
-          scores, badges, and the trophy. This is written to your device's local storage. It is not
-          transmitted to us, it is
-          not linked to your identity, and we cannot read it.
+          <strong className="font-medium text-foreground">With a free account.</strong>{" "}
+          Creating an account is optional and is available to people aged 13 and over. We store:
+        </p>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            <strong className="font-medium text-foreground">Email address</strong> — used to sign
+            you in, reset your password, and send security notices. If you sign in with Apple or
+            Google, we receive only the email tied to that account. Optional notification emails can
+            be turned off in Account settings.
+          </li>
+          <li>
+            <strong className="font-medium text-foreground">Learning progress</strong> — your best
+            score for each lesson badge, pathway assessment results (score, credential ID, and renewal
+            date), and Five-Door Reset checklist progress. When you sign in, progress already on your
+            device is merged into your account so nothing is lost.
+          </li>
+          <li>
+            <strong className="font-medium text-foreground">Certificate names</strong> — the name
+            you choose to type on a pathway certificate. It can be any name or nickname, is only used
+            to draw your certificate, and is never shown publicly or shared.
+          </li>
+        </ul>
+        <p>
+          This account data is protected so that only you can read or change it. We do not store
+          your birth date: the age question at sign-up is checked on your device and only the
+          result ("13 or older" or "under 13") is remembered there. People under 13 can keep using
+          every lesson without an account.
         </p>
         <p>
           Hygi. also keeps a copy of anonymous usage events (quiz starts and completions, badge
@@ -156,7 +181,7 @@ function PrivacyPage() {
           </li>
           <li>
             <strong className="font-medium text-foreground">Sign-in with Apple or Google</strong> —
-            offered only to staff who need the admin and Insights pages. It is never required to read
+            an optional way to create or sign in to a free account. It is never required to read
             lessons, take quizzes, or earn badges, and we receive nothing from those providers beyond
             the email address tied to the account.
           </li>
@@ -191,8 +216,9 @@ function PrivacyPage() {
           trophy, and the on-device event log.
         </p>
         <p>
-          If you hold a staff account, you can permanently delete it — along with your email
-          preferences and any admin role — from Account settings inside the app. Deletion is
+          If you have an account, you can permanently delete it — along with your email address,
+          saved progress, certificate names, email preferences, and any admin role — from Account
+          settings inside the app. Deletion is
           immediate and cannot be undone. You can also email builtstrong1@outlook.com to request
           deletion.
         </p>
@@ -209,9 +235,11 @@ function PrivacyPage() {
 
       <Section icon={<ShieldCheck className="h-4 w-4" />} title="Children's privacy">
         <p>
-          Hygi. is an educational app suitable for general audiences. It does not knowingly collect
-          personal information from anyone, including children under 13, and it contains no ads, in-app
-          purchases, or user-to-user communication.
+          Hygi. is an educational app suitable for general audiences. Accounts are only offered to
+          people aged 13 and over; an age question at sign-up keeps younger learners on the
+          no-account version. We do not knowingly collect personal information from children under
+          13. If you believe a child has created an account, email builtstrong1@outlook.com and we
+          will delete it. Hygi. contains no ads, in-app purchases, or user-to-user communication.
         </p>
       </Section>
 
@@ -263,15 +291,15 @@ const disclosures: { q: string; a: string }[] = [
   },
   {
     q: "Data linked to you",
-    a: "Email address, and only for optional staff accounts used to reach the admin and Insights pages. Learners never need an account, and no learning activity is linked to an identity. Staff can delete their account and email in-app at any time.",
+    a: "Only for optional free accounts (13+): email address, saved learning progress (badge scores, pathway assessment results, checklist progress), and any name typed on a certificate. Used only to provide the account. Lessons work without an account. Accounts and all linked data can be deleted in-app at any time.",
   },
   {
     q: "Data not linked to you",
-    a: "Product interaction and usage data: page views, quiz starts/completions with score, badge and trophy milestones, home-screen install events, glossary taps, missed quiz questions, optional result-card shares or downloads (an anonymous count only, with no recipient data), and homepage A/B variant. Collected anonymously via Google Analytics or stored in aggregate backend metrics only after the user opts in, and not linked to any identity. Your saved progress, badges, and chat history remain in on-device storage only.",
+    a: "Product interaction and usage data: page views, quiz starts/completions with score, badge and trophy milestones, home-screen install events, glossary taps, missed quiz questions, optional result-card shares or downloads (an anonymous count only, with no recipient data), and homepage A/B variant. Collected anonymously via Google Analytics or stored in aggregate backend metrics only after the user opts in, and not linked to any identity. Without an account, saved progress and badges remain on-device only; chat history is always on-device only.",
   },
   {
     q: "Contact info, identifiers, location, health, financials, contacts, photos, browsing history",
-    a: "Only an email address for optional staff sign-in (Apple, Google, or email/password). No location, health, financial, contacts, photo, or browsing-history data is collected. CAPTCHA tokens are processed by Cloudflare Turnstile only when a form is submitted.",
+    a: "Only an email address for optional account sign-in (Apple, Google, or email/password). No location, health, financial, contacts, photo, or browsing-history data is collected. CAPTCHA tokens are processed by Cloudflare Turnstile only when a form is submitted.",
   },
   {
     q: "Usage data / diagnostics / crash data",
@@ -283,11 +311,11 @@ const disclosures: { q: string; a: string }[] = [
   },
   {
     q: "Data deletion request method",
-    a: "In-app: staff accounts are deleted from Account settings (Delete account), which removes the auth user, email preferences, and roles immediately. Learners clear on-device data with Reset progress on the Support page, by clearing site data, or by removing the app. Anonymous analytics and lesson-metric events cannot be tied to an individual; requests can also be sent to builtstrong1@outlook.com.",
+    a: "In-app: accounts are deleted from Account settings (Delete account), which immediately removes the sign-in, email address, saved progress, certificate names, email preferences, and roles. Learners clear on-device data with Reset progress on the Support page, by clearing site data, or by removing the app. Anonymous analytics and lesson-metric events cannot be tied to an individual; requests can also be sent to builtstrong1@outlook.com.",
   },
   {
     q: "Account creation, third-party login, ads, in-app purchases, user-generated content",
-    a: "Accounts exist only for optional staff sign-in. No ads, no in-app purchases, and no user-generated content. Chat messages are processed by an AI assistant but are not stored on our servers or shared.",
+    a: "Optional free accounts (13+) save progress across devices; they are never required to learn. No ads, no in-app purchases, and no user-generated content. Chat messages are processed by an AI assistant but are not stored on our servers or shared.",
   },
   {
     q: "Age rating / audience",

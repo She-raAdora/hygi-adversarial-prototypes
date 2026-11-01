@@ -76,6 +76,12 @@ function SettingsPage() {
     <main id="main-content" className="mx-auto max-w-2xl px-6 py-14">
       <h1 className="text-3xl font-semibold tracking-tight">Account settings</h1>
       <p className="mt-2 text-sm text-muted-foreground">
+        Your account stores your email, saved progress, and certificate names.{" "}
+        <Link to="/privacy" className="underline hover:text-foreground">
+          Read the Privacy Policy
+        </Link>
+      </p>
+      <p className="mt-2 text-sm text-muted-foreground">
         {accessQuery.data?.email
           ? `Preferences for ${accessQuery.data.email}`
           : "Preferences for your account"}
@@ -148,9 +154,9 @@ function SettingsPage() {
       <section className="mt-10 rounded-2xl border border-destructive/40 bg-card p-6">
         <h2 className="text-lg font-semibold text-destructive-strong">Delete account</h2>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          Permanently deletes your sign-in account, your email preferences, and any admin role you
-          hold. This happens immediately and cannot be undone. Lesson progress and badges live on
-          your device and are not affected — clear those from{" "}
+          Permanently deletes your sign-in account, email address, saved progress, certificate
+          names, email preferences, and any admin role you hold. This happens immediately and cannot
+          be undone. A copy of your progress stays on this device — clear it from{" "}
           <Link to="/support" className="underline hover:text-foreground">
             Support
           </Link>

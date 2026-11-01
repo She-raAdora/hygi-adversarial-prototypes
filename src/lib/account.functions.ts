@@ -15,6 +15,7 @@ export const deleteMyAccount = createServerFn({ method: "POST" })
     const userId = context.userId;
 
     await supabaseAdmin.from("email_preferences").delete().eq("user_id", userId);
+    await supabaseAdmin.from("learner_progress").delete().eq("user_id", userId);
     await supabaseAdmin.from("user_roles").delete().eq("user_id", userId);
 
     const { error } = await supabaseAdmin.auth.admin.deleteUser(userId);
