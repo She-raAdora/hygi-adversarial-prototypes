@@ -23,6 +23,7 @@ import { Route as PasskeysVsPasswordsRouteImport } from './routes/passkeys-vs-pa
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SafetyResponseRouteImport } from './routes/safety-response'
 import { Route as SecurityGlossaryRouteImport } from './routes/security-glossary'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SocialEngineeringDefenseRouteImport } from './routes/social-engineering-defense'
 import { Route as SupportRouteImport } from './routes/support'
@@ -104,6 +105,11 @@ const SafetyResponseRoute = SafetyResponseRouteImport.update({
 const SecurityGlossaryRoute = SecurityGlossaryRouteImport.update({
   id: '/security-glossary',
   path: '/security-glossary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -188,6 +194,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/safety-response': typeof SafetyResponseRoute
   '/security-glossary': typeof SecurityGlossaryRoute
+  '/signup': typeof SignupRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/social-engineering-defense': typeof SocialEngineeringDefenseRoute
   '/support': typeof SupportRoute
@@ -216,6 +223,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/safety-response': typeof SafetyResponseRoute
   '/security-glossary': typeof SecurityGlossaryRoute
+  '/signup': typeof SignupRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/social-engineering-defense': typeof SocialEngineeringDefenseRoute
   '/support': typeof SupportRoute
@@ -246,6 +254,7 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/safety-response': typeof SafetyResponseRoute
   '/security-glossary': typeof SecurityGlossaryRoute
+  '/signup': typeof SignupRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/social-engineering-defense': typeof SocialEngineeringDefenseRoute
   '/support': typeof SupportRoute
@@ -276,6 +285,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/safety-response'
     | '/security-glossary'
+    | '/signup'
     | '/sitemap.xml'
     | '/social-engineering-defense'
     | '/support'
@@ -304,6 +314,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/safety-response'
     | '/security-glossary'
+    | '/signup'
     | '/sitemap.xml'
     | '/social-engineering-defense'
     | '/support'
@@ -333,6 +344,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/safety-response'
     | '/security-glossary'
+    | '/signup'
     | '/sitemap.xml'
     | '/social-engineering-defense'
     | '/support'
@@ -363,6 +375,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   SafetyResponseRoute: typeof SafetyResponseRoute
   SecurityGlossaryRoute: typeof SecurityGlossaryRoute
+  SignupRoute: typeof SignupRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SocialEngineeringDefenseRoute: typeof SocialEngineeringDefenseRoute
   SupportRoute: typeof SupportRoute
@@ -470,6 +483,13 @@ declare module '@tanstack/react-router' {
       path: '/security-glossary'
       fullPath: '/security-glossary'
       preLoaderRoute: typeof SecurityGlossaryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -602,6 +622,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   SafetyResponseRoute: SafetyResponseRoute,
   SecurityGlossaryRoute: SecurityGlossaryRoute,
+  SignupRoute: SignupRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SocialEngineeringDefenseRoute: SocialEngineeringDefenseRoute,
   SupportRoute: SupportRoute,

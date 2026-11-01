@@ -97,9 +97,10 @@ export function SiteHeader() {
               </button>
             </>
           ) : (
+            <>
             <Link
               to="/auth"
-              className="inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 text-muted-foreground transition-colors hover:text-foreground"
+              className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-border px-4 py-2 text-muted-foreground transition-colors hover:text-foreground"
               activeProps={{
                 className:
                   "inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 bg-secondary text-foreground",
@@ -107,6 +108,15 @@ export function SiteHeader() {
             >
               <LogIn className="h-4 w-4" aria-hidden="true" /> Sign in
             </Link>
+            <Link
+              to="/signup"
+              className="whitespace-nowrap rounded-full bg-primary px-4 py-2 font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+              aria-label="Create free account"
+            >
+              <span className="sm:hidden">Sign up</span>
+              <span className="hidden sm:inline">Create free account</span>
+            </Link>
+            </>
           )}
         </nav>
       </div>
