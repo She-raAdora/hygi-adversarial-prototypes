@@ -97,6 +97,7 @@ export function SiteHeader() {
               </button>
             </>
           ) : (
+            <>
             <Link
               to="/auth"
               className="inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 text-muted-foreground transition-colors hover:text-foreground"
@@ -107,6 +108,13 @@ export function SiteHeader() {
             >
               <LogIn className="h-4 w-4" aria-hidden="true" /> Sign in
             </Link>
+            <Link
+              to="/signup"
+              className="rounded-full bg-primary px-4 py-2 font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            >
+              Create free account
+            </Link>
+            </>
           )}
         </nav>
       </div>
