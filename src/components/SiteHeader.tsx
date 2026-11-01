@@ -105,7 +105,7 @@ export function SiteHeader() {
                   "inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 bg-secondary text-foreground",
               }}
             >
-              <LogIn className="h-4 w-4" aria-hidden="true" /> Admin login
+              <LogIn className="h-4 w-4" aria-hidden="true" /> Sign in
             </Link>
           )}
         </nav>

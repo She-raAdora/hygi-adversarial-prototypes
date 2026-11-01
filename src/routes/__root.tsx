@@ -20,6 +20,7 @@ import { openConsentBanner } from "@/lib/consent";
 import { HelpChat } from "@/components/HelpChat";
 import { appleSplashLinks } from "@/lib/splashLinks";
 import { supabase } from "@/integrations/supabase/client";
+import { ProgressSync } from "@/components/ProgressSync";
 
 function NotFoundComponent() {
   return (
@@ -193,6 +194,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Analytics />
+      <ProgressSync />
       <AnalyticsDebugPanel />
       <div className="min-h-dvh bg-background text-foreground">
         <a
