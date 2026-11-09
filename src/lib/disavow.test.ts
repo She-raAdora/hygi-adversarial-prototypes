@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildDisavowFile, summarizeDisavowUploads, disavowTypeBreakdown } from "./disavow";
+import { buildDisavowFile, summarizeDisavowUploads, disavowTypeBreakdown, disavowAcceptanceRate } from "./disavow";
 
 describe("buildDisavowFile", () => {
   it("writes one domain line per site, deduped and cleaned", () => {
@@ -36,6 +36,12 @@ describe("disavow dashboard", () => {
 
 
 describe("individual domain status counts", () => {
+  it("compares accepted domains against all submitted domains including pending ones", () => {
+    expect(disavowAcceptanceRate({ accepted: 2, submitted: 5 })).toBe(40);
+  });
+  it("does not imply a zero acceptance rate when no domains were submitted", () => {
+    expect(disavowAcceptanceRate({ accepted: 0, submitted: 0 })).toBeNull();
+  });
   it("breaks down recorded types without classifying unknown domains or mixing statuses", () => {
     const result = disavowTypeBreakdown({ uploaded_at: "2026-11-09", domains_selected: 4, domains_accepted: 0, disavow_domain_statuses: [
       { id: "1", domain: "a.example", status: "accepted", updated_at: "2026-11-09", threat_category: "phishing" },

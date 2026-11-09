@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] Display saved source categories per submitted domain and compare acceptance counts/rates by type.
+
 - [x] Add standalone spam-domain dashboard with recorded upload totals, monthly trend and snapshotted spam-type breakdown; 21 tests pass and signed-in empty dashboard/mobile checked. Nonempty Google upload persistence remains unverified because no real uploads are recorded.
 
 - [x] Build Spam Blocker flagged-domain list and automatic domain-only disavow preview/download; verified saved scams flag, reload, download contents, inclusion toggles and mobile width. Temporary test domain removed; 20 tests passed.
