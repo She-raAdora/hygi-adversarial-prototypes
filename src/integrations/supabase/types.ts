@@ -213,6 +213,7 @@ export type Database = {
           domain: string
           id: string
           status: string
+          threat_category: string | null
           updated_at: string
           updated_by: string | null
           upload_id: string
@@ -221,6 +222,7 @@ export type Database = {
           domain: string
           id?: string
           status?: string
+          threat_category?: string | null
           updated_at?: string
           updated_by?: string | null
           upload_id: string
@@ -229,6 +231,7 @@ export type Database = {
           domain?: string
           id?: string
           status?: string
+          threat_category?: string | null
           updated_at?: string
           updated_by?: string | null
           upload_id?: string

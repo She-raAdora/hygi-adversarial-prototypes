@@ -36,6 +36,13 @@
       "when": 1794202966599,
       "tag": "0004_flag_spam_link_reports",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1794203268659,
+      "tag": "0005_disavow_spam_type_snapshot",
+      "breakpoints": true
     }
   ]
 }
