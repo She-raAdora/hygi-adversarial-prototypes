@@ -25,11 +25,36 @@ describe("disavow dashboard", () => {
   });
   it("uses the last upload in each month in chronological order", () => {
     expect(summarizeDisavowUploads(uploads).monthly).toEqual([
-      { month: "2026-10", submitted: 10, accepted: 8, pending: 2 },
-      { month: "2026-11", submitted: 15, accepted: 12, pending: 3 },
+      { month: "2026-10", submitted: 10, accepted: 8, rejected: 0, pending: 2 },
+      { month: "2026-11", submitted: 15, accepted: 12, rejected: 0, pending: 3 },
     ]);
   });
   it("shows zero totals without fabricating upload history", () => {
-    expect(summarizeDisavowUploads([])).toEqual({ latest: { submitted: 0, accepted: 0, pending: 0 }, monthly: [] });
+    expect(summarizeDisavowUploads([])).toEqual({ latest: { submitted: 0, accepted: 0, rejected: 0, pending: 0 }, monthly: [] });
+  });
+});
+
+
+describe("individual domain status counts", () => {
+  const upload = {
+    uploaded_at: "2026-11-09T05:00:00Z", domains_selected: 3, domains_accepted: 3,
+    disavow_domain_statuses: [
+      { id: "a", domain: "a.example", status: "accepted", updated_at: "2026-11-09" },
+      { id: "b", domain: "b.example", status: "pending", updated_at: "2026-11-09" },
+      { id: "c", domain: "c.example", status: "rejected", updated_at: "2026-11-09" },
+    ],
+  };
+  it("counts accepted domains from statuses rather than a legacy count", () => {
+    expect(summarizeDisavowUploads([upload]).latest.accepted).toBe(1);
+  });
+  it("does not count rejected domains as pending", () => {
+    expect(summarizeDisavowUploads([upload]).latest).toEqual({ submitted: 3, accepted: 1, pending: 1, rejected: 1 });
+  });
+  it("updates the monthly trend from individual statuses", () => {
+    expect(summarizeDisavowUploads([upload]).monthly).toEqual([{ month: "2026-11", submitted: 3, accepted: 1, pending: 1, rejected: 1 }]);
+  });
+  it("keeps newly recorded domains pending without inferring identities from old counts", () => {
+    const pendingUpload = { ...upload, disavow_domain_statuses: upload.disavow_domain_statuses.map((row) => ({ ...row, status: "pending" })) };
+    expect(summarizeDisavowUploads([pendingUpload]).latest).toEqual({ submitted: 3, accepted: 0, pending: 3, rejected: 0 });
   });
 });
