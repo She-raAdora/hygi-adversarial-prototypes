@@ -405,6 +405,7 @@ export type Database = {
           link: string
           normalized_link: string
           status: string
+          threat_category: string | null
         }
         Insert: {
           created_at?: string
@@ -414,6 +415,7 @@ export type Database = {
           link: string
           normalized_link: string
           status?: string
+          threat_category?: string | null
         }
         Update: {
           created_at?: string
@@ -423,6 +425,7 @@ export type Database = {
           link?: string
           normalized_link?: string
           status?: string
+          threat_category?: string | null
         }
         Relationships: []
       }
