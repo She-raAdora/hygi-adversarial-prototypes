@@ -1,5 +1,7 @@
 # Roadmap
 
+- [x] Add pre-upload spam report with original source entries, categories, file status, search and review links; 10 scope/duplicate tests passed. Signed-in saved domain, reload, category filter and mobile width verified; temporary entry removed.
+
 - [x] Display saved source categories per submitted domain and compare acceptance counts/rates by type; 13 calculation tests passed and signed-in empty dashboard checked. No submitted domain rows exist for live nonempty verification.
 
 - [x] Add standalone spam-domain dashboard with recorded upload totals, monthly trend and snapshotted spam-type breakdown; 21 tests pass and signed-in empty dashboard/mobile checked. Nonempty Google upload persistence remains unverified because no real uploads are recorded.
