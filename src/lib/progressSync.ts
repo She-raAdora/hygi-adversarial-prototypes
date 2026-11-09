@@ -12,6 +12,7 @@ export const EXTRA_KEYS = [
   "dh-social-engineering-cert-name",
   "dh-cert-name",
   "hygi-five-door-v1",
+  "hygi-sim-swap-review-v1",
 ] as const;
 
 export type Badges = Record<string, number>;

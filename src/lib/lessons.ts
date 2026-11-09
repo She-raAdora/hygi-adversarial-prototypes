@@ -1,3 +1,5 @@
+import { simSwapLesson } from "./simSwapLesson";
+
 export type QuizQ = {
   q: string;
   options: string[];
@@ -18,7 +20,7 @@ export type Lesson = {
   /** Authoritative references, shown in the expandable "Evidence behind this lesson" panel. */
   sources?: LessonSource[];
   /** Optional interactive exercise rendered after the lesson body. */
-  interactive?: "five-door-reset";
+  interactive?: "five-door-reset" | "sim-swap";
 };
 
 export type LessonSource = {
@@ -30,6 +32,7 @@ export type LessonSource = {
 };
 
 const rawLessons: Lesson[] = [
+  simSwapLesson,
   {
     id: "personal-info",
     title: "Protect Personal Information",
@@ -3215,6 +3218,7 @@ const LESSON_ORDER: string[] = [
   "account-takeover-recovery",
   "identity-theft-recovery",
   "image-based-abuse-response",
+  "sim-swap",
 ];
 
 /** Why each lesson matters right now — shown with the earned badge. */

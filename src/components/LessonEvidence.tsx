@@ -9,7 +9,7 @@ import type { LessonSource } from "@/lib/lessons";
  * Reusable across any lesson: pass the lesson's optional `sources` array. Kept
  * collapsed by default so the lesson body stays clean and consumer-friendly.
  */
-export function LessonEvidence({ sources }: { sources: LessonSource[] }) {
+export function LessonEvidence({ sources, label }: { sources: LessonSource[]; label?: string }) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
 
@@ -25,7 +25,7 @@ export function LessonEvidence({ sources }: { sources: LessonSource[] }) {
         className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         <ShieldCheck className="h-4 w-4" aria-hidden="true" />
-        {open ? "Hide the evidence" : "Evidence behind this lesson"}
+        {label ?? (open ? "Hide the evidence" : "Evidence behind this lesson")}
         <ChevronDown
           className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`}
           aria-hidden="true"

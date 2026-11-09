@@ -8,6 +8,7 @@ import { ShareResultButton } from "@/components/ShareResultButton";
 import { GlossaryText } from "@/components/GlossaryText";
 import { LessonEvidence } from "@/components/LessonEvidence";
 import { FiveDoorReset } from "@/components/FiveDoorReset";
+import { SimSwapExercise } from "@/components/SimSwapExercise";
 
 import { recordOnboardingStart, recordQuestionResult, recordQuizComplete } from "@/lib/metrics";
 import { pathwayOf, pathwayChipStyle } from "@/lib/pathways";
@@ -173,6 +174,7 @@ function LessonPage() {
         </div>
         <h1 className="mt-4 text-4xl font-semibold tracking-tight">{lesson.title}</h1>
         <p className="mt-3 text-lg text-muted-foreground">{lesson.tagline}</p>
+        {lesson.id === "sim-swap" ? <p className="mt-3 text-sm text-muted-foreground">Beginner · 5–7 minutes · Content reviewed November 8, 2026. Carrier features and instructions may change.</p> : null}
       </header>
 
       {mode === "learn" ? (
@@ -186,7 +188,8 @@ function LessonPage() {
           <p className="text-base leading-relaxed">
             <GlossaryText text={lesson.intro} seen={glossarySeen} />
           </p>
-          {lesson.sections.map((s: Lesson["sections"][number]) => (
+          {lesson.id === "sim-swap" ? <SimSwapExercise stage="intro" /> : null}
+          {lesson.sections.map((s: Lesson["sections"][number], sectionIndex) => (
             <section key={s.heading} id={sectionSlug(s.heading)} className="scroll-mt-24">
               <h2
                 tabIndex={-1}
@@ -210,12 +213,16 @@ function LessonPage() {
                   </li>
                 ))}
               </ul>
+              {lesson.id === "sim-swap" && sectionIndex === 0 ? <SimSwapExercise stage="attack" /> : null}
+              {lesson.id === "sim-swap" && sectionIndex === 2 ? <SimSwapExercise stage="protections" /> : null}
+              {lesson.id === "sim-swap" && sectionIndex === 3 ? <SimSwapExercise stage="carrier" /> : null}
+              {lesson.id === "sim-swap" && sectionIndex === 6 ? <SimSwapExercise stage="takeaway" /> : null}
             </section>
           ))}
 
           {lesson.interactive === "five-door-reset" ? <FiveDoorReset /> : null}
 
-          {lesson.sources?.length ? <LessonEvidence sources={lesson.sources} /> : null}
+          {lesson.sources?.length ? <LessonEvidence sources={lesson.sources} label={lesson.id === "sim-swap" ? "Sources & Credits" : undefined} /> : null}
 
           {["online-abuse-action-plan", "image-based-abuse-response"].includes(lesson.id) ? (
             <aside
@@ -538,6 +545,7 @@ function Quiz({
         <p className="mt-4 text-center text-xs text-muted-foreground">
           Brought to you by NorthBridge
         </p>
+        {lesson.id === "sim-swap" && lesson.sources ? <div className="mt-6 text-left"><LessonEvidence sources={lesson.sources} label="Sources & Credits" /><p className="mt-3 text-xs text-muted-foreground">Content reviewed November 8, 2026. Carrier features and instructions may change. Hygi's educational explanations do not imply agency endorsement.</p></div> : null}
       </div>
 
     );
