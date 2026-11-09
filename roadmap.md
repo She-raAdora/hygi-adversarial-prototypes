@@ -1,5 +1,8 @@
 # Roadmap
 
+- [x] Add the cited SIM-swap lesson, carrier selector, protective actions and mini-quiz.
+- [x] Verify source claims, pathway placement, saved review progress and mobile/desktop lesson completion (FTC/FCC block automated direct access; official references retained).
+
 - [x] Add TOTP authenticator enrollment and sign-in verification for admin accounts.
 - [x] Build a cited “AI Agents Need Guardrails” lesson from the uploaded brief.
 
