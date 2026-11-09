@@ -396,6 +396,36 @@ export type Database = {
         }
         Relationships: []
       }
+      spam_link_entries: {
+        Row: {
+          created_at: string
+          created_by: string
+          duplicate_flag: boolean
+          id: string
+          link: string
+          normalized_link: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string
+          duplicate_flag?: boolean
+          id?: string
+          link: string
+          normalized_link: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          duplicate_flag?: boolean
+          id?: string
+          link?: string
+          normalized_link?: string
+          status?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
