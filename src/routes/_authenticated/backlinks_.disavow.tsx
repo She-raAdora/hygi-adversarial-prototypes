@@ -256,16 +256,43 @@ function UploadLog({ selected }: { selected: string[] }) {
       ) : log.isSuccess ? (
         <p className="mt-6 text-sm text-muted-foreground">No uploads recorded yet.</p>
       ) : null}
-      {log.data && log.data.length > 1 ? (
-        <ul className="mt-3 divide-y rounded-lg border text-sm">
-          {log.data.map((u) => (
-            <li key={u.id} className="flex justify-between p-3">
-              <span>{new Date(u.uploaded_at).toLocaleDateString()}</span>
-              <span>{u.domains_accepted} / {u.domains_selected} accepted</span>
-            </li>
-          ))}
-        </ul>
-      ) : null}
+      <div className="mt-10">
+        <h3 className="text-lg font-semibold">Google acceptance timeline</h3>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Counts you recorded after each upload, newest first. Each upload replaces the previous
+          list, so these counts are not a running total or an automatic confirmation from Google.
+        </p>
+        {log.isPending ? <p className="mt-4 text-sm text-muted-foreground">Loading upload history…</p> : null}
+        {log.isError ? (
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            <p role="alert" className="text-sm text-destructive">Couldn't load the upload timeline.</p>
+            <Button variant="outline" size="sm" onClick={() => void log.refetch()}>Try again</Button>
+          </div>
+        ) : null}
+        {log.isSuccess && log.data.length === 0 ? (
+          <p className="mt-4 text-sm text-muted-foreground">Your first recorded upload will appear here.</p>
+        ) : null}
+        {log.data && log.data.length > 0 ? (
+          <>
+            <ol aria-label="Recorded Google disavow uploads" className="mt-6 ml-2 border-l-2 border-border">
+              {log.data.map((u, index) => (
+                <li key={u.id} className="relative pb-8 pl-6 last:pb-0">
+                  <span aria-hidden="true" className="absolute -left-2 top-1 h-3.5 w-3.5 rounded-full border-2 border-background bg-primary" />
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <time dateTime={u.uploaded_at} className="text-sm font-medium">
+                      {new Date(u.uploaded_at).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" })}
+                    </time>
+                    {index === 0 ? <span className="text-xs font-medium text-primary">Latest upload</span> : null}
+                  </div>
+                  <p className="mt-2 text-base"><strong className="text-primary">{u.domains_accepted}</strong> domains accepted</p>
+                  <p className="mt-1 text-sm text-muted-foreground">Out of {u.domains_selected} domains in that file · recorded by an admin</p>
+                </li>
+              ))}
+            </ol>
+            <p className="mt-5 text-xs text-muted-foreground">Showing the most recent {log.data.length} uploads (up to 20).</p>
+          </>
+        ) : null}
+      </div>
     </section>
   );
 }
