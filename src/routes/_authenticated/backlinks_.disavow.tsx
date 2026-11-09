@@ -93,6 +93,7 @@ function DisavowPage() {
 
       <section className="mt-10">
         <h2 className="text-xl font-semibold">1. Choose the sites</h2>
+        <p className="mt-2 text-sm"><Link to="/backlinks/links" className="underline underline-offset-4">Manage individual spam links and duplicates →</Link></p>
         {snaps.isPending ? (
           <p className="mt-4 text-sm text-muted-foreground">Loading…</p>
         ) : !latest ? (
