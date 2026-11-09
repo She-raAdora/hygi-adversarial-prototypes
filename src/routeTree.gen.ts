@@ -35,6 +35,7 @@ import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as LessonIdRouteImport } from './routes/lesson.$id'
+import { Route as AuthenticatedBacklinksBlockerRouteImport } from './routes/_authenticated/backlinks_.blocker'
 import { Route as AuthenticatedBacklinksDisavowRouteImport } from './routes/_authenticated/backlinks_.disavow'
 import { Route as AuthenticatedBacklinksLinksRouteImport } from './routes/_authenticated/backlinks_.links'
 import { Route as AuthenticatedBacklinksSubmitRouteImport } from './routes/_authenticated/backlinks_.submit'
@@ -170,6 +171,12 @@ const LessonIdRoute = LessonIdRouteImport.update({
   path: '/lesson/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedBacklinksBlockerRoute =
+  AuthenticatedBacklinksBlockerRouteImport.update({
+    id: '/backlinks_/blocker',
+    path: '/backlinks/blocker',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedBacklinksDisavowRoute =
   AuthenticatedBacklinksDisavowRouteImport.update({
     id: '/backlinks_/disavow',
@@ -220,6 +227,7 @@ export interface FileRoutesByFullPath {
   '/settings': typeof AuthenticatedSettingsRoute
   '/api/chat': typeof ApiChatRoute
   '/lesson/$id': typeof LessonIdRoute
+  '/backlinks/blocker': typeof AuthenticatedBacklinksBlockerRoute
   '/backlinks/disavow': typeof AuthenticatedBacklinksDisavowRoute
   '/backlinks/links': typeof AuthenticatedBacklinksLinksRoute
   '/backlinks/submit': typeof AuthenticatedBacklinksSubmitRoute
@@ -251,6 +259,7 @@ export interface FileRoutesByTo {
   '/settings': typeof AuthenticatedSettingsRoute
   '/api/chat': typeof ApiChatRoute
   '/lesson/$id': typeof LessonIdRoute
+  '/backlinks/blocker': typeof AuthenticatedBacklinksBlockerRoute
   '/backlinks/disavow': typeof AuthenticatedBacklinksDisavowRoute
   '/backlinks/links': typeof AuthenticatedBacklinksLinksRoute
   '/backlinks/submit': typeof AuthenticatedBacklinksSubmitRoute
@@ -284,6 +293,7 @@ export interface FileRoutesById {
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/api/chat': typeof ApiChatRoute
   '/lesson/$id': typeof LessonIdRoute
+  '/_authenticated/backlinks_/blocker': typeof AuthenticatedBacklinksBlockerRoute
   '/_authenticated/backlinks_/disavow': typeof AuthenticatedBacklinksDisavowRoute
   '/_authenticated/backlinks_/links': typeof AuthenticatedBacklinksLinksRoute
   '/_authenticated/backlinks_/submit': typeof AuthenticatedBacklinksSubmitRoute
@@ -317,6 +327,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/api/chat'
     | '/lesson/$id'
+    | '/backlinks/blocker'
     | '/backlinks/disavow'
     | '/backlinks/links'
     | '/backlinks/submit'
@@ -348,6 +359,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/api/chat'
     | '/lesson/$id'
+    | '/backlinks/blocker'
     | '/backlinks/disavow'
     | '/backlinks/links'
     | '/backlinks/submit'
@@ -380,6 +392,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings'
     | '/api/chat'
     | '/lesson/$id'
+    | '/_authenticated/backlinks_/blocker'
     | '/_authenticated/backlinks_/disavow'
     | '/_authenticated/backlinks_/links'
     | '/_authenticated/backlinks_/submit'
@@ -595,6 +608,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LessonIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/backlinks_/blocker': {
+      id: '/_authenticated/backlinks_/blocker'
+      path: '/backlinks/blocker'
+      fullPath: '/backlinks/blocker'
+      preLoaderRoute: typeof AuthenticatedBacklinksBlockerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/backlinks_/disavow': {
       id: '/_authenticated/backlinks_/disavow'
       path: '/backlinks/disavow'
@@ -632,6 +652,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+  AuthenticatedBacklinksBlockerRoute: typeof AuthenticatedBacklinksBlockerRoute
   AuthenticatedBacklinksDisavowRoute: typeof AuthenticatedBacklinksDisavowRoute
   AuthenticatedBacklinksLinksRoute: typeof AuthenticatedBacklinksLinksRoute
   AuthenticatedBacklinksSubmitRoute: typeof AuthenticatedBacklinksSubmitRoute
@@ -643,6 +664,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
+  AuthenticatedBacklinksBlockerRoute: AuthenticatedBacklinksBlockerRoute,
   AuthenticatedBacklinksDisavowRoute: AuthenticatedBacklinksDisavowRoute,
   AuthenticatedBacklinksLinksRoute: AuthenticatedBacklinksLinksRoute,
   AuthenticatedBacklinksSubmitRoute: AuthenticatedBacklinksSubmitRoute,

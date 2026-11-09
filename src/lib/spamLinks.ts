@@ -14,6 +14,10 @@ export function prepareSpamReport(input: unknown) {
   return { ...report, normalized_link: normalizeSpamLink(report.link), status: "ready" as const };
 }
 
+export function flaggedDomainEntries<T extends SpamEntry & { threat_category?: string | null }>(entries: T[]): T[] {
+  return entries.filter((entry) => ["phishing", "malware", "scams"].includes(entry.threat_category ?? "") && normalizeSpamLink(entry.link).startsWith("domain:"));
+}
+
 export function normalizeSpamLink(input: string): string {
   const value = input.trim();
   if (/^domain:/i.test(value) || !value.includes("://") && !value.includes("/")) {

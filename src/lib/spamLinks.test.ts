@@ -1,8 +1,18 @@
 import { describe, expect, it } from "vitest";
-import { normalizeSpamLink, duplicateSpamIds, buildPreparedDisavow, prepareSpamReport } from "./spamLinks";
+import { normalizeSpamLink, duplicateSpamIds, buildPreparedDisavow, prepareSpamReport, flaggedDomainEntries } from "./spamLinks";
 
 const entry = (id: string, link: string, status = "ready", duplicate_flag = false) => ({ id, link, status, duplicate_flag, created_at: `2026-11-09T00:00:0${id}Z` });
 describe("spam link preparation", () => {
+  it("builds the blocker file from flagged domains without broadening URL reports", () => {
+    const reports = [
+      { ...entry("1", "phish.example"), threat_category: "phishing" },
+      { ...entry("2", "malware.example"), threat_category: "malware" },
+      { ...entry("3", "scam.example"), threat_category: "scams" },
+      { ...entry("4", "https://page.example/specific"), threat_category: "malware" },
+      { ...entry("5", "unflagged.example"), threat_category: null },
+    ];
+    expect(buildPreparedDisavow(flaggedDomainEntries(reports))).toBe("# Prepared spam links for digitalhygiene.app\ndomain:malware.example\ndomain:phish.example\ndomain:scam.example\n");
+  });
   for (const threat_category of ["phishing", "malware", "scams"]) it(`automatically includes ${threat_category} reports in prepared output`, () => {
     const report = prepareSpamReport({ link: "https://spam.example/report", threat_category });
     expect(report.threat_category).toBe(threat_category);

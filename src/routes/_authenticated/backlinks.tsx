@@ -37,6 +37,7 @@ function BacklinksPage() {
         the last capture.
       </p>
       <p className="mt-3 text-sm">
+        <Link to="/backlinks/blocker" className="mr-5 font-medium underline underline-offset-4">Spam Blocker →</Link>
         <Link to="/backlinks/links" className="mr-5 font-medium underline underline-offset-4">Manage spam links →</Link>
         <Link to="/backlinks/disavow" className="font-medium underline underline-offset-4">
           Ask Google to ignore spam links →
