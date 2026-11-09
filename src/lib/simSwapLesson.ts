@@ -23,11 +23,12 @@ export const simSwapLesson: Lesson = {
     { q: "Your cellular service unexpectedly disappears. What should you do first?", options: ["Assume your phone was hacked and delete everything", "Verify account status with your carrier using official contact information", "Give your verification code to a caller offering help"], answer: 1, explain: "Service interruptions have multiple causes. Official carrier verification helps establish whether suspicious account activity occurred." },
   ],
   sources: [
+    { org: "FCC", title: "Cell Phone Fraud", url: "https://www.fcc.gov/consumers/guides/cell-phone-fraud", note: "SIM-swap and port-out fraud: moving service to another device versus another carrier." },
     { org: "FTC", title: "SIM Swap Scams: How to Protect Yourself (October 2019)", url: "https://consumer.ftc.gov/consumer-alerts/2019/10/sim-swap-scams-how-protect-yourself", note: "Attack explanation, warning signs, prevention and recovery." },
     { org: "CISA", title: "Mobile Communications Best Practice Guidance (December 18, 2024)", url: "https://www.cisa.gov/sites/default/files/2024-12/guidance-mobile-communications-best-practices.pdf", note: "Carrier PINs and phishing-resistant authentication. This guidance particularly addresses highly targeted individuals; relevant practices can also benefit everyday consumers." },
     { org: "NIST", title: "Digital Identity Guidelines: Authentication and Authenticator Management — SP 800-63B-4 (July 2025)", url: "https://pages.nist.gov/800-63-4/sp800-63b.html", note: "Phishing-resistant authentication, SMS and manually entered codes." },
     { org: "Verizon", title: "Enable/Disable SIM Protection and Number Lock", url: "https://www.verizon.com/support/knowledge-base-309293/", note: "Distinct SIM Protection and Number Lock features." },
-    { org: "AT&T", title: "Learn About Wireless Account Lock", url: "https://lsreg.att.com/support/article/wireless/000102016", note: "Restrictions on sensitive account changes, including SIM changes and number transfers." },
+    { org: "AT&T", title: "Learn About Wireless Account Lock", url: "https://www.att.com/support/article/wireless/000102016/", note: "Restrictions on sensitive account changes, including SIM changes and number transfers." },
     { org: "T-Mobile", title: "Protect Your T-Mobile Account From Fraud", url: "https://www.t-mobile.com/support/plans-features/help-with-t-mobile-account-fraud", note: "SIM Protection and Port Out Protection; availability and permissions vary." },
     { org: "FTC", title: "IdentityTheft.gov", url: "https://www.identitytheft.gov/", note: "Personalized identity theft recovery guidance." },
   ],
