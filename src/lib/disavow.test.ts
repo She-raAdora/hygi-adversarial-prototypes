@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildDisavowFile, summarizeDisavowUploads } from "./disavow";
+import { buildDisavowFile, summarizeDisavowUploads, disavowTypeBreakdown } from "./disavow";
 
 describe("buildDisavowFile", () => {
   it("writes one domain line per site, deduped and cleaned", () => {
@@ -36,6 +36,20 @@ describe("disavow dashboard", () => {
 
 
 describe("individual domain status counts", () => {
+  it("breaks down recorded types without classifying unknown domains or mixing statuses", () => {
+    const result = disavowTypeBreakdown({ uploaded_at: "2026-11-09", domains_selected: 4, domains_accepted: 0, disavow_domain_statuses: [
+      { id: "1", domain: "a.example", status: "accepted", updated_at: "2026-11-09", threat_category: "phishing" },
+      { id: "2", domain: "b.example", status: "pending", updated_at: "2026-11-09", threat_category: "malware" },
+      { id: "3", domain: "c.example", status: "rejected", updated_at: "2026-11-09", threat_category: "scams" },
+      { id: "4", domain: "d.example", status: "pending", updated_at: "2026-11-09" },
+    ] });
+    expect(result).toEqual([
+      { type: "phishing", submitted: 1, accepted: 1, pending: 0, rejected: 0 },
+      { type: "malware", submitted: 1, accepted: 0, pending: 1, rejected: 0 },
+      { type: "scams", submitted: 1, accepted: 0, pending: 0, rejected: 1 },
+      { type: "unclassified", submitted: 1, accepted: 0, pending: 1, rejected: 0 },
+    ]);
+  });
   const upload = {
     uploaded_at: "2026-11-09T05:00:00Z", domains_selected: 3, domains_accepted: 3,
     disavow_domain_statuses: [
