@@ -74,6 +74,7 @@ function DisavowPage() {
   return (
     <main id="main-content" className="mx-auto max-w-4xl px-6 py-16">
       <h1 className="text-4xl font-semibold tracking-tight">Google Disavow</h1>
+      <p className="mt-3 text-sm"><Link to="/backlinks/overview" className="underline underline-offset-4">Spam domain dashboard →</Link></p>
       <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
         Spam links to disavow: review the latest Semrush capture, download your file and open
         Google's upload page. The upload happens on Google, not inside Hygi, and requires your Google sign-in.
@@ -200,7 +201,7 @@ function UploadLog({ selected }: { selected: string[] }) {
     queryFn: async () => {
       const fetchPage = (offset: number) => supabase
         .from("disavow_uploads")
-        .select("id, uploaded_at, domains_selected, domains_accepted, disavow_domain_statuses(id, domain, status, updated_at)")
+        .select("id, uploaded_at, domains_selected, domains_accepted, disavow_domain_statuses(id, domain, status, updated_at, threat_category)")
         .order("uploaded_at", { ascending: false })
         .order("id", { ascending: false })
         .range(offset, offset + 499);
