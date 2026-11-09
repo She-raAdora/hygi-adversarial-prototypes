@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] Build admin spam-link preparation list with statuses, duplicate flags, download and saved-entry verification.
+
 - [x] Track individual disavow domain statuses and derive totals/monthly trends; calculation tests and signed-in empty dashboard checked. Real status-edit persistence requires a recorded upload (none exists); no Google submissions fabricated.
 
 - [x] Add the cited SIM-swap lesson, carrier selector, protective actions and mini-quiz.
