@@ -22,6 +22,7 @@ export function AuthScreen({ initialMode = "signin" }: { initialMode?: "signin" 
   const [captchaReset, setCaptchaReset] = useState(0);
   const [age, setAge] = useState<"unknown" | "ok" | "under">("unknown");
   const [pendingProvider, setPendingProvider] = useState<"google" | "apple" | null>(null);
+  const [confirmationEmail, setConfirmationEmail] = useState<string | null>(null);
 
   useEffect(() => {
     const saved = window.localStorage.getItem(AGE_STORAGE_KEY);
@@ -85,7 +86,10 @@ export function AuthScreen({ initialMode = "signin" }: { initialMode?: "signin" 
         });
         if (signUpError) throw signUpError;
         if (!data.session) {
-          setMessage("Check your email to confirm the account, then sign in.");
+          setConfirmationEmail(email);
+          setPassword("");
+          setMessage("Check your inbox and spam folder for your confirmation email. Open its link, then sign in on this device to carry your badges into your account.");
+          setCaptchaReset((n) => n + 1);
           return;
         }
       } else {
@@ -103,6 +107,38 @@ export function AuthScreen({ initialMode = "signin" }: { initialMode?: "signin" 
       setError(err instanceof Error ? err.message : "Something went wrong. Try again.");
     } finally {
       setBusy(false);
+    }
+  }
+
+  async function resendConfirmation() {
+    if (!confirmationEmail || busy) return;
+    setBusy(true);
+    setError(null);
+    setMessage(null);
+    try {
+      if (captcha.required) {
+        if (!captcha.token) {
+          setError("Complete the CAPTCHA to continue.");
+          return;
+        }
+        const check = await verifyAuthCaptcha({ data: { captchaToken: captcha.token } });
+        if (!check.ok) throw new Error("CAPTCHA check failed. Please try again.");
+      }
+      const { error: resendError } = await supabase.auth.resend({
+        type: "signup",
+        email: confirmationEmail,
+        options: {
+          emailRedirectTo: window.location.origin + "/auth",
+          ...(captcha.token ? { captchaToken: captcha.token } : {}),
+        },
+      });
+      if (resendError) throw resendError;
+      setMessage("Confirmation email requested. Check your inbox and spam folder; if your account still needs confirmation, a new link will arrive.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Couldn't resend the confirmation email. Try again.");
+    } finally {
+      setBusy(false);
+      setCaptchaReset((n) => n + 1);
     }
   }
 
@@ -229,6 +265,21 @@ export function AuthScreen({ initialMode = "signin" }: { initialMode?: "signin" 
           </div>
 
           <Turnstile action="auth" onChange={setCaptcha} resetKey={captchaReset} />
+
+          {confirmationEmail ? (
+            <div className="space-y-2">
+              <p className="break-words text-sm text-muted-foreground">Confirmation requested for {confirmationEmail}.</p>
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full"
+                disabled={busy || (captcha.required && !captcha.token)}
+                onClick={() => void resendConfirmation()}
+              >
+                {busy ? "Please wait…" : "Resend confirmation email"}
+              </Button>
+            </div>
+          ) : null}
 
           <button
             type="submit"
