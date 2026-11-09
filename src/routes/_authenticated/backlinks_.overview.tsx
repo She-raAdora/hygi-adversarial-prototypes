@@ -33,7 +33,7 @@ function OverviewPage() {
   return <main id="main-content" className="mx-auto max-w-5xl px-6 py-12">
     <h1 className="text-4xl font-semibold">Spam domain dashboard</h1>
     <p className="mt-3 text-sm text-muted-foreground">Latest recorded replacement file, not a cumulative total. Accepted and rejected are manually recorded; pending means unconfirmed acceptance, not Google processing. Prepared domains are not counted as submitted.</p>
-    <div className="mt-5 flex flex-wrap gap-3"><Button variant="outline" asChild><Link to="/backlinks/blocker">Flagged domains</Link></Button><Button variant="outline" asChild><Link to="/backlinks/disavow">Record upload</Link></Button></div>
+    <div className="mt-5 flex flex-wrap gap-3"><Button variant="outline" asChild><Link to="/backlinks/report">Spam report</Link></Button><Button variant="outline" asChild><Link to="/backlinks/blocker">Flagged domains</Link></Button><Button variant="outline" asChild><Link to="/backlinks/disavow">Record upload</Link></Button></div>
     {uploads.isPending ? <p className="mt-8">Loading dashboard…</p> : null}
     {uploads.isError ? <div className="mt-8"><p role="alert" className="text-destructive">Couldn't load recorded uploads.</p><Button variant="outline" onClick={() => void uploads.refetch()}>Try again</Button></div> : null}
     {uploads.isSuccess ? <>
