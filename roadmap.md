@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] Track individual disavow domain statuses, derive totals/monthly trends, and verify admin editing.
+
 - [x] Add the cited SIM-swap lesson, carrier selector, protective actions and mini-quiz.
 - [x] Verify source claims, pathway placement, saved review progress and mobile/desktop lesson completion (FTC/FCC block automated direct access; official references retained).
 
