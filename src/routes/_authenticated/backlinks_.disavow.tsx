@@ -19,10 +19,10 @@ const DEFAULT_NOTE =
 export const Route = createFileRoute("/_authenticated/backlinks_/disavow")({
   head: () => ({
     meta: [
-      { title: "Spam Links to Disavow — Hygi" },
-      { name: "description", content: "Admin list of spammy sites linking to Hygi, with a ready-to-upload Google disavow file." },
-      { property: "og:title", content: "Spam Links to Disavow — Hygi" },
-      { property: "og:description", content: "Admin list of spammy sites linking to Hygi, with a ready-to-upload Google disavow file." },
+      { title: "Google Disavow: Spam Links & Upload Guide — Hygi" },
+      { name: "description", content: "Review spam links, download your disavow file, follow Google's upload steps and record the accepted domain count." },
+      { property: "og:title", content: "Google Disavow: Spam Links & Upload Guide — Hygi" },
+      { property: "og:description", content: "Review spam links, download your disavow file, follow Google's upload steps and record the accepted domain count." },
       { property: "og:type", content: "website" },
       { name: "robots", content: "noindex" },
       { name: "twitter:card", content: "summary" },
@@ -73,11 +73,23 @@ function DisavowPage() {
 
   return (
     <main id="main-content" className="mx-auto max-w-4xl px-6 py-16">
-      <h1 className="text-4xl font-semibold tracking-tight">Spam links to disavow</h1>
+      <h1 className="text-4xl font-semibold tracking-tight">Google Disavow</h1>
       <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
-        Sites from the latest Semrush capture that look like spam. Tick the ones you want Google to
-        ignore, then upload the file below with Google's disavow tool.
+        Spam links to disavow: review the latest Semrush capture, download your file and open
+        Google's upload page. The upload happens on Google, not inside Hygi, and requires your Google sign-in.
       </p>
+
+      <aside className="mt-6 border-l-4 border-destructive bg-muted p-4" aria-label="Before you disavow links">
+        <h2 className="text-base font-semibold">Before you upload</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Google says most sites do not need to disavow links. Use this only when substantial artificial
+          or spam links have caused, or are likely to cause, a manual action. A Semrush risk score alone
+          does not establish that. Incorrectly disavowing good links can harm your search performance.
+        </p>
+        <a href="https://support.google.com/webmasters/answer/2648487" target="_blank" rel="noreferrer" className="mt-2 inline-block text-sm underline underline-offset-4">
+          Read Google's official guidance
+        </a>
+      </aside>
 
       <section className="mt-10">
         <h2 className="text-xl font-semibold">1. Choose the sites</h2>
@@ -137,7 +149,7 @@ function DisavowPage() {
       </section>
 
       <section className="mt-12">
-        <h2 className="text-xl font-semibold">3. Download and upload</h2>
+        <h2 className="text-xl font-semibold">3. Upload your file on Google</h2>
         <pre className="mt-3 max-h-64 overflow-auto rounded-lg border bg-muted p-4 text-xs">{file}</pre>
         <div className="mt-4 flex flex-wrap gap-2">
           <Button onClick={download} disabled={selected.size === 0}>Download disavow file</Button>
@@ -157,13 +169,17 @@ function DisavowPage() {
             </a>
           </Button>
         </div>
-        <ol className="mt-4 list-decimal space-y-1 pl-5 text-sm text-muted-foreground">
-          <li>Open Google's disavow tool and pick the digitalhygiene.app property.</li>
-          <li>Upload hygi-disavow.txt. A new upload replaces the old one, so always upload the full list.</li>
-          <li>Google usually takes a few weeks to process it.</li>
+        <ol className="mt-6 list-decimal space-y-4 pl-5 text-sm text-muted-foreground">
+          <li><strong className="text-foreground">Download hygi-disavow.txt.</strong> Keep the file as plain text. If you previously uploaded a list, include the old entries you still want disavowed; this file contains only the sites selected above.</li>
+          <li><strong className="text-foreground">Open Google's disavow tool.</strong> Use the button above to open a new tab, then sign in with the Google account that owns the site in Search Console.</li>
+          <li><strong className="text-foreground">Choose the verified URL-prefix property for your site.</strong> For this site, look for https://digitalhygiene.app/. Domain properties (shown as sc-domain:) are not supported. If the URL-prefix property is missing, add and verify it in Search Console first.</li>
+          <li><strong className="text-foreground">Upload your complete .txt file.</strong> Choose Google's upload or replace option and select hygi-disavow.txt from your downloads. Each upload replaces the previous list for that property. If Google reports file errors, correct them and upload again.</li>
+          <li><strong className="text-foreground">Check Google's confirmation.</strong> Only after Google confirms acceptance, return here and enter the accepted domain count in step 4. Hygi cannot check Google's acceptance automatically.</li>
         </ol>
         <p className="mt-4 text-xs text-muted-foreground">
-          Google says it already ignores most spam links on its own, so only disavow sites you're sure are junk.
+          Acceptance does not mean processing is finished. Google may take a few weeks to incorporate the list;
+          the links can still appear in Search Console and Semrush afterward. This asks Google to ignore links,
+          not remove them from other websites.
         </p>
       </section>
 
