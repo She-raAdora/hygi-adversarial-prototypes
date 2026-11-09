@@ -42,6 +42,6 @@ function SubmitSpamPage() {
       {submit.isError ? <p role="alert" className="text-sm text-destructive">Couldn't save. Check the URL or domain and try again.</p> : null}
       {submit.isSuccess ? <p role="status" className="text-sm text-primary">Saved as ready with your threat flag. Duplicate entries stay out of the download.</p> : null}
     </form>
-    <div className="mt-8 flex flex-wrap gap-3"><Button variant="outline" asChild><Link to="/backlinks/links">Manage links & download file</Link></Button><Button variant="outline" asChild><Link to="/backlinks/disavow">Google upload guide</Link></Button></div>
+    <div className="mt-8 flex flex-wrap gap-3"><Button variant="outline" asChild><Link to="/backlinks/blocker">Spam Blocker domains</Link></Button><Button variant="outline" asChild><Link to="/backlinks/links">Manage links & download file</Link></Button><Button variant="outline" asChild><Link to="/backlinks/disavow">Google upload guide</Link></Button></div>
   </main>;
 }

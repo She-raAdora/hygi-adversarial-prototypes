@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] Build Spam Blocker flagged-domain list and automatic domain-only disavow preview/download; verify saved flags and exclusion.
+
 - [x] Add flagged backlink submission and automatic prepared-file inclusion; verified admin submission, malware label, persisted ready status and downloaded URL. Temporary report removed; 19 tests passed.
 
 - [x] Build admin spam-link preparation list with statuses, duplicate flags and download; verified saved changes after reload, duplicate exclusion, file contents and mobile width. Temporary test entries removed.
