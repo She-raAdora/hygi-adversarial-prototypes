@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Track individual disavow domain statuses, derive totals/monthly trends, and verify admin editing.
+- [x] Track individual disavow domain statuses and derive totals/monthly trends; calculation tests and signed-in empty dashboard checked. Real status-edit persistence requires a recorded upload (none exists); no Google submissions fabricated.
 
 - [x] Add the cited SIM-swap lesson, carrier selector, protective actions and mini-quiz.
 - [x] Verify source claims, pathway placement, saved review progress and mobile/desktop lesson completion (FTC/FCC block automated direct access; official references retained).
