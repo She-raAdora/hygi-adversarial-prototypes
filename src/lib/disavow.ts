@@ -15,7 +15,7 @@ export function buildDisavowFile(domains: string[], note: string, date: string):
   return [...comments, `# Generated ${date}`, ...unique.map((d) => `domain:${d}`)].join("\n") + "\n";
 }
 
-export type DomainStatus = { id: string; domain: string; status: string; updated_at: string };
+export type DomainStatus = { id: string; domain: string; status: string; updated_at: string; threat_category?: string | null };
 export type DisavowUpload = { id: string; uploaded_at: string; domains_selected: number; domains_accepted: number; disavow_domain_statuses: DomainStatus[] };
 type UploadCounts = { uploaded_at: string; domains_selected: number; domains_accepted: number; disavow_domain_statuses?: DomainStatus[] };
 
@@ -47,4 +47,11 @@ export function summarizeDisavowUploads(uploads: UploadCounts[]) {
     latest: disavowCounts(sorted[0]),
     monthly: [...months].sort(([a], [b]) => a.localeCompare(b)).map(([month, upload]) => ({ month, ...disavowCounts(upload) })),
   };
+}
+
+export function disavowTypeBreakdown(upload?: UploadCounts) {
+  return ["phishing", "malware", "scams", "unclassified"].map((type) => {
+    const rows = (upload?.disavow_domain_statuses ?? []).filter((row) => (["phishing", "malware", "scams"].includes(row.threat_category ?? "") ? row.threat_category : "unclassified") === type);
+    return { type, submitted: rows.length, accepted: rows.filter((row) => row.status === "accepted").length, pending: rows.filter((row) => row.status === "pending").length, rejected: rows.filter((row) => row.status === "rejected").length };
+  });
 }
