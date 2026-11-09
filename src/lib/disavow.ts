@@ -55,3 +55,8 @@ export function disavowTypeBreakdown(upload?: UploadCounts) {
     return { type, submitted: rows.length, accepted: rows.filter((row) => row.status === "accepted").length, pending: rows.filter((row) => row.status === "pending").length, rejected: rows.filter((row) => row.status === "rejected").length };
   });
 }
+
+/** Pending domains stay in the denominator; no submissions means no rate. */
+export function disavowAcceptanceRate(counts: { accepted: number; submitted: number }) {
+  return counts.submitted > 0 ? Math.round(counts.accepted / counts.submitted * 100) : null;
+}

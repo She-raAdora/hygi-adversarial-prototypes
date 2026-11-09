@@ -42,9 +42,10 @@ export function DisavowDomainTracker({ uploads }: { uploads: DisavowUpload[] }) 
       {rows.length === 0 ? <p className="mt-4 text-sm text-muted-foreground">No domains match this view.</p> : <>
         <div className="mt-4 overflow-x-auto"><table className="w-full text-left text-sm">
           <caption className="sr-only">Manually recorded domain acceptance statuses</caption>
-          <thead className="border-b border-border"><tr><th className="py-3 pr-3" scope="col">Domain</th><th className="py-3 pr-3" scope="col">Status</th><th className="py-3" scope="col">Last updated</th></tr></thead>
+          <thead className="border-b border-border"><tr><th className="py-3 pr-3" scope="col">Domain</th><th className="py-3 pr-3" scope="col">Source category</th><th className="py-3 pr-3" scope="col">Status</th><th className="py-3" scope="col">Last updated</th></tr></thead>
           <tbody>{rows.slice(currentPage * 50, currentPage * 50 + 50).map((row) => <tr key={row.id} className="border-b border-border">
             <th scope="row" className="max-w-64 break-all py-3 pr-3 font-medium">{row.domain}</th>
+            <td className="py-3 pr-3 capitalize">{["phishing", "malware", "scams"].includes(row.threat_category ?? "") ? row.threat_category : "Unclassified"}</td>
             <td className="py-3 pr-3"><select aria-label={`Status for ${row.domain}`} className={selectClass} disabled={update.isPending} value={row.status} onChange={(e) => {
               const status = e.target.value;
               if (status === "accepted" || status === "pending" || status === "rejected") update.mutate({ id: row.id, status });
