@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Input } from "@/components/ui/input";
+import { DisavowDomainTracker } from "@/components/DisavowDomainTracker";
 import { useServerFn } from "@tanstack/react-start";
 
 import { Button } from "@/components/ui/button";
@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { getBacklinkSnapshots } from "@/lib/backlinks.functions";
 import { getBacklinkAlertData } from "@/lib/backlink-alerts.functions";
 import { assessBacklinkRisk } from "@/lib/backlinkRisk";
-import { buildDisavowFile, summarizeDisavowUploads } from "@/lib/disavow";
+import { buildDisavowFile, summarizeDisavowUploads, disavowCounts } from "@/lib/disavow";
 
 const DEFAULT_NOTE =
   "Disavow file for digitalhygiene.app\nThese sites are link farms or paid-link networks that linked to Hygi without our request.\nWe did not buy, trade or ask for these links and ask that Google ignore them.";
@@ -20,9 +20,9 @@ export const Route = createFileRoute("/_authenticated/backlinks_/disavow")({
   head: () => ({
     meta: [
       { title: "Google Disavow: Spam Links & Upload Guide — Hygi" },
-      { name: "description", content: "Review spam links, download your disavow file, follow Google's upload steps and record the accepted domain count." },
+      { name: "description", content: "Review spam links, download your disavow file, follow Google's upload steps and track each submitted domain’s acceptance status." },
       { property: "og:title", content: "Google Disavow: Spam Links & Upload Guide — Hygi" },
-      { property: "og:description", content: "Review spam links, download your disavow file, follow Google's upload steps and record the accepted domain count." },
+      { property: "og:description", content: "Review spam links, download your disavow file, follow Google's upload steps and track each submitted domain’s acceptance status." },
       { property: "og:type", content: "website" },
       { name: "robots", content: "noindex" },
       { name: "twitter:card", content: "summary" },
@@ -174,7 +174,7 @@ function DisavowPage() {
           <li><strong className="text-foreground">Open Google's disavow tool.</strong> Use the button above to open a new tab, then sign in with the Google account that owns the site in Search Console.</li>
           <li><strong className="text-foreground">Choose the verified URL-prefix property for your site.</strong> For this site, look for https://digitalhygiene.app/. Domain properties (shown as sc-domain:) are not supported. If the URL-prefix property is missing, add and verify it in Search Console first.</li>
           <li><strong className="text-foreground">Upload your complete .txt file.</strong> Choose Google's upload or replace option and select hygi-disavow.txt from your downloads. Each upload replaces the previous list for that property. If Google reports file errors, correct them and upload again.</li>
-          <li><strong className="text-foreground">Check Google's confirmation.</strong> Only after Google confirms acceptance, return here and enter the accepted domain count in step 4. Hygi cannot check Google's acceptance automatically.</li>
+          <li><strong className="text-foreground">Check Google's confirmation.</strong> Only after Google confirms acceptance, return here to record the uploaded file in step 4 and update each domain’s status. Hygi cannot check Google's acceptance automatically.</li>
         </ol>
         <p className="mt-4 text-xs text-muted-foreground">
           Acceptance does not mean processing is finished. Google may take a few weeks to incorporate the list;
@@ -199,7 +199,7 @@ function UploadLog({ selected }: { selected: string[] }) {
     queryFn: async () => {
       const fetchPage = (offset: number) => supabase
         .from("disavow_uploads")
-        .select("id, uploaded_at, domains_selected, domains_accepted")
+        .select("id, uploaded_at, domains_selected, domains_accepted, disavow_domain_statuses(id, domain, status, updated_at)")
         .order("uploaded_at", { ascending: false })
         .order("id", { ascending: false })
         .range(offset, offset + 499);
@@ -216,16 +216,12 @@ function UploadLog({ selected }: { selected: string[] }) {
       return uploads;
     },
   });
-  const [accepted, setAccepted] = useState("");
-  useEffect(() => setAccepted(String(selected.length)), [selected.length]);
-  const n = Number(accepted);
-  const valid = accepted !== "" && Number.isInteger(n) && n >= 0 && n <= selected.length;
   const save = useMutation({
     mutationFn: async () => {
       const { error } = await supabase.from("disavow_uploads").insert({
         domains_selected: selected.length,
-        domains_accepted: n,
-        domains: selected,
+        domains_accepted: 0,
+        domains: [...new Set(selected.map((domain) => domain.trim().toLowerCase()))],
       });
       if (error) throw error;
     },
@@ -238,22 +234,11 @@ function UploadLog({ selected }: { selected: string[] }) {
     <section className="mt-12">
       <h2 className="text-xl font-semibold">4. Mark as uploaded</h2>
       <p className="mt-2 text-sm text-muted-foreground">
-        After uploading, Google shows how many domains it accepted. Enter that number to keep a record.
+        Record the complete file you actually uploaded. Domains begin as pending; mark accepted or rejected only from Google's confirmation or file errors below. Do not record a file that Google refused as an uploaded replacement.
       </p>
-      <div className="mt-4 flex flex-wrap items-end gap-3">
-        <label className="text-sm">
-          Domains Google accepted
-          <Input
-            type="number"
-            min={0}
-            max={selected.length}
-            value={accepted}
-            onChange={(e) => setAccepted(e.target.value)}
-            className="mt-1 w-32"
-          />
-        </label>
-        <span className="pb-2 text-sm text-muted-foreground">of {selected.length} in your file</span>
-        <Button onClick={() => save.mutate()} disabled={!valid || selected.length === 0 || save.isPending}>
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <span className="text-sm text-muted-foreground">{selected.length} domains in your file</span>
+        <Button onClick={() => save.mutate()} disabled={selected.length === 0 || save.isPending}>
           {save.isPending ? "Saving…" : "Mark as uploaded"}
         </Button>
       </div>
@@ -261,8 +246,8 @@ function UploadLog({ selected }: { selected: string[] }) {
       {save.isSuccess ? <p className="mt-2 text-sm text-primary">Saved.</p> : null}
       {last ? (
         <p className="mt-6 text-sm">
-          Last upload {new Date(last.uploaded_at).toLocaleDateString()}: Google accepted{" "}
-          <strong>{last.domains_accepted}</strong> of {last.domains_selected} domains.
+          Last upload {new Date(last.uploaded_at).toLocaleDateString()}: {" "}
+          <strong>{disavowCounts(last).accepted}</strong> accepted, {disavowCounts(last).pending} pending, {disavowCounts(last).rejected} rejected · recorded manually.
         </p>
       ) : log.isSuccess ? (
         <p className="mt-6 text-sm text-muted-foreground">No uploads recorded yet.</p>
@@ -271,14 +256,14 @@ function UploadLog({ selected }: { selected: string[] }) {
         <div className="mt-10">
           <h3 className="text-lg font-semibold">Disavow dashboard</h3>
           <p className="mt-2 text-sm text-muted-foreground">
-            Latest recorded file. Pending means acceptance has not been confirmed for those domains;
-            it does not mean Google is processing them. Rejected domains may be included in this difference.
+            Latest recorded replacement file. Counts come from individual domain statuses recorded by an admin, not automatic Google verification. Pending means unconfirmed acceptance, not Google processing; rejected domains are counted separately.
           </p>
-          <dl className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <dl className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-4">
             {[
               { label: "Submitted", value: summary.latest.submitted },
               { label: "Accepted", value: summary.latest.accepted },
               { label: "Pending confirmation", value: summary.latest.pending },
+              { label: "Rejected", value: summary.latest.rejected },
             ].map((item) => (
               <div key={item.label} className="border-t-2 border-border py-4">
                 <dt className="text-sm text-muted-foreground">{item.label}</dt>
@@ -287,25 +272,27 @@ function UploadLog({ selected }: { selected: string[] }) {
             ))}
           </dl>
           <h4 className="mt-6 text-base font-semibold">Monthly trend</h4>
-          <p className="mt-2 text-sm text-muted-foreground">Last recorded file in each month, not summed uploads. Months without records are omitted.</p>
+          <p className="mt-2 text-sm text-muted-foreground">Last recorded file in each month, using its currently recorded domain statuses, not summed uploads. Months without records are omitted.</p>
           {summary.monthly.length === 0 ? (
             <p className="mt-4 text-sm text-muted-foreground">No submissions recorded yet. Record your first upload above to start the trend.</p>
           ) : (
             <div className="mt-4 overflow-x-auto">
               <table className="w-full min-w-96 text-left text-sm tabular-nums">
-                <caption className="sr-only">Monthly submitted, accepted and pending domain counts</caption>
+                <caption className="sr-only">Monthly submitted, accepted, pending and rejected domain counts</caption>
                 <thead className="border-b border-border"><tr>
                   <th scope="col" className="py-3 pr-4">Month</th>
                   <th scope="col" className="py-3 pr-4 text-right">Submitted</th>
                   <th scope="col" className="py-3 pr-4 text-right">Accepted</th>
-                  <th scope="col" className="py-3 text-right">Pending</th>
+                  <th scope="col" className="py-3 pr-4 text-right">Pending</th>
+                  <th scope="col" className="py-3 text-right">Rejected</th>
                 </tr></thead>
                 <tbody>{summary.monthly.map((month) => (
                   <tr key={month.month} className="border-b border-border">
                     <th scope="row" className="py-3 pr-4 font-medium">{new Date(`${month.month}-01T00:00:00Z`).toLocaleDateString(undefined, { month: "short", year: "numeric", timeZone: "UTC" })}</th>
                     <td className="py-3 pr-4 text-right">{month.submitted}</td>
                     <td className="py-3 pr-4 text-right text-primary">{month.accepted}</td>
-                    <td className="py-3 text-right">{month.pending}</td>
+                    <td className="py-3 pr-4 text-right">{month.pending}</td>
+                    <td className="py-3 text-right">{month.rejected}</td>
                   </tr>
                 ))}</tbody>
               </table>
@@ -313,6 +300,7 @@ function UploadLog({ selected }: { selected: string[] }) {
           )}
         </div>
       ) : null}
+      {log.isSuccess ? <DisavowDomainTracker uploads={log.data} /> : null}
       <div className="mt-10">
         <h3 className="text-lg font-semibold">Google acceptance timeline</h3>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -341,7 +329,7 @@ function UploadLog({ selected }: { selected: string[] }) {
                     </time>
                     {index === 0 ? <span className="text-xs font-medium text-primary">Latest upload</span> : null}
                   </div>
-                  <p className="mt-2 text-base"><strong className="text-primary">{u.domains_accepted}</strong> domains accepted</p>
+                  <p className="mt-2 text-base"><strong className="text-primary">{disavowCounts(u).accepted}</strong> accepted · {disavowCounts(u).pending} pending · {disavowCounts(u).rejected} rejected</p>
                   <p className="mt-1 text-sm text-muted-foreground">Out of {u.domains_selected} domains in that file · recorded by an admin</p>
                 </li>
               ))}

@@ -15,6 +15,13 @@
       "when": 1793562739096,
       "tag": "0001_disavow_uploads",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794201728395,
+      "tag": "0002_track_disavow_domain_statuses",
+      "breakpoints": true
     }
   ]
 }

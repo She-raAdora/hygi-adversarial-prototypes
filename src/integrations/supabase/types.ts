@@ -208,6 +208,41 @@ export type Database = {
         }
         Relationships: []
       }
+      disavow_domain_statuses: {
+        Row: {
+          domain: string
+          id: string
+          status: string
+          updated_at: string
+          updated_by: string | null
+          upload_id: string
+        }
+        Insert: {
+          domain: string
+          id?: string
+          status?: string
+          updated_at?: string
+          updated_by?: string | null
+          upload_id: string
+        }
+        Update: {
+          domain?: string
+          id?: string
+          status?: string
+          updated_at?: string
+          updated_by?: string | null
+          upload_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "disavow_domain_statuses_upload_id_fkey"
+            columns: ["upload_id"]
+            isOneToOne: false
+            referencedRelation: "disavow_uploads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       disavow_uploads: {
         Row: {
           created_by: string
