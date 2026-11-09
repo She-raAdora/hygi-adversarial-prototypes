@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { getBacklinkSnapshots } from "@/lib/backlinks.functions";
 import { getBacklinkAlertData } from "@/lib/backlink-alerts.functions";
 import { assessBacklinkRisk } from "@/lib/backlinkRisk";
-import { buildDisavowFile } from "@/lib/disavow";
+import { buildDisavowFile, summarizeDisavowUploads } from "@/lib/disavow";
 
 const DEFAULT_NOTE =
   "Disavow file for digitalhygiene.app\nThese sites are link farms or paid-link networks that linked to Hygi without our request.\nWe did not buy, trade or ask for these links and ask that Google ignore them.";
@@ -197,13 +197,23 @@ function UploadLog({ selected }: { selected: string[] }) {
   const log = useQuery({
     queryKey: ["disavow-uploads"],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const fetchPage = (offset: number) => supabase
         .from("disavow_uploads")
         .select("id, uploaded_at, domains_selected, domains_accepted")
         .order("uploaded_at", { ascending: false })
-        .limit(20);
-      if (error) throw error;
-      return data;
+        .order("id", { ascending: false })
+        .range(offset, offset + 499);
+      const first = await fetchPage(0);
+      if (first.error) throw first.error;
+      const uploads = [...(first.data ?? [])];
+      let pageSize = uploads.length;
+      while (pageSize === 500) {
+        const next = await fetchPage(uploads.length);
+        if (next.error) throw next.error;
+        uploads.push(...(next.data ?? []));
+        pageSize = next.data?.length ?? 0;
+      }
+      return uploads;
     },
   });
   const [accepted, setAccepted] = useState("");
@@ -222,6 +232,7 @@ function UploadLog({ selected }: { selected: string[] }) {
     onSuccess: () => qc.invalidateQueries({ queryKey: ["disavow-uploads"] }),
   });
   const last = log.data?.[0];
+  const summary = summarizeDisavowUploads(log.data ?? []);
 
   return (
     <section className="mt-12">
@@ -256,6 +267,52 @@ function UploadLog({ selected }: { selected: string[] }) {
       ) : log.isSuccess ? (
         <p className="mt-6 text-sm text-muted-foreground">No uploads recorded yet.</p>
       ) : null}
+      {log.isSuccess ? (
+        <div className="mt-10">
+          <h3 className="text-lg font-semibold">Disavow dashboard</h3>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Latest recorded file. Pending means acceptance has not been confirmed for those domains;
+            it does not mean Google is processing them. Rejected domains may be included in this difference.
+          </p>
+          <dl className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {[
+              { label: "Submitted", value: summary.latest.submitted },
+              { label: "Accepted", value: summary.latest.accepted },
+              { label: "Pending confirmation", value: summary.latest.pending },
+            ].map((item) => (
+              <div key={item.label} className="border-t-2 border-border py-4">
+                <dt className="text-sm text-muted-foreground">{item.label}</dt>
+                <dd className="mt-2 text-3xl font-semibold tabular-nums">{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+          <h4 className="mt-6 text-base font-semibold">Monthly trend</h4>
+          <p className="mt-2 text-sm text-muted-foreground">Last recorded file in each month, not summed uploads. Months without records are omitted.</p>
+          {summary.monthly.length === 0 ? (
+            <p className="mt-4 text-sm text-muted-foreground">No submissions recorded yet. Record your first upload above to start the trend.</p>
+          ) : (
+            <div className="mt-4 overflow-x-auto">
+              <table className="w-full min-w-96 text-left text-sm tabular-nums">
+                <caption className="sr-only">Monthly submitted, accepted and pending domain counts</caption>
+                <thead className="border-b border-border"><tr>
+                  <th scope="col" className="py-3 pr-4">Month</th>
+                  <th scope="col" className="py-3 pr-4 text-right">Submitted</th>
+                  <th scope="col" className="py-3 pr-4 text-right">Accepted</th>
+                  <th scope="col" className="py-3 text-right">Pending</th>
+                </tr></thead>
+                <tbody>{summary.monthly.map((month) => (
+                  <tr key={month.month} className="border-b border-border">
+                    <th scope="row" className="py-3 pr-4 font-medium">{new Date(`${month.month}-01T00:00:00Z`).toLocaleDateString(undefined, { month: "short", year: "numeric", timeZone: "UTC" })}</th>
+                    <td className="py-3 pr-4 text-right">{month.submitted}</td>
+                    <td className="py-3 pr-4 text-right text-primary">{month.accepted}</td>
+                    <td className="py-3 text-right">{month.pending}</td>
+                  </tr>
+                ))}</tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      ) : null}
       <div className="mt-10">
         <h3 className="text-lg font-semibold">Google acceptance timeline</h3>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -275,7 +332,7 @@ function UploadLog({ selected }: { selected: string[] }) {
         {log.data && log.data.length > 0 ? (
           <>
             <ol aria-label="Recorded Google disavow uploads" className="mt-6 ml-2 border-l-2 border-border">
-              {log.data.map((u, index) => (
+              {log.data.slice(0, 20).map((u, index) => (
                 <li key={u.id} className="relative pb-8 pl-6 last:pb-0">
                   <span aria-hidden="true" className="absolute -left-2 top-1 h-3.5 w-3.5 rounded-full border-2 border-background bg-primary" />
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
@@ -289,7 +346,7 @@ function UploadLog({ selected }: { selected: string[] }) {
                 </li>
               ))}
             </ol>
-            <p className="mt-5 text-xs text-muted-foreground">Showing the most recent {log.data.length} uploads (up to 20).</p>
+            <p className="mt-5 text-xs text-muted-foreground">Showing the most recent {Math.min(log.data.length, 20)} of {log.data.length} uploads.</p>
           </>
         ) : null}
       </div>
