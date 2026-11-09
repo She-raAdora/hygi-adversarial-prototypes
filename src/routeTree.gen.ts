@@ -39,6 +39,7 @@ import { Route as AuthenticatedBacklinksBlockerRouteImport } from './routes/_aut
 import { Route as AuthenticatedBacklinksDisavowRouteImport } from './routes/_authenticated/backlinks_.disavow'
 import { Route as AuthenticatedBacklinksLinksRouteImport } from './routes/_authenticated/backlinks_.links'
 import { Route as AuthenticatedBacklinksOverviewRouteImport } from './routes/_authenticated/backlinks_.overview'
+import { Route as AuthenticatedBacklinksReportRouteImport } from './routes/_authenticated/backlinks_.report'
 import { Route as AuthenticatedBacklinksSubmitRouteImport } from './routes/_authenticated/backlinks_.submit'
 import { Route as ApiPublicHooksSeoScanRouteImport } from './routes/api/public/hooks/seo-scan'
 
@@ -196,6 +197,12 @@ const AuthenticatedBacklinksOverviewRoute =
     path: '/backlinks/overview',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedBacklinksReportRoute =
+  AuthenticatedBacklinksReportRouteImport.update({
+    id: '/backlinks_/report',
+    path: '/backlinks/report',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedBacklinksSubmitRoute =
   AuthenticatedBacklinksSubmitRouteImport.update({
     id: '/backlinks_/submit',
@@ -238,6 +245,7 @@ export interface FileRoutesByFullPath {
   '/backlinks/disavow': typeof AuthenticatedBacklinksDisavowRoute
   '/backlinks/links': typeof AuthenticatedBacklinksLinksRoute
   '/backlinks/overview': typeof AuthenticatedBacklinksOverviewRoute
+  '/backlinks/report': typeof AuthenticatedBacklinksReportRoute
   '/backlinks/submit': typeof AuthenticatedBacklinksSubmitRoute
   '/api/public/hooks/seo-scan': typeof ApiPublicHooksSeoScanRoute
 }
@@ -271,6 +279,7 @@ export interface FileRoutesByTo {
   '/backlinks/disavow': typeof AuthenticatedBacklinksDisavowRoute
   '/backlinks/links': typeof AuthenticatedBacklinksLinksRoute
   '/backlinks/overview': typeof AuthenticatedBacklinksOverviewRoute
+  '/backlinks/report': typeof AuthenticatedBacklinksReportRoute
   '/backlinks/submit': typeof AuthenticatedBacklinksSubmitRoute
   '/api/public/hooks/seo-scan': typeof ApiPublicHooksSeoScanRoute
 }
@@ -306,6 +315,7 @@ export interface FileRoutesById {
   '/_authenticated/backlinks_/disavow': typeof AuthenticatedBacklinksDisavowRoute
   '/_authenticated/backlinks_/links': typeof AuthenticatedBacklinksLinksRoute
   '/_authenticated/backlinks_/overview': typeof AuthenticatedBacklinksOverviewRoute
+  '/_authenticated/backlinks_/report': typeof AuthenticatedBacklinksReportRoute
   '/_authenticated/backlinks_/submit': typeof AuthenticatedBacklinksSubmitRoute
   '/api/public/hooks/seo-scan': typeof ApiPublicHooksSeoScanRoute
 }
@@ -341,6 +351,7 @@ export interface FileRouteTypes {
     | '/backlinks/disavow'
     | '/backlinks/links'
     | '/backlinks/overview'
+    | '/backlinks/report'
     | '/backlinks/submit'
     | '/api/public/hooks/seo-scan'
   fileRoutesByTo: FileRoutesByTo
@@ -374,6 +385,7 @@ export interface FileRouteTypes {
     | '/backlinks/disavow'
     | '/backlinks/links'
     | '/backlinks/overview'
+    | '/backlinks/report'
     | '/backlinks/submit'
     | '/api/public/hooks/seo-scan'
   id:
@@ -408,6 +420,7 @@ export interface FileRouteTypes {
     | '/_authenticated/backlinks_/disavow'
     | '/_authenticated/backlinks_/links'
     | '/_authenticated/backlinks_/overview'
+    | '/_authenticated/backlinks_/report'
     | '/_authenticated/backlinks_/submit'
     | '/api/public/hooks/seo-scan'
   fileRoutesById: FileRoutesById
@@ -649,6 +662,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedBacklinksOverviewRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/backlinks_/report': {
+      id: '/_authenticated/backlinks_/report'
+      path: '/backlinks/report'
+      fullPath: '/backlinks/report'
+      preLoaderRoute: typeof AuthenticatedBacklinksReportRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/backlinks_/submit': {
       id: '/_authenticated/backlinks_/submit'
       path: '/backlinks/submit'
@@ -676,6 +696,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedBacklinksDisavowRoute: typeof AuthenticatedBacklinksDisavowRoute
   AuthenticatedBacklinksLinksRoute: typeof AuthenticatedBacklinksLinksRoute
   AuthenticatedBacklinksOverviewRoute: typeof AuthenticatedBacklinksOverviewRoute
+  AuthenticatedBacklinksReportRoute: typeof AuthenticatedBacklinksReportRoute
   AuthenticatedBacklinksSubmitRoute: typeof AuthenticatedBacklinksSubmitRoute
 }
 
@@ -689,6 +710,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedBacklinksDisavowRoute: AuthenticatedBacklinksDisavowRoute,
   AuthenticatedBacklinksLinksRoute: AuthenticatedBacklinksLinksRoute,
   AuthenticatedBacklinksOverviewRoute: AuthenticatedBacklinksOverviewRoute,
+  AuthenticatedBacklinksReportRoute: AuthenticatedBacklinksReportRoute,
   AuthenticatedBacklinksSubmitRoute: AuthenticatedBacklinksSubmitRoute,
 }
 
