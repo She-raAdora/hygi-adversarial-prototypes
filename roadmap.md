@@ -1,5 +1,7 @@
 # Roadmap
 
+- [x] Add flagged backlink submission and automatic prepared-file inclusion; verified admin submission, malware label, persisted ready status and downloaded URL. Temporary report removed; 19 tests passed.
+
 - [x] Build admin spam-link preparation list with statuses, duplicate flags and download; verified saved changes after reload, duplicate exclusion, file contents and mobile width. Temporary test entries removed.
 
 - [x] Track individual disavow domain statuses and derive totals/monthly trends; calculation tests and signed-in empty dashboard checked. Real status-edit persistence requires a recorded upload (none exists); no Google submissions fabricated.

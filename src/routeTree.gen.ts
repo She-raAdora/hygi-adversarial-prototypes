@@ -37,6 +37,7 @@ import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as LessonIdRouteImport } from './routes/lesson.$id'
 import { Route as AuthenticatedBacklinksDisavowRouteImport } from './routes/_authenticated/backlinks_.disavow'
 import { Route as AuthenticatedBacklinksLinksRouteImport } from './routes/_authenticated/backlinks_.links'
+import { Route as AuthenticatedBacklinksSubmitRouteImport } from './routes/_authenticated/backlinks_.submit'
 import { Route as ApiPublicHooksSeoScanRouteImport } from './routes/api/public/hooks/seo-scan'
 
 const IndexRoute = IndexRouteImport.update({
@@ -181,6 +182,12 @@ const AuthenticatedBacklinksLinksRoute =
     path: '/backlinks/links',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedBacklinksSubmitRoute =
+  AuthenticatedBacklinksSubmitRouteImport.update({
+    id: '/backlinks_/submit',
+    path: '/backlinks/submit',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const ApiPublicHooksSeoScanRoute = ApiPublicHooksSeoScanRouteImport.update({
   id: '/api/public/hooks/seo-scan',
   path: '/api/public/hooks/seo-scan',
@@ -215,6 +222,7 @@ export interface FileRoutesByFullPath {
   '/lesson/$id': typeof LessonIdRoute
   '/backlinks/disavow': typeof AuthenticatedBacklinksDisavowRoute
   '/backlinks/links': typeof AuthenticatedBacklinksLinksRoute
+  '/backlinks/submit': typeof AuthenticatedBacklinksSubmitRoute
   '/api/public/hooks/seo-scan': typeof ApiPublicHooksSeoScanRoute
 }
 export interface FileRoutesByTo {
@@ -245,6 +253,7 @@ export interface FileRoutesByTo {
   '/lesson/$id': typeof LessonIdRoute
   '/backlinks/disavow': typeof AuthenticatedBacklinksDisavowRoute
   '/backlinks/links': typeof AuthenticatedBacklinksLinksRoute
+  '/backlinks/submit': typeof AuthenticatedBacklinksSubmitRoute
   '/api/public/hooks/seo-scan': typeof ApiPublicHooksSeoScanRoute
 }
 export interface FileRoutesById {
@@ -277,6 +286,7 @@ export interface FileRoutesById {
   '/lesson/$id': typeof LessonIdRoute
   '/_authenticated/backlinks_/disavow': typeof AuthenticatedBacklinksDisavowRoute
   '/_authenticated/backlinks_/links': typeof AuthenticatedBacklinksLinksRoute
+  '/_authenticated/backlinks_/submit': typeof AuthenticatedBacklinksSubmitRoute
   '/api/public/hooks/seo-scan': typeof ApiPublicHooksSeoScanRoute
 }
 export interface FileRouteTypes {
@@ -309,6 +319,7 @@ export interface FileRouteTypes {
     | '/lesson/$id'
     | '/backlinks/disavow'
     | '/backlinks/links'
+    | '/backlinks/submit'
     | '/api/public/hooks/seo-scan'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -339,6 +350,7 @@ export interface FileRouteTypes {
     | '/lesson/$id'
     | '/backlinks/disavow'
     | '/backlinks/links'
+    | '/backlinks/submit'
     | '/api/public/hooks/seo-scan'
   id:
     | '__root__'
@@ -370,6 +382,7 @@ export interface FileRouteTypes {
     | '/lesson/$id'
     | '/_authenticated/backlinks_/disavow'
     | '/_authenticated/backlinks_/links'
+    | '/_authenticated/backlinks_/submit'
     | '/api/public/hooks/seo-scan'
   fileRoutesById: FileRoutesById
 }
@@ -596,6 +609,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedBacklinksLinksRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/backlinks_/submit': {
+      id: '/_authenticated/backlinks_/submit'
+      path: '/backlinks/submit'
+      fullPath: '/backlinks/submit'
+      preLoaderRoute: typeof AuthenticatedBacklinksSubmitRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/api/public/hooks/seo-scan': {
       id: '/api/public/hooks/seo-scan'
       path: '/api/public/hooks/seo-scan'
@@ -614,6 +634,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedBacklinksDisavowRoute: typeof AuthenticatedBacklinksDisavowRoute
   AuthenticatedBacklinksLinksRoute: typeof AuthenticatedBacklinksLinksRoute
+  AuthenticatedBacklinksSubmitRoute: typeof AuthenticatedBacklinksSubmitRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -624,6 +645,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedBacklinksDisavowRoute: AuthenticatedBacklinksDisavowRoute,
   AuthenticatedBacklinksLinksRoute: AuthenticatedBacklinksLinksRoute,
+  AuthenticatedBacklinksSubmitRoute: AuthenticatedBacklinksSubmitRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

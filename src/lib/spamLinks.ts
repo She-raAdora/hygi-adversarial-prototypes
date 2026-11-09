@@ -1,4 +1,18 @@
+import { z } from "zod";
+
 export type SpamEntry = { id: string; link: string; status: string; duplicate_flag: boolean; created_at: string };
+
+export const spamReportSchema = z.object({
+  link: z.string().trim().min(1).max(2048).refine((value) => {
+    try { normalizeSpamLink(value); return !/\s/.test(value); } catch { return false; }
+  }, "Enter a valid domain or full http/https link."),
+  threat_category: z.enum(["phishing", "malware", "scams"]),
+});
+
+export function prepareSpamReport(input: unknown) {
+  const report = spamReportSchema.parse(input);
+  return { ...report, normalized_link: normalizeSpamLink(report.link), status: "ready" as const };
+}
 
 export function normalizeSpamLink(input: string): string {
   const value = input.trim();
