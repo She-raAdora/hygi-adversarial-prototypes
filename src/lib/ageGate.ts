@@ -2,6 +2,15 @@
 export const MIN_ACCOUNT_AGE = 13;
 export const AGE_STORAGE_KEY = "hygi-age-check";
 
+/** Email sign-in cannot create accounts; OAuth can, even from the sign-in page. */
+export function isAccountCreationBlocked(
+  age: "unknown" | "ok" | "under",
+  mode: "signin" | "signup",
+  pendingOAuth: boolean,
+): boolean {
+  return age === "under" && (mode === "signup" || pendingOAuth);
+}
+
 /**
  * True when someone born in the given year and month (1-12) is under 13 today.
  * Without a birth day, the month is treated as their birthday month not yet

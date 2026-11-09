@@ -6,7 +6,8 @@ import { lovable } from "@/integrations/lovable";
 import { Turnstile, type CaptchaState } from "@/components/Turnstile";
 import { verifyAuthCaptcha } from "@/lib/captcha.functions";
 import { AgeCheck, UnderAgeNotice } from "@/components/AgeCheck";
-import { AGE_STORAGE_KEY } from "@/lib/ageGate";
+import { AGE_STORAGE_KEY, isAccountCreationBlocked } from "@/lib/ageGate";
+import { Button } from "@/components/ui/button";
 
 export function AuthScreen({ initialMode = "signin" }: { initialMode?: "signin" | "signup" }) {
   const navigate = useNavigate();
@@ -133,8 +134,21 @@ export function AuthScreen({ initialMode = "signin" }: { initialMode?: "signin" 
       </p>
 
       <div className="mt-8 rounded-2xl border border-border/60 bg-card p-6">
-        {age === "under" ? (
-          <UnderAgeNotice />
+        {isAccountCreationBlocked(age, mode, pendingProvider !== null) ? (
+          <>
+            <UnderAgeNotice />
+            <Button
+              type="button"
+              variant="link"
+              className="mt-4 w-full"
+              onClick={() => {
+                setPendingProvider(null);
+                setMode("signin");
+              }}
+            >
+              Sign in to an existing account
+            </Button>
+          </>
         ) : showAgeCheck ? (
           <>
             <AgeCheck onResult={onAgeResult} />
