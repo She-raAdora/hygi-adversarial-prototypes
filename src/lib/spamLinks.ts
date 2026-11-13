@@ -43,9 +43,18 @@ export function duplicateSpamIds(entries: SpamEntry[]) {
   return duplicates;
 }
 
-export function buildPreparedDisavow(entries: SpamEntry[]): string {
+export function preparedDisavowLines(entries: SpamEntry[]): string[] {
   const duplicates = duplicateSpamIds(entries);
   const lines = entries.filter((entry) => entry.status === "ready" && !entry.duplicate_flag && !duplicates.has(entry.id)).map((entry) => normalizeSpamLink(entry.link));
+  return [...new Set(lines)].sort();
+}
+
+export function preparedDisavowDomains(entries: SpamEntry[]): string[] {
+  return preparedDisavowLines(entries).filter((line) => line.startsWith("domain:")).map((line) => line.slice(7));
+}
+
+export function buildPreparedDisavow(entries: SpamEntry[]): string {
+  const lines = preparedDisavowLines(entries);
   if (lines.length === 0) throw new Error("No ready, unflagged entries to download.");
-  return "# Prepared spam links for digitalhygiene.app\n" + [...new Set(lines)].sort().join("\n") + "\n";
+  return "# Prepared spam links for digitalhygiene.app\n" + lines.join("\n") + "\n";
 }

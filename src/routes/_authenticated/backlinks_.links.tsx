@@ -79,7 +79,7 @@ function SpamLinkPage() {
   return <main id="main-content" className="mx-auto max-w-5xl px-6 py-12">
     <h1 className="text-4xl font-semibold">Spam link manager</h1>
     <p className="mt-3 text-sm text-muted-foreground">Preparation statuses are separate from Google's acceptance. Duplicate flags keep entries out of your download.</p>
-    <div className="mt-4 flex flex-wrap gap-3"><Button asChild><Link to="/backlinks/submit">Submit a flagged backlink</Link></Button><Button variant="outline" asChild><Link to="/backlinks/disavow">Google upload guide</Link></Button><Button variant="outline" asChild><Link to="/backlinks">Backlinks</Link></Button></div>
+    <div className="mt-4 flex flex-wrap gap-3"><Button asChild><Link to="/backlinks/submit">Submit a flagged backlink</Link></Button><Button variant="outline" asChild><Link to="/backlinks/disavow" search={{ source: "links" }}>Upload guide & record this file</Link></Button><Button variant="outline" asChild><Link to="/backlinks">Backlinks</Link></Button></div>
     <section className="mt-8 border-t border-border pt-6">
       <h2 className="text-xl font-semibold">Add spam links</h2>
       <label htmlFor="spam-links" className="mt-3 block text-sm">Domains or full http/https links, one per line</label>

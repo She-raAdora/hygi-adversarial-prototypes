@@ -1,8 +1,25 @@
 import { describe, expect, it } from "vitest";
-import { normalizeSpamLink, duplicateSpamIds, buildPreparedDisavow, prepareSpamReport, flaggedDomainEntries } from "./spamLinks";
+import { normalizeSpamLink, duplicateSpamIds, buildPreparedDisavow, prepareSpamReport, flaggedDomainEntries, preparedDisavowDomains, preparedDisavowLines } from "./spamLinks";
 
 const entry = (id: string, link: string, status = "ready", duplicate_flag = false) => ({ id, link, status, duplicate_flag, created_at: `2026-11-09T00:00:0${id}Z` });
 describe("spam link preparation", () => {
+  it("records the same flagged domains as the blocker file without requiring a Semrush snapshot", () => {
+    const reports = flaggedDomainEntries([
+      { ...entry("1", "PHISH.example"), threat_category: "phishing" },
+      { ...entry("2", "domain:phish.example"), threat_category: "phishing" },
+      { ...entry("3", "malware.example", "ready", true), threat_category: "malware" },
+      { ...entry("4", "review.example", "review"), threat_category: "scams" },
+      { ...entry("5", "excluded.example", "excluded"), threat_category: "scams" },
+      { ...entry("6", "scam.example"), threat_category: "scams" },
+    ]);
+    expect(preparedDisavowDomains(reports)).toEqual(["phish.example", "scam.example"]);
+    expect(preparedDisavowLines(reports)).toEqual(preparedDisavowDomains(reports).map((domain) => `domain:${domain}`));
+  });
+  it("counts only explicit domain lines in mixed manager files without broadening URL scope", () => {
+    const reports = [entry("1", "spam.example"), entry("2", "https://page.example/specific")];
+    expect(preparedDisavowDomains(reports)).toEqual(["spam.example"]);
+    expect(preparedDisavowLines(reports)).toEqual(["domain:spam.example", "https://page.example/specific"]);
+  });
   it("builds the blocker file from flagged domains without broadening URL reports", () => {
     const reports = [
       { ...entry("1", "phish.example"), threat_category: "phishing" },

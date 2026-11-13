@@ -12,11 +12,13 @@ import { getBacklinkSnapshots } from "@/lib/backlinks.functions";
 import { getBacklinkAlertData } from "@/lib/backlink-alerts.functions";
 import { assessBacklinkRisk } from "@/lib/backlinkRisk";
 import { buildDisavowFile, summarizeDisavowUploads, disavowCounts } from "@/lib/disavow";
+import { buildPreparedDisavow, flaggedDomainEntries, preparedDisavowDomains, preparedDisavowLines } from "@/lib/spamLinks";
 
 const DEFAULT_NOTE =
   "Disavow file for digitalhygiene.app\nThese sites are link farms or paid-link networks that linked to Hygi without our request.\nWe did not buy, trade or ask for these links and ask that Google ignore them.";
 
 export const Route = createFileRoute("/_authenticated/backlinks_/disavow")({
+  validateSearch: (search: Record<string, unknown>): { source?: "blocker" | "links" | "semrush" } => ({ source: search.source === "links" || search.source === "semrush" ? search.source : "blocker" }),
   head: () => ({
     meta: [
       { title: "Google Disavow: Spam Links & Upload Guide — Hygi" },
@@ -32,6 +34,19 @@ export const Route = createFileRoute("/_authenticated/backlinks_/disavow")({
 });
 
 function DisavowPage() {
+  const { source = "blocker" } = Route.useSearch();
+  const navigate = Route.useNavigate();
+  const entries = useQuery({ queryKey: ["spam-link-entries"], queryFn: async () => {
+    const rows = [];
+    let offset = 0;
+    while (true) {
+      const { data, error } = await supabase.from("spam_link_entries").select("*").order("created_at", { ascending: false }).order("id").range(offset, offset + 499);
+      if (error) throw error;
+      rows.push(...(data ?? []));
+      if (!data || data.length < 500) return rows;
+      offset += 500;
+    }
+  } });
   const fetchSnapshots = useServerFn(getBacklinkSnapshots);
   const fetchAlertData = useServerFn(getBacklinkAlertData);
   const snaps = useQuery({ queryKey: ["backlink-snapshots"], queryFn: () => fetchSnapshots() });
@@ -52,7 +67,11 @@ function DisavowPage() {
   const [note, setNote] = useState(DEFAULT_NOTE);
   const [copied, setCopied] = useState(false);
 
-  const file = buildDisavowFile([...selected], note, new Date().toISOString().slice(0, 10));
+  const preparedEntries = source === "blocker" ? flaggedDomainEntries(entries.data ?? []) : entries.data ?? [];
+  const preparedLines = preparedDisavowLines(preparedEntries);
+  const uploadedDomains = source === "semrush" ? [...selected] : preparedDisavowDomains(preparedEntries);
+  const fileReady = source === "semrush" ? snaps.isSuccess && alerts.isSuccess : entries.isSuccess;
+  const file = source === "semrush" ? buildDisavowFile([...selected], note, new Date().toISOString().slice(0, 10)) : preparedLines.length ? buildPreparedDisavow(preparedEntries) : "# No ready entries included yet\n";
 
   const toggle = (domain: string) =>
     setSelected((prev) => {
@@ -76,7 +95,7 @@ function DisavowPage() {
       <h1 className="text-4xl font-semibold tracking-tight">Google Disavow</h1>
       <p className="mt-3 text-sm"><Link to="/backlinks/overview" className="underline underline-offset-4">Spam domain dashboard →</Link></p>
       <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
-        Spam links to disavow: review the latest Semrush capture, download your file and open
+        Spam links to disavow: choose your prepared file or latest Semrush capture, download it and open
         Google's upload page. The upload happens on Google, not inside Hygi, and requires your Google sign-in.
       </p>
 
@@ -94,8 +113,22 @@ function DisavowPage() {
 
       <section className="mt-10">
         <h2 className="text-xl font-semibold">1. Choose the sites</h2>
+        <label className="mt-4 block text-sm font-medium">File source
+          <select aria-label="File source" className="mt-2 block w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground" value={source} onChange={(event) => {
+            const value = event.target.value;
+            if (value === "blocker" || value === "links" || value === "semrush") void navigate({ search: { source: value }, replace: true });
+          }}>
+            <option value="blocker">Spam Blocker — flagged domains</option>
+            <option value="links">Spam Link Manager — all ready entries</option>
+            <option value="semrush">Semrush — selected sites</option>
+          </select>
+        </label>
         <p className="mt-2 text-sm"><Link to="/backlinks/links" className="underline underline-offset-4">Manage individual spam links and duplicates →</Link></p>
-        {snaps.isPending ? (
+        {source !== "semrush" ? <>
+          {entries.isPending ? <p className="mt-4 text-sm text-muted-foreground">Loading prepared entries…</p> : null}
+          {entries.isError ? <div className="mt-4"><p role="alert" className="text-sm text-destructive">Couldn't load prepared entries. Recording is unavailable.</p><Button variant="outline" onClick={() => void entries.refetch()}>Try again</Button></div> : null}
+          {entries.isSuccess ? <p className="mt-4 text-sm text-muted-foreground">{uploadedDomains.length} domains · {preparedLines.length - uploadedDomains.length} URL-specific links. Only ready entries are included; duplicate flags and repeated entries stay excluded. URL-specific links remain in the file but are not counted as whole-domain submissions.</p> : null}
+        </> : snaps.isPending ? (
           <p className="mt-4 text-sm text-muted-foreground">Loading…</p>
         ) : !latest ? (
           <p className="mt-4 text-sm text-muted-foreground">
@@ -142,19 +175,19 @@ function DisavowPage() {
         )}
       </section>
 
-      <section className="mt-12">
+      {source === "semrush" ? <section className="mt-12">
         <h2 className="text-xl font-semibold">2. Your message to Google</h2>
         <p className="mt-2 text-xs text-muted-foreground">
           Saved as notes at the top of the file. Google doesn't reply to them, but they record why you did this.
         </p>
         <Textarea value={note} onChange={(e) => setNote(e.target.value)} rows={4} className="mt-3" aria-label="Message to Google" />
-      </section>
+      </section> : null}
 
       <section className="mt-12">
         <h2 className="text-xl font-semibold">3. Upload your file on Google</h2>
         <pre className="mt-3 max-h-64 overflow-auto rounded-lg border bg-muted p-4 text-xs">{file}</pre>
         <div className="mt-4 flex flex-wrap gap-2">
-          <Button onClick={download} disabled={selected.size === 0}>Download disavow file</Button>
+          <Button onClick={download} disabled={!fileReady || (source === "semrush" ? !selected.size : !preparedLines.length)}>Download disavow file</Button>
           <Button
             variant="outline"
             onClick={async () => {
@@ -172,7 +205,7 @@ function DisavowPage() {
           </Button>
         </div>
         <ol className="mt-6 list-decimal space-y-4 pl-5 text-sm text-muted-foreground">
-          <li><strong className="text-foreground">Download hygi-disavow.txt.</strong> Keep the file as plain text. If you previously uploaded a list, include the old entries you still want disavowed; this file contains only the sites selected above.</li>
+          <li><strong className="text-foreground">Download hygi-disavow.txt.</strong> Keep the file as plain text. If you previously uploaded a list, include the old entries you still want disavowed; this file contains only the entries shown above. When recording, choose the same file source you uploaded and check its preview matches your complete replacement file.</li>
           <li><strong className="text-foreground">Open Google's disavow tool.</strong> Use the button above to open a new tab, then sign in with the Google account that owns the site in Search Console.</li>
           <li><strong className="text-foreground">Choose the verified URL-prefix property for your site.</strong> For this site, look for https://digitalhygiene.app/. Domain properties (shown as sc-domain:) are not supported. If the URL-prefix property is missing, add and verify it in Search Console first.</li>
           <li><strong className="text-foreground">Upload your complete .txt file.</strong> Choose Google's upload or replace option and select hygi-disavow.txt from your downloads. Each upload replaces the previous list for that property. If Google reports file errors, correct them and upload again.</li>
@@ -185,7 +218,7 @@ function DisavowPage() {
         </p>
       </section>
 
-      <UploadLog selected={[...selected]} />
+      <UploadLog key={`${source}:${uploadedDomains.join(",")}`} selected={uploadedDomains} fileReady={fileReady} />
 
       <p className="mt-12 text-xs text-muted-foreground">
         <Link to="/backlinks" className="underline underline-offset-4 hover:text-foreground">Back to Backlinks</Link>
@@ -194,7 +227,7 @@ function DisavowPage() {
   );
 }
 
-function UploadLog({ selected }: { selected: string[] }) {
+function UploadLog({ selected, fileReady }: { selected: string[]; fileReady: boolean }) {
   const qc = useQueryClient();
   const log = useQuery({
     queryKey: ["disavow-uploads"],
@@ -220,14 +253,21 @@ function UploadLog({ selected }: { selected: string[] }) {
   });
   const save = useMutation({
     mutationFn: async () => {
+      if (!fileReady || !selected.length) throw new Error("No domains available to record.");
+      const domains = [...new Set(selected.map((domain) => domain.trim().toLowerCase()))];
       const { error } = await supabase.from("disavow_uploads").insert({
-        domains_selected: selected.length,
+        domains_selected: domains.length,
         domains_accepted: 0,
-        domains: [...new Set(selected.map((domain) => domain.trim().toLowerCase()))],
+        domains,
       });
       if (error) throw error;
     },
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["disavow-uploads"] }),
+    onSuccess: async () => {
+      await Promise.all([
+        qc.invalidateQueries({ queryKey: ["disavow-uploads"] }),
+        qc.invalidateQueries({ queryKey: ["spam-link-submitted-history"] }),
+      ]);
+    },
   });
   const last = log.data?.[0];
   const summary = summarizeDisavowUploads(log.data ?? []);
@@ -240,7 +280,7 @@ function UploadLog({ selected }: { selected: string[] }) {
       </p>
       <div className="mt-4 flex flex-wrap items-center gap-3">
         <span className="text-sm text-muted-foreground">{selected.length} domains in your file</span>
-        <Button onClick={() => save.mutate()} disabled={selected.length === 0 || save.isPending}>
+        <Button onClick={() => save.mutate()} disabled={!fileReady || selected.length === 0 || save.isPending}>
           {save.isPending ? "Saving…" : "Mark as uploaded"}
         </Button>
       </div>

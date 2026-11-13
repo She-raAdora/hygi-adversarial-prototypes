@@ -1,4 +1,5 @@
 # Roadmap
+- [x] Fix upload recording to use the selected prepared file, preserving domain scope, duplicate exclusions and category snapshots; 25 tests passed, signed-in temporary malware domain persisted into totals, monthly trend and category breakdown after reload, mobile width checked, and test records removed.
 
 - [x] Add pre-upload spam report with original source entries, categories, file status, search and review links; 10 scope/duplicate tests passed. Signed-in saved domain, reload, category filter and mobile width verified; temporary entry removed.
 
