@@ -220,6 +220,14 @@ function SocialEngineeringDefensePage() {
             return <li key={module.id}><Link to="/lesson/$id" params={{ id: module.id }} className="flex items-start gap-4 rounded-lg border border-border bg-card p-4 hover:border-primary/40"><span className="w-6 shrink-0 text-sm text-muted-foreground">{index + 1}</span><span className="text-2xl" aria-hidden="true">{module.lesson?.emoji}</span><span className="min-w-0 flex-1"><span className="block font-semibold">{module.name}</span><span className="block text-sm text-muted-foreground">{module.capability}</span><span className="mt-1 block text-xs text-primary">Lesson: {module.lesson?.title}</span></span>{earned ? <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" aria-label="Badge earned" /> : <CircleDashed className="h-5 w-5 shrink-0 text-muted-foreground" aria-label="Take the mini-quiz" />}</Link></li>;
           })}
         </ol>
+        <div className="mt-6 border-t border-border pt-5">
+          <h3 className="text-lg font-semibold">Text-message scams</h3>
+          <Link to="/lesson/$id" params={{ id: "smishing" }} className="mt-3 flex items-start gap-3 rounded-lg border border-border bg-card p-4 hover:border-primary/40">
+            <span className="text-2xl" aria-hidden="true">📩</span>
+            <span className="min-w-0 flex-1"><span className="block font-semibold">Smishing: When a Scam Arrives by Text</span><span className="mt-1 block text-sm text-muted-foreground">Verify the request outside the message. If you already acted, know what to do next.</span><span className="mt-2 block text-xs text-primary">5 minutes · Three-question mini-quiz</span></span>
+            {(progress.smishing ?? 0) >= 3 ? <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" aria-label="Badge earned" /> : <CircleDashed className="h-5 w-5 shrink-0 text-muted-foreground" aria-label="Take the mini-quiz" />}
+          </Link>
+        </div>
       </section>
 
       <section aria-labelledby="assessment" className="mt-12 border-t border-border pt-10">

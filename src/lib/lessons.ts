@@ -1,4 +1,5 @@
 import { simSwapLesson } from "./simSwapLesson";
+import { smishingLesson } from "./smishingLesson";
 
 export type QuizQ = {
   q: string;
@@ -33,6 +34,7 @@ export type LessonSource = {
 
 const rawLessons: Lesson[] = [
   simSwapLesson,
+  smishingLesson,
   {
     id: "personal-info",
     title: "Protect Personal Information",
@@ -3219,6 +3221,7 @@ const LESSON_ORDER: string[] = [
   "identity-theft-recovery",
   "image-based-abuse-response",
   "sim-swap",
+  "smishing",
 ];
 
 /** Why each lesson matters right now — shown with the earned badge. */

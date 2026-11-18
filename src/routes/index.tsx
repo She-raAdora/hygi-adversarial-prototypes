@@ -22,6 +22,7 @@ export const Route = createFileRoute("/")({
           "Learn digital and cyber hygiene in bite-sized lessons from university and government security guides. Take a mini-quiz and earn a badge per topic.",
       },
       { property: "og:url", content: "https://digitalhygiene.app/" },
+      { property: "og:type", content: "website" },
       ...socialImageMeta,
     ],
     links: [{ rel: "canonical", href: "https://digitalhygiene.app/" }],
