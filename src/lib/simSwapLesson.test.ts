@@ -5,8 +5,8 @@ import { EXTRA_KEYS } from "./progressSync";
 
 describe("SIM-swap lesson integration", () => {
   it("adds one lesson without duplicate identifiers", () => {
-    expect(lessons.length).toBe(37);
-    expect(new Set(lessons.map((lesson) => lesson.id)).size).toBe(37);
+    expect(lessons.length).toBe(38);
+    expect(new Set(lessons.map((lesson) => lesson.id)).size).toBe(38);
     expect(getLesson("sim-swap")?.interactive).toBe("sim-swap");
   });
   it("belongs to the existing social engineering pathway", () => {

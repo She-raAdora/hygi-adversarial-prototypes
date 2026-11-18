@@ -1,4 +1,5 @@
 # Roadmap
+- [x] Add fake tech-support lesson with decision reveal, viewing/control guidance, FaceStealer case note, recovery panels and three-question quiz; ten tests passed, keyboard controls, wrong/correct feedback, badge after reload and 402px mobile layout verified. FBI/CISA PDFs opened; FTC blocked direct automated access, guidance cross-checked through search. Not published.
 - [x] Add the five-minute smishing lesson with response panels, three-question mini-quiz, FTC sources and existing badge/pathway integration; seven tests passed, keyboard opening, quiz feedback, badge persistence after reload and 402px mobile layout verified. FTC blocks automated direct source access; reference links retained. Not published.
 - [x] Fix upload recording to use the selected prepared file, preserving domain scope, duplicate exclusions and category snapshots; 25 tests passed, signed-in temporary malware domain persisted into totals, monthly trend and category breakdown after reload, mobile width checked, and test records removed.
 

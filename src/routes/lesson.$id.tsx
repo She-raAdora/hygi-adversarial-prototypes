@@ -10,6 +10,7 @@ import { LessonEvidence } from "@/components/LessonEvidence";
 import { FiveDoorReset } from "@/components/FiveDoorReset";
 import { SimSwapExercise } from "@/components/SimSwapExercise";
 import { SmishingResponse, SmishingVerificationSources } from "@/components/SmishingResponse";
+import { TechSupportDecision, TechSupportRecovery, TechSupportSectionSource } from "@/components/TechSupportExercise";
 
 import { recordOnboardingStart, recordQuestionResult, recordQuizComplete } from "@/lib/metrics";
 import { pathwayOf, pathwayChipStyle } from "@/lib/pathways";
@@ -175,7 +176,7 @@ function LessonPage() {
         </div>
         <h1 className="mt-4 text-4xl font-semibold tracking-tight">{lesson.title}</h1>
         <p className="mt-3 text-lg text-muted-foreground">{lesson.tagline}</p>
-        {lesson.id === "smishing" ? <p className="mt-3 text-sm text-muted-foreground">5 minutes · Social Engineering Defense</p> : null}
+        {["smishing", "fake-tech-support"].includes(lesson.id) ? <p className="mt-3 text-sm text-muted-foreground">5 minutes · Social Engineering Defense</p> : null}
         {lesson.id === "sim-swap" ? <p className="mt-3 text-sm text-muted-foreground">Beginner · 5–7 minutes · Content reviewed November 8, 2026. Carrier features and instructions may change.</p> : null}
       </header>
 
@@ -191,6 +192,7 @@ function LessonPage() {
             <GlossaryText text={lesson.intro} seen={glossarySeen} />
           </p>
           {lesson.id === "sim-swap" ? <SimSwapExercise stage="intro" /> : null}
+          {lesson.id === "fake-tech-support" ? <TechSupportDecision /> : null}
           {lesson.sections.map((s: Lesson["sections"][number], sectionIndex) => (
             <section key={s.heading} id={sectionSlug(s.heading)} className="scroll-mt-24">
               <h2
@@ -216,6 +218,7 @@ function LessonPage() {
                 ))}
               </ul>
               {lesson.id === "smishing" ? <SmishingVerificationSources /> : null}
+              {lesson.id === "fake-tech-support" ? <TechSupportSectionSource index={sectionIndex} /> : null}
               {lesson.id === "sim-swap" && sectionIndex === 0 ? <SimSwapExercise stage="attack" /> : null}
               {lesson.id === "sim-swap" && sectionIndex === 2 ? <SimSwapExercise stage="protections" /> : null}
               {lesson.id === "sim-swap" && sectionIndex === 3 ? <SimSwapExercise stage="carrier" /> : null}
@@ -225,6 +228,7 @@ function LessonPage() {
 
           {lesson.interactive === "five-door-reset" ? <FiveDoorReset /> : null}
           {lesson.id === "smishing" ? <SmishingResponse /> : null}
+          {lesson.id === "fake-tech-support" ? <TechSupportRecovery /> : null}
 
           {lesson.sources?.length ? <LessonEvidence sources={lesson.sources} label={lesson.id === "sim-swap" ? "Sources & Credits" : undefined} /> : null}
 
@@ -260,7 +264,7 @@ function LessonPage() {
             className="group inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-4 font-medium text-primary-foreground transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             style={{ background: "var(--gradient-hero)", boxShadow: "var(--shadow-soft)" }}
           >
-            {lesson.id === "smishing" ? "Take the three-question mini-quiz" : `Take the pop quiz for ${lesson.title}`}
+            {["smishing", "fake-tech-support"].includes(lesson.id) ? "Take the three-question mini-quiz" : `Take the pop quiz for ${lesson.title}`}
             <ArrowRight
               className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
               aria-hidden="true"

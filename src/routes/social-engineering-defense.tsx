@@ -213,6 +213,14 @@ function SocialEngineeringDefensePage() {
           <div><h2 id="modules" className="text-2xl font-semibold tracking-tight">Six modules</h2><p className="mt-1 text-sm text-muted-foreground">{completedModules.length} of {modules.length} lesson badges earned</p></div>
           <span className="text-sm text-muted-foreground">{Math.round((completedModules.length / modules.length) * 100)}%</span>
         </div>
+        <div className="mt-6 border-t border-border pt-5">
+          <h3 className="text-lg font-semibold">Fake tech support</h3>
+          <Link to="/lesson/$id" params={{ id: "fake-tech-support" }} className="mt-3 flex items-start gap-3 rounded-lg border border-border bg-card p-4 hover:border-primary/40">
+            <span className="text-2xl" aria-hidden="true">🖥️</span>
+            <span className="min-w-0 flex-1"><span className="block font-semibold">Fake Tech Support: Before You Share Your Screen or Give Control</span><span className="mt-1 block text-sm text-muted-foreground">A real support tool doesn’t prove the person asking to use it is real.</span><span className="mt-2 block text-xs text-primary">5 minutes · Three-question mini-quiz</span></span>
+            {(progress["fake-tech-support"] ?? 0) >= 3 ? <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" aria-label="Badge earned" /> : <CircleDashed className="h-5 w-5 shrink-0 text-muted-foreground" aria-label="Take the mini-quiz" />}
+          </Link>
+        </div>
         <div className="mt-3 h-2 rounded-full bg-secondary" role="progressbar" aria-valuenow={completedModules.length} aria-valuemin={0} aria-valuemax={modules.length} aria-label="Module progress"><div className="h-2 rounded-full bg-primary transition-all" style={{ width: `${(completedModules.length / modules.length) * 100}%` }} /></div>
         <ol className="mt-6 space-y-3">
           {modules.map((module, index) => {
