@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound, useRouter } from "@tanstack/react-router";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, RotateCcw, Trophy, X } from "lucide-react";
 import { getLesson, lessons, type Lesson } from "@/lib/lessons";
 import { sectionSlug, topicForQuestion } from "@/lib/quizTopics";
@@ -12,6 +12,7 @@ import { SimSwapExercise } from "@/components/SimSwapExercise";
 import { SmishingResponse, SmishingVerificationSources } from "@/components/SmishingResponse";
 import { TechSupportDecision, TechSupportRecovery, TechSupportSectionSource } from "@/components/TechSupportExercise";
 import { UnexpectedDownloadScenario } from "@/components/UnexpectedDownloadScenario";
+import { UnexpectedMfaScenario } from "@/components/UnexpectedMfaScenario";
 
 import { recordOnboardingStart, recordQuestionResult, recordQuizComplete } from "@/lib/metrics";
 import { pathwayOf, pathwayChipStyle } from "@/lib/pathways";
@@ -195,7 +196,9 @@ function LessonPage() {
           {lesson.id === "sim-swap" ? <SimSwapExercise stage="intro" /> : null}
           {lesson.id === "fake-tech-support" ? <TechSupportDecision /> : null}
           {lesson.sections.map((s: Lesson["sections"][number], sectionIndex) => (
-            <section key={s.heading} id={sectionSlug(s.heading)} className="scroll-mt-24">
+            <Fragment key={s.heading}>
+            {lesson.id === "shield-accounts" && s.heading === "Sessions, devices, and connected apps" ? <UnexpectedMfaScenario key={lesson.id} /> : null}
+            <section id={sectionSlug(s.heading)} className="scroll-mt-24">
               <h2
                 tabIndex={-1}
                 className="text-xl font-semibold tracking-tight focus-visible:outline-none"
@@ -226,6 +229,7 @@ function LessonPage() {
               {lesson.id === "sim-swap" && sectionIndex === 3 ? <SimSwapExercise stage="carrier" /> : null}
               {lesson.id === "sim-swap" && sectionIndex === 6 ? <SimSwapExercise stage="takeaway" /> : null}
             </section>
+            </Fragment>
           ))}
 
           {lesson.interactive === "five-door-reset" ? <FiveDoorReset /> : null}
