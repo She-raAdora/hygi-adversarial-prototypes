@@ -15,3 +15,4 @@
 - Pre-upload reports read shared preparation entries and display original input as the source entry, never inferred discovery provenance. Why: saved records do not contain discovery-page or service attribution.
 - Keep added quiz questions backward-compatible via LEGACY_QUIZ_UPGRADES in aiPhishingScenario.ts so prior perfect scores keep their badge. Why: lengthening a quiz must not revoke earned badges.
 - Keep consent-phishing practice in browser-safe data at the end of the existing device-code lesson, using shared PracticeQuestion controls with temporary answers and no progress writes. Why: related traps reuse accessible feedback without changing badge requirements.
+- Keep AI human-agency practice in browser-safe data within the existing AI-agent lesson, using shared PracticeQuestion and temporary checklist state without account connections or progress writes. Why: fictional practice must preserve badge requirements and never act on real accounts.

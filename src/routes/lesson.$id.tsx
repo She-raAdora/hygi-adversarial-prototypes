@@ -15,6 +15,7 @@ import { UnexpectedDownloadScenario } from "@/components/UnexpectedDownloadScena
 import { UnexpectedMfaScenario } from "@/components/UnexpectedMfaScenario";
 import { BackupRestorePractice } from "@/components/BackupRestorePractice";
 import { ConsentPhishingScenario } from "@/components/ConsentPhishingScenario";
+import { AiAgencyPractice } from "@/components/AiAgencyPractice";
 
 import { recordOnboardingStart, recordQuestionResult, recordQuizComplete } from "@/lib/metrics";
 import { pathwayOf, pathwayChipStyle } from "@/lib/pathways";
@@ -239,6 +240,7 @@ function LessonPage() {
           {lesson.id === "smishing" ? <SmishingResponse /> : null}
           {lesson.id === "fake-tech-support" ? <TechSupportRecovery /> : null}
           {lesson.id === "device-code-phishing" ? <ConsentPhishingScenario key={lesson.id} /> : null}
+          {lesson.id === "ai-agents-guardrails" ? <AiAgencyPractice key={lesson.id} /> : null}
 
           {lesson.sources?.length ? <LessonEvidence sources={lesson.sources} label={lesson.id === "sim-swap" ? "Sources & Credits" : undefined} /> : null}
 
