@@ -13,6 +13,7 @@ import { SmishingResponse, SmishingVerificationSources } from "@/components/Smis
 import { TechSupportDecision, TechSupportRecovery, TechSupportSectionSource } from "@/components/TechSupportExercise";
 import { UnexpectedDownloadScenario } from "@/components/UnexpectedDownloadScenario";
 import { UnexpectedMfaScenario } from "@/components/UnexpectedMfaScenario";
+import { BackupRestorePractice } from "@/components/BackupRestorePractice";
 
 import { recordOnboardingStart, recordQuestionResult, recordQuizComplete } from "@/lib/metrics";
 import { pathwayOf, pathwayChipStyle } from "@/lib/pathways";
@@ -222,6 +223,7 @@ function LessonPage() {
                 ))}
               </ul>
               {lesson.id === "safe-browsing" && sectionIndex === 0 ? <UnexpectedDownloadScenario /> : null}
+              {lesson.id === "encrypt-backup" && s.heading === "Back up like it's already broken" ? <BackupRestorePractice key={lesson.id} /> : null}
               {lesson.id === "smishing" ? <SmishingVerificationSources /> : null}
               {lesson.id === "fake-tech-support" ? <TechSupportSectionSource index={sectionIndex} /> : null}
               {lesson.id === "sim-swap" && sectionIndex === 0 ? <SimSwapExercise stage="attack" /> : null}
