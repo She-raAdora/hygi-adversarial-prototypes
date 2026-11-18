@@ -16,3 +16,4 @@
 - Keep added quiz questions backward-compatible via LEGACY_QUIZ_UPGRADES in aiPhishingScenario.ts so prior perfect scores keep their badge. Why: lengthening a quiz must not revoke earned badges.
 - Keep consent-phishing practice in browser-safe data at the end of the existing device-code lesson, using shared PracticeQuestion controls with temporary answers and no progress writes. Why: related traps reuse accessible feedback without changing badge requirements.
 - Keep AI human-agency practice in browser-safe data within the existing AI-agent lesson, using shared PracticeQuestion and temporary checklist state without account connections or progress writes. Why: fictional practice must preserve badge requirements and never act on real accounts.
+- Keep the voice-clone callout in browser-safe data inside the existing AI-phishing lesson, with no microphone, uploads or progress writes. Why: informational content must not change badge requirements.

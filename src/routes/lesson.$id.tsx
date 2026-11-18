@@ -14,6 +14,7 @@ import { TechSupportDecision, TechSupportRecovery, TechSupportSectionSource } fr
 import { UnexpectedDownloadScenario } from "@/components/UnexpectedDownloadScenario";
 import { UnexpectedMfaScenario } from "@/components/UnexpectedMfaScenario";
 import { BackupRestorePractice } from "@/components/BackupRestorePractice";
+import { VoiceCloneCallout } from "@/components/VoiceCloneCallout";
 import { ConsentPhishingScenario } from "@/components/ConsentPhishingScenario";
 import { AiAgencyPractice } from "@/components/AiAgencyPractice";
 
@@ -226,6 +227,7 @@ function LessonPage() {
               </ul>
               {lesson.id === "safe-browsing" && sectionIndex === 0 ? <UnexpectedDownloadScenario /> : null}
               {lesson.id === "encrypt-backup" && s.heading === "Back up like it's already broken" ? <BackupRestorePractice key={lesson.id} /> : null}
+              {lesson.id === "ai-phishing" && s.heading === "Shrink what AI can scrape" ? <VoiceCloneCallout key={lesson.id} /> : null}
               {lesson.id === "smishing" ? <SmishingVerificationSources /> : null}
               {lesson.id === "fake-tech-support" ? <TechSupportSectionSource index={sectionIndex} /> : null}
               {lesson.id === "sim-swap" && sectionIndex === 0 ? <SimSwapExercise stage="attack" /> : null}
