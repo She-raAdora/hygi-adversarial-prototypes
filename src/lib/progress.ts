@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { upgradeLegacyScores } from "./aiPhishingScenario";
 
 const KEY = "dh-badges-v1";
 
 function read(): Record<string, number> {
   if (typeof window === "undefined") return {};
   try {
-    return JSON.parse(localStorage.getItem(KEY) || "{}");
+    return upgradeLegacyScores(JSON.parse(localStorage.getItem(KEY) || "{}"));
   } catch {
     return {};
   }

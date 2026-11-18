@@ -610,6 +610,23 @@ function Quiz({
       >
         {q.q}
       </h2>
+      {q.scenario && (
+        <div className="mt-4">
+          <p className="text-sm text-muted-foreground">{q.scenario.setup}</p>
+          <ul className="mt-4 grid gap-3 sm:grid-cols-2" aria-label="Fictional practice messages">
+            {q.scenario.messages.map((m) => (
+              <li key={m.label} className="rounded-2xl border border-border bg-card p-4 text-sm">
+                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{m.label} (fictional)</p>
+                <p className="mt-2">“{m.text}”</p>
+                <p className="mt-3 inline-block rounded-lg border border-dashed border-border px-3 py-1 text-xs text-muted-foreground">
+                  Button text: {m.button}
+                </p>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 text-sm font-medium">{q.scenario.prompt}</p>
+        </div>
+      )}
       <fieldset className="mt-6 border-0 p-0" disabled={picked !== null}>
         <legend className="sr-only">{q.q}</legend>
         <div className="space-y-2">
@@ -657,6 +674,7 @@ function Quiz({
           >
             <p className="font-medium">{correct ? "Correct!" : "Not quite."}</p>
             <p className="mt-1 text-muted-foreground">{q.explain}</p>
+            {q.scenario && <p className="mt-2 font-semibold">Takeaway: {q.scenario.takeaway}</p>}
             {topic && (
               <button
                 type="button"

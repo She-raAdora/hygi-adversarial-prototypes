@@ -13,3 +13,4 @@
 - Snapshot saved spam types into domain status rows when uploads are recorded; historical untagged uploads remain unclassified. Why: later preparation edits must not rewrite submission classifications.
 - Record uploads from the explicitly chosen file source using the same prepared-line selection as downloads, and count only explicit domain lines. Why: flagged domains must reach the dashboard without requiring Semrush or expanding URL-only reports.
 - Pre-upload reports read shared preparation entries and display original input as the source entry, never inferred discovery provenance. Why: saved records do not contain discovery-page or service attribution.
+- Keep added quiz questions backward-compatible via LEGACY_QUIZ_UPGRADES in aiPhishingScenario.ts so prior perfect scores keep their badge. Why: lengthening a quiz must not revoke earned badges.

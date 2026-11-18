@@ -1,12 +1,22 @@
 import { simSwapLesson } from "./simSwapLesson";
 import { smishingLesson } from "./smishingLesson";
 import { techSupportLesson } from "./techSupportLesson";
+import { aiPhishingScenarioQuestion } from "./aiPhishingScenario";
 
 export type QuizQ = {
   q: string;
   options: string[];
   answer: number;
   explain: string;
+  /** Optional fictional scenario shown above the options (no real messages or credentials). */
+  scenario?: QuizScenario;
+};
+
+export type QuizScenario = {
+  setup: string;
+  messages: { label: string; text: string; button: string }[];
+  prompt: string;
+  takeaway: string;
 };
 
 export type Lesson = {
@@ -862,6 +872,21 @@ const rawLessons: Lesson[] = [
         ],
         answer: 1,
         explain: "Personalized phishing has a far higher success rate than generic spam.",
+      },
+      aiPhishingScenarioQuestion,
+    ],
+    sources: [
+      {
+        org: "FTC",
+        title: "How to Recognize and Avoid Phishing Scams",
+        url: "https://consumer.ftc.gov/articles/how-recognize-and-avoid-phishing-scams",
+        note: "Independent verification: contact the company through a website or app you know is real.",
+      },
+      {
+        org: "Array (2026)",
+        title: "A systematic literature review of large language models in phishing attack generation and detection",
+        url: "https://doi.org/10.1016/j.array.2026.100775",
+        note: "Background on AI-assisted phishing; not a test of this quiz.",
       },
     ],
   },
