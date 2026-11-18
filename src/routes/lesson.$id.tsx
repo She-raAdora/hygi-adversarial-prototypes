@@ -11,6 +11,7 @@ import { FiveDoorReset } from "@/components/FiveDoorReset";
 import { SimSwapExercise } from "@/components/SimSwapExercise";
 import { SmishingResponse, SmishingVerificationSources } from "@/components/SmishingResponse";
 import { TechSupportDecision, TechSupportRecovery, TechSupportSectionSource } from "@/components/TechSupportExercise";
+import { UnexpectedDownloadScenario } from "@/components/UnexpectedDownloadScenario";
 
 import { recordOnboardingStart, recordQuestionResult, recordQuizComplete } from "@/lib/metrics";
 import { pathwayOf, pathwayChipStyle } from "@/lib/pathways";
@@ -217,6 +218,7 @@ function LessonPage() {
                   </li>
                 ))}
               </ul>
+              {lesson.id === "safe-browsing" && sectionIndex === 0 ? <UnexpectedDownloadScenario /> : null}
               {lesson.id === "smishing" ? <SmishingVerificationSources /> : null}
               {lesson.id === "fake-tech-support" ? <TechSupportSectionSource index={sectionIndex} /> : null}
               {lesson.id === "sim-swap" && sectionIndex === 0 ? <SimSwapExercise stage="attack" /> : null}
