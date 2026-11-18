@@ -14,6 +14,7 @@ import { TechSupportDecision, TechSupportRecovery, TechSupportSectionSource } fr
 import { UnexpectedDownloadScenario } from "@/components/UnexpectedDownloadScenario";
 import { UnexpectedMfaScenario } from "@/components/UnexpectedMfaScenario";
 import { BackupRestorePractice } from "@/components/BackupRestorePractice";
+import { ConsentPhishingScenario } from "@/components/ConsentPhishingScenario";
 
 import { recordOnboardingStart, recordQuestionResult, recordQuizComplete } from "@/lib/metrics";
 import { pathwayOf, pathwayChipStyle } from "@/lib/pathways";
@@ -237,6 +238,7 @@ function LessonPage() {
           {lesson.interactive === "five-door-reset" ? <FiveDoorReset /> : null}
           {lesson.id === "smishing" ? <SmishingResponse /> : null}
           {lesson.id === "fake-tech-support" ? <TechSupportRecovery /> : null}
+          {lesson.id === "device-code-phishing" ? <ConsentPhishingScenario key={lesson.id} /> : null}
 
           {lesson.sources?.length ? <LessonEvidence sources={lesson.sources} label={lesson.id === "sim-swap" ? "Sources & Credits" : undefined} /> : null}
 
