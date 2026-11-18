@@ -1,7 +1,7 @@
 import type { Lesson } from "./lessons";
 
 export const techSupportSources = [
-  { org: "FTC", title: "How To Spot, Avoid, and Report Tech Support Scams", url: "https://consumer.ftc.gov/articles/how-spot-avoid-and-report-tech-support-scams", note: "Pop-ups, unexpected calls, refund scams and recovery steps." },
+  { org: "FTC", title: "How To Spot, Avoid, and Report Tech Support Scams", url: "https://consumer.ftc.gov/articles/how-spot-avoid-and-report-tech-support-scams", note: "Consumer scam examples and independent verification of support requests." },
   { org: "CISA, NSA and partners", title: "Guide to Securing Remote Access Software (June 6, 2023)", url: "https://www.cisa.gov/sites/default/files/2023-06/Guide%20to%20Securing%20Remote%20Access%20Software_clean%20Final_508c.pdf", note: "Legitimate remote access tools can be abused by malicious actors." },
   { org: "FBI", title: "FaceStealer advisory (November 12, 2026)", url: "https://www.ic3.gov/CSA/2026/261112.pdf", note: "Fake video meetings replayed webcam footage and used technical errors to lure targets into installing malware." },
 ];
